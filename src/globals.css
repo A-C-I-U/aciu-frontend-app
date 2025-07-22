@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Coolvetica';
+  src: url('/fonts/Coolvetica-bold.otf') format('opentype');
+  font-weight: 700;
+}
+
+@theme {
+  --font-coolvetica: 'Coolvetica', sans-serif;
+  
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+  --color-aciu-body: #f5f5f5;
+  --color-aciu-red: #D73A2F;
+  --color-aciu-light-red: #FBEBEA;
+  --color-aciu-grey: #737373;
+  --color-aciu-light-grey: #EEEEEE;
+  --color-aciu-dark-grey: #C9C9C9;
+  --color-aciu-darker-grey: #1D1D1D;
+  --color-aciu-dark: #313131;
+  --color-aciu-light-dark: #525252;
+  --color-aciu-bg-red: #D24134;
+  --color-aciu-bg-light-red: #FFF8F7;
+  --color-aciu-bg-btn-red: #F3C2BF;
+  --color-aciu-yellow: #EBC563;
+  --color-aciu-light-yellow: #FBF4E1;
+  --color-aciu-bg-grey: #F7F7F7;
+  --color-aciu-abriba: #737373;
+}
+
+html, body {
+  overflow-x: hidden;
+  background: var(--color-aciu-body);
+  color: var(--color-foreground);
+  font-family: var(--font-open-sans), sans-serif;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-coolvetica);
+}
+
+@layer components {
+  .black-and-white {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }
+}
