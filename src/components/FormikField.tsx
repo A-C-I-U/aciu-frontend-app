@@ -1,0 +1,133 @@
+import { useState } from 'react';
+import { useField } from 'formik';
+import { TextField, InputAdornment, IconButton, FormLabel } from '@mui/material';
+import { ArrowDown2, Eye, EyeSlash } from 'iconsax-react';
+
+
+type FormikFieldProps = {
+  label: string;
+  name: string;
+  type?: string;
+  select?: boolean;
+  [key: string]: any;
+};
+
+export default function FormikField({ 
+  label, 
+  type = "text", 
+  select = false, 
+  ...props }: FormikFieldProps) {
+
+  const [field, meta] = useField(props);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const isPasswordField = type === 'password';
+  const isSelectInput = select === true;
+
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  return (
+    <div className="flex flex-col gap-2 items-start">
+      <FormLabel
+        sx={{
+          fontFamily: "'Montserrat', sans-serif",
+          color: '#3E3E3E',
+          fontWeight: 500,
+          fontSize: '0.875rem'
+        }}
+      >
+        {label}
+      </FormLabel>
+      <TextField
+        {...field}
+        {...props}
+        select={select}
+        type={isPasswordField && showPassword ? 'text' : type}
+        label={label}
+        error={meta.touched && !!meta.error}
+        helperText={meta.touched && meta.error}
+        slotProps={{
+          select: {
+            endAdornment: isSelectInput && (
+              <InputAdornment position="end">
+                <ArrowDown2 variant='Linear' size={20} color="#3E3E3E" />
+              </InputAdornment>
+            ),
+            IconComponent: () => null,
+          },
+          input: {
+            endAdornment: isPasswordField && (
+              <InputAdornment position="end">
+                <IconButton onClick={togglePasswordVisibility} edge="end">
+                  {showPassword ? 
+                    <EyeSlash size={20} variant='Linear'/> : 
+                    <Eye size={20} variant='Linear'/>
+                  }
+                </IconButton>
+              </InputAdornment>
+            ),
+        }}}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            fontSize: '.875rem',
+            fontFamily: "'Montserrat', sans-serif",
+            fontWeight: 500,
+            '& input': {
+              fontFamily: "'Montserrat', sans-serif",
+              fontSize: '.875rem',
+              fontWeight: 500,
+            },
+            '& fieldset': {
+              borderTop: '1px solid #DFE1E7',
+              '& legend': {
+                display: 'none',
+              },
+            },
+            '&:hover fieldset': {
+              border: '1px solid #00CA71',
+            },
+            '&.Mui-focused fieldset': {
+              border: '2px solid #00CA71',
+            },
+            '&.Mui-error fieldset': {
+              border: '2px solid #d32f2f',
+            },
+          },
+
+          '& .MuiInputLabel-root': {
+            fontWeight: 500,
+            fontSize: '.875rem',
+            fontFamily: "'Montserrat', sans-serif",
+            color: '#737373',
+          },
+          '& .MuiInputLabel-shrink': {
+            display: 'none',
+          },
+          '& .MuiInputLabel-outlined': {
+            fontWeight: 500,
+            fontSize: '.875rem',
+            fontFamily: "'Montserrat', sans-serif",
+            color: '#737373',
+          },
+
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: '1px solid #DFE1E7',
+            borderRadius: '.625rem',
+          },
+          "& .MuiFormHelperText-root": {
+            display: "none",
+          },
+        }}
+
+      />
+      {meta.touched && meta.error && (
+        <span className="text-xs text-red-600 font-medium font-montserrat">
+          {meta.error as string}
+        </span>
+      )}
+    </div>
+  );
+}

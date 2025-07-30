@@ -5,13 +5,18 @@ import NotFound from '../pages/not-found';
 import AuthLayout from '../layouts/AuthLayout';
 import LoginPage from '../pages/auth/login';
 import ProtectedRoute from './ProtectedRoute';
+import SignUpPage from '@/pages/auth/sign-up';
+import ForgotPasswordPage from '@/pages/auth/forgot-password';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <AuthLayout />,
     children: [
-      { path: '/login', element: <LoginPage />}
+      { path: '/login', element: <LoginPage />},
+      { path: '/signup', element: <SignUpPage />},
+      { path: '/forgot-password', element: <ForgotPasswordPage />}
+
     ]
   },
   {
