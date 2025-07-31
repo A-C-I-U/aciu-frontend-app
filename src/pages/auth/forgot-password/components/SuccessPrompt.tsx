@@ -2,7 +2,7 @@ import AuthCard from "@/components/AuthCard";
 import { Button, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MarkIcon from "/icons/mark-icon.png";
+import MarkIcon from "/icons/mark-icon.svg";
 
 export default function SuccessPrompt() {
     const navigate = useNavigate();

@@ -7,13 +7,20 @@ import { ArrowDown2, Eye, EyeSlash } from 'iconsax-react';
 type FormikFieldProps = {
   label: string;
   name: string;
+  placeholder?: React.ReactNode;
   type?: string;
   select?: boolean;
+  options?: {
+    value: string,
+    label: string
+  }[];
   [key: string]: any;
 };
 
 export default function FormikField({ 
   label, 
+  placeholder,
+  options,
   type = "text", 
   select = false, 
   ...props }: FormikFieldProps) {
@@ -22,7 +29,6 @@ export default function FormikField({
   const [showPassword, setShowPassword] = useState(false);
 
   const isPasswordField = type === 'password';
-  const isSelectInput = select === true;
 
 
   const togglePasswordVisibility = () => {
@@ -46,12 +52,13 @@ export default function FormikField({
         {...props}
         select={select}
         type={isPasswordField && showPassword ? 'text' : type}
-        label={label}
+        placeholder={placeholder as string}
+        label={placeholder}
         error={meta.touched && !!meta.error}
         helperText={meta.touched && meta.error}
         slotProps={{
           select: {
-            endAdornment: isSelectInput && (
+            endAdornment: select && (
               <InputAdornment position="end">
                 <ArrowDown2 variant='Linear' size={20} color="#3E3E3E" />
               </InputAdornment>
@@ -60,7 +67,8 @@ export default function FormikField({
             MenuProps: {
               hideBackdrop: true, 
               disableScrollLock: true,
-            }
+            },
+            displayEmpty: true,
           },
           input: {
             endAdornment: isPasswordField && (
@@ -79,12 +87,12 @@ export default function FormikField({
             fontSize: '.875rem',
             fontFamily: "'Montserrat', sans-serif",
             fontWeight: 500,
-            '& input': {
-              fontFamily: "'Montserrat', sans-serif",
-              fontSize: '.875rem',
-              fontWeight: 500,
+            color: '#737373',
+            '& .MuiOutlinedInput-input': {
+              color: '#3E3E3E !important',
             },
             '& fieldset': {
+              top: "0px",
               borderTop: '1px solid #DFE1E7',
               '& legend': {
                 display: 'none',
@@ -116,7 +124,6 @@ export default function FormikField({
             fontFamily: "'Montserrat', sans-serif",
             color: '#737373',
           },
-
           '& .MuiOutlinedInput-notchedOutline': {
             border: '1px solid #DFE1E7',
             borderRadius: '.625rem',

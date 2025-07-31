@@ -9,12 +9,14 @@ export default function AccountCreation() {
                 label="Full Name"
                 name="fullName"
                 type="text"
+                placeholder="John Doe"
                 fullWidth
             />
             <FormikField
                 label="Email Address"
                 name="email"
                 type="email"
+                placeholder="johndoe@gmail.com"
                 fullWidth
             />
             <FormikPhoneInput
@@ -25,6 +27,7 @@ export default function AccountCreation() {
                 label="Password"
                 name="password"
                 type="password"
+                placeholder="********"
                 fullWidth
             />
         </Box>

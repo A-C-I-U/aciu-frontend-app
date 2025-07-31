@@ -2,7 +2,7 @@ import type { ForgotPasswordValues } from "@/utils/types";
 import EmailConfirmation from "../../sign-up/components/EmailConfirmation";
 import CreatePassword from "./CreatePassword";
 import ForgotPassword from "./ForgotPassword";
-import KeyIcon from "/icons/key-icon.png";
+import KeyIcon from "/icons/key-icon.svg";
 import { type NavigateFunction } from "react-router-dom";
 
 export default function StepRenderer({ step }: { step: number }) {

@@ -22,6 +22,7 @@ export default function FurtherIdentification() {
                 type="select"
                 select={true}
                 placeholder="Are you a man or a woman?"
+                options={genderOptions}
                 fullWidth
             >
                 <MenuItem 
@@ -54,6 +55,7 @@ export default function FurtherIdentification() {
                 label="Select Branch Location"
                 name="location"
                 type="text"
+                option={locationOptions}
                 placeholder="Choose the location of your branch"
                 select={true}
                 fullWidth
@@ -89,6 +91,7 @@ export default function FurtherIdentification() {
                 label="Select Branch"
                 name="branch"
                 type="text"
+                options={selectedBranches}
                 select={true}
                 placeholder="Choose the ACIU branch you belong to"
                 fullWidth
@@ -126,6 +129,7 @@ export default function FurtherIdentification() {
                 label="Village"
                 name="village"
                 type="text"
+                options={villageOptions}
                 select={true}
                 placeholder="Select your village — Ameke, Amogudu or Agboji"
                 fullWidth
@@ -162,6 +166,7 @@ export default function FurtherIdentification() {
                 label="Age Grade"
                 name="ageGrade"
                 type="text"
+                options={ageGradeOptions}
                 placeholder="Select your age grade"
                 select={true}
                 fullWidth
@@ -196,6 +201,7 @@ export default function FurtherIdentification() {
             <FormikField
                 label="Occupation"
                 name="occupation"
+                placeholder="What do you do (e.g. Student, Trader, Teacher)"
                 type="text"
                 fullWidth
             />

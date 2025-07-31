@@ -3,12 +3,7 @@ import { useFormikContext } from 'formik';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { FormLabel } from '@mui/material';
-
-interface FormikPhoneInputProps {
-  name: string;
-  label?: string;
-  defaultCountry?: string;
-}
+import type { FormikPhoneInputProps } from '@/utils/types';
 
 const FormikPhoneInput: React.FC<FormikPhoneInputProps> = ({
   name,
@@ -39,6 +34,7 @@ const FormikPhoneInput: React.FC<FormikPhoneInputProps> = ({
         </FormLabel>
       )}
       <PhoneInput
+        placeholder='Phone Number'
         country={defaultCountry}
         value={values[name]}
         onChange={(val: string) => {
