@@ -7,7 +7,7 @@ export default function CreatePassword() {
             <FormikField
                 label="Create Password"
                 name="password"
-                type="text"
+                type="password"
                 fullWidth
             />
             <FormikField

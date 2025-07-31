@@ -8,7 +8,7 @@ type OtpProps = {
 
 const OtpInput: React.FC<OtpProps> = ({ name }: OtpProps) => {
     const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
-    const [field, meta, helpers] = useField(name);
+    const [field, _, helpers] = useField(name);
     const { setFieldTouched } = useFormikContext();
 
     useEffect(() => {
