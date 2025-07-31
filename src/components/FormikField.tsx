@@ -63,8 +63,8 @@ export default function FormikField({
               <InputAdornment position="end">
                 <IconButton onClick={togglePasswordVisibility} edge="end">
                   {showPassword ? 
-                    <EyeSlash size={20} variant='Linear'/> : 
-                    <Eye size={20} variant='Linear'/>
+                    <EyeSlash size={20} variant='Linear' color='#737373'/> : 
+                    <Eye size={20} variant='Linear' color='#737373' />
                   }
                 </IconButton>
               </InputAdornment>
@@ -120,6 +120,9 @@ export default function FormikField({
           "& .MuiFormHelperText-root": {
             display: "none",
           },
+          "& .MuiInputBase-inputAdornedEnd": {
+            width: "100%",
+          }
         }}
 
       />
