@@ -113,7 +113,7 @@ export default function LoginPage() {
                                 >
                                     <span className="font-coolvetica text-base">Login</span>
                                     {(isSubmitting || loading) &&
-                                        <span>
+                                        <span className="mt-1.5">
                                             <CircularProgress size={12} />
                                         </span>
                                     }
