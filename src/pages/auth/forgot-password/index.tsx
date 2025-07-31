@@ -1,123 +1,50 @@
 import AuthCard from "@/components/AuthCard";
 import { Form, Formik } from "formik";
 import { useEffect, useState } from "react";
-import StepRenderer from "./components/StepRenderer";
+import StepRenderer, { getForgotPasswordContent } from "./components/StepRenderer";
 import { Box, Button, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { forgotPasswordSchemas } from "@/utils/schemas";
-import type { StepContentProps } from "@/utils/types";
 import SuccessPrompt from "./components/SuccessPrompt";
-import KeyIcon from "/icons/key-icon.png";
 
+
+const stepButtonTexts = ["Reset Password", "Verify", "Create new password"];
 
 export default function ForgotPasswordPage() {
     const [step, setStep] = useState(0);
     const [loading, setLoading] = useState(false);
     const [values, setValues] = useState<any>({});
     const [success, setSuccess] = useState(false);
-
     const navigate = useNavigate();
+
 
     const handleGoBack = () => {
         setStep(step - 1);
     }
 
-    const stepContent: StepContentProps[] = [
-        {
-            header: "",
-            subheader: "",
-            optionalHeader: true,
-            optionalCardHeader: (
-                <div className="flex flex-col items-start gap-6">
-                    <img 
-                        src={KeyIcon}
-                        alt="White colored key behing green background" 
-                    />
-                    <div className="flex flex-col gap-1">
-                        <h1 className="font-coolvetica text-aciu-border-grey font-bold text-[2rem]">
-                            Forgot Password
-                        </h1>
-                        <p className="font-montserrat text-aciu-neutral font-normal">
-                            No worries, we'll send you reset instructions
-                        </p>
-                    </div>
-                </div>
-            ),
-            initialValues: { email: "" },
-            footer: () => {
-                return (
-                    <button 
-                        onClick={() => navigate(-1)}
-                        className="text-aciu-red font-coolvetica"
-                    >
-                        Go back
-                    </button>
-                )
-            },
-            submit: () => {
-                setLoading(true);
-                setTimeout(() => {
-                    setLoading(false);
-                    setStep(step + 1);
-                }, 800)
-            }
-        },
-        {
-            header: "Confirm email",
-            subheader: (
-                <span>
-                    Please enter the 6 digit code we sent to 
-                    <span className="font-semibold">
-                        {values?.email}
-                    </span>
-                </span>
-            ),
-            initialValues: { verificationCode: "" },
-            footer: () => {
-                return (
-                    <button 
-                        onClick={handleGoBack} 
-                        className="text-aciu-red font-coolvetica"
-                    >
-                        Go back
-                    </button>
-                )
-            },
-            submit: () => {
-                setLoading(true);
-                setTimeout(() => {
-                    setLoading(false);
-                    setStep(step + 1);
-                }, 800)
-            }
-        },
-         {
-            header: "Create new password",
-            subheader: "Create a secure password you’ll remember",
-            initialValues: { password: "", confirmPassword: "" },
-            footer: () => {
-                return (
-                    <button 
-                        onClick={handleGoBack} 
-                        className="text-aciu-red font-coolvetica"
-                    >
-                        Go back
-                    </button>
-                )
-            },
-            submit: () => {
-                setLoading(true);
-                setTimeout(() => {
-                    setLoading(false);
-                    setSuccess(true);
-                }, 800);        
-            }
-        },
-    ]
+    const handleNext = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setStep(step + 1);
+        }, 800)
+    }
 
-    const stepButtonTexts = ["Reset Password", "Verify", "Create new password"];
-   
+    const handleSubmit = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setSuccess(true);
+        }, 800);
+    }
 
+    const stepContent = getForgotPasswordContent(
+        values, 
+        navigate, 
+        handleNext, 
+        handleSubmit, 
+        handleGoBack
+    )
 
     return (
         <>
@@ -139,7 +66,6 @@ export default function ForgotPasswordPage() {
                             onSubmit={stepContent[step].submit}
                         >
                             {({ isSubmitting, isValid, values }) => {
-                                console.log(forgotPasswordSchemas[step]);
                                 useEffect(() => {
                                     setValues(values)
                                 }, [values]);
@@ -152,7 +78,7 @@ export default function ForgotPasswordPage() {
                                                 sx={{
                                                     color: 'white',
                                                     fontSize: '.75rem',
-                                                    backgroundColor: !isValid || isSubmitting ? '#ccc' : '#00CA71',
+                                                    backgroundColor: !isValid ? '#ccc' : '#00CA71',
                                                     borderRadius: '.75rem',
                                                     padding: '1rem',
                                                     boxShadow: '0px 1px 2px 0px #0D0D120A',
@@ -165,12 +91,12 @@ export default function ForgotPasswordPage() {
                                                 }}
                                                 className="flex gap-2 items-center"
                                                 disabled={isSubmitting || !isValid}
-                                                onClick={stepContent[step].submit}
+                                                type="submit"
                                             >
                                                 <span className="font-coolvetica text-base">
                                                     {stepButtonTexts[step]}
                                                 </span>
-                                                {isSubmitting || loading &&
+                                                {(isSubmitting || loading) &&
                                                     <span className="mt-1.5">
                                                         <CircularProgress 
                                                             sx={{

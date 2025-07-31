@@ -1,113 +1,41 @@
 import AuthCard from "@/components/AuthCard";
 import { Form, Formik } from "formik";
 import { useEffect, useState } from "react";
-import StepRenderer from "./components/StepRenderer";
+import StepRenderer, { getSignUpContent } from "./components/StepRenderer";
 import { Box, Button, CircularProgress } from "@mui/material";
-import { Link } from "react-router-dom";
 import { signupValidationSchemas } from "@/utils/schemas";
-import type { StepContentProps } from "@/utils/types";
+import type { SignUpFormValues } from "@/utils/types";
 import SuccessPrompt from "./components/SuccessPrompt";
 
+const stepButtonTexts = ["Proceed", "Verify", "Complete Registration"];
 
 export default function SignUpPage() {
     const [step, setStep] = useState(0);
     const [loading, setLoading] = useState(false);
-    const [values, setValues] = useState<any>({});
+    const [values, setValues] = useState<SignUpFormValues | null>(null);
     const [success, setSuccess] = useState(false);
 
     const handleGoBack = () => {
         setStep(step - 1);
     }
 
-    const stepContent: StepContentProps[] = [
-        {
-            header: "Create an account",
-            subheader: "Enter your details to create an account",
-            initialValues: { 
-                fullName: "", 
-                email: "", 
-                password: "", 
-                confirmPassword: ""
-            },
-            footer: () => {
-                return (
-                    <p className="w-full flex gap-2 justify-center items-center font-coolvetica text-sm text-aciu-grey">
-                        Already have an account?
-                        <Link to='/login' className="text-aciu-red">
-                            Sign in
-                        </Link>
-                    </p>
-                )
-            },
-            submit: () => {
-                setLoading(true);
-                setTimeout(() => {
-                    setLoading(false);
-                    setStep(step + 1);
-                }, 800)
-            }
-        },
-        {
-            header: "Confirm email",
-            subheader: (
-                <span>
-                    Please enter the 6 digit code we sent to 
-                    <span className="font-semibold">
-                        {values?.email}
-                    </span>
-                </span>
-            ),
-            initialValues: { verificationCode: "" },
-            footer: () => {
-                return (
-                    <button 
-                        onClick={handleGoBack} 
-                        className="text-aciu-red font-coolvetica"
-                    >
-                        Go back
-                    </button>
-                )
-            },
-            submit: () => {
-                setLoading(true);
-                setTimeout(() => {
-                    setLoading(false);
-                    setStep(step + 1);
-                }, 800)
-            }
-        },
-         {
-            header: "You're almost there",
-            subheader: "We need more identification to further identify you",
-            initialValues: { 
-                gender: "", 
-                location: "",
-                branch: "", 
-                village: "",
-                ageGrade: "", 
-                occupation: "" 
-            },
-            footer: () => {
-                return (
-                    <button 
-                        onClick={handleGoBack} 
-                        className="text-aciu-red font-coolvetica"
-                    >
-                        Go back
-                    </button>
-                )
-            },
-            submit: () => {
-                setLoading(true);
-                setTimeout(() => {
-                    setLoading(false);
-                    setSuccess(true);
-                }, 800);
-            }
-        },
-    ]
+    const handleNext = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setStep(step + 1);
+        }, 800)
+    }
 
-    const stepButtonTexts = ["Proceed", "Verify", "Complete Registration"];
+    const handleSubmit = () => {
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+            setSuccess(true);
+        }, 800);
+    }
+
+    const stepContent = getSignUpContent(values, handleNext, handleSubmit, handleGoBack);
    
 
 
@@ -142,7 +70,7 @@ export default function SignUpPage() {
                                             sx={{
                                                 color: 'white',
                                                 fontSize: '.75rem',
-                                                backgroundColor: !isValid || isSubmitting ? '#ccc' : '#00CA71',
+                                                backgroundColor: !isValid ? '#ccc' : '#00CA71',
                                                 borderRadius: '.75rem',
                                                 padding: '1rem',
                                                 boxShadow: '0px 1px 2px 0px #0D0D120A',
@@ -155,12 +83,12 @@ export default function SignUpPage() {
                                             }}
                                             className="flex gap-2 items-center"
                                             disabled={isSubmitting || !isValid}
-                                            onClick={stepContent[step].submit}
+                                            type="submit"
                                         >
                                             <span className="font-coolvetica text-base">
                                                 {stepButtonTexts[step]}
                                             </span>
-                                            {isSubmitting || loading &&
+                                            {(isSubmitting || loading) &&
                                                 <span className="mt-1.5">
                                                     <CircularProgress 
                                                         sx={{

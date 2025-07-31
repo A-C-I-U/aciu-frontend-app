@@ -24,6 +24,20 @@ export default function LoginPage() {
         password: ''
     }
 
+    const handleSubmit = (
+        values: typeof initialValues, 
+        { setSubmitting }: any
+    ) => {
+        setLoading(true);
+        setTimeout(() => {
+            console.log(values);
+            setLoading(false);
+            setSubmitting(false);
+            navigate('/');
+        }, 800);
+    };
+
+
     return (
         <div className="flex flex-col gap-4">
             <AuthCard 
@@ -35,15 +49,7 @@ export default function LoginPage() {
                     enableReinitialize
                     initialValues={initialValues}
                     validationSchema={validationSchema}
-                    onSubmit={(values, { setSubmitting }) => {
-                        setLoading(true);
-                        setTimeout(() => {
-                            alert(JSON.stringify(values, null, 2));
-                            setLoading(false);
-                            setSubmitting(false);
-                            navigate('/');
-                        }, 400);
-                    }}
+                    onSubmit={handleSubmit}
                 >
                     {({ isSubmitting, isValid }) => (
                         <Form>
@@ -83,14 +89,14 @@ export default function LoginPage() {
                                         <span className="mt-[.1rem]">Keep me logged in</span>
                                     </p>
                                     <Link to="/forgot-password" className="text-aciu-red text-sm font-coolvetica">
-                                        Forget Password?
+                                        Forgot Password?
                                     </Link>
                                 </div>
                                 <Button
                                     sx={{
                                         color: 'white',
                                         fontSize: '.75rem',
-                                        backgroundColor: !isValid || isSubmitting ? '#ccc' : '#00CA71',
+                                        backgroundColor: !isValid ? '#ccc' : '#00CA71',
                                         borderRadius: '.75rem',
                                         padding: '1rem',
                                         boxShadow: '0px 1px 2px 0px #0D0D120A',
@@ -101,10 +107,12 @@ export default function LoginPage() {
                                             opacity: 0.6,
                                         }
                                     }}
+                                    className="flex gap-2 items-center"
                                     disabled={isSubmitting || !isValid}
+                                    type="submit"
                                 >
                                     <span className="font-coolvetica text-base">Login</span>
-                                    {isSubmitting || loading &&
+                                    {(isSubmitting || loading) &&
                                         <span>
                                             <CircularProgress size={12} />
                                         </span>
@@ -117,7 +125,7 @@ export default function LoginPage() {
                 
             </AuthCard>
             <div className="mx-auto w-full">
-                <p className="w-full flex justify-center items-center gap-1 font-coolvetica text-sm text-aciu-grey">
+                <p className="w-full flex justify-center items-center gap-1 font-coolvetica text-base text-aciu-grey">
                     Don't have an account?
                     <Link to='/signup' className="text-aciu-red">
                         Create an account
