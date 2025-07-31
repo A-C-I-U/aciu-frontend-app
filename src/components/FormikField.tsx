@@ -57,6 +57,10 @@ export default function FormikField({
               </InputAdornment>
             ),
             IconComponent: () => null,
+            MenuProps: {
+              hideBackdrop: true, 
+              disableScrollLock: true,
+            }
           },
           input: {
             endAdornment: isPasswordField && (
