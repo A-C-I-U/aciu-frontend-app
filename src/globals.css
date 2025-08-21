@@ -2,17 +2,45 @@
 
 @font-face {
   font-family: 'Coolvetica';
+  src: url('/fonts/Coolvetica-regular.ttf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Coolvetica';
   src: url('/fonts/Coolvetica-bold.otf') format('opentype');
   font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Clash Grotesk';
+  src: url('/fonts/ClashGrotesk-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Clash Grotesk';
+  src: url('/fonts/ClashGrotesk-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
 }
 
 @theme {
   --font-coolvetica: 'Coolvetica', sans-serif;
+  --font-clash: 'Clash Grotesk', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
   
   --color-background: #ffffff;
   --color-foreground: #171717;
   --color-aciu-body: #f5f5f5;
-  --color-aciu-red: #D73A2F;
+  --color-aciu-red: #00CA71;
   --color-aciu-light-red: #FBEBEA;
   --color-aciu-grey: #737373;
   --color-aciu-light-grey: #EEEEEE;
@@ -27,6 +55,12 @@
   --color-aciu-light-yellow: #FBF4E1;
   --color-aciu-bg-grey: #F7F7F7;
   --color-aciu-abriba: #737373;
+  --color-aciu-text-grey: #1E4150;
+  --color-aciu-card-grey: #DFE1E7;
+  --color-aciu-border-grey: #3E3E3E;
+  --color-aciu-neutral: #898483;
+  --color-aciu-grey-normal: "#424242";
+  --color-aciu-dark-gray: #0D0D12;
 }
 
 html, body {
@@ -35,18 +69,69 @@ html, body {
   color: var(--color-foreground);
   font-family: var(--font-open-sans), sans-serif;
 }
+
 body {
   margin: 0;
   padding: 0;
+  cursor: default;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-coolvetica);
 }
 
+a, button {
+  cursor: pointer;
+}
+
 @layer components {
-  .black-and-white {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
+  .go-to-homepage {
+    max-width: 12.5rem;
+    height: 67px;
+    border: 1px solid #00CA71;
+    border-radius: .625rem;
+    color: #00CA71;
+    background: #E6FAF1;
+    padding: 1.5rem;
+    font-family: 'Coolvetica', sans-serif;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-shadow {
+    box-shadow: 14px 0px 30px 0px #9191911A,
+  }
+
+  .input-shadow {
+    box-shadow: 0px 0px 0px 4px #FFF4EC;
+  }
+
+  /* react-phone-input style overrides */
+
+  .react-tel-input .selected-flag {
+    width: 3.5rem !important;
+    margin: 0 1rem 0 .5rem !important;
+    padding: 0;
+    border: none;
+  }
+  .react-tel-input .selected-flag:hover,
+  .react-tel-input .flag-dropdown.open .selected-flag {
+    background-color: unset !important;
+  }
+
+  .react-tel-input .flag-dropdown {
+    border-right: none !important;
+     margin-right: .875rem !important;
+  }
+
+  .country-list {
+    width: 100% !important;
+    min-width: 25rem !important;
+  }
+
+  .country-list .search-box {
+    width: 80% !important;
   }
 }
