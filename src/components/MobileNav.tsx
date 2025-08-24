@@ -10,7 +10,7 @@ export const MobileNav = ({ handleOpen }: NavProps) => {
     return (
         <div>
             <div className="flex justify-between items-center">
-                <img 
+                <img
                     src={AciuLogo} 
                     alt="Official Abriba Communal Improvement Union Logo" 
                     width={80} 

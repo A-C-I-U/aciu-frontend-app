@@ -18,6 +18,7 @@ export default function Sidebar() {
                 alt="Official Abriba Community Improvement Union Logo" 
                 width={116} 
                 height={43.72}
+                loading="eager"
             />
             <div className="flex flex-col gap-3">
                 {links.map(({ label, icon, path}) => (
