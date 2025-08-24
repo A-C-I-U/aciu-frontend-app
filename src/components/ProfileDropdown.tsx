@@ -3,7 +3,7 @@ import { Avatar, IconButton, useMediaQuery } from "@mui/material";
 import { AnimatePresence, motion } from "motion/react";
 import DummyProfile from "/images/avatar.png";
 import { capitalizeFirstLetters } from "@/utils/helpers";
-import { ArrowRight, CloseCircle } from "iconsax-react";
+import { ArrowRight2, CloseCircle, Logout } from "iconsax-react";
 import { protectedRoutes } from "@/routes/protectedRoutes";
 import { NavLink } from "react-router-dom";
 import { createElement } from "react";
@@ -21,6 +21,10 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
     
     const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
 
+    const handleLogout = () => {
+        onClose();
+    }
+
     if (isMobile) {
         return (
             <AnimatePresence>
@@ -30,7 +34,8 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                         animate={{ height: "100vh", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="absolute top-0 left-0 w-full bg-aciu-red flex flex-col items-center gap-8 py-8 px-5 overflow-y-scroll"
+                        className="absolute top-0 left-0 w-full bg-aciu-red 
+                            flex flex-col items-center gap-8 py-8 px-5 overflow-y-scroll"
                     >
                         <div className="flex justify-between items-center w-full">
                             <div className="flex gap-2 items-center">
@@ -39,7 +44,8 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                                     <p className="font-plus-jakarta-sans font-bold text-white">
                                         {user && capitalizeFirstLetters(user.name)}
                                     </p>
-                                    <p className="text-[.625rem] text-aciu-light-red font-medium font-plus-jakarta-sans">
+                                    <p className="text-[.625rem] text-aciu-light-red 
+                                        font-medium font-plus-jakarta-sans">
                                         Personal profile
                                     </p>
                                 </div>
@@ -92,11 +98,22 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                                                 {label}
                                             </span>
                                         </span>
-                                        <ArrowRight size={16} color="#737373" />
+                                        <ArrowRight2 size={16} color="#3F3F3F" />
                                     </span>
                                 </NavLink>
                             ))}
                         </div>
+                        <button 
+                            className="w-full rounded-xl 
+                                border border-aciu-red-normal text-aciu-red-normal 
+                                p-3 flex items-center gap-3 justify-center" 
+                            onClick={handleLogout}
+                        >
+                            <span className="text-[.625rem] font-semibold font-plus-jakarta-sans">
+                                Logout
+                            </span>
+                            <Logout size={20} color="#FF3B30" />
+                        </button>
                     </motion.div>
                 )}
             </AnimatePresence>

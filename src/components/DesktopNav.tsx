@@ -1,9 +1,8 @@
 import { Avatar, Breadcrumbs } from "@mui/material"
-import { LucideArrowRight } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 import solar from '@solar-icons/react';
 import DummyProfile from "/images/avatar.png";
-import { ArrowDown2 } from "iconsax-react";
+import { ArrowDown2, ArrowRight } from "iconsax-react";
 import { capitalizeFirstLetters } from "@/utils/helpers";
 
 export const DesktopNav = () => {
@@ -13,7 +12,7 @@ export const DesktopNav = () => {
     return (
          <div className="flex items-center justify-between">
                 <Breadcrumbs 
-                    separator={<LucideArrowRight size={18} color="#C9C9C9"/>}
+                    separator={<ArrowRight size={18} color="#C9C9C9"/>}
                     className="flex gap-2" 
                     aria-label="breadcrumb"
                 >
