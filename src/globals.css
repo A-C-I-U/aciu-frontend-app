@@ -36,6 +36,7 @@
   --font-coolvetica: 'Coolvetica', sans-serif;
   --font-clash: 'Clash Grotesk', sans-serif;
   --font-montserrat: 'Montserrat', sans-serif;
+  --font-plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;
   
   --color-background: #ffffff;
   --color-foreground: #171717;
@@ -51,6 +52,7 @@
   --color-aciu-light-dark: #525252;
   --color-aciu-bg-red: #D24134;
   --color-aciu-bg-light-red: #FFF8F7;
+  --color-aciu-light-red: #E6FAF1;
   --color-aciu-bg-btn-red: #F3C2BF;
   --color-aciu-yellow: #EBC563;
   --color-aciu-light-yellow: #FBF4E1;

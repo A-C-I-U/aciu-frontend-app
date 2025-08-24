@@ -19,6 +19,7 @@
     "formik": "^2.4.6",
     "iconsax-react": "^0.0.8",
     "lucide-react": "^0.525.0",
+    "motion": "^12.23.12",
     "mui-one-time-password-input": "^5.0.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
