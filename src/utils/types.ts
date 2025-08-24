@@ -64,3 +64,9 @@ export interface UserContextType {
   user: User | null;
   setUser: (user: User | null) => void;
 };
+
+export interface NavProps {
+    open?: boolean,
+    handleOpen?: () => void,
+    handleClose?: () => void
+}
