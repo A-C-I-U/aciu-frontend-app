@@ -50,3 +50,17 @@ export interface ForgotPasswordValues {
     password?: string;
     confirmPassword?: string;
 }
+
+
+type Role = "member" | "branch-admin" | "national-admin";
+
+export interface User {
+  id: string;
+  name: string;
+  role: Role;
+};
+
+export interface UserContextType {
+  user: User | null;
+  setUser: (user: User | null) => void;
+};

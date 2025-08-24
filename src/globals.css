@@ -43,6 +43,7 @@
   --color-aciu-red: #00CA71;
   --color-aciu-light-red: #FBEBEA;
   --color-aciu-grey: #737373;
+  --color-aciu-dashboard-background: #E5E5E5;
   --color-aciu-light-grey: #EEEEEE;
   --color-aciu-dark-grey: #C9C9C9;
   --color-aciu-darker-grey: #1D1D1D;
@@ -59,8 +60,9 @@
   --color-aciu-card-grey: #DFE1E7;
   --color-aciu-border-grey: #3E3E3E;
   --color-aciu-neutral: #898483;
-  --color-aciu-grey-normal: "#424242";
+  --color-aciu-grey-normal: #424242;
   --color-aciu-dark-gray: #0D0D12;
+  --color-aciu-white-normal: #CCCCCC;
 }
 
 html, body {

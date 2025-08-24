@@ -1,12 +1,12 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import MainLayout from '../layouts/MainLayout';
-import Dashboard from '../pages/dashboard';
 import NotFound from '../pages/not-found';
 import AuthLayout from '../layouts/AuthLayout';
 import LoginPage from '../pages/auth/login';
 import ProtectedRoute from './ProtectedRoute';
 import SignUpPage from '@/pages/auth/sign-up';
 import ForgotPasswordPage from '@/pages/auth/forgot-password';
+import { protectedRoutes } from './protectedRoutes';
 
 const router = createBrowserRouter([
   {
@@ -27,8 +27,11 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
-      { index: true, element: <Dashboard /> },
-      // other protected routes
+      {
+        index: true,
+        element: <Navigate to="/dashboard" replace />,
+      },
+      ...protectedRoutes,
     ],
   },
   {
