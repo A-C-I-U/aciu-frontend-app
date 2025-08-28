@@ -65,7 +65,18 @@
   --color-aciu-grey-normal: #424242;
   --color-aciu-dark-gray: #0D0D12;
   --color-aciu-white-normal: #CCCCCC;
+  --color-aciu-white-light: #EFFDE6;
   --color-aciu-red-normal: #FF3B30;
+  --color-aciu-blue-dark: #14213D;
+  --color-primary-100: #F6F5FA;
+  --color-primary-200: #EEECF6;
+  --color-primary-300: #CBC6E4;
+  --color-accent-100: #FEFCF3;
+  --color-accent-300: #E0D394;
+  --color-copy-300: #A1A6B1;
+  --color-copy-400: #727A8B;
+  --color-success-600: #03D858;
+  --color-grayscale-100: #818898;
 }
 
 html, body {
@@ -111,6 +122,10 @@ a, button {
 
   .input-shadow {
     box-shadow: 0px 0px 0px 4px #FFF4EC;
+  }
+
+  .button-shadow {
+    box-shadow: "0px 1px 2px 0px #0D0D120A 0px 1px 3px 0px #0D0D120D";
   }
 
   /* react-phone-input style overrides */

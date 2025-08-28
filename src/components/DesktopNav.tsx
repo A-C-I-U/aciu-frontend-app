@@ -59,7 +59,7 @@ export const DesktopNav = () => {
                         />
                         </button>
 
-                    <button className="flex items-center gap-[.625rem]">
+                    <button className="flex items-center gap-2.5">
                         <Avatar src={DummyProfile} className="rounded-[3.125rem] w-8 h-8" />
                         <ArrowDown2 size={18} color="#BFBFBF" />
                     </button>

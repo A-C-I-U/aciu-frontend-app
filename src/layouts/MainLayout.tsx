@@ -10,8 +10,10 @@ export default function MainLayout() {
             </aside>
             <div className="w-full flex-1 ml-0 md:ml-[14.8rem] ">
                 <Header />
-                <main>
-                    <Outlet />
+                <main className="bg-aciu-light-grey">
+                    <div className="max-w-[90rem] mx-auto">
+                        <Outlet />
+                    </div>
                 </main>
             </div>
         </div>

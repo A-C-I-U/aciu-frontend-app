@@ -13,6 +13,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>({
     id: "1",
     name: "Jane Doe",
+    occupation: "Medical Doctor",
+    phoneNumber: "234 903 828 3447",
+    email: "janedoe@gmail.com",
+    ageGrade: true,
+    branch: true,
     role: "branch-admin", 
   });
 

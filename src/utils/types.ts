@@ -57,6 +57,11 @@ type Role = "member" | "branch-admin" | "national-admin";
 export interface User {
   id: string;
   name: string;
+  occupation: string,
+  phoneNumber: string,
+  email: string,
+  ageGrade: boolean,
+  branch: boolean,
   role: Role;
 };
 

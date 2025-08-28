@@ -17,15 +17,16 @@ export default function Header() {
     return (
         <header className="w-full bg-aciu-red 
             md:bg-aciu-dashboard-background 
-            hover:border-b-[.7px] 
-            hover:border-aciu-dashboard-background p-5">
-            <div className="block md:hidden"> 
-                <MobileNav handleOpen={handleOpen} /> 
-            </div>
-            <div className="hidden md:block">
-                <DesktopNav />
-            </div>
-            <ProfileDropdown open={dropdownOpen} onClose={handleClose} />
+            p-5">
+                <div className="max-w-[90rem] mx-auto">
+                     <div className="block md:hidden"> 
+                        <MobileNav handleOpen={handleOpen} /> 
+                    </div>
+                    <div className="hidden md:block">
+                        <DesktopNav />
+                    </div>
+                    <ProfileDropdown open={dropdownOpen} onClose={handleClose} />
+                </div>
         </header>
     )
 }

@@ -27,8 +27,8 @@ export default function Sidebar() {
                         className={({ isActive }) =>
                             [
                                 "flex items-center gap-2 py-[.813rem] px-[.563rem] rounded-md transition-colors",
-                                " text-sm font-coolvetica font-semibold",
-                                "hover:bg-white hover:text-aciu-red",
+                                "text-sm font-coolvetica font-semibold",
+                                "hover:bg-white hover:text-aciu-red group",
                                 isActive ? "text-aciu-red bg-white" : "text-white",
                             ]
                             .filter(Boolean)
@@ -39,15 +39,12 @@ export default function Sidebar() {
                             <>
                             {icon && (
                                 <IconButton
-                                    color="inherit"
+                                    className="group-hover:!text-[#00ca71]"
                                     sx={{
                                         color: isActive ? '#00ca71' : '#FFF',
                                         width: '1.5rem',
                                         height: '1.5rem',
                                         padding: 0,
-                                        '&:hover': {
-                                            color: '#00ca71'
-                                        }
                                     }}
                                 >
                                     {createElement(icon, { size: 24 })}
@@ -58,8 +55,7 @@ export default function Sidebar() {
                             </span>
                             </>
                         )}
-                        </NavLink>
-
+                    </NavLink>
                 ))}
             </div>
         </div>
