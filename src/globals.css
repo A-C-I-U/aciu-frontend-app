@@ -36,6 +36,7 @@
   --font-coolvetica: 'Coolvetica', sans-serif;
   --font-clash: 'Clash Grotesk', sans-serif;
   --font-montserrat: 'Montserrat', sans-serif;
+  --font-plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;
   
   --color-background: #ffffff;
   --color-foreground: #171717;
@@ -43,6 +44,7 @@
   --color-aciu-red: #00CA71;
   --color-aciu-light-red: #FBEBEA;
   --color-aciu-grey: #737373;
+  --color-aciu-dashboard-background: #E5E5E5;
   --color-aciu-light-grey: #EEEEEE;
   --color-aciu-dark-grey: #C9C9C9;
   --color-aciu-darker-grey: #1D1D1D;
@@ -50,6 +52,7 @@
   --color-aciu-light-dark: #525252;
   --color-aciu-bg-red: #D24134;
   --color-aciu-bg-light-red: #FFF8F7;
+  --color-aciu-light-red: #E6FAF1;
   --color-aciu-bg-btn-red: #F3C2BF;
   --color-aciu-yellow: #EBC563;
   --color-aciu-light-yellow: #FBF4E1;
@@ -59,8 +62,21 @@
   --color-aciu-card-grey: #DFE1E7;
   --color-aciu-border-grey: #3E3E3E;
   --color-aciu-neutral: #898483;
-  --color-aciu-grey-normal: "#424242";
+  --color-aciu-grey-normal: #424242;
   --color-aciu-dark-gray: #0D0D12;
+  --color-aciu-white-normal: #CCCCCC;
+  --color-aciu-white-light: #EFFDE6;
+  --color-aciu-red-normal: #FF3B30;
+  --color-aciu-blue-dark: #14213D;
+  --color-primary-100: #F6F5FA;
+  --color-primary-200: #EEECF6;
+  --color-primary-300: #CBC6E4;
+  --color-accent-100: #FEFCF3;
+  --color-accent-300: #E0D394;
+  --color-copy-300: #A1A6B1;
+  --color-copy-400: #727A8B;
+  --color-success-600: #03D858;
+  --color-grayscale-100: #818898;
 }
 
 html, body {
@@ -106,6 +122,10 @@ a, button {
 
   .input-shadow {
     box-shadow: 0px 0px 0px 4px #FFF4EC;
+  }
+
+  .button-shadow {
+    box-shadow: "0px 1px 2px 0px #0D0D120A 0px 1px 3px 0px #0D0D120D";
   }
 
   /* react-phone-input style overrides */

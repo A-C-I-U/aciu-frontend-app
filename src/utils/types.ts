@@ -50,3 +50,28 @@ export interface ForgotPasswordValues {
     password?: string;
     confirmPassword?: string;
 }
+
+
+type Role = "member" | "branch-admin" | "national-admin";
+
+export interface User {
+  id: string;
+  name: string;
+  occupation: string,
+  phoneNumber: string,
+  email: string,
+  ageGrade: boolean,
+  branch: boolean,
+  role: Role;
+};
+
+export interface UserContextType {
+  user: User | null;
+  setUser: (user: User | null) => void;
+};
+
+export interface NavProps {
+    open?: boolean,
+    handleOpen?: () => void,
+    handleClose?: () => void
+}
