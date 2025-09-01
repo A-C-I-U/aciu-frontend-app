@@ -69,11 +69,6 @@ const UpcomingEventCard = (
     { image, label, dateStr, timeRange, }: UpcomingEventCardProps
 ) => {
     const date = new Date(dateStr);
-    // const formatted = date.toLocaleDateString("en-GB", {
-    //     day: "numeric",
-    //     month: "long",
-    //     year: "numeric",
-    // });
     return (
         <div 
             className="rounded-[.625rem] border border-aciu-light-grey 
