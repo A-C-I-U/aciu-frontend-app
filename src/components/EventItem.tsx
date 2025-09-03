@@ -12,13 +12,12 @@ export const EventItem = ({
 }: EventItemProps) => {
     return (
         <div
-            className={`flex flex-col gap-4 rounded-lg border border-aciu-dark-grey py-2.5 px-3.5`}>
+            className={`flex flex-col gap-4 rounded-lg border border-aciu-dark-grey py-2.5 px-2 lg:px-3.5`}>
             <span className="flex flex-col gap-3.5">
                 <img 
                     src={img} 
-                    height={145} 
-                    width={340}
-                    className="rounded-sm object-cover" 
+                    height={145}
+                    className="rounded-sm object-cover w-full" 
                     alt="Event image" 
                 />
                 <span className={[
@@ -39,16 +38,16 @@ export const EventItem = ({
                         <span className="text-xs font-montserrat text-aciu-dark-red">
                             Event Date
                         </span>
-                        <span className="font-montserrat font-semibold text-sm text-aciu-darker-grey">
+                        <span className="font-montserrat font-semibold text-sm md:text-xs lg:text-sm text-aciu-darker-grey whitespace-nowrap">
                             {date}
                         </span>
                     </span>
-                    <span className="border-[1.69px] border-l-aciu-dark-grey h-4"></span>
+                    <span className="border-[1.69px] border-aciu-dark-grey h-4"></span>
                     <span className="flex flex-col gap-2.5">
                         <span className="text-xs font-montserrat text-aciu-dark-red">
                             Event Time
                         </span>
-                        <span className="font-montserrat font-semibold text-sm text-aciu-darker-grey">
+                        <span className="font-montserrat font-semibold text-sm md:text-xs lg:text-sm text-aciu-darker-grey whitespace-nowrap">
                             {time}
                         </span>
                     </span>

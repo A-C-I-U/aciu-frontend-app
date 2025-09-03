@@ -14,7 +14,6 @@ export default function EventsPage() {
     const [activeTab, setActiveTab] = useState(eventsTabs[0]);
     const handleTabChange = (tab: TabItem) => {
         setActiveTab(tab);
-        console.log("")
     }
 
     return (
