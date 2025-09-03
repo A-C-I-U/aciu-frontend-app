@@ -1,31 +1,34 @@
-import { Input } from "@mui/material";
-import { SearchNormal } from "iconsax-react";
-import { useState } from "react";
+import { debounce } from "@mui/material";
+import { Search } from "lucide-react";
+import { useCallback } from "react";
 
 interface SearchBarProps {
-    placeholder: string
+  placeholder?: string;
+  debounceMs?: number;
+  onSearch: (query: string) => void;
 }
 
-export default function SearchBar({ placeholder }: SearchBarProps) {
-    const [ searchTerm, setSearchTerm ] = useState("");
+export default function SearchBar({ 
+    placeholder, 
+    debounceMs=400, 
+    onSearch 
+}: SearchBarProps) {
+    
+    const debouncedSearch = useCallback(
+        debounce((value: string) => onSearch(value), debounceMs),
+        [onSearch, debounceMs]
+    );
+
 
     return (
-        <div className="py-4 px-6 flex gap-3 items-center rounded-[.625rem] border border-grayscale-100 bg-grayscale-25 min-w-[428px]">
-            <SearchNormal width={"18px"} height={"18px"} size={18} color="#9F9C9C" />
+        <div className="py-4 px-6 flex gap-3 items-center rounded-[.625rem] border border-aciu-card-grey bg-grayscale-25 min-w-[428px] max-h-[50px]">
+            <Search width={"18px"} height={"18px"} size={18} color="#0000004D" />
             <input
                 type="text"
                 placeholder={placeholder}
-                // sx={{
-                //     borderColor: "none",
-                //     border: "none",
-                //     backgroundColor: "none",
-                //     fontSize: ".875rem",
-                //     color: "#9F9C9C",
-                //     fontFamily: "Montserrat"
-                // }}
-                value={searchTerm}
+                role="searchbox"
                 className="font-montserrat text-sm p-0"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                onChange={(e) => debouncedSearch(e.target.value)}
             />
         </div>
     )
