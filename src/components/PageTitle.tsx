@@ -11,7 +11,7 @@ export const PageTitle = ({ title, tabs = [], activeTab, onTabChange }: PageTitl
         <h1 className="font-coolvetica text-xl text-aciu-border-grey">
             {title}
         </h1>
-        <div className="flex gap-4 md:gap-8 items-center w-full overflow-x-scroll">
+        <div className="flex gap-4 md:gap-8 items-center">
             {tabs.map((tab) => (
                 <button 
                     key={tab?.key}

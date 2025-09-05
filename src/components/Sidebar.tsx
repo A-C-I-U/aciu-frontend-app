@@ -12,7 +12,7 @@ export default function Sidebar() {
     const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
 
     return (
-        <div className="flex flex-col gap-10 h-full p-5">
+        <div className="flex flex-col gap-10 h-full p-5 overflow-y-scroll no-scrollbar">
             <img 
                 src={AciuLogo} 
                 alt="Official Abriba Community Improvement Union Logo" 
@@ -47,7 +47,21 @@ export default function Sidebar() {
                                         padding: 0,
                                     }}
                                 >
-                                    {createElement(icon, { size: 24 })}
+                                    {typeof icon === 'string' ? (
+                                        <img 
+                                            src={icon} 
+                                            alt="" 
+                                            width={24} 
+                                            height={24}
+                                            style={{ 
+                                                filter: isActive 
+                                                    ? 'brightness(0) saturate(100%) invert(64%) sepia(88%) saturate(3180%) hue-rotate(127deg) brightness(96%) contrast(101%)'
+                                                    : 'brightness(0) invert(1)'
+                                            }}
+                                        />
+                                    ) : (
+                                        createElement(icon, { size: 24 })
+                                    )}
                                 </IconButton>
                             )}
                             <span >

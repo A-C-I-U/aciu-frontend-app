@@ -34,7 +34,7 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                         animate={{ height: "100vh", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="absolute top-0 left-0 w-full bg-aciu-red 
+                        className="absolute top-0 left-0 w-full bg-aciu-red z-50 h-dvh 
                             flex flex-col items-center gap-8 py-8 px-5 overflow-y-scroll"
                     >
                         <div className="flex justify-between items-center w-full">
@@ -91,7 +91,16 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                                                         }
                                                     }}
                                                 >
-                                                    {createElement(icon, { size: 24 })}
+                                                    {typeof icon === 'string' ? (
+                                                        <img 
+                                                            src={icon} 
+                                                            alt="" 
+                                                            width={24} 
+                                                            height={24}
+                                                        />
+                                                    ) : (
+                                                        createElement(icon, { size: 24 })
+                                                    )}
                                                 </IconButton>
                                             )}
                                             <span className="text-sm text-aciu-abriba font-coolvetica">

@@ -42,6 +42,8 @@
   --color-foreground: #171717;
   --color-aciu-body: #f5f5f5;
   --color-aciu-red: #00CA71;
+  --color-aciu-green-normal: #00B686;
+  --color-aciu-dark-green: #008965;
   --color-aciu-light-red: #FBEBEA;
   --color-aciu-dark-red: #005B33;
   --color-aciu-grey: #737373;
@@ -79,6 +81,7 @@
   --color-success-600: #03D858;
   --color-grayscale-25: #F6F8FA;
   --color-grayscale-100: #818898;
+  --color-grayscale-500: #667085;
 }
 
 html, body {

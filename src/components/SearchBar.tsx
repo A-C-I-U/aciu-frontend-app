@@ -27,7 +27,7 @@ export default function SearchBar({
                 type="text"
                 placeholder={placeholder}
                 role="searchbox"
-                className="font-montserrat text-sm p-0"
+                className="font-montserrat text-sm p-0 outline-0 border-0 w-full"
                 onChange={(e) => debouncedSearch(e.target.value)}
             />
         </div>
