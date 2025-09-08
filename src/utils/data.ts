@@ -1,4 +1,4 @@
-import type { EventItemProps, OptionLabelProps } from "./types";
+import type { EventDetailsProps, EventItemProps, OptionLabelProps } from "./types";
 
 export const BRANCHES: string[] = [
   "home", "aba", "umuahia", "enugu", "owerri",
@@ -125,3 +125,27 @@ export const upcomingEvents: EventItemProps[] = [
         time: "12:00pm - 5:00pm"
     },
 ]
+
+export const eventDetails: EventDetailsProps = {
+  id: "5",
+  img: "/images/abriba-event.jpg",
+  branch: "ACIU, Lagos Branch",
+  title: "Igwa Mang Cultural Festival",
+  content: `The Igwa Mang Cultural Festival is one of Abiriba’s most revered traditions, 
+    a homecoming, a public show of service, and a rite of identity. 
+    This year, the Lagos chapter of ACIU proudly hosts a regional edition, 
+    bringing together sons and daughters of Abiriba for a vibrant day of honour, celebration and unity. 
+    This event celebrates the achievements of active age grades, honours elders, 
+    and showcases the enduring bond that holds us together — no matter where we reside.`,
+  eventDate: "21st January 2026",
+  eventTime: "12:00 PM – 5:00 PM",
+  eventLocation: "12B Obafemi Awolowo Way, Ikeja, Lagos",
+  eventHighlights: [
+    "Age grade procession and cultural display",
+    "Community honours and award presentations",
+    "Tribute to retiring age grades (Ime Uche segment)",
+    "Traditional food and drinks",
+    "Keynote speech by National President",
+    "Children’s cultural showcase"
+  ]
+}

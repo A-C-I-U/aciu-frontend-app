@@ -114,3 +114,21 @@ export interface FeaturedPostCard extends BasePostCard {
     views: number,
     comments: number
 }
+
+export interface DetailCardProps {
+    icon: React.ReactNode,
+    title: string,
+    content: string
+}
+
+export interface EventDetailsProps {
+    id: string,
+    img: string,
+    branch: string,
+    title: string,
+    content: string,
+    eventDate: string,
+    eventTime: string,
+    eventLocation: string,
+    eventHighlights: string[],
+}
