@@ -10,8 +10,10 @@ export const EventItem = ({
     date,
     time,
 }: EventItemProps) => {
+    
     return (
         <div
+            key={id}
             className={`flex flex-col gap-4 rounded-lg border border-aciu-dark-grey py-2.5 px-2 lg:px-3.5`}>
             <span className="flex flex-col gap-3.5">
                 <img 
@@ -53,7 +55,7 @@ export const EventItem = ({
                     </span>
                 </span>
                 <NavLink
-                    to={`/events/${id}`}
+                    to={`/events/5`}
                     className={[
                         "border border-aciu-red rounded-lg max-w-fit flex justify-center items-center gap-2 px-5 py-3"
                     ].join("")}

@@ -9,6 +9,8 @@ import BlogPage from "@/pages/blog";
 import ResourcesPage from "@/pages/resources";
 import HelpAndSupportPage from "@/pages/help-and-support";
 import SettingsPage from "@/pages/settings";
+import EventDetails from "@/pages/events/components/EventDetails";
+import EventsList from "@/pages/events/components/EventsList";
 
 
 export const protectedRoutes = [
@@ -32,6 +34,16 @@ export const protectedRoutes = [
     label: "ACIU Events",
     icon: Calendar2,
     roles: ["branch-admin", "national-admin"],
+    children: [
+      {
+        index: true,
+        element: <EventsList />
+      },
+      {
+        path: ":id",
+        element: <EventDetails />,
+      }
+    ]
   },
   {
     path: "/projects",
