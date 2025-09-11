@@ -3,7 +3,7 @@ import { SearchNormal } from "iconsax-react"
 import solar from '@solar-icons/react'
 import DummyProfile from "/images/avatar.png"
 import { Avatar } from "@mui/material"
-import AciuLogo from "/images/sidebar-aciu-logo.png"
+import AciuLogo from "/images/mobile-aciu-logo.png"
 
 
 export const MobileNav = ({ handleOpen }: NavProps) => {
