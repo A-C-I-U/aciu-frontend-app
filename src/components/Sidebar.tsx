@@ -28,8 +28,8 @@ export default function Sidebar() {
                             [
                                 "flex items-center gap-2 py-[.813rem] px-[.563rem] rounded-md transition-colors",
                                 "text-sm font-coolvetica font-semibold",
-                                "hover:bg-white hover:text-aciu-red group",
-                                isActive ? "text-aciu-red bg-white" : "text-white",
+                                "hover:bg-aciu-green-light hover:text-aciu-green-normal group",
+                                isActive ? "text-aciu-green-normal bg-aciu-green-light" : "text-aciu-abriba",
                             ]
                             .filter(Boolean)
                             .join(" ")
@@ -39,29 +39,15 @@ export default function Sidebar() {
                             <>
                             {icon && (
                                 <IconButton
-                                    className="group-hover:!text-[#00ca71]"
+                                    className="group-hover:!text-[#00B686]"
                                     sx={{
-                                        color: isActive ? '#00ca71' : '#FFF',
+                                        color: isActive ? '#00B686' : '#737373',
                                         width: '1.5rem',
                                         height: '1.5rem',
                                         padding: 0,
                                     }}
                                 >
-                                    {typeof icon === 'string' ? (
-                                        <img 
-                                            src={icon} 
-                                            alt="" 
-                                            width={24} 
-                                            height={24}
-                                            style={{ 
-                                                filter: isActive 
-                                                    ? 'brightness(0) saturate(100%) invert(64%) sepia(88%) saturate(3180%) hue-rotate(127deg) brightness(96%) contrast(101%)'
-                                                    : 'brightness(0) invert(1)'
-                                            }}
-                                        />
-                                    ) : (
-                                        createElement(icon, { size: 24 })
-                                    )}
+                                    {createElement(icon, { size: 24 })}
                                 </IconButton>
                             )}
                             <span >

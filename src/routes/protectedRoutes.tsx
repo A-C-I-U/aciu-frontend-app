@@ -1,5 +1,4 @@
-import { Buildings2, Calendar2, DollarSquare, FolderOpen, Hashtag, Personalcard, Setting, Stickynote } from "iconsax-react";
-import Support from "/icons/24-support.svg";
+import { Buildings2, Calendar2, DollarSquare, FolderOpen, Hashtag, Personalcard, Setting, I24Support, Stickynote } from "iconsax-react";
 import Dashboard from "../pages/dashboard";
 import MyPaymentsPage from "@/pages/my-payment";
 import EventsPage from "@/pages/events";
@@ -52,13 +51,6 @@ export const protectedRoutes = [
     icon: Buildings2,
     roles: ["branch-admin", "national-admin"],
   },
-  //   {
-  //   path: "/projects",
-  //   element: <ProjectsPage />,
-  //   label: "ACIU Projects",
-  //   icon: Buildings2,
-  //   roles: ["branch-admin", "national-admin"],
-  // },
     {
     path: "/my-branch",
     element: <MyBranchPage />,
@@ -80,18 +72,11 @@ export const protectedRoutes = [
     icon: FolderOpen,
     roles: ["branch-admin", "national-admin"],
   },
-  // {
-  //   path: "/support",
-  //   element: <HelpAndSupportPage />,
-  //   label: "Help and Support",
-  //   icon: "",
-  //   roles: ["member", "branch-admin", "national-admin"],
-  // },
   {
     path: "/support",
     element: <HelpAndSupportPage />,
     label: "Help and Support",
-    icon: Support,
+    icon: I24Support,
     roles: ["member", "branch-admin", "national-admin"],
   },
   {

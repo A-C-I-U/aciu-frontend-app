@@ -16,7 +16,7 @@ export default function Header() {
     // md:bg-aciu-dashboard-background 
 
     return (
-        <header className="w-full bg-aciu-red 
+        <header className="w-full bg-aciu-light-grey
             md:bg-white
             p-5">
                 <div className="max-w-[90rem] mx-auto">

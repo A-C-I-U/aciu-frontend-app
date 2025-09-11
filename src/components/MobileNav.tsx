@@ -19,24 +19,24 @@ export const MobileNav = ({ handleOpen }: NavProps) => {
                 />
                 <div className="flex items-center gap-4">
                     <button
-                        className="border border-white rounded-[3.125rem] 
-                                    w-[2.5rem] h-[2.5rem] 
-                                    flex items-center justify-center"
+                        className="border border-aciu-white-normal rounded-[3.125rem] 
+                            w-[2.5rem] h-[2.5rem] 
+                            flex items-center justify-center"
                         >
                         <SearchNormal
                             fontVariant="linear"
-                            color="#FFF"
+                            color="#7A7A7A"
                             size={24}
                         />
                         </button>
                     <button
-                        className="border border-white rounded-[3.125rem] 
-                                    w-[2.5rem] h-[2.5rem] 
-                                    flex items-center justify-center"
+                        className="border border-aciu-white-normal rounded-[3.125rem] 
+                            w-[2.5rem] h-[2.5rem] 
+                            flex items-center justify-center"
                         >
                         <solar.Notifications.BellBing
                             fontVariant="linear"
-                            color="#FFF"
+                            color="#7A7A7A"
                             height={24}
                             width={24}
                         />
