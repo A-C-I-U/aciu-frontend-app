@@ -91,16 +91,7 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                                                         }
                                                     }}
                                                 >
-                                                    {typeof icon === 'string' ? (
-                                                        <img 
-                                                            src={icon} 
-                                                            alt="" 
-                                                            width={24} 
-                                                            height={24}
-                                                        />
-                                                    ) : (
-                                                        createElement(icon, { size: 24 })
-                                                    )}
+                                                   {createElement(icon, { size: 24 })}
                                                 </IconButton>
                                             )}
                                             <span className="text-sm text-aciu-abriba font-coolvetica">
