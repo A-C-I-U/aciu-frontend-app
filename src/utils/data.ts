@@ -1,4 +1,4 @@
-import type { EventDetailsProps, EventItemProps, OptionLabelProps } from "./types";
+import type { EventDetailsProps, EventItemProps, OptionLabelProps, RegularPostCard } from "./types";
 
 export const BRANCHES: string[] = [
   "home", "aba", "umuahia", "enugu", "owerri",
@@ -149,3 +149,72 @@ export const eventDetails: EventDetailsProps = {
     "Children’s cultural showcase"
   ]
 }
+
+
+export const regularPosts: RegularPostCard[] = [
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+
+]
