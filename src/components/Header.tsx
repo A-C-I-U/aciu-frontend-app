@@ -13,10 +13,11 @@ export default function Header() {
     const handleClose = () => {
         setDropdownOpen(false)
     }
+    // md:bg-aciu-dashboard-background 
 
     return (
         <header className="w-full bg-aciu-red 
-            md:bg-aciu-dashboard-background 
+            md:bg-white
             p-5">
                 <div className="max-w-[90rem] mx-auto">
                      <div className="block md:hidden"> 

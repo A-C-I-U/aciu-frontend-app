@@ -43,6 +43,7 @@
   --color-aciu-body: #f5f5f5;
   --color-aciu-red: #00CA71;
   --color-aciu-light-red: #FBEBEA;
+  --color-aciu-dark-red: #005B33;
   --color-aciu-grey: #737373;
   --color-aciu-dashboard-background: #E5E5E5;
   --color-aciu-light-grey: #EEEEEE;
@@ -76,6 +77,7 @@
   --color-copy-300: #A1A6B1;
   --color-copy-400: #727A8B;
   --color-success-600: #03D858;
+  --color-grayscale-25: #F6F8FA;
   --color-grayscale-100: #818898;
 }
 
@@ -98,6 +100,17 @@ h1, h2, h3, h4, h5, h6 {
 
 a, button {
   cursor: pointer;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
 @layer components {

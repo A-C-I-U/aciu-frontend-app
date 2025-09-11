@@ -1,4 +1,5 @@
 import { Buildings2, Calendar2, DollarSquare, FolderOpen, Hashtag, Personalcard, Setting, Stickynote } from "iconsax-react";
+import Support from "/icons/24-support.svg";
 import Dashboard from "../pages/dashboard";
 import MyPaymentsPage from "@/pages/my-payment";
 import EventsPage from "@/pages/events";
@@ -78,7 +79,7 @@ export const protectedRoutes = [
     path: "/support",
     element: <HelpAndSupportPage />,
     label: "Help and Support",
-    icon: Setting,
+    icon: Support,
     roles: ["member", "branch-admin", "national-admin"],
   },
   {

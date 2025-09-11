@@ -75,3 +75,25 @@ export interface NavProps {
     handleOpen?: () => void,
     handleClose?: () => void
 }
+
+export interface EventItemProps {
+    id: string,
+    title: string,
+    img: string,
+    host: string,
+    date: string,
+    time: string,
+}
+
+export interface TabItem {
+    key: string,
+    label: string,
+    content: React.ReactNode
+}
+
+export interface PageTitleProps {
+    title: string,
+    tabs: TabItem[],
+    activeTab: TabItem,
+    onTabChange: (tab: TabItem) => void
+}
