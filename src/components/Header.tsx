@@ -5,6 +5,7 @@ import { DesktopNav } from "./DesktopNav";
 
 export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    
 
     const handleOpen = () => {
         setDropdownOpen(true);
@@ -26,7 +27,10 @@ export default function Header() {
                     <div className="hidden md:block">
                         <DesktopNav />
                     </div>
-                    <ProfileDropdown open={dropdownOpen} onClose={handleClose} />
+                    <ProfileDropdown 
+                        open={dropdownOpen} 
+                        onClose={handleClose} 
+                    />
                 </div>
         </header>
     )
