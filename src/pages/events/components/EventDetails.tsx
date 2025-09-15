@@ -4,20 +4,20 @@ import { useParams } from "react-router-dom";
 import DetailCard from "./DetailCard";
 import { eventDetails } from "@/utils/data";
 
-
+const isMobile = window.innerWidth < 768;;
 const details: DetailCardProps[] = [
     {
-        icon: <Receipt2 size={32} color="#00B686" variant="Bulk"/>,
+        icon: <Receipt2 size={isMobile ? 26 : 32} color="#00B686" variant="Bulk"/>,
         title: "Entry Fee",
         content: "NGN 5000"
     },
     {
-        icon: <img src="/icons/dress-icon.svg" width={32} height={32}/>,
+        icon: <img src="/icons/dress-icon.svg" width={isMobile ? 26 : 32} height={isMobile ? 26 : 32} />,
         title: "Dress Code",
         content: "Traditional"
     },
     {
-        icon: <img src="/icons/guest-icon.svg" width={32} height={32}/>,
+        icon: <img src="/icons/guest-icon.svg" width={isMobile ? 26 : 32} height={isMobile ? 26 : 32}/>,
         title: "Guest Expectation",
         content: "300 Members"
     }
@@ -62,7 +62,10 @@ export default function EventDetails() {
                     </p>
                 </div>
             </div>
-            <div className="bg-aciu-bg-grey px-[5.5rem] py-[3.438rem] rounded-[1.25rem] flex flex-col gap-9 lg:flex-row lg:gap-0 items-center justify-between">
+            <div className="bg-aciu-bg-grey 
+                    px-[3.438rem] lg:px-[5.5rem] py-[3.438rem] 
+                    rounded-[1.25rem] flex flex-col gap-9 lg:flex-row lg:gap-0 
+                    items-center justify-between">
                 <div className="flex flex-col gap-3 items-center lg:items-start">
                     <p className="font-montserrat text-sm text-aciu-abriba">
                         Event Date
@@ -91,7 +94,7 @@ export default function EventDetails() {
                 </div>
             </div>
             <div className="flex flex-col gap-8 items-center">
-                <h1 className="text-4xl font-coolvetica text-aciu-darker-grey">
+                <h1 className="text-center text-2xl lg:text-4xl font-coolvetica text-aciu-darker-grey">
                     Registration Ends in:
                 </h1>
                 <div className="flex flex-col lg:flex-row gap-6 items-center justify-center w-full">
@@ -104,15 +107,15 @@ export default function EventDetails() {
                     </button>
                 </div>
             </div>
-            <div className="py-[3.75rem] px-[6.25rem] flex flex-col gap-12 items-center">
-                <h1 className="font-bold text-4xl font-coolvetica text-aciu-darker-grey">
+            <div className="py-[3.75rem] px-12 lg:px-[6.25rem] flex flex-col gap-6 lg:gap-12 items-center">
+                <h1 className="font-bold text-center text-2xl lg:text-4xl font-coolvetica text-aciu-darker-grey">
                     Event Highlights
                 </h1>
-                <div className="grid grid-cols-1 lg:grid-cols-3 row-auto gap-y-[3.25rem]">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-6 row-auto lg:gap-y-[3.25rem]">
                     {eventHighlights.map((highlight: string, index: number) => (
                         <div className="flex flex-col gap-4 items-center" key={index}>
                             <img width={18} height={18} src="/icons/highlights-icon.svg" alt="Highlights icon" />
-                            <p className="font-montserrat text-xl text-aciu-abriba text-center">
+                            <p className="font-montserrat text-sm lg:text-xl text-aciu-abriba text-center">
                                 {highlight}
                             </p>
                         </div>

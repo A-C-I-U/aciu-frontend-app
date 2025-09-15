@@ -10,6 +10,7 @@ export default function Sidebar() {
     const activeRole = user?.role || "member"
 
     const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
+    
 
     return (
         <div className="flex flex-col gap-10 h-full p-5 overflow-y-scroll no-scrollbar">

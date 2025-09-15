@@ -6,7 +6,7 @@ import { capitalizeFirstLetters } from "@/utils/helpers";
 import { ArrowRight2, CloseCircle, Logout } from "iconsax-react";
 import { protectedRoutes } from "@/routes/protectedRoutes";
 import { NavLink } from "react-router-dom";
-import { createElement } from "react";
+import { createElement, useEffect } from "react";
 
 interface ProfileDropdownProps {
     open: boolean,
@@ -25,6 +25,19 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
         onClose();
     }
 
+    useEffect(() => {
+        console.log(open)
+        if (open && isMobile) {
+
+            document.body.style.overflowY = "hidden";
+        }
+        return () => {
+            document.body.style.overflowY = "auto";
+        };
+    }, []);
+
+    // set up fixed position on sidebar
+
     if (isMobile) {
         return (
             <AnimatePresence>
@@ -34,7 +47,7 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                         animate={{ height: "100vh", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="absolute top-0 left-0 w-full bg-aciu-light-grey z-50 h-dvh 
+                        className="fixed top-0 left-0 w-full bg-aciu-light-grey z-50 h-dvh 
                             flex flex-col items-center gap-8 py-8 px-5 overflow-y-scroll"
                     >
                         <div className="flex justify-between items-center w-full">
