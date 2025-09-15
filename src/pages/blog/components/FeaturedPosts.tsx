@@ -4,6 +4,7 @@ import type { FeaturedPostCard } from "@/utils/types";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/swiper-bundle.css';
+import { featuredPosts } from "@/utils/data";
 
 export default function FeaturedPosts() {
     return (
@@ -11,10 +12,20 @@ export default function FeaturedPosts() {
             <div className="md:hidden block">
                 <Swiper 
                     modules={[Pagination]} 
-                    pagination={{ clickable: true }}
+                    pagination={{ 
+                        el: ".custom-swiper-pagination", 
+                        clickable: true 
+                    }}
                     spaceBetween={20}
                 >
-                    {featuredPosts.map(({ img, title, author, date, views, comments }, index) => (
+                    {featuredPosts.map(({ 
+                        img, 
+                        title, 
+                        author, 
+                        date, 
+                        views, 
+                        comments 
+                    }, index) => (
                         <SwiperSlide key={index}>
                             <FeaturedPostCard
                                 img={img}
@@ -27,9 +38,17 @@ export default function FeaturedPosts() {
                         </SwiperSlide>
                     ))}
                 </Swiper>
+                <div className="custom-swiper-pagination flex gap-2 items-center mt-4 justify-center"></div>
             </div>
             <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-[7fr_3fr] gap-2">
-                {featuredPosts.map(({ img, title, author, date, views, comments }, index) => (
+                {featuredPosts.map(({ 
+                    img, 
+                    title, 
+                    author, 
+                    date, 
+                    views, 
+                    comments 
+                }, index) => (
                     <FeaturedPostCard
                         key={index}
                         img={img}
@@ -61,14 +80,14 @@ const FeaturedPostCard = ({
                 loading="lazy"
                 className="w-full h-full object-cover rounded-[.625rem]"
             />
-            {/* <div className="relative p-4 z-10"> */}
                 <div 
                     className="absolute inset-0   
                         bg-gradient-to-b from-transparent 
                         via-transparent to-aciu-darker-grey"
                 >
+                    {/* bg-gradient-to-b 
+                                from-transparent via-black/40 to-aciu-darker-grey */}
                     <div className="relative p-4 h-full flex flex-col justify-between">
-                    {/* 16px to the left and from the top */} 
                         <div className="
                             bg-aciu-dark-green text-white font-coolvetica
                             py-2.5 px-3 max-w-fit rounded-[.625rem]"
@@ -97,26 +116,6 @@ const FeaturedPostCard = ({
                         </div>
                     </div>
                 </div>
-            {/* </div> */}
         </div>
     )
 }
-
-export const featuredPosts: FeaturedPostCard[] = [
-    {
-        img: "/images/blog-placeholder.jpg",
-        title: "Tech, Tradition and the Future of ACIU",
-        author: "Eke Urum",
-        date: "20 Jan 2025",
-        views: 239,
-        comments: 21
-    },
-    {
-        img: "/images/blog-placeholder.jpg",
-        title: "Tech, Tradition and the Future of ACIU",
-        author: "Eke Urum",
-        date: "20 Jan 2025",
-        views: 239,
-        comments: 21
-    }
-]
