@@ -180,4 +180,13 @@ a, button {
   .country-list .search-box {
     width: 80% !important;
   }
+
+  .custom-swiper-pagination .swiper-pagination-bullet {
+    background-color: #D9F4ED !important;
+    opacity: 1 !important;
+  }
+
+  .custom-swiper-pagination .swiper-pagination-bullet-active {
+    background-color: #00B686 !important;
+  }
 }

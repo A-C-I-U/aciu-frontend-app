@@ -1,4 +1,4 @@
-import type { EventDetailsProps, EventItemProps, OptionLabelProps, RegularPostCard } from "./types";
+import type { EventDetailsProps, EventItemProps, FeaturedPostCard, OptionLabelProps, PublicationCardProps, RegularPostCard } from "./types";
 
 export const BRANCHES: string[] = [
   "home", "aba", "umuahia", "enugu", "owerri",
@@ -216,5 +216,41 @@ export const regularPosts: RegularPostCard[] = [
         date: "16 Jan 2025",
         tags: ["ACIU News", "Union Updates"]
     },
+]
 
+export const featuredPosts: FeaturedPostCard[] = [
+    {
+        img: "/images/blog-placeholder.jpg",
+        title: "Tech, Tradition and the Future of ACIU",
+        author: "Eke Urum",
+        date: "20 Jan 2025",
+        views: 239,
+        comments: 21
+    },
+    {
+        img: "/images/blog-placeholder.jpg",
+        title: "Tech, Tradition and the Future of ACIU",
+        author: "Eke Urum",
+        date: "20 Jan 2025",
+        views: 239,
+        comments: 21
+    }
+]
+
+export const publicationStats: PublicationCardProps[] = [
+    {
+        title: 'Total Submissions',
+        postNumber: '5',
+        rateOfChange: '+12.5'
+    },
+    {
+        title: 'Published Posts',
+        postNumber: '3',
+        rateOfChange: '+12.5'
+    },
+     {
+        title: 'Pending Approval',
+        postNumber: '2',
+        rateOfChange: '-12.5'
+    },
 ]

@@ -132,3 +132,9 @@ export interface EventDetailsProps {
     eventLocation: string,
     eventHighlights: string[],
 }
+
+export interface PublicationCardProps { 
+    title: string,
+    postNumber: string,
+    rateOfChange: string
+}
