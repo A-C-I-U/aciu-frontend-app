@@ -25,18 +25,16 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
         onClose();
     }
 
-    useEffect(() => {
-        console.log(open)
+   useEffect(() => {
         if (open && isMobile) {
-
-            document.body.style.overflowY = "hidden";
+            document.body.classList.add("body-lock");
+        } else {
+            document.body.classList.remove("body-lock");
         }
-        return () => {
-            document.body.style.overflowY = "auto";
-        };
-    }, []);
+        return () => document.body.classList.remove("body-lock");
+    }, [open, isMobile]);
 
-    // set up fixed position on sidebar
+
 
     if (isMobile) {
         return (

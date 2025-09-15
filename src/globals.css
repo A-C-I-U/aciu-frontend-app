@@ -117,6 +117,12 @@ a, button {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  .body-lock {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
 }
 
 @layer components {
