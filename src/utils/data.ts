@@ -1,4 +1,4 @@
-import type { EventDetailsProps, EventItemProps, FeaturedPostCard, OptionLabelProps, PublicationCardProps, RegularPostCard } from "./types";
+import type { EventDetailsProps, EventItemProps, FeaturedPostCard, OptionLabelProps, PublicationCardProps, PublicationDataType, RegularPostCard } from "./types";
 
 export const BRANCHES: string[] = [
   "home", "aba", "umuahia", "enugu", "owerri",
@@ -254,3 +254,6 @@ export const publicationStats: PublicationCardProps[] = [
         rateOfChange: '-12.5'
     },
 ]
+
+export const publicationStatuses: PublicationDataType["status"][] = 
+["published", "pending approval", "rejected", "draft"]

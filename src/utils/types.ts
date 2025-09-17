@@ -138,3 +138,12 @@ export interface PublicationCardProps {
     postNumber: string,
     rateOfChange: string
 }
+
+export interface PublicationDataType {
+    title: string,
+    creationDate: string,
+    postImpressions: number,
+    lastModified: string,
+    status: "published" | "pending approval" | "rejected" | "draft"
+}
+
