@@ -3,13 +3,14 @@ import BlogPosts from "./components/BlogPosts"
 import { PageTitle } from "@/components/PageTitle";
 import { useState } from "react";
 import { publicationStats } from "@/utils/data";
-import { PublicationCard } from "./components/MyPublications";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@/context/UserContext";
+import { PublicationCard } from "./components/PublicationCard";
+import MyPublications from "./components/MyPublications";
 
 const blogsTabs: TabItem[] = [
     { key: "blog-posts", label: "Blog Posts", content: <BlogPosts /> },
-    { key: "my-publications", label: "My Publications", content: <BlogPosts /> },
+    { key: "my-publications", label: "My Publications", content: <MyPublications /> },
     { key: "submissions", label: "Submissions",  content: <BlogPosts /> }
 ]
 
@@ -45,7 +46,7 @@ export default function BlogPage() {
                     className="mx-5 grid grid-cols-1 lg:grid-cols-3 gap-3"
                 >
                     {publicationStats.map(({ title, postNumber, rateOfChange }) => (
-                        <PublicationCard 
+                        <PublicationCard
                             key={title}
                             title={title} 
                             postNumber={postNumber} 

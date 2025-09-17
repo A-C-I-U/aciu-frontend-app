@@ -1,56 +1,53 @@
-import type { PublicationCardProps } from "@/utils/types";
-import { ArrowTopRightIcon } from "@/components/Icons";
+import SearchBar from "@/components/SearchBar";
+import { useState } from "react";
+import { ArrowDown2, Sort } from "iconsax-react";
+import PublicationsTable from "./PublicationsTable";
 
 export default function MyPublications() {
-    return (
-        <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-4 lg:gap-8">
+    const [ query, setQuery ] = useState("");
+        
+    const handleSearch = (q: string) => {
+        setQuery(q);
+        console.log(query);
+    }
 
-            </div>
-        </div>
-    )
-}
-
-export const PublicationCard = ({ 
-    title, 
-    postNumber, 
-    rateOfChange 
-}: PublicationCardProps) => {
-    const sign = +rateOfChange === 0 ? '' : (+rateOfChange > 0 ? '+' : '-');
-    
     return (
-        <div className="w-full py-4 px-6 flex flex-col gap-4 rounded-lg bg-white w-full h-[9.688rem]">
-            <div className="flex flex-col justify-between h-full">
-                <p className="font-montserrat text-copy-400 font-medium uppercase text-xs">
-                    {title}
-                </p>
-                <p className="font-montserrat font-semibold text-[1.75rem] text-copy-500">
-                    {postNumber.padStart(2, '0')} Post(s)
-                </p>
+         <div className="flex flex-col gap-4 lg:gap-8">
+            <div className="flex justify-between items-center w-full">
+                <div className="flex flex-col gap-4 lg:flex-row lg:gap-0 lg:justify-between lg:items-center w-full">
+                    <h1 className="font-coolvetica text-lg lg:text-xl font-bold text-aciu-border-grey">
+                        My Publications
+                    </h1>
+                    
+                    <div className="flex gap-4 items-center ">
+                        <div className="hidden lg:block">
+                            <SearchBar
+                                onSearch={handleSearch} 
+                                placeholder="Search for blog posts" 
+                            />
+                        </div>
+                        <button 
+                            className="flex gap-2.5 items-center p-2.5 
+                            text-sm text-grayscale-100 rounded-md 
+                            font-montserrat font-medium min-h-[50px] 
+                            border border-aciu-card-grey"
+                        >
+                            Filter
+                            <Sort variant="Outline" color="#A4ACB9" size={20} />
+                        </button>
+                        <button 
+                            className="flex gap-2.5 items-center p-2.5
+                            text-sm text-grayscale-100 rounded-md 
+                            font-montserrat font-medium min-h-[50px]
+                            border border-aciu-card-grey"
+                        >
+                            2022
+                            <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
+                        </button>
+                    </div>
+                </div>    
             </div>
-            <div className="w-full flex justify-end">
-                <span className="flex gap-2 justify-center items-center">
-                    <ArrowTopRightIcon 
-                        color={`${sign === '+' ? 
-                            '#03D858' : 
-                            (sign === '-' ? 
-                            '#e7000b' : 
-                            '#737373')}`
-                        }  
-                        className={`${sign === '-' ? 'rotate-90' : ''}`}
-                        width={6} 
-                        height={6}
-                    />
-                    <span className={`font-montserrat text-[.625rem] ${sign === '+' ? 
-                        'text-success-600' : 
-                        (sign === '-' ? 
-                        'text-red-600' : 
-                        'text-aciu-abriba')}`
-                    }>                
-                        {rateOfChange}
-                    </span>
-                </span> 
-            </div>
+            <PublicationsTable />
         </div>
     )
 }
