@@ -1,13 +1,19 @@
 import { protectedRoutes } from "@/routes/protectedRoutes";
-import AciuLogo from "/images/sidebar-aciu-logo.png";
+import AciuLogo from "/images/sidebar-aciu-logo-admin.png";
+import MemberAciuLogo from "/images/sidebar-aciu-logo.png"
 import { useUser } from "@/context/UserContext";
 import { NavLink } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import { createElement } from "react";
 
+const isMobile = window.innerWidth <= 768;
+
+
 export default function Sidebar() {
     const { user } = useUser();
     const activeRole = user?.role || "member"
+    const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
+
 
     const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
     
@@ -15,10 +21,10 @@ export default function Sidebar() {
     return (
         <div className="flex flex-col gap-10 h-full p-5 overflow-y-scroll no-scrollbar">
             <img 
-                src={AciuLogo} 
+                src={isAdmin ? AciuLogo : MemberAciuLogo} 
                 alt="Official Abriba Community Improvement Union Logo" 
-                width={116} 
-                height={43.72}
+                width={isMobile ? 80 : 120} 
+                height={isMobile ? 30 : 45 }
                 loading="eager"
             />
             <div className="flex flex-col gap-3">
@@ -27,10 +33,18 @@ export default function Sidebar() {
                         to={path}
                         className={({ isActive }) =>
                             [
-                                "flex items-center gap-2 py-[.813rem] px-[.563rem] rounded-md transition-colors",
-                                "text-sm font-coolvetica font-semibold",
-                                "hover:bg-aciu-green-light hover:text-aciu-green-normal group",
-                                isActive ? "text-aciu-green-normal bg-aciu-green-light" : "text-aciu-abriba",
+                            "flex items-center gap-2 py-[.813rem] px-[.563rem] rounded-md transition-colors group",
+                            "text-sm font-coolvetica font-semibold",
+                            isAdmin
+                                ? "hover:bg-white hover:text-aciu-green-normal"
+                                : "hover:bg-aciu-green-light hover:text-aciu-green-normal",
+                            isActive
+                                ? isAdmin
+                                ? "text-aciu-green-normal bg-white"
+                                : "text-aciu-green-normal bg-aciu-green-light"
+                                : isAdmin
+                                ? "text-white"
+                                : "text-aciu-abriba",
                             ]
                             .filter(Boolean)
                             .join(" ")
@@ -40,12 +54,17 @@ export default function Sidebar() {
                             <>
                             {icon && (
                                 <IconButton
-                                    className="group-hover:!text-[#00B686]"
+                                    className="group-hover:!text-aciu-green-normal"
                                     sx={{
-                                        color: isActive ? '#00B686' : '#737373',
+                                        color: isActive 
+                                            ? (isAdmin ? "#00B686" : "#00B686") 
+                                            : (isAdmin ? "#fff" : "#737373"),
                                         width: '1.5rem',
                                         height: '1.5rem',
                                         padding: 0,
+                                        "&:hover": {
+                                            color: "#00B686",
+                                        },
                                     }}
                                 >
                                     {createElement(icon, { size: 24 })}

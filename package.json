@@ -19,6 +19,7 @@
     "@solar-icons/react": "^1.0.1",
     "@tailwindcss/vite": "^4.1.11",
     "@tanstack/react-table": "^8.21.3",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "formik": "^2.4.6",
     "iconsax-react": "^0.0.8",

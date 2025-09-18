@@ -17,7 +17,8 @@ interface ProfileDropdownProps {
 export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps) {
     const isMobile = useMediaQuery('(max-width:768px)');
     const { user } = useUser();
-    const activeRole = user?.role || "member"
+    const activeRole = user?.role || "member";
+    const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
     
     const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
 
@@ -45,18 +46,23 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                         animate={{ height: "100vh", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="fixed top-0 left-0 w-full bg-aciu-light-grey z-50 h-dvh 
-                            flex flex-col items-center gap-8 py-8 px-5 overflow-y-scroll"
+                        className={`fixed top-0 left-0 w-full 
+                            ${isAdmin ? "bg-aciu-green-normal" : "bg-aciu-light-grey"}
+                             z-50 h-dvh 
+                            flex flex-col items-center gap-8 py-8 px-5 overflow-y-scroll`}
                     >
                         <div className="flex justify-between items-center w-full">
                             <div className="flex gap-2 items-center">
                                 <Avatar src={DummyProfile} className="rounded-[3.125rem] w-8 h-8" />
                                 <div className="flex flex-col">
-                                    <p className="font-plus-jakarta-sans font-bold text-aciu-darker-gray">
+                                    <p className={`font-plus-jakarta-sans font-bold 
+                                        ${isAdmin ? "text-white" : "text-aciu-darker-gray"}`}
+                                    >
                                         {user && capitalizeFirstLetters(user.name)}
                                     </p>
-                                    <p className="text-[.625rem] text-aciu-gray-light 
-                                        font-medium font-plus-jakarta-sans">
+                                    <p className={`text-[.625rem] 
+                                        ${isAdmin ? "text-white" : "text-aciu-darker-gray"} 
+                                        font-medium font-plus-jakarta-sans`}>
                                         Personal profile
                                     </p>
                                 </div>
@@ -78,7 +84,7 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                                 }}
                                 onClick={onClose}
                             >
-                                <CloseCircle size={20} color="#7A7A7A"/>
+                                <CloseCircle size={20} color={isAdmin ? "#737373" : "#7A7A7A"}/>
                             </IconButton>
                         </div>
                         <div className="flex flex-col gap-2 items-center w-full">
@@ -109,7 +115,7 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                                                 {label}
                                             </span>
                                         </span>
-                                        <ArrowRight2 size={16} color="#3F3F3F" />
+                                        <ArrowRight2 size={16} color={isAdmin ? "#737373" : "#3F3F3F"} />
                                     </span>
                                 </NavLink>
                             ))}
