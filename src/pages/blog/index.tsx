@@ -7,11 +7,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@/context/UserContext";
 import { PublicationCard } from "./components/PublicationCard";
 import MyPublications from "./components/MyPublications";
+import Submissions from "./components/Submissions";
 
 const blogsTabs: TabItem[] = [
-    { key: "blog-posts", label: "Blog Posts", content: <BlogPosts /> },
-    { key: "my-publications", label: "My Publications", content: <MyPublications /> },
-    { key: "submissions", label: "Submissions",  content: <BlogPosts /> }
+    { 
+        key: "blog-posts", 
+        label: "Blog Posts", 
+        content: <BlogPosts /> 
+    },
+    { 
+        key: "my-publications", 
+        label: "My Publications", 
+        content: <MyPublications /> 
+    },
+    { 
+        key: "submissions", 
+        label: "Submissions",  
+        content: <Submissions /> 
+    }
 ]
 
 export default function BlogPage() {
@@ -36,24 +49,25 @@ export default function BlogPage() {
             />
 
             <AnimatePresence mode="wait">
-                {activeTab?.key === "my-publications" && (
-                <motion.div
-                    key={activeTab.key}
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 20 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="mx-5 grid grid-cols-1 lg:grid-cols-3 gap-3"
-                >
-                    {publicationStats.map(({ title, postNumber, rateOfChange }) => (
-                        <PublicationCard
-                            key={title}
-                            title={title} 
-                            postNumber={postNumber} 
-                            rateOfChange={rateOfChange} 
-                        />
-                    ))}
-                </motion.div>
+                {(activeTab?.key === "my-publications" || 
+                    activeTab?.key === "submissions") && (
+                    <motion.div
+                        key={activeTab.key}
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        className="mx-5 grid grid-cols-1 lg:grid-cols-3 gap-3"
+                    >
+                        {publicationStats.map(({ title, postNumber, rateOfChange }) => (
+                            <PublicationCard
+                                key={title}
+                                title={title} 
+                                postNumber={postNumber} 
+                                rateOfChange={rateOfChange} 
+                            />
+                        ))}
+                    </motion.div>
                 )}
 
 
