@@ -1,77 +1,15 @@
-import { Eye } from "@solar-icons/react"
+import type { FeaturedPostCardType } from '@/utils/types';
 import { CommentOutlined } from '@ant-design/icons';
-import type { FeaturedPostCard } from "@/utils/types";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import 'swiper/swiper-bundle.css';
-import { featuredPosts } from "@/utils/data";
+import { Eye } from "@solar-icons/react"
 
-export default function FeaturedPosts() {
-    return (
-        <div className="w-full h-full">
-            <div className="md:hidden block">
-                <Swiper 
-                    modules={[Pagination]} 
-                    pagination={{ 
-                        el: ".custom-swiper-pagination", 
-                        clickable: true 
-                    }}
-                    spaceBetween={20}
-                >
-                    {featuredPosts.map(({ 
-                        img, 
-                        title, 
-                        author, 
-                        date, 
-                        views, 
-                        comments 
-                    }, index) => (
-                        <SwiperSlide key={index}>
-                            <FeaturedPostCard
-                                img={img}
-                                title={title}
-                                author={author}
-                                date={date}
-                                views={views}
-                                comments={comments}
-                            />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-                <div className="custom-swiper-pagination flex gap-2 items-center mt-4 justify-center"></div>
-            </div>
-            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-[7fr_3fr] gap-2">
-                {featuredPosts.map(({ 
-                    img, 
-                    title, 
-                    author, 
-                    date, 
-                    views, 
-                    comments 
-                }, index) => (
-                    <FeaturedPostCard
-                        key={index}
-                        img={img}
-                        title={title}
-                        author={author}
-                        date={date}
-                        views={views}
-                        comments={comments}
-                    />
-                ))}
-            </div>
-        </div>
-    )
-}
-
-const FeaturedPostCard = ({
+export const FeaturedPostCard = ({
     img,
     title,
     author,
     date,
     views,
     comments
-}: FeaturedPostCard) => {
+}: FeaturedPostCardType) => {
     return (
         <div className="relative w-full h-[27rem] overflow-hidden rounded-[.625rem]">
             <img 

@@ -98,19 +98,19 @@ export interface PageTitleProps {
     onTabChange: (tab: TabItem) => void
 }
 
-export interface BasePostCard {
+export interface BasePostCardType {
     title: string,
     author: string,
     date: string,
     img: string,
 }
 
-export interface RegularPostCard extends BasePostCard{
+export interface RegularPostCardType extends BasePostCardType {
     subtitle: string,
     tags: string[]
 }
 
-export interface FeaturedPostCard extends BasePostCard {
+export interface FeaturedPostCardType extends BasePostCardType {
     views: number,
     comments: number
 }

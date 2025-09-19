@@ -1,13 +1,14 @@
 import type { TabItem } from "@/utils/types"
-import BlogPosts from "./components/BlogPosts"
+import BlogPosts from "./components/blog-posts/BlogPosts"
 import { PageTitle } from "@/components/PageTitle";
 import { useState } from "react";
 import { publicationStats } from "@/utils/data";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@/context/UserContext";
-import { PublicationCard } from "./components/PublicationCard";
-import MyPublications from "./components/MyPublications";
-import Submissions from "./components/Submissions";
+import { PublicationCard } from "./components/my-publications/PublicationCard";
+import MyPublications from "./components/my-publications/MyPublications";
+import Submissions from "./components/submissions/Submissions";
+
 
 const blogsTabs: TabItem[] = [
     { 
@@ -70,8 +71,6 @@ export default function BlogPage() {
                     </motion.div>
                 )}
 
-
-            {/* <AnimatePresence mode="wait"> */}
                 <motion.div
                     key={activeTab?.key + "-content"}
                     initial={{ opacity: 0, y: -20 }}
@@ -83,7 +82,6 @@ export default function BlogPage() {
                     {activeTab?.content}
                 </motion.div>
             </AnimatePresence>
-            {/* </AnimatePresence> */}
         </div>
 
     )

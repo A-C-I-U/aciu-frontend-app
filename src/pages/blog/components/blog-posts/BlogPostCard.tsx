@@ -1,4 +1,4 @@
-import type { RegularPostCard } from "@/utils/types"
+import type { RegularPostCardType } from "@/utils/types"
 import { Badge } from "@mui/material";
 import { ArrowUpRight } from "lucide-react";
 
@@ -9,7 +9,7 @@ export const BlogPostCard = ({
     date,
     subtitle,
     tags
-}: RegularPostCard) => {
+}: RegularPostCardType) => {
     return (
         <div className="
             border border-aciu-light-grey 
@@ -31,9 +31,14 @@ export const BlogPostCard = ({
                         <p className="text-aciu-border-grey font-coolvetica text-lg">
                             {title}
                         </p>
-                        <ArrowUpRight size={24} color="black" />
+                        <ArrowUpRight 
+                            size={24} 
+                            color="black" 
+                        />
                     </div>
-                    <p className="text-sm font-montserrat text-grayscale-500">{subtitle}</p>
+                    <p className="text-sm font-montserrat text-grayscale-500">
+                        {subtitle}
+                    </p>
                 </div>
                 <div className="flex gap-2 items-center">
                     {tags.map((tag, index) => (
