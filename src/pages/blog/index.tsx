@@ -49,7 +49,7 @@ export default function BlogPage() {
                 onTabChange={handleTabChange} 
             />
 
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
                 {(activeTab?.key === "my-publications" || 
                     activeTab?.key === "submissions") && (
                     <motion.div

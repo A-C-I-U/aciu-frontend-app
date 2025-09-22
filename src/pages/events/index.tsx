@@ -25,7 +25,7 @@ export default function EventsPage() {
                 activeTab={activeTab}
                 onTabChange={handleTabChange} 
             />
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
                 <motion.div
                     key={activeTab?.key + "-content"}
                     initial={{ opacity: 0, y: -20 }}
