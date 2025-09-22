@@ -37,12 +37,14 @@
   --font-clash: 'Clash Grotesk', sans-serif;
   --font-montserrat: 'Montserrat', sans-serif;
   --font-plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-inter: 'Inter', sans-serif;
   
   --color-background: #ffffff;
   --color-foreground: #171717;
   --color-aciu-body: #f5f5f5;
   --color-aciu-red: #00B686;
   --color-aciu-green-normal: #00B686;
+  --color-aciu-new-green-normal: #00A479;
   --color-aciu-green-light: #E6F8F3;
   --color-aciu-dark-green: #008965;
   --color-aciu-light-red: #FBEBEA;
@@ -85,6 +87,7 @@
   --color-success-600: #03D858;
   --color-grayscale-25: #F6F8FA;
   --color-grayscale-100: #818898;
+  --color-grayscale-300: #D0D5DD;
   --color-grayscale-500: #667085;
 }
 
