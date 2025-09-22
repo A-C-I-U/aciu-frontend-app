@@ -17,6 +17,7 @@ import {
     type Row, 
     type Table as TableType
 } from "@tanstack/react-table";
+import { CheckIcon, MinusIcon } from "lucide-react";
 
 
 
@@ -48,6 +49,16 @@ export default function DataTable({
                                 color: "none"
                             }
                         }}
+                        checkedIcon={
+                            <span className="w-4 h-4 bg-aciu-green-normal flex items-center justify-center rounded-[6px]">
+                                <CheckIcon size={10} color="white"/>
+                            </span>
+                        }
+                        indeterminateIcon={
+                            <span className="w-4 h-4 bg-aciu-green-normal flex items-center justify-center rounded-[6px]">
+                                <MinusIcon size={10} color="white" strokeWidth={3} />
+                            </span>
+                        }
                         indeterminate={table.getIsSomePageRowsSelected()}
                         checked={table.getIsAllPageRowsSelected()}
                         onChange={table.getToggleAllPageRowsSelectedHandler()}
@@ -57,7 +68,12 @@ export default function DataTable({
                     <Checkbox
                         icon={
                             <span className="w-4 h-4 border border-aciu-gray-light rounded-[6px]" />
-                            }
+                        }
+                        checkedIcon={
+                            <span className="w-4 h-4 bg-aciu-green-normal flex items-center justify-center rounded-[6px]">
+                                <CheckIcon size={10} color="white"/>
+                            </span>
+                        }
                         checked={row.getIsSelected()}
                         onChange={row.getToggleSelectedHandler()}
                     />
@@ -102,6 +118,7 @@ export default function DataTable({
                                         fontFamily: 'Montserrat, sans-serif',
                                         color: "#667085",
                                         fontWeight: 500,
+                                        whiteSpace: "nowrap"
 
                                     }}
                                 >
@@ -126,6 +143,8 @@ export default function DataTable({
                                         fontFamily: 'Montserrat, sans-serif',
                                         color: "#3E3E3E",
                                         fontWeight: 400,
+                                        whiteSpace: "nowrap",
+                                        textOverflow: "ellipsis"
                                         
                                     }}
                                     >

@@ -25,7 +25,10 @@ export function generateMockPublications(count: number): PublicationDataType[] {
     return {
       title: `Publication ${i + 1}`,
       creationDate: creation.toISOString(),
-      postImpressions: Math.floor(Math.random() * 5000),
+      postImpressions: {
+        comments: Math.floor(Math.random() * 200),
+        views: Math.floor(Math.random() * 300)
+      },
       lastModified: modified.toISOString(),
       status: publicationStatuses[Math.floor(Math.random() * publicationStatuses.length)],
     };

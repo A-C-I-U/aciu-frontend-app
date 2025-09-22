@@ -4,6 +4,8 @@ import type { PublicationDataType } from "@/utils/types";
 import { type ColumnDef } from "@tanstack/react-table";
 import { formatDate } from "@/utils/helpers";
 import { Link } from "react-router-dom";
+import { Eye } from "@solar-icons/react";
+import { CommentOutlined } from "@ant-design/icons";
 
 export default function PublicationsTable() {
     return (
@@ -32,7 +34,22 @@ export const columns: ColumnDef<PublicationDataType>[] = [
     {
         accessorKey: "postImpressions",
         header: "Post Impressions",
-        cell: ({ row }: {row: any }) => <span>{row.original.postImpressions}</span>
+        cell: ({ row }: {row: any }) => {
+            const { comments, views } = row.original.postImpressions;
+
+            return (
+                <span className="gap-4 flex items-center">
+                    <span className="gap-2 flex items-center">
+                        <Eye fontVariant="linear" size={16} color="#3E3E3E"/>
+                        {views || '-'}
+                    </span>
+                    <span className="gap-2 flex items-center">
+                        <CommentOutlined size={16} color="#3E3E3E" />
+                        {comments || '-'}
+                    </span>
+                </span>
+            )
+        }
     },
     {
         accessorKey: "lastModified",
@@ -59,7 +76,7 @@ export const columns: ColumnDef<PublicationDataType>[] = [
                         color: labelColor,
                         height: "2rem"
                     }} 
-                    className="py-[2px] pr-2 pl-[6px] 
+                    className="py-[2px] pr-2 pl-[6px] whitespace-nowrap
                         flex gap-[6px] items-center rounded-[1rem]
                         text-xs font-motserrat font-medium max-w-fit"
                 >
@@ -74,12 +91,12 @@ export const columns: ColumnDef<PublicationDataType>[] = [
     {
         id: "actions",
         header: "Actions",
-        size: 145,
+        size: 150,
         cell: () => (
             <Link to={"/blog/post/1"}
                 className="p-2 text-sm font-coolvetica 
                 text-aciu-green-normal rounded-[5px] 
-                border border-aciu-green-normal">
+                border border-aciu-green-normal min-w-[145px] whitespace-nowrap">
                 View Post
             </Link>
         )

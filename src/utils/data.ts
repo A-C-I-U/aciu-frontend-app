@@ -1,4 +1,12 @@
-import type { EventDetailsProps, EventItemProps, FeaturedPostCard, OptionLabelProps, PublicationCardProps, PublicationDataType, RegularPostCard } from "./types";
+import type { 
+    EventDetailsProps, 
+    EventItemProps, 
+    FeaturedPostCardType, 
+    OptionLabelProps, 
+    PublicationCardProps, 
+    PublicationDataType, 
+    RegularPostCardType 
+} from "./types";
 
 export const BRANCHES: string[] = [
   "home", "aba", "umuahia", "enugu", "owerri",
@@ -151,7 +159,7 @@ export const eventDetails: EventDetailsProps = {
 }
 
 
-export const regularPosts: RegularPostCard[] = [
+export const regularPosts: RegularPostCardType[] = [
     {
         img: "/images/nig-uk-flag.jpg",
         title: "My First Igwa Mang: Walking with My Age Grade",
@@ -218,7 +226,7 @@ export const regularPosts: RegularPostCard[] = [
     },
 ]
 
-export const featuredPosts: FeaturedPostCard[] = [
+export const featuredPosts: FeaturedPostCardType[] = [
     {
         img: "/images/blog-placeholder.jpg",
         title: "Tech, Tradition and the Future of ACIU",
