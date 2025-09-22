@@ -28,8 +28,9 @@ export default function Sidebar() {
                 loading="eager"
             />
             <div className="flex flex-col gap-3">
-                {links.map(({ label, icon, path}) => (
+                {links.map(({ label, icon, path}, index) => (
                     <NavLink
+                        key={index}
                         to={path}
                         className={({ isActive }) =>
                             [
