@@ -142,7 +142,10 @@ export interface PublicationCardProps {
 export interface PublicationDataType {
     title: string,
     creationDate: string,
-    postImpressions: number,
+    postImpressions: {
+        comments: number,
+        views: number
+    },
     lastModified: string,
     status: "published" | "pending approval" | "rejected" | "draft"
 }
