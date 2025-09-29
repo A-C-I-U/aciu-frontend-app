@@ -1,6 +1,5 @@
-import React, { useMemo, useState } from "react"
-import { 
-    Checkbox, 
+import React from "react"
+import {
     Paper, 
     Table, 
     TableBody, 
@@ -11,102 +10,27 @@ import {
 } from "@mui/material";
 import { 
     flexRender,
-    getCoreRowModel, 
-    getPaginationRowModel, 
-    useReactTable, 
-    type Row, 
-    type Table as TableType
+    type Table as TableType,
 } from "@tanstack/react-table";
 import { 
     ArrowLeftIcon, 
     ArrowRightIcon, 
-    CheckIcon, 
-    MinusIcon 
 } from "lucide-react";
 import { Pagination } from "@heroui/react";
 
 
 
 export default function DataTable({ 
-    columns, 
-    data, 
-    withSelection 
+   table
 }: { 
-    columns: any, 
-    data: any, 
-    withSelection?: boolean 
+    table: TableType<any>
 }) {
 
-    const [rowSelection, setRowSelection] = useState({});
+    
 
-    const memoizedColumns = useMemo(() => {
-        const base = [...columns];
-
-        if (withSelection) {
-            base.unshift({
-                id: "select",
-                header: ({ table }: { table: TableType<any>}) => (
-                    <Checkbox
-                        icon={
-                            <span className="w-4 h-4 border border-aciu-gray-light rounded-[6px]" />
-                        }
-                        sx={{
-                            color: "none",
-                            '& .MuiSvgIcon-root': {
-                                color: "none"
-                            }
-                        }}
-                        checkedIcon={
-                            <span className="w-4 h-4 bg-aciu-green-normal flex items-center justify-center rounded-[6px]">
-                                <CheckIcon size={10} color="white"/>
-                            </span>
-                        }
-                        indeterminateIcon={
-                            <span className="w-4 h-4 bg-aciu-green-normal flex items-center justify-center rounded-[6px]">
-                                <MinusIcon size={10} color="white" strokeWidth={3} />
-                            </span>
-                        }
-                        indeterminate={table.getIsSomePageRowsSelected()}
-                        checked={table.getIsAllPageRowsSelected()}
-                        onChange={table.getToggleAllPageRowsSelectedHandler()}
-                    />
-                ),
-                cell: ({ row }: { row: Row<any>}) => (
-                    <Checkbox
-                        icon={
-                            <span className="w-4 h-4 border border-aciu-gray-light rounded-[6px]" />
-                        }
-                        checkedIcon={
-                            <span className="w-4 h-4 bg-aciu-green-normal flex items-center justify-center rounded-[6px]">
-                                <CheckIcon size={10} color="white"/>
-                            </span>
-                        }
-                        checked={row.getIsSelected()}
-                        onChange={row.getToggleSelectedHandler()}
-                    />
-                )
-            },
-        )}
-
-        return base;
-    }, [columns, withSelection]);
-
-    const table = useReactTable({
-        data,
-        columns: memoizedColumns,
-        // 10 rows per page
-        pageCount: Math.ceil(data.length / 10),
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        onRowSelectionChange: setRowSelection,
-        state: {
-            rowSelection,
-        },
-    })
     return (
         <div className="w-full">
-            <TableContainer component={Paper} sx={{ maxWidth: "100%", overflowX: "auto" }}>
-                
+            <TableContainer component={Paper} sx={{ maxWidth: "100%", overflowX: "auto" }}>   
                 <Table stickyHeader>
                     <TableHead>
                         {table.getHeaderGroups().map(headerGroup => (
@@ -168,6 +92,8 @@ export default function DataTable({
                 </Table>
             </TableContainer>
 
+
+
             {/* Pagination Component */}
             <div className="w-full pt-3 pb-4 px-6 flex justify-between items-center">
                 <button
@@ -206,7 +132,7 @@ export default function DataTable({
                         )
                     }}
                 />
-                    <button
+                <button
                     className="rounded-md py-2 px-[.875rem] 
                     flex gap-2 justify-center items-center
                     shadow-[0px_1px_2px_0px_#1018280D] border

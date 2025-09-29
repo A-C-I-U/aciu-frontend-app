@@ -1,4 +1,3 @@
-import DataTable from "@/components/DataTable";
 import { generateMockPublications, publicationStatusMap } from "@/utils/helpers";
 import type { PublicationDataType } from "@/utils/types";
 import { type ColumnDef } from "@tanstack/react-table";
@@ -11,6 +10,7 @@ import { useState } from "react";
 import { Pagination } from "@heroui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import { useMediaQuery } from "@mui/material";
+import PostsTable from "../PostsTable";
 
 export default function PublicationsTable() {
     const isMobile = useMediaQuery('(max-width:768px)')
@@ -24,7 +24,7 @@ export default function PublicationsTable() {
     return (
         <>
         {!isMobile ? 
-            <DataTable
+            <PostsTable
                 data={mockData}
                 columns={columns}
                 withSelection
