@@ -3,6 +3,7 @@ import UpcomingEvents from "./components/UpcomingEvents";
 import { useState } from "react";
 import type { TabItem } from "@/utils/types";
 import PastEvents from "./components/PastEvents";
+import { motion, AnimatePresence } from "motion/react";
 
 const eventsTabs: TabItem[] = [
     { key: "upcoming-events", label: "Upcoming Events", content: <UpcomingEvents /> },
@@ -24,9 +25,18 @@ export default function EventsPage() {
                 activeTab={activeTab}
                 onTabChange={handleTabChange} 
             />
-            <div className="mx-5 px-4 py-5 bg-white">
-                {activeTab?.content}
-            </div>
+            <AnimatePresence>
+                <motion.div
+                    key={activeTab?.key + "-content"}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="mx-5 px-4 py-5 bg-white"
+                    >
+                    {activeTab?.content}
+                </motion.div>
+            </AnimatePresence>
         </div>
     )
 }

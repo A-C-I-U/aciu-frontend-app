@@ -6,7 +6,7 @@ import { capitalizeFirstLetters } from "@/utils/helpers";
 import { ArrowRight2, CloseCircle, Logout } from "iconsax-react";
 import { protectedRoutes } from "@/routes/protectedRoutes";
 import { NavLink } from "react-router-dom";
-import { createElement } from "react";
+import { createElement, useEffect } from "react";
 
 interface ProfileDropdownProps {
     open: boolean,
@@ -17,13 +17,25 @@ interface ProfileDropdownProps {
 export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps) {
     const isMobile = useMediaQuery('(max-width:768px)');
     const { user } = useUser();
-    const activeRole = user?.role || "member"
+    const activeRole = user?.role || "member";
+    const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
     
     const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
 
     const handleLogout = () => {
         onClose();
     }
+
+   useEffect(() => {
+        if (open && isMobile) {
+            document.body.classList.add("body-lock");
+        } else {
+            document.body.classList.remove("body-lock");
+        }
+        return () => document.body.classList.remove("body-lock");
+    }, [open, isMobile]);
+
+
 
     if (isMobile) {
         return (
@@ -34,18 +46,23 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                         animate={{ height: "100vh", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="absolute top-0 left-0 w-full bg-aciu-red 
-                            flex flex-col items-center gap-8 py-8 px-5 overflow-y-scroll"
+                        className={`fixed top-0 left-0 w-full 
+                            ${isAdmin ? "bg-aciu-green-normal" : "bg-aciu-light-grey"}
+                             z-50 h-dvh 
+                            flex flex-col items-center gap-8 py-8 px-5 overflow-y-scroll`}
                     >
                         <div className="flex justify-between items-center w-full">
                             <div className="flex gap-2 items-center">
                                 <Avatar src={DummyProfile} className="rounded-[3.125rem] w-8 h-8" />
                                 <div className="flex flex-col">
-                                    <p className="font-plus-jakarta-sans font-bold text-white">
+                                    <p className={`font-plus-jakarta-sans font-bold 
+                                        ${isAdmin ? "text-white" : "text-aciu-darker-gray"}`}
+                                    >
                                         {user && capitalizeFirstLetters(user.name)}
                                     </p>
-                                    <p className="text-[.625rem] text-aciu-light-red 
-                                        font-medium font-plus-jakarta-sans">
+                                    <p className={`text-[.625rem] 
+                                        ${isAdmin ? "text-white" : "text-aciu-darker-gray"} 
+                                        font-medium font-plus-jakarta-sans`}>
                                         Personal profile
                                     </p>
                                 </div>
@@ -67,7 +84,7 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                                 }}
                                 onClick={onClose}
                             >
-                                <CloseCircle size={20} color="#737373"/>
+                                <CloseCircle size={20} color={isAdmin ? "#737373" : "#7A7A7A"}/>
                             </IconButton>
                         </div>
                         <div className="flex flex-col gap-2 items-center w-full">
@@ -91,14 +108,14 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                                                         }
                                                     }}
                                                 >
-                                                    {createElement(icon, { size: 24 })}
+                                                   {createElement(icon, { size: 24 })}
                                                 </IconButton>
                                             )}
                                             <span className="text-sm text-aciu-abriba font-coolvetica">
                                                 {label}
                                             </span>
                                         </span>
-                                        <ArrowRight2 size={16} color="#3F3F3F" />
+                                        <ArrowRight2 size={16} color={isAdmin ? "#737373" : "#3F3F3F"} />
                                     </span>
                                 </NavLink>
                             ))}

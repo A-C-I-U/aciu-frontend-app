@@ -1,4 +1,5 @@
 import type React from "react"
+import { type JSONContent, Editor } from '@tiptap/react'
 
 export interface AuthCardProps {
     header?: string,
@@ -97,3 +98,86 @@ export interface PageTitleProps {
     activeTab: TabItem,
     onTabChange: (tab: TabItem) => void
 }
+
+export interface BasePostCardType {
+    title: string,
+    author: string,
+    date: string,
+    img: string,
+}
+
+export interface RegularPostCardType extends BasePostCardType {
+    subtitle: string,
+    tags: string[]
+}
+
+export interface FeaturedPostCardType extends BasePostCardType {
+    views: number,
+    comments: number
+}
+
+export interface DetailCardProps {
+    icon: React.ReactNode,
+    title: string,
+    content: string
+}
+
+export interface EventDetailsProps {
+    id: string,
+    img: string,
+    branch: string,
+    title: string,
+    content: string,
+    eventDate: string,
+    eventTime: string,
+    eventLocation: string,
+    eventHighlights: string[],
+}
+
+export interface PublicationCardProps { 
+    title: string,
+    postNumber: string,
+    rateOfChange: string
+}
+
+export interface PublicationDataType {
+    title: string,
+    creationDate: string,
+    postImpressions: {
+        comments: number,
+        views: number
+    },
+    lastModified: string,
+    status: "published" | "pending approval" | "rejected" | "draft"
+}
+
+export interface FileViewProps {
+    file: File;
+    name: string;
+    description: string;
+};
+
+export interface FileViewDrawerProps extends FileViewProps {
+    open: boolean,
+    onClose: () => void
+}
+
+export interface UploadResourceProps {
+    type: "upload" | "edit",
+    open: boolean,
+    onClose: () => void
+}
+
+export interface BlogPostFormValues {
+    title: string,
+    description: string,
+    tags: string[],
+    displayImage: string,
+    imageAlt: string,
+    content: string,
+    postVisibility: "public" | "private",
+    status: "published" | "pending approval" | "rejected" | "draft"
+}
+
+
+export type EditorContent = Editor | string | JSONContent | null;

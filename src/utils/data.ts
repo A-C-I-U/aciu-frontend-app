@@ -1,4 +1,13 @@
-import type { EventItemProps, OptionLabelProps } from "./types";
+import type { 
+    EventDetailsProps, 
+    EventItemProps, 
+    FeaturedPostCardType, 
+    FileViewProps, 
+    OptionLabelProps, 
+    PublicationCardProps, 
+    PublicationDataType, 
+    RegularPostCardType 
+} from "./types";
 
 export const BRANCHES: string[] = [
   "home", "aba", "umuahia", "enugu", "owerri",
@@ -125,3 +134,187 @@ export const upcomingEvents: EventItemProps[] = [
         time: "12:00pm - 5:00pm"
     },
 ]
+
+export const eventDetails: EventDetailsProps = {
+  id: "5",
+  img: "/images/abriba-event.jpg",
+  branch: "ACIU, Lagos Branch",
+  title: "Igwa Mang Cultural Festival",
+  content: `The Igwa Mang Cultural Festival is one of Abiriba’s most revered traditions, 
+    a homecoming, a public show of service, and a rite of identity. 
+    This year, the Lagos chapter of ACIU proudly hosts a regional edition, 
+    bringing together sons and daughters of Abiriba for a vibrant day of honour, celebration and unity. 
+    This event celebrates the achievements of active age grades, honours elders, 
+    and showcases the enduring bond that holds us together — no matter where we reside.`,
+  eventDate: "21st January 2026",
+  eventTime: "12:00 PM – 5:00 PM",
+  eventLocation: "12B Obafemi Awolowo Way, Ikeja, Lagos",
+  eventHighlights: [
+    "Age grade procession and cultural display",
+    "Community honours and award presentations",
+    "Tribute to retiring age grades (Ime Uche segment)",
+    "Traditional food and drinks",
+    "Keynote speech by National President",
+    "Children’s cultural showcase"
+  ]
+}
+
+
+export const regularPosts: RegularPostCardType[] = [
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+    {
+        img: "/images/nig-uk-flag.jpg",
+        title: "My First Igwa Mang: Walking with My Age Grade",
+        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+        author: "Chinedu Okoro",
+        date: "16 Jan 2025",
+        tags: ["ACIU News", "Union Updates"]
+    },
+]
+
+export const featuredPosts: FeaturedPostCardType[] = [
+    {
+        img: "/images/blog-placeholder.jpg",
+        title: "Tech, Tradition and the Future of ACIU",
+        author: "Eke Urum",
+        date: "20 Jan 2025",
+        views: 239,
+        comments: 21
+    },
+    {
+        img: "/images/blog-placeholder.jpg",
+        title: "Tech, Tradition and the Future of ACIU",
+        author: "Eke Urum",
+        date: "20 Jan 2025",
+        views: 239,
+        comments: 21
+    }
+]
+
+export const publicationStats: PublicationCardProps[] = [
+    {
+        title: 'Total Submissions',
+        postNumber: '5',
+        rateOfChange: '+12.5'
+    },
+    {
+        title: 'Published Posts',
+        postNumber: '3',
+        rateOfChange: '+12.5'
+    },
+     {
+        title: 'Pending Approval',
+        postNumber: '2',
+        rateOfChange: '-12.5'
+    },
+]
+
+export const publicationStatuses: PublicationDataType["status"][] = 
+["published", "pending approval", "rejected", "draft"]
+
+
+export const dummyResources: FileViewProps[] = [
+  {
+    file: new File(["Hello world content"], "document.txt", { type: "text/plain", lastModified: Date.now() }),
+    name: "My Document",
+    description: "A simple text document"
+  },
+  {
+    file: new File([new Uint8Array([137, 80, 78, 71])], "image.png", { type: "image/png", lastModified: Date.now() }),
+    name: "Profile Image",
+    description: "User profile picture"
+  },
+  {
+    file: new File(["<html></html>"], "index.html", { type: "text/html", lastModified: Date.now() }),
+    name: "Website Index",
+    description: "HTML index file"
+  },
+  {
+    file: new File([new ArrayBuffer(1024 * 1024)], "video.mp4", { type: "video/mp4", lastModified: Date.now() }),
+    name: "Promo Video",
+    description: "Marketing video clip"
+  },
+  {
+    file: new File([JSON.stringify({ foo: "bar" })], "data.json", { type: "application/json", lastModified: Date.now() }),
+    name: "Data Export",
+    description: "JSON export of app data"
+  }
+];
+
+
+export const fields = [
+  {
+    name: "title",
+    label: "Post Title",
+    placeholder: "Enter your post title",
+    required: true,
+  },
+  {
+    name: "description",
+    label: "Post Description",
+    placeholder: "Write a short description for your post",
+    required: true,
+  },
+  {
+    name: "tags",
+    label: "Post Tags",
+    placeholder: "Add tags",
+    required: true,
+    helperText: 'Press "<span className="italic">return</span>" to add tag',
+  },
+];

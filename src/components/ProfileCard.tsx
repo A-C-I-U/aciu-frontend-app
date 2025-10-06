@@ -72,6 +72,7 @@ export const ProfileCard = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {quickActions.map(({ label, path }, index) => (
                         <NavLink
+                            key={index}
                             to={path}
                              className={[
                                     "flex justify-between items-center rounded-sm py-[.688rem] px-[.875rem] border transition-colors",

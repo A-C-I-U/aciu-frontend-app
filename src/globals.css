@@ -37,11 +37,18 @@
   --font-clash: 'Clash Grotesk', sans-serif;
   --font-montserrat: 'Montserrat', sans-serif;
   --font-plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  --size-2xs: .625rem;
   
   --color-background: #ffffff;
   --color-foreground: #171717;
   --color-aciu-body: #f5f5f5;
-  --color-aciu-red: #00CA71;
+  --color-aciu-red: #00B686;
+  --color-aciu-green-normal: #00B686;
+  --color-aciu-new-green-normal: #00A479;
+  --color-aciu-green-light: #E6F8F3;
+  --color-aciu-dark-green: #008965;
   --color-aciu-light-red: #FBEBEA;
   --color-aciu-dark-red: #005B33;
   --color-aciu-grey: #737373;
@@ -65,10 +72,13 @@
   --color-aciu-neutral: #898483;
   --color-aciu-grey-normal: #424242;
   --color-aciu-dark-gray: #0D0D12;
+  --color-aciu-darker-gray: #3F3F3F;
+  --color-aciu-gray-light: #5E5E5E;
   --color-aciu-white-normal: #CCCCCC;
   --color-aciu-white-light: #EFFDE6;
   --color-aciu-red-normal: #FF3B30;
   --color-aciu-blue-dark: #14213D;
+  --color-aciu-cyan-light: #F3FFFE;
   --color-primary-100: #F6F5FA;
   --color-primary-200: #EEECF6;
   --color-primary-300: #CBC6E4;
@@ -76,16 +86,20 @@
   --color-accent-300: #E0D394;
   --color-copy-300: #A1A6B1;
   --color-copy-400: #727A8B;
+  --color-copy-500: #434D64;
   --color-success-600: #03D858;
   --color-grayscale-25: #F6F8FA;
   --color-grayscale-100: #818898;
+  --color-grayscale-200: #EAECF0;
+  --color-grayscale-300: #D0D5DD;
+  --color-grayscale-500: #667085;
 }
 
 html, body {
   overflow-x: hidden;
   background: var(--color-aciu-body);
   color: var(--color-foreground);
-  font-family: var(--font-open-sans), sans-serif;
+  font-family: var(--font-montserrat), sans-serif;
 }
 
 body {
@@ -103,6 +117,10 @@ a, button {
 }
 
 @layer utilities {
+  .text-2xs {
+    font-size: var(--size-2xs);
+  }
+
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -110,6 +128,12 @@ a, button {
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
+  }
+
+  .body-lock {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
   }
 }
 
@@ -166,5 +190,33 @@ a, button {
 
   .country-list .search-box {
     width: 80% !important;
+  }
+
+  .custom-swiper-pagination .swiper-pagination-bullet {
+    background-color: #D9F4ED !important;
+    opacity: 1 !important;
+  }
+
+  .custom-swiper-pagination .swiper-pagination-bullet-active {
+    background-color: #00B686 !important;
+  }
+
+  .control-group {
+    padding: 1.5rem 0 0 0;
+    border-bottom: 1px solid #E5E5E5;
+  }
+
+  .button-group {
+    padding: 0 0 1.5rem 0;
+  }
+
+  .ProseMirror {
+    height: 100%;
+    padding: 3.125rem 1.5rem;
+    cursor: text;
+  }
+
+  .ProseMirror:focus-visible {
+    outline: none !important;
   }
 }

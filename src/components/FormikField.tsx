@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useField } from 'formik';
-import { TextField, InputAdornment, IconButton, FormLabel } from '@mui/material';
+import { TextField, InputAdornment, IconButton, FormLabel, MenuItem } from '@mui/material';
 import { ArrowDown2, Eye, EyeSlash } from 'iconsax-react';
 
 
@@ -67,6 +67,11 @@ export default function FormikField({
             MenuProps: {
               hideBackdrop: true, 
               disableScrollLock: true,
+              sx: {
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: ".625rem",
+                borderRadius: ".5rem"
+              }
             },
             displayEmpty: true,
           },
@@ -135,8 +140,13 @@ export default function FormikField({
             width: "100%",
           }
         }}
-
-      />
+        >
+          {options && options.map((opt) => (
+            <MenuItem key={opt.value} value={opt.value} defaultValue={options[0].value}>
+              {opt.label}
+            </MenuItem>
+          ))}
+        </TextField>
       {meta.touched && meta.error && (
         <span className="text-xs text-red-600 font-medium font-montserrat">
           {meta.error as string}
