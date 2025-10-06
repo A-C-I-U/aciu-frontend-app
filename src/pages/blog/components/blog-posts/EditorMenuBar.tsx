@@ -66,16 +66,17 @@ export default function EditorMenuBar({ editor }: { editor: Editor}) {
 
     return (
         <div className="control-group">
-            <div className="flex flex-wrap items-center">
-                <div className="button-group border-b border-b-aciu-dashboard-background">
+            <div className="flex flex-wrap items-center px-2">
+                <div className="p-2">
                     <IconButton
                         onClick={() => document.getElementById('fileInput')?.click()}
                         size="small"
                         title="Insert Image"
                         sx={{
                             color: "#3E3E3E",
+                            width: "1.875rem",
+                            height: "1.875rem"
                         }}
-                        className="editor-button"
                     >
                         <ImageSquare weight="bold" size={18} />
                         <input 
@@ -96,9 +97,9 @@ export default function EditorMenuBar({ editor }: { editor: Editor}) {
                         />
                     ))}
                 </div>
-                <div className="p-2 flex items-center border-x border-x-aciu-dashboard-background border-b border-b-aciu-dashboard-background">
+                <div className="flex items-center">
                     <div className="flex flex-col w-full max-w-fit justify-center items-center p-2">
-                        <TextAa size={14} color={editorState.color ?? "#3E3E3E"} />
+                        <TextAa size={20} color={editorState.color ?? "#3E3E3E"} />
                         <input 
                             type="color" 
                             value={editorState.color ?? "#3E3E3E"} 
@@ -115,7 +116,7 @@ export default function EditorMenuBar({ editor }: { editor: Editor}) {
                         />
                     ))}
                 </div>
-                <div className="relative py-2 px-3 border-x border-x-aciu-dashboard-background flex gap-1 items-center">
+                <div className="relative py-2 px-3 flex gap-1 items-center">
                     <select
                         onChange={(e) => {
                             const value = e.target.value;
@@ -131,7 +132,11 @@ export default function EditorMenuBar({ editor }: { editor: Editor}) {
                     >
                         {/* <option value="16px">Default (16px)</option> */}
                         {sizes.map(({ value, label }) => (
-                            <option key={value} value={value} className="font-plus-jakarta-sans font-bold text-sm">
+                            <option 
+                                key={value} 
+                                value={value} 
+                                className="font-plus-jakarta-sans font-bold text-sm"
+                            >
                                 {label}
                             </option>
                         ))}
@@ -141,7 +146,7 @@ export default function EditorMenuBar({ editor }: { editor: Editor}) {
                         <CaretDown size={8} color="#3E3E3E" />
                     </div>
                 </div>
-                <div className="border-x border-b border-x-aciu-dashboard-background border-b-aciu-dashboard-background">
+                <div className="">
                     {([ "left", "center", "right"] as Alignment[]).map(alignment => (
                         <EditorButton
                             key={alignment}
@@ -152,7 +157,7 @@ export default function EditorMenuBar({ editor }: { editor: Editor}) {
                     ))}
                 </div>
 
-                <div className="border-r border-r-aciu-dashboard-background">
+                <div className="">
                     {([ 1, 2, 3, 4, 5] as Level[]).map(level => (
                         <EditorButton
                             key={level}
