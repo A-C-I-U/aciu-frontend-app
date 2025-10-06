@@ -2,6 +2,7 @@ import SearchBar from "@/components/SearchBar";
 import { useState } from "react";
 import { ArrowDown2, Sort } from "iconsax-react";
 import PublicationsTable from "./PublicationsTable";
+import { Link } from "react-router-dom";
 
 export default function MyPublications() {
     const [ query, setQuery ] = useState("");
@@ -44,6 +45,20 @@ export default function MyPublications() {
                             2022
                             <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
                         </button>
+                        <Link
+                            to="/blog/create"
+                            style={{
+                                padding: "1rem",
+                                gap: ".5rem",
+                                borderRadius: ".75rem",
+                                backgroundColor: "#00B686",
+                                color: "#fff",
+                                fontFamily: "'Coolvetica', sans-serif",
+                                width: "100%"
+                            }}
+                            >
+                                Publish new post
+                        </Link>
                     </div>
                 </div>    
             </div>
