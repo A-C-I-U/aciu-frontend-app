@@ -1,7 +1,8 @@
 import { useUser } from "@/context/UserContext";
 import DummyProfile from "/images/profile-img.png"
-import { ArrowForward, Call, SmsNotification, TickCircle } from "iconsax-react";
+import { Call, SmsNotification, TickCircle } from "iconsax-react";
 import { NavLink } from "react-router-dom";
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 
 export const ProfileCard = () => {
     const { user } = useUser();
@@ -46,16 +47,16 @@ export const ProfileCard = () => {
                     </div>
                     <div className="flex gap-4 items-center">
                         {user?.ageGrade &&
-                            <div className="w-full rounded-[3.125rem] py-2 px-3 flex gap-2 items-center bg-aciu-white-light">
-                                <TickCircle size={22} color="#659711" variant="Bold"/>
+                            <div className="w-full rounded-[3.125rem] py-2 px-3 flex gap-2 items-center bg-aciu-green-light max-w-fit">
+                                <TickCircle size={22} color="#00B686" variant="Bold"/>
                                 <p className="font-montserrat text-xs font-semibold text-aciu-border-grey">
                                     Age Grade
                                 </p>
                             </div>
                         }
                        {user?.branch &&
-                            <div className="w-full rounded-[3.125rem] py-2 px-3 flex gap-2 items-center bg-aciu-white-light">
-                                <TickCircle size={22} color="#659711" variant="Bold"/>
+                            <div className="w-full rounded-[3.125rem] py-2 px-3 flex gap-2 items-center bg-aciu-green-light max-w-fit">
+                                <TickCircle size={22} color="#00B686" variant="Bold"/>
                                 <p className="whitespace-nowrap font-montserrat text-xs font-semibold text-aciu-border-grey">
                                     Branch Verified
                                 </p>
@@ -81,10 +82,16 @@ export const ProfileCard = () => {
                                     : "bg-primary-100 border-primary-300"
                                 ].join(" ")}>
                                 <>
-                                    <span className="font-semibold font-montserrat text-sm">
+                                    <span className="font-semibold font-montserrat text-sm text-aciu-border-grey">
                                         {label}
                                     </span>
-                                    <ArrowForward size={16} color="#14213D"/>
+                                    <ArrowForwardIosRoundedIcon 
+                                        sx={{
+                                            width: "1rem",
+                                            height: "1rem",
+                                            color: "#14213D"
+                                        }}
+                                    />
                                 </>
                         </NavLink>
                     ))}

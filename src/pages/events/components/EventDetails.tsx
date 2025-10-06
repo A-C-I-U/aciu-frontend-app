@@ -3,6 +3,7 @@ import { Receipt2 } from "iconsax-react"
 import { useParams } from "react-router-dom";
 import DetailCard from "./DetailCard";
 import { eventDetails } from "@/utils/data";
+import { CustomCountdown } from "@/components/MonthlyCountdown";
 
 const isMobile = window.innerWidth < 768;;
 const details: DetailCardProps[] = [
@@ -36,6 +37,7 @@ export default function EventDetails() {
     } = eventDetails;
     
     const { id } = useParams();
+    const date = new Date("22 October 2025");
 
     return (
         <div key={id} className="flex flex-col gap-8 p-4">
@@ -97,6 +99,7 @@ export default function EventDetails() {
                 <h1 className="text-center text-2xl lg:text-4xl font-coolvetica text-aciu-darker-grey">
                     Registration Ends in:
                 </h1>
+                <CustomCountdown targetDate={new Date(date)} variant="inline" />
                 <div className="flex flex-col lg:flex-row gap-6 items-center justify-center w-full">
                     {/* Change to link component */}
                     <button className="w-full lg:w-fit p-6 rounded-[.625rem] bg-aciu-green-normal font-coolvetica text-white">

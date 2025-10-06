@@ -58,6 +58,7 @@ export default function LoginPage() {
                                     label="Email Address"
                                     name="email"
                                     type="email"
+                                    placeholder="princeugbuta@gmail.com"
                                     fullWidth
                                 />
 
@@ -65,6 +66,7 @@ export default function LoginPage() {
                                     label="Password"
                                     name="password"
                                     type="password"
+                                    placeholder="********"
                                     fullWidth
                                 />
                                 <div className="flex items-center justify-between">

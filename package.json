@@ -15,7 +15,7 @@
     "@emotion/styled": "^11.14.1",
     "@heroui/react": "^2.8.4",
     "@iconify/react": "^6.0.1",
-    "@mui/icons-material": "^7.2.0",
+    "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.2.0",
     "@solar-icons/react": "^1.0.1",
     "@tailwindcss/vite": "^4.1.11",
