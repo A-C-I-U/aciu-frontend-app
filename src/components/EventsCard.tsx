@@ -81,7 +81,7 @@ const UpcomingEventCard = (
                     <p className="font-montserrat text-aciu-border-grey font-medium text-sm md:text-base">
                         {label}
                     </p>
-                    <div className="w-full flex justify-between items-center">
+                    <div className="w-full flex flex-col gap-2 md:flex-row md:justify-between md:items-center">
                         <p className="md:text-xs lg:text-sm font-medium font-montserrat flex gap-2 items-center">
                             <Calendar size={20} variant="Linear" color="#3E3E3E" />
                             <span className="text-aciu-border-grey">{dateStr}</span>
