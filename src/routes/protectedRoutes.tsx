@@ -1,4 +1,14 @@
-import { Buildings2, Calendar2, DollarSquare, FolderOpen, Hashtag, Personalcard, Setting, I24Support, Stickynote } from "iconsax-react";
+import { 
+  Buildings2, 
+  Calendar2, 
+  DollarSquare, 
+  FolderOpen, 
+  Hashtag, 
+  Personalcard, 
+  Setting, 
+  I24Support, 
+  Stickynote 
+} from "iconsax-react";
 import Dashboard from "../pages/dashboard";
 import MyPaymentsPage from "@/pages/my-payment";
 import EventsPage from "@/pages/events";
@@ -10,6 +20,7 @@ import HelpAndSupportPage from "@/pages/help-and-support";
 import SettingsPage from "@/pages/settings";
 import EventDetails from "@/pages/events/components/EventDetails";
 import EventsList from "@/pages/events/components/EventsList";
+import BlogPostForm from "@/pages/blog/components/blog-posts/BlogPostForm";
 
 
 export const protectedRoutes = [
@@ -60,10 +71,23 @@ export const protectedRoutes = [
   },
     {
     path: "/blog",
-    element: <BlogPage />,
     label: "ACIU Blog",
     icon: Stickynote,
     roles: ["branch-admin", "national-admin"],
+    children: [
+      {
+        index: true,
+        element: <BlogPage />
+      },
+      {
+        path: "create",
+        element: <BlogPostForm type="create"/>
+      },
+      {
+        path: ":id/edit",
+        element: <BlogPostForm type="edit"/>
+      }
+    ]
   },
     {
     path: "/resources",
@@ -86,4 +110,5 @@ export const protectedRoutes = [
     icon: Setting,
     roles: ["member", "branch-admin", "national-admin"],
   },
+  
 ];

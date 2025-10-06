@@ -1,4 +1,5 @@
 import type React from "react"
+import { type JSONContent, Editor } from '@tiptap/react'
 
 export interface AuthCardProps {
     header?: string,
@@ -150,3 +151,33 @@ export interface PublicationDataType {
     status: "published" | "pending approval" | "rejected" | "draft"
 }
 
+export interface FileViewProps {
+    file: File;
+    name: string;
+    description: string;
+};
+
+export interface FileViewDrawerProps extends FileViewProps {
+    open: boolean,
+    onClose: () => void
+}
+
+export interface UploadResourceProps {
+    type: "upload" | "edit",
+    open: boolean,
+    onClose: () => void
+}
+
+export interface BlogPostFormValues {
+    title: string,
+    description: string,
+    tags: string[],
+    displayImage: string,
+    imageAlt: string,
+    content: string,
+    postVisibility: "public" | "private",
+    status: "published" | "pending approval" | "rejected" | "draft"
+}
+
+
+export type EditorContent = Editor | string | JSONContent | null;

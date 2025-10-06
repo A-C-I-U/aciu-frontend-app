@@ -66,3 +66,15 @@ export const publicationStatusMap: Record<PublicationDataType["status"], {
     }
 
 }
+
+export const getExtension = (file: File) => {
+  const name = file.name;
+  const parts = name.split(".");
+  return parts.length > 1 ? parts.pop()!.toLowerCase() : "";
+};
+
+export const formatSize = (bytes: number) => {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+};
