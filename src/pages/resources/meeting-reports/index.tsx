@@ -57,9 +57,8 @@ export default function MeetingReportsPage() {
                             }}
                             className="max-w-xs md:max-w-full"
                             onClick={() => {
-                                setOpenUpload(true);
+                                setOpenUpload(false);
                             }}
-                            disabled
                         >
                             {/* Trigger Upload Resource Drawer here */}
                             Upload Resource
