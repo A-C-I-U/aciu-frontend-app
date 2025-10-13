@@ -1,5 +1,6 @@
 import type React from "react"
 import { type JSONContent, Editor } from '@tiptap/react'
+import type { Icon } from "iconsax-react";
 
 export interface AuthCardProps {
     header?: string,
@@ -181,3 +182,12 @@ export interface BlogPostFormValues {
 
 
 export type EditorContent = Editor | string | JSONContent | null;
+
+export interface MenuCardProps {
+    icon: Icon,
+    title: string,
+    description: string,
+    route: string,
+    action?: boolean,
+    onClick?: () => void
+}
