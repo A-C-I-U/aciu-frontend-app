@@ -75,6 +75,7 @@ export default function ContactUsForm() {
                                     type="text"
                                     placeholder="John Doe"
                                     fullWidth
+                                    required
                                 />
                                 <FormikField
                                     label="Email Address"
@@ -82,22 +83,30 @@ export default function ContactUsForm() {
                                     type="email"
                                     placeholder="johndoe@gmail.com"
                                     fullWidth
+                                    required
                                 />
                                 <FormikField
                                     label="Phone Number"
                                     name="phoneNumber"
-                                    // placeholder=""
+                                    fullWidth
+                                    required
                                 />
                                 <FormikField
                                     label="Message Box"
                                     name="messageBox"
                                     type="text"
                                     placeholder="Kindly write extensively what your enquiry is here"
+                                    required
+                                    textarea
+                                    rows={5}
                                     fullWidth
                                 />
+                                
+
                             </Box>
                             <Button
                                 sx={{
+                                    mt: "2rem",
                                     color: 'white',
                                     fontSize: '.75rem',
                                     backgroundColor: !isValid ? '#ccc' : '#00B686',
