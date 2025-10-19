@@ -8,21 +8,27 @@ type FormikFieldProps = {
   label: string;
   name: string;
   placeholder?: React.ReactNode;
+  required?: boolean;
   type?: string;
   select?: boolean;
+  textarea?: boolean;
   options?: {
     value: string,
     label: string
   }[];
+  rows?: number;
   [key: string]: any;
 };
 
 export default function FormikField({ 
   label, 
   placeholder,
+  required,
   options,
   type = "text", 
   select = false, 
+  textarea = false,
+  rows = 4,
   ...props }: FormikFieldProps) {
 
   const [field, meta] = useField(props);
@@ -45,12 +51,14 @@ export default function FormikField({
           fontSize: '0.875rem'
         }}
       >
-        {label}
+        {label}{required && "*"}
       </FormLabel>
       <TextField
         {...field}
         {...props}
         select={select}
+        multiline={textarea}
+        rows={rows}
         type={isPasswordField && showPassword ? 'text' : type}
         placeholder={placeholder as string}
         label={placeholder}
