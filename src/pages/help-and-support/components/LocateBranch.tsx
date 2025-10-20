@@ -30,27 +30,41 @@ export default function LocateBranch({
             disableScrollLock
             sx={{
                 "& .MuiDialog-paper": {
-                    overflow: "hidden"
-                }
+                    overflow: "hidden",
+                    minWidth: {
+                        xs: "95%",
+                        md: "38.25rem"
+                    },
+                    margin: "0 auto"
+                },
+
+                
             }}
         >
             <Box
                 sx={{
                     boxSizing: "border-box",
-                    padding: "2.5rem 5rem",
+                    py: {
+                        xs: "1rem",
+                        md: "2.5rem"
+                    },
+                    px: {
+                        xs: "1rem",
+                        md: "5rem"
+                    },
                     display: "flex",
                     flexDirection: "column",
                     gap: ".625rem",
                     position: "relative",
-                    minWidth: {
-                        xs: "90%",
-                        md: "38.25rem"
-                    },
+                    width: "100%",
                     overflow: "hidden",
                     margin: "0 auto"
                 }}
             >
-                <div onClick={onClose} className="absolute right-[5rem] top-[2.5rem]">
+                <div 
+                    onClick={onClose} 
+                    className="absolute right-[2.5rem] top-[1.5rem] lg:right-[5rem] lg:top-[2.5rem]"
+                >
                     <X width={24} height={24} />
                 </div>
                 <Box
