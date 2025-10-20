@@ -12,7 +12,7 @@ import BranchSupportPage from "./components/BranchSupportPage";
 const MotionBox = motion(Box)
 export default function HelpAndSupportPage() {
     const [showBranchPopup, setShowBranchPopup] = useState(false);
-    const [page, setPage] = useState("index");
+    const [page, setPage] = useState<"index" | "branch-support">("index");
 
     return (
         <AnimatePresence>
@@ -132,7 +132,12 @@ export default function HelpAndSupportPage() {
                 }
 
                 {page === "branch-support" &&
-                    <BranchSupportPage />
+                    <BranchSupportPage 
+                        onBackToSupport={() => {
+                            setPage("index");
+                            setShowBranchPopup(false);
+                        }}
+                    />
                 }
             </Box>
         </AnimatePresence>
