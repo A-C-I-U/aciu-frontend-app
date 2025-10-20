@@ -78,7 +78,29 @@ export default function FormikField({
               sx: {
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: ".625rem",
-                borderRadius: ".5rem"
+                borderRadius: ".5rem",
+                "& .MuiMenuItem-root": {
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: ".875rem",
+                  color: "#3E3E3E",
+                  borderBottom: "1px solid #E2E2E2",
+                  "&:last-of-type": {
+                    borderBottom: "none",
+                  },
+                  "&:hover": {
+                    backgroundColor: "#F9FFFB",
+                    color: "#00B686",
+                  },
+                  "&.Mui-selected": {
+                    backgroundColor: "#E5FFF3",
+                    color: "#00B686",
+                    fontWeight: 600,
+                  },
+                  "&[data-value='']": {
+                    backgroundColor: "transparent",
+                    color: "#9CA3AF"
+                  }
+                },
               }
             },
             displayEmpty: true,
@@ -146,14 +168,21 @@ export default function FormikField({
           },
           "& .MuiInputBase-inputAdornedEnd": {
             width: "100%",
-          }
+          },
         }}
         >
-          {options && options.map((opt) => (
-            <MenuItem key={opt.value} value={opt.value} defaultValue={options[0].value}>
-              {opt.label}
-            </MenuItem>
-          ))}
+          {options && 
+          [
+            <MenuItem key="placeholder" value="" defaultValue="" disabled>
+              {placeholder}
+            </MenuItem>,
+            ...options.map((opt) => (
+              <MenuItem key={opt.value} value={opt.value} defaultValue={opt.value}>
+                {opt.label}
+              </MenuItem>
+            ))
+          ]}
+
         </TextField>
       {meta.touched && meta.error && (
         <span className="text-xs text-red-600 font-medium font-montserrat">
