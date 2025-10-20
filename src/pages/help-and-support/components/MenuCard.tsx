@@ -23,7 +23,8 @@ export default function MenuCard({
                 minWidth: {
                     xs: "100%",
                     lg: "16.5rem"
-                }
+                },
+                height: "100%"
             }}
         >
             <Box
@@ -57,13 +58,18 @@ export default function MenuCard({
                     cursor: "pointer",
                     width: "100%"
                 }}
-                className="help-and-support-card"
+                className="w-full h-full"
             >
                 {content}
             </Link>
         )
     }
     return (
-       <>{content}</>
+       <div 
+            className="cursor-pointer" 
+            onClick={() => onClick()}
+        >
+            {content}
+        </div>
     )
 }
