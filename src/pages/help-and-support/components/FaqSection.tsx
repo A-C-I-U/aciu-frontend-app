@@ -36,7 +36,7 @@ export default function FAQSection() {
                 >
                     FAQs
                 </button>
-                <p className="font-montserrat text-2xl font-semibold text-aciu-darker-grey">
+                <p className="font-montserrat text-center text-xl md:text-2xl font-semibold text-aciu-darker-grey">
                     Got Questions? We’ve Got Answers!
                 </p>
             </Box>
@@ -78,7 +78,10 @@ export default function FAQSection() {
                             <Typography
                                 sx={{
                                     fontFamily: "'Montserrat', sans-serif",
-                                    fontSize: "1.125rem",
+                                    fontSize: {
+                                        xs: "1rem",
+                                        md: "1.125rem"
+                                    },
                                     color: "#1D1D1D",
                                     lineHeight: "1.75rem",
                                 }}>
@@ -87,13 +90,17 @@ export default function FAQSection() {
                         </AccordionSummary>
                         <AccordionDetails
                             sx={{
-                                padding: "0 1rem"
+                                padding: "0 1rem",
+                                
                             }}
                         >
                             <Typography
                                 sx={{
                                     fontFamily: "'Montserrat', sans-serif",
-                                    fontSize: "1.125rem",
+                                    fontSize: {
+                                        xs: ".875rem",
+                                        md: "1rem"
+                                    },
                                     color: "#737373",
                                     lineHeight: "1.75rem",
                                 }}>

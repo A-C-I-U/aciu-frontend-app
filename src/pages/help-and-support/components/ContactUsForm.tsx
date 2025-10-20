@@ -1,16 +1,7 @@
 import FormikField from "@/components/FormikField";
+import { contactUsSchema } from "@/utils/schemas";
 import { Box, Button } from "@mui/material";
 import { Form, Formik } from "formik";
-import { object, string } from "yup";
-
-const contactUsSchema = object({
-    fullName: string().required('Full name is required'),
-    email: string().email("Invalid email address").required("Email is required"),
-    phoneNumber: string()
-        .matches(/^\+\d{10,15}$/, 'Must be a valid phone number with country code')
-        .required('Phone number is required'),
-    messageBox: string().required('Kindly write extensively what your query is here')
-})
 
 export default function ContactUsForm() {
     const handleSubmit = async (values: any, actions: any) => {
@@ -41,10 +32,10 @@ export default function ContactUsForm() {
                     gap="1.125rem"
                 >
                     <button
-                        className="rounded-[.625rem] 
-                        border border-aciu-green-normal 
+                        className="rounded-[.625rem] font-semibold 
+                        border border-aciu-green-normal font-coolvetica
                         px-[1.4rem] py-[.9rem] max-w-fit
-                        text-xs text-aciu-green-normal"
+                        text-xs text-aciu-green-normal cursor-default"
                     >
                         Contact us
                     </button>
@@ -88,6 +79,7 @@ export default function ContactUsForm() {
                                 <FormikField
                                     label="Phone Number"
                                     name="phoneNumber"
+                                    placeholder="09038283447"
                                     fullWidth
                                     required
                                 />
@@ -108,7 +100,7 @@ export default function ContactUsForm() {
                                 sx={{
                                     mt: "2rem",
                                     color: 'white',
-                                    fontSize: '.75rem',
+                                    fontFamily: "'Coolvetica', sans-serif",
                                     backgroundColor: !isValid ? '#ccc' : '#00B686',
                                     borderRadius: '.75rem',
                                     padding: '1rem',

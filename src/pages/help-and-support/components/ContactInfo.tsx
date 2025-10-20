@@ -4,8 +4,14 @@ export default function ContactInfo() {
     return (
         <Box
             borderRadius=".625rem"
-            py="3.3rem"
-            px="3rem"
+            py={{
+                xs: "1.375rem",
+                md: "3.3rem"
+            }}
+            px={{
+                xs: ".875rem",
+                md: "3rem"
+            }}
             display="flex"
             flexDirection="column"
             bgcolor="#FBF4E1"
