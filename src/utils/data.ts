@@ -1,14 +1,15 @@
 import { Calendar2, DollarSquare, FolderOpen, Routing } from "iconsax-react";
 import type { 
-    EventDetailsProps, 
-    EventItemProps, 
-    FeaturedPostCardType, 
-    FileViewProps, 
-    MenuCardProps, 
-    OptionLabelProps, 
-    PublicationCardProps, 
-    PublicationDataType, 
-    RegularPostCardType 
+  BranchExecCardProps,
+  EventDetailsProps, 
+  EventItemProps, 
+  FeaturedPostCardType, 
+  FileViewProps, 
+  MenuCardProps, 
+  OptionLabelProps, 
+  PublicationCardProps, 
+  PublicationDataType, 
+  RegularPostCardType 
 } from "./types";
 
 export const BRANCHES: string[] = [
@@ -380,4 +381,50 @@ export const helpAndSupportAccordion = [
         summary: "I need help with my login or dashboard. What should I do?",
         content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
     },
+]
+
+
+export const branchExecutiveMockData: BranchExecCardProps[] = [
+  {
+    name: "Mazi Emeka Kalu",
+    position: "Chairman",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Adaora Emezi",
+    position: "Secretary",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Mr. Ikenna O.",
+    position: "Treasurer",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Mazi Emeka Kalu",
+    position: "Chairman",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Adaora Emezi",
+    position: "Secretary",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Mr. Ikenna O.",
+    position: "Treasurer",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  }
 ]

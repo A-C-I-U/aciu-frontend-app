@@ -58,3 +58,18 @@ export const forgotPasswordSchemas = [
             .required("Confirm your password")
     })
 ]
+
+export const contactUsSchema = object({
+    fullName: string().required('Full name is required'),
+    email: string().email("Invalid email address").required("Email is required"),
+    phoneNumber: string()
+        .matches(/^\+\d{10,15}$/, 'Must be a valid phone number with country code')
+        .required('Phone number is required'),
+    messageBox: string().required('Kindly write extensively what your query is here')
+});
+
+
+export const locateBranchSchema = object({
+    location: string().required('Location is required'),
+    branch: string().required("Branch name is required")
+})

@@ -191,3 +191,18 @@ export interface MenuCardProps {
     action?: boolean,
     onClick?: () => void
 }
+
+
+export interface BranchExecCardProps {
+    name: string,
+    position: string,
+    occupation: string,
+    email: string,
+    phoneNumber: string
+}
+
+export interface LocateBranchProps {
+    open: boolean,
+    onClose: () => void,
+    onBranchLocation: () => void
+}
