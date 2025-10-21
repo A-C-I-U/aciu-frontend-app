@@ -16,7 +16,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
 }) => {
   return (
     <div className="flex justify-between items-center w-full">
-      <div className="flex flex-col gap-4 lg:flex-row lg:gap-0 lg:justify-between lg:items-center w-full">
+      <div className="flex flex-col lg:gap-4 lg:flex-row lg:justify-between lg:items-center w-full">
         <h1 className="font-coolvetica text-lg lg:text-xl font-bold text-aciu-border-grey">
           {title}
         </h1>

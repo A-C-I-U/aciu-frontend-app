@@ -19,7 +19,7 @@ const projectsTabs: TabItem[] = [
     }
 ]
 
-const MotionBox = motion(Box);
+const MotionBox = motion.create(Box);
 
 export default function ProjectsPage() {
     const [activeTab, setActiveTab] = useState<TabItem>(projectsTabs[0]);
