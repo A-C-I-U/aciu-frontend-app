@@ -9,7 +9,7 @@ import FAQSection from "./components/FaqSection";
 import LocateBranch from "./components/LocateBranch";
 import BranchSupportPage from "./components/BranchSupportPage";
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 export default function HelpAndSupportPage() {
     const [showBranchPopup, setShowBranchPopup] = useState(false);
     const [page, setPage] = useState<"index" | "branch-support">("index");
@@ -20,6 +20,7 @@ export default function HelpAndSupportPage() {
                 {page === "index" &&
                     <>
                         <MotionBox
+                            key="index"
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
@@ -62,8 +63,9 @@ export default function HelpAndSupportPage() {
                                     description, 
                                     route, 
                                     action
-                                }) => (
+                                }, index) => (
                                     <MenuCard
+                                        key={index}
                                         icon={icon}
                                         title={title}
                                         description={description}
@@ -77,6 +79,7 @@ export default function HelpAndSupportPage() {
 
                         {/* FAQ Section */}
                         <MotionBox
+                            key="faq-section"
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
