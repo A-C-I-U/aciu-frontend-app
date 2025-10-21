@@ -8,7 +8,7 @@ import { StatTag } from "./BranchStatTag"
 import { BranchLeadershipTab } from "./BranchLeadershipTab"
 import EventsList from "@/pages/events/components/EventsList"
 
-const MotionBox = motion(Box)
+const MotionBox = motion.create(Box)
 
 const branchSupportTabs: TabItem[] = [
     { 
@@ -201,6 +201,7 @@ export default function BranchSupportPage({
                 {/* SCREEN 2: Content */}
                 {screen === "content" && activeTab && (
                     <MotionBox
+                        key={activeTab?.key}
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
