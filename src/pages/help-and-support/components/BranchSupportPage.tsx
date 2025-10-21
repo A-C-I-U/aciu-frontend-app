@@ -45,202 +45,184 @@ export default function BranchSupportPage({
   const isDesktop = !isMobile;
 
   return (
-    <Box>
-      {/* === DESKTOP === */}
-      {isDesktop && (
-        <MotionBox
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-          borderRadius=".625rem"
-          bgcolor="#fff"
-          mx="1.25rem"
-          py="1rem"
-          display="flex"
-          flexDirection="column"
-          gap="2rem"
-          position="relative"
-        >
-            <Button
-                onClick={onBackToSupport}
-                sx={{
-                    color: "#00B686",
-                    textTransform: "none",
-                    fontFamily: "'Montserrat', sans-serif",
-                    fontSize: ".875rem",
-                    mb: 2,
-                    position: "absolute",
-                    left: ".5rem"
-                }}
-            >
-                <ArrowLeft2 size={20} color="#00B686" />
-                <span className="ml-3">Back</span>
-            </Button>
-            <Box
+    <div>
+        {/* === DESKTOP === */}
+        {isDesktop && (
+            <MotionBox
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                borderRadius=".625rem"
+                bgcolor="#fff"
+                mx="1.25rem"
+                py="1rem"
                 display="flex"
                 flexDirection="column"
-                gap={2}
-                px={{ xs: ".5rem", md: "1rem" }}
-                alignItems="center"
+                gap="2rem"
+                position="relative"
+            >
+               <button
+                    type="button"
+                    onClick={onBackToSupport}
+                    className="absolute left-4 mb-2 flex items-center text-aciu-neutral font-montserrat text-sm
+                        border border-neutrals-100 rounded-[0.75rem] px-4 py-4 bg-transparent hover:bg-neutrals-50 transition-colors"
                 >
-                <BranchInitials branchName="Lagos Branch" />
-                <h2 className="text-xl font-coolvetica text-aciu-border-grey">
-                    ACIU Lagos Mainland Branch
-                </h2>
+                    <ArrowLeft2 size={20} color="#898483" />
+                    <span className="ml-3">Go Back</span>
+                </button>
 
-                <Box display="flex" gap={2} alignItems="center">
+                <div className="flex flex-col gap-2 px-2 md:px-4 items-center">
+                    <BranchInitials branchName="Lagos Branch" />
+                    <h2 className="text-xl font-coolvetica text-aciu-border-grey">
+                        ACIU Lagos Mainland Branch
+                    </h2>
+
+                    <div className="flex items-center gap-2">
                     {[
                         { icon: People, stat: "172 registered members" },
                         { icon: Verify, stat: "Verified and Active" },
                     ].map(({ icon, stat }, i) => (
                         <StatTag key={i} icon={icon} stat={stat} />
                     ))}
-                </Box>
+                    </div>
 
-                <Box textAlign="center" display="flex" flexDirection="column" gap=".5rem">
-                    <p className="text-aciu-abriba font-montserrat">Meeting Location</p>
-                    <p className="font-montserrat font-medium text-aciu-border-grey">
-                        Community Hall, Bode Thomas Street, Surulere, Lagos State
-                    </p>
-                </Box>
+                    <div className="flex flex-col gap-2 text-center">
+                        <p className="text-aciu-abriba">Meeting Location</p>
+                        <p className="font-medium text-aciu-border-grey">
+                            Community Hall, Bode Thomas Street, Surulere, Lagos State
+                        </p>
+                    </div>
 
-                <Button
-                    sx={{
-                    padding: "1rem",
-                    color: "white",
-                    borderRadius: ".75rem",
-                    backgroundColor: "#00B686",
-                    fontFamily: "'Coolvetica', sans-serif",
-                    textTransform: "unset",
-                    }}
-                >
-                    Locate on map
-                </Button>
-            </Box>
-
-            {/* Tabs */}
-            <Box textAlign="center">
-                <div className="flex gap-4 md:gap-8 justify-center w-full mx-auto">
-                {branchSupportTabs.map((tab) => (
-                    <button
-                    key={tab.key}
-                    onClick={() => setActiveTab(tab)}
-                    className={`${
-                        activeTab?.key === tab.key
-                        ? "text-aciu-red font-semibold"
-                        : "text-aciu-abriba font-medium pb-4"
-                    } text-xs md:text-sm font-montserrat flex flex-col gap-4`}
+                    <Button
+                        sx={{
+                            padding: "1rem",
+                            color: "white",
+                            borderRadius: ".75rem",
+                            backgroundColor: "#00B686",
+                            fontFamily: "'Coolvetica', sans-serif",
+                            textTransform: "unset",
+                        }}
                     >
-                    {tab.label}
-                    {activeTab?.key === tab.key && (
-                        <span className="block w-full h-[2px] bg-aciu-red mt-2 rounded-full"></span>
-                    )}
-                    </button>
-                ))}
+                        Locate on map
+                    </Button>
                 </div>
-                <hr className="w-full border-t-[.5px] text-aciu-dark-grey" />
-            </Box>
 
-            <MotionBox
-                key={activeTab?.key}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.4 }}
-                className="px-4 mt-4"
-            >
-                {activeTab?.content}
-            </MotionBox>
+                {/* Tabs */}
+                <div className="text-center">
+                    <div className="flex gap-4 md:gap-8 justify-center w-full mx-auto">
+                        {branchSupportTabs.map((tab) => (
+                            <button
+                                key={tab.key}
+                                onClick={() => setActiveTab(tab)}
+                                className={`${
+                                    activeTab?.key === tab.key
+                                    ? "text-aciu-red font-semibold"
+                                    : "text-aciu-abriba font-medium pb-4"
+                                } text-xs md:text-sm font-montserrat flex flex-col gap-4`}
+                            >
+                                {tab.label}
+                                {activeTab?.key === tab.key && (
+                                    <span className="block w-full h-0.5 bg-aciu-red mt-2 rounded-full"></span>
+                                )}
+                            </button>
+                        ))}
+                    </div>
+                    <hr className="w-full border-t-[.5px] text-aciu-dark-grey" />
+                </div>
+
+                <MotionBox
+                    key={activeTab?.key}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                    className="px-4 mt-4"
+                >
+                    {activeTab?.content}
+                </MotionBox>
             </MotionBox>
         )}
 
         {/* === MOBILE === */}
         {!isDesktop && (
             <MotionBox
-            key={screen}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            mx="1.25rem"
-            mt={3}
+                key={screen}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                mx="1.25rem"
+                mt={3}
             >
-            {/* SCREEN 1: Overview */}
-            {screen === "overview" && (
-                <>
-                    <Box
-                        display="flex"
-                        flexDirection="column"
-                        gap={2}
-                        alignItems="center"
+                {/* SCREEN 1: Overview */}
+                {screen === "overview" && (
+                    <div className="relative">
+                        <button
+                            type="button"
+                            onClick={onBackToSupport}
+                            className="absolute left-4 top-4 mb-2 flex items-center text-aciu-neutral font-montserrat text-xs
+                                border border-neutrals-100 rounded-[0.75rem] px-2 py-2 bg-transparent hover:bg-neutrals-50 transition-colors"
+                        >
+                            <ArrowLeft2 size={18} color="#898483" />
+                        </button>
+                        <div className="flex flex-col gap-2 items-center bg-white rounded-[0.625rem] py-3 px-3">
+                            <BranchInitials branchName="Lagos Branch" />
+                            <h2 className="text-xl font-coolvetica text-aciu-border-grey">
+                                ACIU Lagos Mainland Branch
+                            </h2>
+                            <div className="flex flex-col gap-2">
+                                <StatTag icon={People} stat="172 registered members" />
+                                <StatTag icon={Verify} stat="Verified and Active" />
+                            </div>
+                            <div className="flex flex-col gap-2 text-center">
+                                <p className="text-aciu-abriba">Meeting Location</p>
+                                <p className="font-medium text-aciu-border-grey">
+                                    Community Hall, Bode Thomas Street, Surulere, Lagos State
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Mobile Tabs */}
+                        <div className="flex flex-col gap-2 mt-3 w-full">
+                            {branchSupportTabs.map((tab) => (
+                                <button
+                                    key={tab.key}
+                                    onClick={() => handleOpenContent(tab)}
+                                    className="w-full flex justify-between items-center p-4.5 bg-white h-19 rounded-[.625rem]"
+                                >
+                                    <span className="font-medium font-montserrat text-sm text-aciu-abriba leading-[140%]">
+                                        {tab.label}
+                                    </span>
+                                    <ArrowRight2 size={20} variant="Linear" color="#151515" />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+
+                {/* SCREEN 2: Content */}
+                {screen === "content" && activeTab && (
+                    <MotionBox
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
                         bgcolor="#fff"
                         borderRadius=".625rem"
                         py={3}
-                        px={3}
+                        px={2}
                     >
-                        <BranchInitials branchName="Lagos Branch" />
-                        <h2 className="text-xl font-coolvetica text-aciu-border-grey">
-                        ACIU Lagos Mainland Branch
-                        </h2>
-                        <Box display="flex" flexDirection="column" gap={2}>
-                            <StatTag icon={People} stat="172 registered members" />
-                            <StatTag icon={Verify} stat="Verified and Active" />
-                        </Box>
-                        <Box textAlign="center" display="flex" flexDirection="column" gap=".5rem">
-                            <p className="text-aciu-abriba font-montserrat">Meeting Location</p>
-                            <p className="font-montserrat font-medium text-aciu-border-grey">
-                                Community Hall, Bode Thomas Street, Surulere, Lagos State
-                            </p>
-                        </Box>
-                    </Box>
-
-                    {/* Mobile Tabs */}
-                    <Box display="flex" flexDirection="column" gap={2} mt={3} width="full">
-                        {branchSupportTabs.map((tab) => (
-                            <button
-                                key={tab.key}
-                                onClick={() => handleOpenContent(tab)}
-                                className="w-full flex justify-between items-center p-[1.125rem] bg-white h-[4.75rem] rounded-[.625rem]"
-                                >
-                                <span className="font-medium font-montserrat text-sm text-aciu-abriba leading-[140%]">
-                                    {tab.label}
-                                </span>
-                                <ArrowRight2 size={20} variant="Linear" color="#151515" />
-                            </button>
-                        ))}
-                    </Box>
-                </>
-            )}
-
-
-          {/* SCREEN 2: Content */}
-          {screen === "content" && activeTab && (
-            <MotionBox
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
-              bgcolor="#fff"
-              borderRadius=".625rem"
-              py={3}
-              px={2}
-            >
-              <Button
-                onClick={handleBack}
-                sx={{
-                  color: "#00B686",
-                  textTransform: "none",
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: ".875rem",
-                  mb: 2,
-
-                }}
-              >
-                <ArrowLeft2 size={20} color="#00B686" />
-                <span className="ml-3">Back</span>
-              </Button>
-              {activeTab.content}
+                       <button
+                            type="button"
+                            onClick={handleBack}
+                            className="md:absolute left-4 mb-2 flex items-center text-aciu-neutral font-montserrat text-sm
+                                border border-neutrals-100 rounded-[0.75rem] p-2 md:p-4 bg-transparent hover:bg-neutrals-50 transition-colors"
+                        >
+                            <ArrowLeft2 size={isDesktop ? 20 : 18} color="#898483" />
+                            <span className="ml-3 hidden lg:inline-block">Go Back</span>
+                        </button>
+                        {activeTab.content}
+                    </MotionBox>
+                )}
             </MotionBox>
-          )}
-        </MotionBox>
-      )}
-    </Box>
+        )}
+    </div>
     )
 }

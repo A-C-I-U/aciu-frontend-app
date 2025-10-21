@@ -1,5 +1,5 @@
 import { helpAndSupportAccordion } from "@/utils/data";
-import { Accordion, Box,  AccordionDetails, AccordionSummary, Typography } from "@mui/material";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import { useState } from "react";
 import { MinusCircle, PlusCircle } from "lucide-react";
 
@@ -12,104 +12,61 @@ export default function FAQSection() {
     };
 
     return (
-        <Box
-            width={{
-                base: "100%",
-                lg: "65%"
-            }}
-            mx="auto"
-            display="flex"
-            flexDirection="column"
-            gap="3rem"
-        >
-            <Box
-                display="flex"
-                flexDirection="column"
-                gap={5}
-                alignItems="center"
-            >
+       <div className="flex flex-col gap-12 w-full lg:w-[65%] mx-auto">
+            {/* Header */}
+            <div className="flex flex-col gap-5 items-center">
                 <button
-                    className="rounded-[.625rem] 
-                    border border-aciu-green-normal 
-                    px-[1.4rem] py-[.9rem] max-w-fit
-                    text-xs text-aciu-green-normal"
+                    className="
+                        rounded-[.625rem] border border-aciu-green-normal px-5.5 py-3.5
+                        max-w-fit text-xs text-aciu-green-normal"
                 >
                     FAQs
                 </button>
-                <p className="font-montserrat text-center text-xl md:text-2xl font-semibold text-aciu-darker-grey">
+                <p className="text-center text-xl md:text-2xl font-semibold text-aciu-darker-grey">
                     Got Questions? We’ve Got Answers!
                 </p>
-            </Box>
-            <Box
-                display="flex"
-                flexDirection="column"
-                gap="1.5rem"
-            >
+            </div>
+
+            {/* Accordions */}
+            <div className="flex flex-col gap-6">
                 {helpAndSupportAccordion.map(({ id, summary, content }) => (
                     <Accordion
-                        expanded={expanded === `panel${id}`} 
+                        key={id}
+                        expanded={expanded === `panel${id}`}
                         onChange={handleAccordionChange(`panel${id}`)}
                         sx={{
                             boxShadow: "none",
                             padding: "1.5rem 0 0 0",
-                             "&.Mui-expanded": {
-                                padding: 0
-                            },
-                            "&:first-of-type": {
-                                borderTop: "none",
-                                paddingTop: 0,
-                            },
-
-                            "&:last-of-type": {
-                                paddingBottom: 0,
-                                marginBottom: 0,
-                            },
+                            "&.Mui-expanded": { padding: 0 },
+                            "&:first-of-type": { borderTop: "none", paddingTop: 0 },
+                            "&:last-of-type": { paddingBottom: 0, marginBottom: 0 },
                             transition: "all 0.2s ease-in-out",
                         }}
                     >
                         <AccordionSummary
-                            expandIcon={(expanded === `panel${id}`) ? 
-                                <MinusCircle size={20} color="#00B686" /> : 
-                                <PlusCircle size={20} color="#00B686"/>
+                            expandIcon={
+                                expanded === `panel${id}` ? (
+                                <MinusCircle size={20} color="#00B686" />
+                                ) : (
+                                <PlusCircle size={20} color="#00B686" />
+                                )
                             }
                             aria-controls={`panel${id}-content`}
                             id={`panel${id}-content`}
                         >
-                            <Typography
-                                sx={{
-                                    fontFamily: "'Montserrat', sans-serif",
-                                    fontSize: {
-                                        xs: "1rem",
-                                        md: "1.125rem"
-                                    },
-                                    color: "#1D1D1D",
-                                    lineHeight: "1.75rem",
-                                }}>
-                                    {summary}
-                                </Typography>
+                            <p className="text-aciu-darker-grey md:text-lg leading-7">
+                                {summary}
+                            </p>
                         </AccordionSummary>
-                        <AccordionDetails
-                            sx={{
-                                padding: "0 1rem",
-                                
-                            }}
-                        >
-                            <Typography
-                                sx={{
-                                    fontFamily: "'Montserrat', sans-serif",
-                                    fontSize: {
-                                        xs: ".875rem",
-                                        md: "1rem"
-                                    },
-                                    color: "#737373",
-                                    lineHeight: "1.75rem",
-                                }}>
-                                    {content}
-                                </Typography>
+
+                        <AccordionDetails sx={{ padding: "0 1rem" }}>
+                            <p className="text-aciu-abriba text-sm md:text-base leading-7">
+                                {content}
+                            </p>
                         </AccordionDetails>
                     </Accordion>
-                ))}
-            </Box>
-        </Box>
+                    ))}
+            </div>
+        </div>
     )
 }
