@@ -1,5 +1,3 @@
-import { Box, Typography } from "@mui/material";
-
 export const BranchInitials = ({ branchName }: { branchName: string }) => {
     const nameParts = branchName.split(' ');
     let initials = '';
@@ -11,24 +9,15 @@ export const BranchInitials = ({ branchName }: { branchName: string }) => {
     }
 
     return (
-        <Box
-            display="flex"
-            width="4.25rem"
-            height="4.25rem"
-            border="3px solid #00B686"
-            bgcolor="#D9F7EA"
-            alignItems="center"
-            justifyContent="center"
-            borderRadius="2.125rem"
+        <div
+            className="flex items-center justify-center w-17 h-17 border-3 border-aciu-green-normal bg-aciu-green-light-hover rounded-[2.125rem]"
         >
-            <Typography
-                fontFamily="'Coolvetica', sans-serif"
-                fontWeight="bold"
-                fontSize="1.5rem"
-                lineHeight="1.5rem"
+            <p
+                className="font-coolvetica font-bold text-2xl leading-6"
             >
                 {initials}
-            </Typography>
-        </Box>
+            </p>
+        </div>
+
     )
 }

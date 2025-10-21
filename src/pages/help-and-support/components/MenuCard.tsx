@@ -1,5 +1,4 @@
 import type { MenuCardProps } from "@/utils/types";
-import { Box } from "@mui/material";
 import { Link } from "react-router-dom";
 
 export default function MenuCard({
@@ -11,41 +10,27 @@ export default function MenuCard({
 }: MenuCardProps) {
 
     const content = (
-        <Box
-            borderRadius=".625rem"
-            border="1px solid #EEEEEE"
-            paddingY=".875rem"
-            paddingX=".688rem"
-            display="flex"
-            flexDirection="column"
-            gap={2}
-            sx={{
-                minWidth: {
-                    xs: "100%",
-                    lg: "16.5rem"
-                },
-                height: "100%"
-            }}
+       <div
+            className="flex flex-col gap-2 rounded-[0.625rem] border border-aciu-light-grey py-3.5 px-2.5 min-w-full lg:min-w-66 h-full"
         >
-            <Box
-                px="7px"
-                py="7px"
-                width="fit-content"
-                height="fit-content"
-                bgcolor="#E6F8F3"
-                borderRadius="5.65px"
-                border="1px solid #EEEEEE"
+            {/* Icon container */}
+            <div
+                className="w-fit h-fit px-2 py-2 bg-aciu-green-light rounded-[5.65px] border border-aciu-light-grey"
             >
                 <Icon size={20} color="#00B686" />
-            </Box> 
-            <p className="font-semibold font-montserrat leading-6"
-            >
+            </div>
+
+            {/* Title */}
+            <p className="font-semibold leading-6">
                 {title}
             </p>
+
+            {/* Description */}
             <p className="text-sm leading-6 text-aciu-dark-grey-active">
                 {description}
             </p>
-        </Box>
+        </div>
+
     )
 
     if (!onClick) {
@@ -65,11 +50,11 @@ export default function MenuCard({
         )
     }
     return (
-       <div 
-            className="cursor-pointer" 
+       <button
             onClick={() => onClick()}
+            className="text-left"
         >
             {content}
-        </div>
+        </button>
     )
 }

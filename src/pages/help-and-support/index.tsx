@@ -16,13 +16,7 @@ export default function HelpAndSupportPage() {
 
     return (
         <AnimatePresence>
-            <Box
-                mt="1rem"
-                marginBottom="6vw"
-                display="flex"
-                flexDirection="column"
-                gap={6}
-            >
+            <div className="mt-4 mb-[6vw] flex flex-col gap-12">
                 {page === "index" &&
                     <>
                         <MotionBox
@@ -42,41 +36,26 @@ export default function HelpAndSupportPage() {
                             flexDirection="column"
                             gap={6}
                         >
-                            <Box
-                                sx={{
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    gap: 4,
-                                    maxWidth: {
-                                        sm: "100%",
-                                        lg: "70%"
-                                    }
-                                }}
-                            
-                            >
+
+                            {/* Intro Section */}
+                            <div className="flex flex-col gap-4 w-full lg:w-[70%]">
                                 <h2 
-                                    className="font-coolvetica font-bold text-aciu-border-grey text-[1.25rem] leading-[120%]"
+                                    className="font-coolvetica font-bold text-aciu-border-grey text-xl line-height-120"
                                 >
                                     Help & Support
                                 </h2>
-                                <p className="font-montserrat text-aciu-abriba leading-6">
+                                <p className="text-aciu-abriba leading-6">
                                     From locating your branch to resolving account issues 
                                     this is your central help desk. 
                                     <span className="block"></span>
                                     Explore common questions, get quick access, 
                                     and stay connected no matter where you are in the world.
                                 </p>
-                            </Box>
-                            <Box
-                                display="grid"
-                                gap="20px"
-                                gridTemplateColumns={{
-                                    xs: "1fr",
-                                    md: "1fr 1fr",
-                                    lg: "1fr 1fr 1fr 1fr"
-                                }}
-                                alignItems="stretch"
-                            >
+                            </div>
+
+
+                            {/* Help and Support Grid */}
+                            <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch">
                                 {helpSupportMenu && helpSupportMenu.map(({ 
                                     icon, 
                                     title, 
@@ -92,9 +71,11 @@ export default function HelpAndSupportPage() {
                                         onClick={action ? () => {setShowBranchPopup(true)} : undefined}
                                     />
                                 ))}
-                            </Box>
+                            </div>
                         </MotionBox>
 
+
+                        {/* FAQ Section */}
                         <MotionBox
                             initial={{ opacity: 0, y: -20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -107,20 +88,13 @@ export default function HelpAndSupportPage() {
                         >
                             <FAQSection />
                         </MotionBox>
-                        <Box
-                            display="grid"
-                            gridTemplateColumns={{
-                                xs: "1fr",
-                                lg: "repeat(2, 1fr)"
-                            }}
-                            columnGap="20px"
-                            rowGap="20px"
-                            alignItems="stretch"
-                            mx="1.25rem"
-                        >
+
+
+                        {/* Contact + Info Grid */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch mx-5">
                             <ContactUsForm />
                             <ContactInfo />
-                        </Box>
+                        </div>
                         
 
                         <LocateBranch 
@@ -139,7 +113,7 @@ export default function HelpAndSupportPage() {
                         }}
                     />
                 }
-            </Box>
+            </div>
         </AnimatePresence>
     )
 }
