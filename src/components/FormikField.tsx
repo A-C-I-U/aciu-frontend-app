@@ -61,7 +61,7 @@ export default function FormikField({
         rows={rows}
         type={isPasswordField && showPassword ? 'text' : type}
         placeholder={placeholder as string}
-        label={placeholder}
+        label={!select ? placeholder : ''}
         error={meta.touched && !!meta.error}
         helperText={meta.touched && meta.error}
         slotProps={{
