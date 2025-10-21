@@ -206,3 +206,13 @@ export interface LocateBranchProps {
     onClose: () => void,
     onBranchLocation: () => void
 }
+
+export interface ProjectCardProps {
+    name: string,
+    image: string,
+    badge: string,
+    targetFunds: string,
+    collectedFunds: string,
+    description: string,
+    link: string
+}

@@ -7,6 +7,7 @@ import type {
   FileViewProps, 
   MenuCardProps, 
   OptionLabelProps, 
+  ProjectCardProps, 
   PublicationCardProps, 
   PublicationDataType, 
   RegularPostCardType 
@@ -427,4 +428,74 @@ export const branchExecutiveMockData: BranchExecCardProps[] = [
     email: "emeka.kalu@aciu.org",
     phoneNumber: "+234 903 828 3447"
   }
+]
+
+export const ongoingProjects: ProjectCardProps[] = [
+  {
+    name: "Scholarship Fund 2025",
+    image: "/images/abriba-event.jpg",
+    badge: "Student Scholarships",
+    targetFunds: "1200000",
+    collectedFunds: "600000",
+    description: `This project will restore the leaking roof 
+      of the only health centre 
+      in Amogudu village, ensuring safe care for residents and children.`,
+    link: ""
+  },
+  {
+    name: "Amogudu Health Centre Roof Repair",
+    image: "/images/abriba-event.jpg",
+    badge: "Community Infrastructure",
+    targetFunds: "1200000",
+    collectedFunds: "60000000",
+    description: `This project will restore the leaking roof 
+      of the only health centre 
+      in Amogudu village, ensuring safe care for residents and children.`,
+    link: ""
+  },
+  {
+    name: "Water Borehole for Itumbauzo Road Axis",
+    image: "/images/abriba-event.jpg",
+    badge: "Health Outreach",
+    targetFunds: "1200000",
+    collectedFunds: "600000",
+    description: `This project will restore the leaking roof 
+      of the only health centre 
+      in Amogudu village, ensuring safe care for residents and children.`,
+    link: ""
+  },
+  {
+    name: "Scholarship Fund 2025",
+    image: "/images/abriba-event.jpg",
+    badge: "Student Scholarships",
+    targetFunds: "60000000",
+    collectedFunds: "12000000",
+    description: `This project will restore the leaking roof 
+      of the only health centre 
+      in Amogudu village, ensuring safe care for residents and children.`,
+    link: ""
+  },
+  {
+    name: "Amogudu Health Centre Roof Repair",
+    image: "/images/abriba-event.jpg",
+    badge: "Community Infrastructure",
+    targetFunds: "12000000",
+    collectedFunds: "6000000",
+    description: `This project will restore the leaking roof 
+      of the only health centre 
+      in Amogudu village, ensuring safe care for residents and children.`,
+    link: ""
+  },
+  {
+    name: "Water Borehole for Itumbauzo Road Axis",
+    image: "/images/abriba-event.jpg",
+    badge: "Health Outreach",
+    targetFunds: "12000000",
+    collectedFunds: "6000000",
+    description: `This project will restore the leaking roof 
+      of the only health centre 
+      in Amogudu village, ensuring safe care for residents and children.`,
+    link: ""
+  },
+
 ]
