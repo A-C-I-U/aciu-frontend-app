@@ -1,4 +1,4 @@
-import { LinearProgress, Tooltip } from "@mui/material";
+import { LinearProgress } from "@mui/material";
 
 interface DonationProgressBarProps {
   collected: number;
@@ -7,7 +7,8 @@ interface DonationProgressBarProps {
 
 
 export default function DonationProgressBar({ collected, target }: DonationProgressBarProps) {
-  const percentage = (collected / target) * 100;
+  const floatingPercentage = (collected / target) * 100;
+  const percentage = Math.round(floatingPercentage)
 
   const formatCurrency = (amount: number) => {
     const formatNumber = (num: number) => {
@@ -27,10 +28,10 @@ export default function DonationProgressBar({ collected, target }: DonationProgr
 
   return (
       <div className="flex flex-col gap-1.5 w-full">
-        <Tooltip title={`${percentage.toFixed(2)}%`} placement="top">
+        <div className="relative w-full">
           <LinearProgress
             variant="determinate"
-            value={percentage}
+            value={Math.min(percentage, 100)}
             sx={{
               width: "100%",
               height: ".625rem",
@@ -44,7 +45,16 @@ export default function DonationProgressBar({ collected, target }: DonationProgr
               },
             }}
           />
-        </Tooltip>
+          <span
+            className="absolute -top-6 bg-[#00B686] text-white text-xs px-2 py-[2px] rounded transition-all duration-300"
+            style={{
+              left: `${Math.min(percentage, 100)}%`,
+              transform: "translateX(-50%)",
+            }}
+          >
+            {Math.min(percentage, 100)}%
+          </span>
+        </div>
 
         <div className="flex justify-between items-center">
           <p className="text-xs text-aciu-border-grey font-semibold">

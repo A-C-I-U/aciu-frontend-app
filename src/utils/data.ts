@@ -490,8 +490,8 @@ export const ongoingProjects: ProjectCardProps[] = [
     name: "Water Borehole for Itumbauzo Road Axis",
     image: "/images/abriba-event.jpg",
     badge: "Health Outreach",
-    targetFunds: "12000000",
-    collectedFunds: "6000000",
+    targetFunds: "1203000",
+    collectedFunds: "635000",
     description: `This project will restore the leaking roof 
       of the only health centre 
       in Amogudu village, ensuring safe care for residents and children.`,

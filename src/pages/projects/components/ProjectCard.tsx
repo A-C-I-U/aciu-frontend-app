@@ -33,7 +33,11 @@ export default function ProjectCard({
                     flexDirection="column"
                     gap=".875rem"
                 >
-                    <img src={image} className="rounded-[.313rem] w-full md:h-[9.75rem] min-w-[6.75rem] sm:h-[5.688rem]" />
+                    <img 
+                        src={image} 
+                        className="rounded-[.313rem] w-full md:h-[9.75rem] min-w-[6.75rem] sm:h-[5.688rem]" 
+                        loading="lazy"
+                    />
                     <Box
                         bgcolor="#EBC563"
                         py="7px"
