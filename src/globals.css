@@ -48,6 +48,7 @@
   --color-aciu-green-normal: #00B686;
   --color-aciu-new-green-normal: #00A479;
   --color-aciu-green-light: #E6F8F3;
+  --color-aciu-green-light-hover: #D9F7EA;
   --color-aciu-dark-green: #008965;
   --color-aciu-light-red: #FBEBEA;
   --color-aciu-dark-red: #005B33;
@@ -55,6 +56,7 @@
   --color-aciu-dashboard-background: #E5E5E5;
   --color-aciu-light-grey: #EEEEEE;
   --color-aciu-dark-grey: #C9C9C9;
+  --color-aciu-dark-grey-active: #252525;
   --color-aciu-darker-grey: #1D1D1D;
   --color-aciu-dark: #313131;
   --color-aciu-light-dark: #525252;
@@ -93,6 +95,10 @@
   --color-grayscale-200: #EAECF0;
   --color-grayscale-300: #D0D5DD;
   --color-grayscale-500: #667085;
+  --color-gray-900: #101828;
+  --color-card-100: #F9FAFC;
+  --color-neutrals-50: #F9F9F9;
+  --color-neutrals-100: #E3E3E3;
 }
 
 html, body {
@@ -218,5 +224,14 @@ a, button {
 
   .ProseMirror:focus-visible {
     outline: none !important;
+  }
+
+  .line-height-120 {
+    line-height: 120%;
+  }
+
+  .branch-exec-card p {
+    line-height: 120% !important;
+    color: var(--color-aciu-border-grey)
   }
 }
