@@ -1,12 +1,15 @@
+import { Calendar2, DollarSquare, FolderOpen, Routing } from "iconsax-react";
 import type { 
-    EventDetailsProps, 
-    EventItemProps, 
-    FeaturedPostCardType, 
-    FileViewProps, 
-    OptionLabelProps, 
-    PublicationCardProps, 
-    PublicationDataType, 
-    RegularPostCardType 
+  BranchExecCardProps,
+  EventDetailsProps, 
+  EventItemProps, 
+  FeaturedPostCardType, 
+  FileViewProps, 
+  MenuCardProps, 
+  OptionLabelProps, 
+  PublicationCardProps, 
+  PublicationDataType, 
+  RegularPostCardType 
 } from "./types";
 
 export const BRANCHES: string[] = [
@@ -318,3 +321,110 @@ export const fields = [
     helperText: 'Press "<span className="italic">return</span>" to add tag',
   },
 ];
+
+export const helpSupportMenu: MenuCardProps[] = [
+  {
+    icon: Routing,
+    title: "Locate My Branch",
+    description: "Find meeting venues in your city, state, or country.",
+    route: "",
+    action: true,
+  },
+  {
+    icon: DollarSquare,
+    title: "Pay My Dues",
+    description: "Clear dues or support a project instantly.",
+    route: "/my-payments"
+  },
+  {
+    icon: Calendar2,
+    title: "See Upcoming Events",
+    description: "RSVP or register for national, branch or diaspora events.",
+    route: "/events"
+  },
+  {
+    icon: FolderOpen,
+    title: "Access Files & Resources",
+    description: "Download the ACIU Constitution, anthem, or documents.",
+    route: "/resources"
+  }
+]
+
+export const helpAndSupportAccordion = [
+    {
+        id: 1,
+        summary: "How do I register as a member?",
+        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+    },
+    {
+        id: 2,
+        summary: "What if I don’t know my age grade?",
+        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+    },
+    {
+        id: 3,
+        summary: "How do I pay my dues or make a donation?",
+        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+    },
+    {
+        id: 4,
+        summary: "Can I volunteer or serve in a committee?",
+        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+    },
+    {
+        id: 5,
+        summary: "How do I contact my local branch?",
+        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+    },
+    {
+        id: 6,
+        summary: "I need help with my login or dashboard. What should I do?",
+        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+    },
+]
+
+
+export const branchExecutiveMockData: BranchExecCardProps[] = [
+  {
+    name: "Mazi Emeka Kalu",
+    position: "Chairman",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Adaora Emezi",
+    position: "Secretary",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Mr. Ikenna O.",
+    position: "Treasurer",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Mazi Emeka Kalu",
+    position: "Chairman",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Adaora Emezi",
+    position: "Secretary",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  },
+  {
+    name: "Mr. Ikenna O.",
+    position: "Treasurer",
+    occupation: "Contractor",
+    email: "emeka.kalu@aciu.org",
+    phoneNumber: "+234 903 828 3447"
+  }
+]

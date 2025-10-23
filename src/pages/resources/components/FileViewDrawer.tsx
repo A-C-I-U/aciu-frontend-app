@@ -13,7 +13,6 @@ export default function FileViewDrawer({
     const size = formatSize(file.size);
     const extension = getExtension(file);
 
-    console.log(name, description);
     return (
         <Drawer
             anchor="right"
@@ -71,6 +70,8 @@ export default function FileViewDrawer({
                             label="File Name"
                             fullWidth
                         /> */}
+                        <p>{name}</p>
+                        <p>{description}</p>
                     </Box>
                     <Box
                         display="flex"

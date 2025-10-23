@@ -8,21 +8,27 @@ type FormikFieldProps = {
   label: string;
   name: string;
   placeholder?: React.ReactNode;
+  required?: boolean;
   type?: string;
   select?: boolean;
+  textarea?: boolean;
   options?: {
     value: string,
     label: string
   }[];
+  rows?: number;
   [key: string]: any;
 };
 
 export default function FormikField({ 
   label, 
   placeholder,
+  required,
   options,
   type = "text", 
   select = false, 
+  textarea = false,
+  rows = 4,
   ...props }: FormikFieldProps) {
 
   const [field, meta] = useField(props);
@@ -45,15 +51,17 @@ export default function FormikField({
           fontSize: '0.875rem'
         }}
       >
-        {label}
+        {label}{required && "*"}
       </FormLabel>
       <TextField
         {...field}
         {...props}
         select={select}
+        multiline={textarea}
+        rows={rows}
         type={isPasswordField && showPassword ? 'text' : type}
         placeholder={placeholder as string}
-        label={placeholder}
+        label={!select ? placeholder : ''}
         error={meta.touched && !!meta.error}
         helperText={meta.touched && meta.error}
         slotProps={{
@@ -70,7 +78,29 @@ export default function FormikField({
               sx: {
                 fontFamily: "'Montserrat', sans-serif",
                 fontSize: ".625rem",
-                borderRadius: ".5rem"
+                borderRadius: ".5rem",
+                "& .MuiMenuItem-root": {
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: ".875rem",
+                  color: "#3E3E3E",
+                  borderBottom: "1px solid #E2E2E2",
+                  "&:last-of-type": {
+                    borderBottom: "none",
+                  },
+                  "&:hover": {
+                    backgroundColor: "#F9FFFB",
+                    color: "#00B686",
+                  },
+                  "&.Mui-selected": {
+                    backgroundColor: "#E5FFF3",
+                    color: "#00B686",
+                    fontWeight: 600,
+                  },
+                  "&[data-value='']": {
+                    backgroundColor: "transparent",
+                    color: "#9CA3AF"
+                  }
+                },
               }
             },
             displayEmpty: true,
@@ -138,14 +168,21 @@ export default function FormikField({
           },
           "& .MuiInputBase-inputAdornedEnd": {
             width: "100%",
-          }
+          },
         }}
         >
-          {options && options.map((opt) => (
-            <MenuItem key={opt.value} value={opt.value} defaultValue={options[0].value}>
-              {opt.label}
-            </MenuItem>
-          ))}
+          {options && 
+          [
+            <MenuItem key="placeholder" value="" defaultValue="" disabled>
+              {placeholder}
+            </MenuItem>,
+            ...options.map((opt) => (
+              <MenuItem key={opt.value} value={opt.value} defaultValue={opt.value}>
+                {opt.label}
+              </MenuItem>
+            ))
+          ]}
+
         </TextField>
       {meta.touched && meta.error && (
         <span className="text-xs text-red-600 font-medium font-montserrat">

@@ -23,7 +23,9 @@ export const PageTitle = ({ title, tabs = [], activeTab, onTabChange }: PageTitl
                     text-xs md:text-sm font-montserrat flex flex-col gap-4`}
                 >
                     {tab?.label}
-                    {activeTab?.key === tab?.key && <span className="border border-aciu-red"></span>}
+                    {activeTab?.key === tab?.key && (
+                        <span className="block w-full h-[2px] bg-aciu-red mt-2 rounded-full"></span>
+                    )}
                 </button>
             ))}
         </div>

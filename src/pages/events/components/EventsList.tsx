@@ -59,8 +59,9 @@ export default function EventsList() {
                 </div>    
             </div>
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {upcomingEvents.map(({ id, title, img, host, date, time }) => (
+                {upcomingEvents.map(({ id, title, img, host, date, time }, index) => (
                     <EventItem
+                        key={index}
                         id={id}
                         title={title}
                         img={img}
