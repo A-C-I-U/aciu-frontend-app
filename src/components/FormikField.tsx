@@ -123,9 +123,6 @@ export default function FormikField({
             fontFamily: "'Montserrat', sans-serif",
             fontWeight: 500,
             color: '#737373',
-            '& .MuiOutlinedInput-input': {
-              color: '#3E3E3E !important',
-            },
             '& fieldset': {
               top: "0px",
               borderTop: '1px solid #DFE1E7',
