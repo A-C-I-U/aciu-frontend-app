@@ -4,6 +4,7 @@ import { ArrowDown2, Sort } from "iconsax-react";
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { useMediaQuery } from "@mui/material";
+import NominateProject from "./NominateProject";
 
 const sectionActions = [
     <button
@@ -43,6 +44,8 @@ const sectionActions = [
 export default function CompletedProjects() {
     const [query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 992px)");
+    const [showNominate, setShowNominate] = useState(false);
+    
 
     const handleSearch = (q: string) => {
         setQuery(q)
@@ -97,6 +100,11 @@ export default function CompletedProjects() {
                     />
                 ))}
             </div>
+
+            <NominateProject 
+                open={showNominate}
+                onClose={() => setShowNominate(false)}
+            />
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { object, ref, string } from "yup";
+import { mixed, number, object, ref, string } from "yup";
 import { AGEGRADES, BRANCHES } from "./data";
 
 export const signupValidationSchemas = [
@@ -73,3 +73,37 @@ export const locateBranchSchema = object({
     location: string().required('Location is required'),
     branch: string().required("Branch name is required")
 })
+
+export const projectSchema = object({
+    title: string().trim().required("Title is required").min(3).max(100),
+    category: string().required("Select a category"),
+    location: string().required("Location is required"),
+    description: string().required("Description is required").min(20),
+    impact: string().required("Impact is required").min(10),
+    cost: number().typeError("Must be a number").positive().required("Cost is required"),
+    image: mixed()
+        .required("Image is required")
+        .test("fileType", "Only image files allowed", value =>
+            !value ||
+            typeof value === "string" ||
+            ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes("object")
+        ),
+});
+
+export const donationSchema = object({
+  email: string()
+    .email("Please enter a valid email address")
+    .required("Email is required"),
+
+  name: string()
+    .required("Full name is required")
+    .min(2, "Name must be at least 2 characters long"),
+
+  amount: number()
+    .typeError("Amount must be a number")
+    .positive("Amount must be greater than zero")
+    .required("Donation amount is required"),
+
+  remarks: string()
+    .max(200, "Remarks cannot exceed 200 characters")
+});

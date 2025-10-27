@@ -499,3 +499,31 @@ export const ongoingProjects: ProjectCardProps[] = [
   },
 
 ]
+
+
+export const projectCategoryOptions = [
+  {
+    label: "Health",
+    value: "health"
+  },
+  {
+    label: "Education",
+    value: "education"
+  },
+  {
+    label: "Infrastructure",
+    value: "infrastructure"
+  },
+  {
+    label: "Youth",
+    value: "youth"
+  },
+  {
+    label: "Elder",
+    value: "elder"
+  },
+  {
+    label: "Welfare",
+    value: "welfare"
+  }
+]

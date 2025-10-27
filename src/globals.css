@@ -141,6 +141,7 @@ a, button {
     position: fixed;
     width: 100%;
   }
+
 }
 
 @layer components {
@@ -233,5 +234,10 @@ a, button {
   .branch-exec-card p {
     line-height: 120% !important;
     color: var(--color-aciu-border-grey)
+  }
+
+  .border-dashed {
+    border-style: dashed;
+    border-color: #00B686
   }
 }

@@ -216,3 +216,9 @@ export interface ProjectCardProps {
     description: string,
     link: string
 }
+
+
+export interface DialogFuncProps {
+    open: boolean,
+    onClose: () => void
+}
