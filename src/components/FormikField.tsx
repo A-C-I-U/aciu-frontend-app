@@ -103,6 +103,32 @@ export default function FormikField({
                 },
               }
             },
+             renderValue: (selected) => {
+        if (!selected) {
+          return (
+            <span style={{
+                  color: '#737373',
+                  opacity: 0.5,
+                  fontFamily: "'Montserrat', sans-serif",
+                  fontSize: '.875rem',
+                  fontWeight: 500,
+                }}>
+                  {placeholder}
+                </span>
+              );
+            }
+            const opt = options?.find(o => o.value === selected);
+            return (
+              <span style={{
+                color: '#737373',
+                fontFamily: "'Montserrat', sans-serif",
+                fontSize: '.875rem',
+                fontWeight: 500,
+              }}>
+                {opt?.label ?? selected.toString()}
+              </span>
+            );
+      },
             displayEmpty: true,
           },
           input: {
@@ -125,6 +151,7 @@ export default function FormikField({
             color: '#737373',
             '& fieldset': {
               top: "0px",
+              color: "#737373",
               borderTop: '1px solid #DFE1E7',
               '& legend': {
                 display: 'none',
@@ -146,6 +173,7 @@ export default function FormikField({
             fontSize: '.875rem',
             fontFamily: "'Montserrat', sans-serif",
             color: '#737373',
+            opacity: .5
           },
           '& .MuiInputLabel-shrink': {
             display: 'none',
