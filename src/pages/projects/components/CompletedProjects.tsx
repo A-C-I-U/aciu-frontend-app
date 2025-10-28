@@ -72,6 +72,7 @@ export default function CompletedProjects() {
                         width: "fit-content",
                         whiteSpace: "nowrap"
                     }}
+                     onClick={() => setShowNominate(true)}
                     >
                         Nominate a Project
                 </button>
