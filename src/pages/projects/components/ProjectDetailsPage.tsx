@@ -1,8 +1,7 @@
 import { ongoingProjects, projectDetail } from "@/utils/data";
 import type { TabItem } from "@/utils/types";
 import { Box } from "@mui/material";
-import { Location, SecurityCard, User } from "iconsax-react";
-import { ArrowRightIcon } from "lucide-react";
+import { Location } from "iconsax-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
@@ -10,6 +9,7 @@ import { ProjectOverviewTab } from "./ProjectOverviewTab";
 import { DonationsTab } from "./DonationsTab";
 import ShareProject from "./ShareProject";
 import DonateToProject from "./DonateToProject";
+import ProjectSidebarCard from "./ProjectSidebarCard";
 
 const MotionBox = motion.create(Box);
 
@@ -67,7 +67,6 @@ export default function ProjectDetailsPage() {
                     className="bg-white"
                     mx="1.25rem"
                     my="1.625rem"
-                    px={2}
                     py="1.25rem"
                     display="flex"
                     flexDirection="column"
@@ -97,13 +96,15 @@ export default function ProjectDetailsPage() {
                         </div>
                     </div>
 
+
+                    {/* Project Images */}
                     <div
                         className={`px-3.5 lg:px-6.5 project-gallery min-h-78 md:min-h-80 count-${projectImages?.length}`}
                     >
                         {projectImages.map((image, index) => {
                             return (
                                 <img
-                                    key="index"
+                                    key={index}
                                     loading="lazy"
                                     src={image}
                                     alt={`${title} image ${index}`}
@@ -112,9 +113,10 @@ export default function ProjectDetailsPage() {
                         })}
                     </div>
 
-                    {/* Tabs */}
                     <div className="grid grid-cols-1 gap-6 lg:gap-0 lg:grid-cols-[2fr_1fr]">
-                        <div className="">
+
+                        {/* Tabs */}
+                        <div className="order-2 lg:order-1">
                             <div className="flex gap-4 md:gap-8 w-full mx-auto px-3.5 lg:px-6.5">
                                 {projectDetailTabs.map((tab) => (
                                     <button
@@ -139,88 +141,24 @@ export default function ProjectDetailsPage() {
                             </div>
                         </div>
 
-                        <div className="mx-3.5 lg:mx-0
-                            max-w-96 rounded-[.625rem]
-                            border border-aciu-border-green h-fit"
-                        >
-                            <div className="px-5 pt-10 rounded-t-[.625rem] flex flex-col gap-8 bg-aciu-green-normal">
-                                <div className="flex gap-10 items-center">
-                                    <div className="flex flex-col gap-2.5 text-white">
-                                        <p className="text-xs text-aciu-green-light">
-                                            Total Raised
-                                        </p>
-                                        <p className="font-semibold text-sm">
-                                            {collectedFunds}
-                                        </p>
-                                    </div>
-                                    <div role="separator" aria-orientation="vertical" className="w-[1px] h-8 bg-gray-300"></div>
-                                    <div className="flex flex-col gap-2.5 text-white">
-                                        <p className="text-xs text-aciu-green-light">
-                                            Our Target
-                                        </p>
-                                        <p className="font-semibold text-sm">
-                                            {targetFunds}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div className="flex flex-col gap-2 pb-10">
-                                    <div className="flex gap-3.5 items-center">
-                                        <button
-                                            className="py-5 px-4 bg-white rounded-[.625rem] max-w-fit
-                                            flex gap-3 items-center"
-                                            onClick={() => setShowDonateProject(true)}
-                                        >
-                                                <span className="text-aciu-green-normal text-sm font-coolvetica whitespace-nowrap">
-                                                    Donate to Project
-                                                </span>
-                                                <ArrowRightIcon color="#00B686" size="1.25rem" className="rotate-[-45deg]"/>
-                                        </button>
-
-                                        <button
-                                            className="py-5 px-4 bg-inherit rounded-[.625rem] max-w-fit
-                                            flex gap-3 items-center border border-white whitespace-nowrap"
-                                            onClick={() => setShowShareProject(true)}
-                                        >
-                                                <span className="text-white text-sm font-coolvetica">
-                                                    Share Project
-                                                </span>
-                                                <ArrowRightIcon color="#fff" size="1.25rem" className="rotate-[-45deg]"/>
-                                        </button>
-                                    </div>
-
-                                    <div className="flex gap-2 items-center">
-                                        <SecurityCard size={20} color="white" />
-                                        <p className="text-xs font-medium text-white">
-                                            Secured payments using Stripe
-                                        </p>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div className="px-5 bg-aciu-dark-green pt-6.5 pb-10 rounded-b-[.625rem]">
-                                <div className="flex gap-4 items-center">
-                                    <User size={24} color="white" />
-                                    <div className="flex flex-col gap-2">
-                                        <p className="text-aciu-border-green text-sm">
-                                            This project is managed by
-                                        </p>
-                                        <p className="text-sm text-white">
-                                            {projectManager}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {/* SidebarCard */}
+                        <ProjectSidebarCard
+                            collectedFunds={collectedFunds}
+                            targetFunds={targetFunds}
+                            projectManager={projectManager}
+                            onDonateClick={() => setShowDonateProject(true)}
+                            onShareClick={() => setShowShareProject(true)}
+                        /> 
                     </div>
                    
                    <hr className="w-full border-t-[.5px] text-aciu-dark-grey" />
+
+                   {/* Extra Projects Section */}
                     <div className="flex flex-col gap-4 px-3.5 lg:px-6.5">
                         <h2 className="text-2xl line-height-120">
                             You may also want to donate to
                         </h2>
-                        <div className="grid grid-cols-1 lg:grid-cols-3">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 items-stretch">
                             {ongoingProjects
                                 .filter(project => project?.id !== id)
                                 .sort(() => 0.5 - Math.random())
@@ -250,11 +188,13 @@ export default function ProjectDetailsPage() {
                                 )})}
                         </div>
                     </div>
+
                     <ShareProject
                         link="www.aciuabiriba.org/amogudu-health-centre-roof-repair"
                         open={showShareProject}
                         onClose={() => setShowShareProject(false)}
                     />
+
                     <DonateToProject
                         open={showDonateProject}
                         onClose={() => setShowDonateProject(false)}
