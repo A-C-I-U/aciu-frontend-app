@@ -73,6 +73,7 @@ export default function DonateToProject({
                         onSubmit={handleSubmit}
                         initialValues={initialValues}
                         validationSchema={donationSchema}
+                        validateOnMount
                     >
                         {({ values, setFieldValue, isValid, isSubmitting }) => {
                             return (
