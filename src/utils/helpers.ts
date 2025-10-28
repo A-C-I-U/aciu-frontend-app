@@ -78,3 +78,22 @@ export const formatSize = (bytes: number) => {
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 };
+
+
+export function timeAgo(dateString: string) {
+  const date = new Date(dateString);
+  const now = new Date();
+
+  const diffMs = now.getTime() - date.getTime();
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 1) return "Today";
+  if (diffDays === 1) return "Yesterday";
+  if (diffDays < 30) return `${diffDays} days ago`;
+
+  const diffMonths = Math.floor(diffDays / 30);
+  if (diffMonths < 12) return `${diffMonths} month${diffMonths > 1 ? "s" : ""} ago`;
+
+  const diffYears = Math.floor(diffMonths / 12);
+  return `${diffYears} year${diffYears > 1 ? "s" : ""} ago`;
+}

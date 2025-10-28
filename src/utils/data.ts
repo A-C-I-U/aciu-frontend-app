@@ -8,6 +8,7 @@ import type {
   MenuCardProps, 
   OptionLabelProps, 
   ProjectCardProps, 
+  ProjectDetailsProps, 
   PublicationCardProps, 
   PublicationDataType, 
   RegularPostCardType 
@@ -432,6 +433,7 @@ export const branchExecutiveMockData: BranchExecCardProps[] = [
 
 export const ongoingProjects: ProjectCardProps[] = [
   {
+    id: "1",
     name: "Scholarship Fund 2025",
     image: "/images/abriba-event.jpg",
     badge: "Student Scholarships",
@@ -440,9 +442,10 @@ export const ongoingProjects: ProjectCardProps[] = [
     description: `This project will restore the leaking roof 
       of the only health centre 
       in Amogudu village, ensuring safe care for residents and children.`,
-    link: ""
+    link: "/projects/1"
   },
   {
+    id: "2",
     name: "Amogudu Health Centre Roof Repair",
     image: "/images/abriba-event.jpg",
     badge: "Community Infrastructure",
@@ -451,9 +454,10 @@ export const ongoingProjects: ProjectCardProps[] = [
     description: `This project will restore the leaking roof 
       of the only health centre 
       in Amogudu village, ensuring safe care for residents and children.`,
-    link: ""
+    link: "/projects/1"
   },
   {
+    id: "3",
     name: "Water Borehole for Itumbauzo Road Axis",
     image: "/images/abriba-event.jpg",
     badge: "Health Outreach",
@@ -462,9 +466,10 @@ export const ongoingProjects: ProjectCardProps[] = [
     description: `This project will restore the leaking roof 
       of the only health centre 
       in Amogudu village, ensuring safe care for residents and children.`,
-    link: ""
+    link: "/projects/1"
   },
   {
+    id: "4",
     name: "Scholarship Fund 2025",
     image: "/images/abriba-event.jpg",
     badge: "Student Scholarships",
@@ -473,9 +478,10 @@ export const ongoingProjects: ProjectCardProps[] = [
     description: `This project will restore the leaking roof 
       of the only health centre 
       in Amogudu village, ensuring safe care for residents and children.`,
-    link: ""
+    link: "/projects/1"
   },
   {
+    id: "5",
     name: "Amogudu Health Centre Roof Repair",
     image: "/images/abriba-event.jpg",
     badge: "Community Infrastructure",
@@ -484,9 +490,10 @@ export const ongoingProjects: ProjectCardProps[] = [
     description: `This project will restore the leaking roof 
       of the only health centre 
       in Amogudu village, ensuring safe care for residents and children.`,
-    link: ""
+    link: "/projects/1"
   },
   {
+    id: "6",
     name: "Water Borehole for Itumbauzo Road Axis",
     image: "/images/abriba-event.jpg",
     badge: "Health Outreach",
@@ -495,11 +502,79 @@ export const ongoingProjects: ProjectCardProps[] = [
     description: `This project will restore the leaking roof 
       of the only health centre 
       in Amogudu village, ensuring safe care for residents and children.`,
-    link: ""
+    link: "/projects/1"
   },
 
 ]
 
+
+export const projectDetail: ProjectDetailsProps = {
+  id: "1",
+  title: "Abiriba Community Road Rehabilitation",
+  location: "Abriba Town",
+  badge: "Community Infrastructure",
+  projectImages: ["/images/project-img-1.jpg", "/images/project-img-1.jpg", 
+    "/images/project-img-1.jpg", "/images/project-img-1.jpg", 
+    "/images/project-img-1.jpg",
+  ],
+  description: `This project focuses on rehabilitating and 
+  resurfacing the major access road linking Ameke, Agboji, 
+  and Amogudu villages, improving transportation and 
+  accessibility for residents and visitors.`,
+  value: `For decades, poor road conditions have made daily 
+  commuting difficult, increased vehicle maintenance costs, 
+  and slowed down economic activities in the community. 
+  By fixing this road, we ensure smoother transportation for traders, 
+  students, and elders while boosting local commerce and safety.`,
+  impact: [{
+    type: "list",
+    content: [
+      "10,000+ community members benefit directly",
+      "Easier access to schools, markets, and health facilities",
+      "Encourages diaspora investment and community pride"
+    ]
+  }],
+  scope: [{
+      type: "list",
+      content: [
+        "Grading and resurfacing of the 7 km stretch",
+        "Installation of proper drainage to prevent flooding"
+      ]
+    },
+    {
+      type: "paragraph",
+      content: ["We will begin next week."]
+    }
+  ],
+  collectedFunds: "₦18,200,000",
+  targetFunds: "₦25,000,000",
+  projectManager: "Uke Ezema Age Grade",
+  donations: [{
+    name: "Prince Chijokie",
+    amount: "$1,000",
+    time: "2025-10-10"
+  },
+  {
+    name: "Prince Chijokie",
+    amount: "$1,000",
+    time: "2025-10-10"
+  },
+  {
+    name: "Prince Chijokie",
+    amount: "$1,000",
+    time: "2025-10-10"
+  },
+  {
+    name: "Prince Chijokie",
+    amount: "$1,000",
+    time: "2025-10-10"
+  },
+  {
+    name: "Prince Chijokie",
+    amount: "$1,000",
+    time: "2025-10-10"
+  }]
+}
 
 export const projectCategoryOptions = [
   {
