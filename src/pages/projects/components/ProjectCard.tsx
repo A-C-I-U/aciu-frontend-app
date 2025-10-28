@@ -1,5 +1,4 @@
 import type { ProjectCardProps } from "@/utils/types";
-import { Box } from "@mui/material";
 import DonationProgressBar from "./DonationProgressBar";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "lucide-react";
@@ -14,58 +13,50 @@ export default function ProjectCard({
     link
 }: ProjectCardProps) {
     return (
-        <Box
-            borderRadius="1.25rem"
-            py=".875rem"
-            px=".5rem"
-            bgcolor="#F9FBFC"
-            display="flex"
-            flexDirection="column"
-            gap={3}
-        >
-            <Box
-                display='flex'
-                flexDirection="column"
-                gap={2}
-            >
-                <Box
-                    display="flex"
-                    flexDirection="column"
-                    gap=".875rem"
+        <div className="rounded-[1.25rem] py-3.5 px-2 bg-card-200 flex flex-col gap-3">
+            <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-[.875rem]">
+                <img
+                    src={image}
+                    alt={name}
+                    className="rounded-[.313rem] w-full md:h-38.5 min-w-27 sm:h-23"
+                    loading="lazy"
+                />
+
+                <div className="bg-aciu-yellow py-2 px-2.5 rounded-[5px] max-w-fit">
+                    <span className="font-coolvetica text-xs text-aciu-border-grey font-bold">
+                    {badge}
+                    </span>
+                </div>
+                </div>
+
+                <h2
+                    title={name}
+                    className="text-lg font-bold font-coolvetica text-aciu-border-grey truncate"
                 >
-                    <img 
-                        src={image} 
-                        className="rounded-[.313rem] w-full md:h-[9.75rem] min-w-[6.75rem] sm:h-[5.688rem]" 
-                        loading="lazy"
-                    />
-                    <Box
-                        bgcolor="#EBC563"
-                        py="7px"
-                        px="10px"
-                        borderRadius="5px"
-                        maxWidth="fit-content"
-                    >
-                        <span className="font-coolvetica text-xs text-aciu-border-grey font-bold">
-                            {badge}
-                        </span>
-                    </Box>
-                </Box>
-                <h2 className="text-lg font-bold font-coolvetica text-aciu-border-grey">{name}</h2>
+                    {name}
+                </h2>
+
                 <DonationProgressBar collected={+collectedFunds} target={+targetFunds} />
-                <p className="font-montserrat text-aciu-abriba text-xs leading-[1.5rem]">{description}</p>
-            </Box>
+
+                <p className="font-montserrat text-aciu-abriba text-xs leading-6">
+                    {description}
+                </p>
+            </div>
 
             <Link
                 to={link}
-                className="rounded-[.5rem] 
-                border border-aciu-green-normal 
-                p-5 max-w-fit font-coolvetica
-                text-sm text-aciu-green-normal
-                flex gap-2 items-center"
+                className="rounded-[.5rem] border border-aciu-green-normal p-5 max-w-fit 
+                font-coolvetica text-sm text-aciu-green-normal flex gap-2 items-center"
             >
                 <span>Donate To Project</span>
-                <ArrowRightIcon color="#00B686" size="1.25rem" className="rotate-[-45deg]"/>
+                <ArrowRightIcon
+                    color="#00B686"
+                    size="1.25rem"
+                    className="rotate-[-45deg]"
+                />
             </Link>
-        </Box>
+        </div>
+
     )
 }
