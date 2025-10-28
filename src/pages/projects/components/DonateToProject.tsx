@@ -1,6 +1,6 @@
 import FormikField from "@/components/FormikField"
 import { donationSchema } from "@/utils/schemas"
-import { Button, CircularProgress, Dialog } from "@mui/material"
+import { Button, CircularProgress, Dialog, FormControlLabel, Switch } from "@mui/material"
 import { Form, Formik } from "formik"
 import { X } from "lucide-react"
 import { useState } from "react"
@@ -22,13 +22,15 @@ export default function DonateToProject({
         email: "",
         name: "",
         amount: "",
-        remarks: ""
+        remarks: "",
+        anonymous: false
     }
 
     return (
         <Dialog
             onClose={onClose}
             open={open}
+            onTransitionExited={() => setStep(1)} 
             disableScrollLock
             sx={{
                 "& .MuiDialog-paper": {
@@ -43,18 +45,16 @@ export default function DonateToProject({
         >
             {step === 2 ?
                 <ThankYouPrompt 
-                    title="Thank You!"
+                    title="Thank you!"
                     description="Your donation has been made. 
                         You’ll be contacted if more details are needed."
-                    onClose={() => {
-                        setStep(1);
-                        onClose();
-                    }} 
+                    onClose={() => onClose()} 
                 />
             :
             <div 
-                className="flex flex-col gap-8 w-full overflow-hidden relative mx-auto py-4 md:py-10 px-4 md:px-20"
+                className="no-scrollbar flex flex-col gap-8 w-full overflow-y-scroll relative mx-auto py-4 md:py-10 px-4 md:px-20"
             >
+                {/* Close button */}
                 <button
                     onClick={onClose}
                     className="absolute right-10 top-6 lg:right-20 lg:top-10 cursor-pointer"
@@ -62,17 +62,19 @@ export default function DonateToProject({
                     <X width={24} height={24} />
                 </button>
 
-                <div className="flex flex-col gap-8 overflow-hidden w-full">
+                <div className="flex flex-col gap-8 w-full">
+                    {/* Title */}
                     <p className="text-2xl font-coolvetica text-aciu-dark font-bold leading-[125%]">
                         Make a Donation
                     </p>
 
+                    {/* Formik */}
                     <Formik
                         onSubmit={handleSubmit}
                         initialValues={initialValues}
                         validationSchema={donationSchema}
                     >
-                        {({ isValid, isSubmitting }) => {
+                        {({ values, setFieldValue, isValid, isSubmitting }) => {
                             return (
                                 <Form>
                                     <div className="flex flex-col gap-8">
@@ -90,12 +92,48 @@ export default function DonateToProject({
                                             fullWidth
                                         />
 
-                                        <FormikField
-                                            label="Amount (USD)"
-                                            name="amount"
-                                            placeholder="10, 000"
-                                            fullWidth
-                                        />
+                                        <div className="flex flex-col gap-1">
+                                            <FormikField
+                                                label="Amount (USD)"
+                                                name="amount"
+                                                placeholder="10, 000"
+                                                fullWidth
+                                            />
+                                            <FormControlLabel
+                                                sx={{
+                                                    "& .MuiFormControlLabel-label": {
+                                                        color: "#737373",
+                                                        fontFamily: "'Montserrat', sans-serif",
+                                                        fontWeight: 500,
+                                                        fontSize: ".75rem"
+                                                    },
+                                                }}
+                                                control={
+                                                    <Switch
+                                                        checked={values.anonymous}
+                                                        onChange={(e) => setFieldValue("anonymous", e.target.checked)}
+                                                        sx={{
+                                                            height: "2.625rem",
+                                                            width: "3.625rem",
+                                                            alignItems: "center",
+                                                            justifyContent: "center",
+                                                            borderRadius: "50%",
+                                                            "& .MuiSwitch-switchBase.Mui-checked": {
+                                                                color: "#fff",
+                                                                padding: "10px",
+                                                                transform: "translateX(1rem)",
+                                                            },
+                                                            "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+                                                                backgroundColor: "#00B686",
+                                                                opacity: 1,
+                                                            }
+                                                        }}
+                                                    />
+                                                }
+                                                label="Share anonymously"
+                                            />
+
+                                        </div>
 
                                         <FormikField
                                             label="Remarks"
