@@ -1,12 +1,11 @@
+import type { DonationProgressBarProps } from "@/utils/types";
 import { LinearProgress } from "@mui/material";
 
-interface DonationProgressBarProps {
-  collected: number;
-  target: number;
-}
-
-
-export default function DonationProgressBar({ collected, target }: DonationProgressBarProps) {
+export default function DonationProgressBar({ 
+  collected, 
+  target 
+}: DonationProgressBarProps) {
+  
   const floatingPercentage = (collected / target) * 100;
   const percentage = Math.round(floatingPercentage)
 
@@ -37,16 +36,16 @@ export default function DonationProgressBar({ collected, target }: DonationProgr
               height: ".625rem",
               backgroundColor: "#E6F8F3",
               borderRadius: ".625rem",
+              border: ".7px solid #B0E8D9",
               transition: "all 0.4s ease-in-out",
               "& .MuiLinearProgress-bar": {
-                border: ".7px solid #B0E8D9",
                 borderRadius: ".625rem",
                 backgroundColor: "#00B686",
               },
             }}
           />
           <span
-            className="absolute -top-6 bg-[#00B686] text-white text-xs px-2 py-[2px] rounded transition-all duration-300"
+            className="absolute -top-6 bg-aciu-green-normal text-white text-xs px-2 py-[2px] rounded transition-all duration-300"
             style={{
               left: `${Math.min(percentage, 100)}%`,
               transform: "translateX(-50%)",
