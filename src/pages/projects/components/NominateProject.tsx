@@ -14,7 +14,7 @@ export default function NominateProject({
     open,
     onClose
 }: DialogFuncProps) {
-    
+
     const [step, setStep] = useState(1);
 
     const inputRef = useRef<HTMLInputElement | null>(null)
@@ -38,13 +38,14 @@ export default function NominateProject({
         <Dialog
             onClose={onClose}
             open={open}
+            onTransitionExited={() => setStep(1)} 
             disableScrollLock
             sx={{
                 "& .MuiDialog-paper": {
                     overflow: "hidden",
                     width: {
                         xs: "92%",
-                        md: "38.25rem",
+                        md: step === 1 ? "38.25rem" : "31.25rem",
                     },
                     margin: "0 auto",
                     borderRadius: "1.25rem"
@@ -53,18 +54,16 @@ export default function NominateProject({
         >
             {step === 2 ?
                 <ThankYouPrompt 
-                    title="Thank You!"
+                    title="Thank you!"
                     description="Your project has been submitted for review. 
                         You’ll be contacted if more details are needed."
-                    onClose={() => {
-                        setStep(1);
-                        onClose();
-                    }} 
+                    onClose={() => onClose()} 
                 />
             :
             <div
                 className="no-scrollbar flex flex-col gap-8 w-full overflow-y-scroll relative mx-auto py-4 md:py-10 px-4 md:px-20"
             >
+                {/* Close button */}
                 <button
                     onClick={onClose}
                     className="absolute right-10 top-6 lg:right-20 lg:top-10 cursor-pointer"
@@ -73,18 +72,19 @@ export default function NominateProject({
                 </button>
 
                 <div className="flex flex-col gap-8 w-full">
+                    {/* Title */}
                     <p className="text-2xl font-coolvetica text-aciu-dark font-bold leading-[125%]">
-                        Post a Project
+                        Send a Project Nomination
                     </p>
 
+                    {/* Formik */}
                     <Formik
                         onSubmit={handleSubmit}
                         initialValues={initialValues}
                         validationSchema={projectSchema}
                         validateOnMount
                     >
-                        {({ values, errors, setFieldValue, isValid, isSubmitting }) => {
-                            console.log(errors)
+                        {({ values, setFieldValue, isValid, isSubmitting }) => {
                             return (
                                 <Form>
                                     <div className="flex flex-col gap-8">
@@ -141,7 +141,6 @@ export default function NominateProject({
                                                     color: "#3E3E3E"
                                                 }}>
                                                    Upload any related image&nbsp;
-                                                    {/* <span className="text-aciu-green-normal">*</span> */}
                                             </FormLabel>
                                             <div 
                                                 className="cursor-pointer"
@@ -170,15 +169,28 @@ export default function NominateProject({
                                                         </div>
                                                     </div>
                                                     :
+                                                       (
                                                         <div className="flex flex-col gap-[.625rem] items-center">
-                                                            
+                                                            {typeof values.image === "string" ? (
+                                                                <img
+                                                                    src={values.image}
+                                                                    alt="Project cover"
+                                                                    className="rounded-[.625rem] w-full h-[13.375rem] object-cover"
+                                                                />
+                                                            ) : (
+                                                            <img
+                                                                src={URL.createObjectURL(values.image)}
+                                                                alt="Project cover preview"
+                                                                className="rounded-[.625rem] w-full h-[13.375rem] object-cover"
+                                                            />
+                                                            )}
                                                             <div className="w-full self-end">
                                                                 <p className="text-aciu-green-normal font-coolvetica text-2xs">
                                                                     Edit Cover Image
                                                                 </p>
                                                             </div>
                                                         </div>
-                                                    }
+                                                    )}
                                             </div>
                                             <input
                                                 ref={inputRef}
@@ -227,7 +239,6 @@ export default function NominateProject({
 
             </div>
         }
-
         </Dialog>
     )
 }
