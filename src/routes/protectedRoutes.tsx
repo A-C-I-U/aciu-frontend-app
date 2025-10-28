@@ -21,6 +21,7 @@ import SettingsPage from "@/pages/settings";
 import EventDetails from "@/pages/events/components/EventDetails";
 import EventsList from "@/pages/events/components/EventsList";
 import BlogPostForm from "@/pages/blog/components/blog-posts/BlogPostForm";
+import ProjectDetailsPage from "@/pages/projects/components/ProjectDetailsPage";
 
 
 export const protectedRoutes = [
@@ -57,10 +58,19 @@ export const protectedRoutes = [
   },
   {
     path: "/projects",
-    element: <ProjectsPage />,
     label: "ACIU Projects",
     icon: Buildings2,
     roles: ["branch-admin", "national-admin"],
+    children: [
+      {
+        index: true,
+        element: <ProjectsPage />
+      },
+      {
+        path: ":id",
+        element: <ProjectDetailsPage />
+      }
+    ]
   },
     {
     path: "/my-branch",
