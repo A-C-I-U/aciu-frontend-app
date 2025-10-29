@@ -3,15 +3,22 @@ import DonationProgressBar from "./DonationProgressBar";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "lucide-react";
 
-export default function ProjectCard({
-    name,
-    image,
-    badge,
-    targetFunds,
-    collectedFunds,
-    description,
-    link
-}: ProjectCardProps) {
+export default function ProjectCard({ 
+    project 
+}: { 
+    project: ProjectCardProps 
+}) {
+
+    const {
+        name, 
+        image, 
+        badge, 
+        targetFunds, 
+        collectedFunds, 
+        description, 
+        link 
+    } = project;
+
     return (
         <div className="rounded-[1.25rem] py-3.5 px-2 bg-card-200 flex flex-col gap-6">
             <div className="flex flex-col gap-4 lg:gap-6">

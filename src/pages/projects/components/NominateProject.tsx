@@ -63,21 +63,19 @@ export default function NominateProject({
             <div
                 className="no-scrollbar flex flex-col gap-8 w-full overflow-y-scroll relative mx-auto py-4 md:py-10 px-4 md:px-20"
             >
-                {/* Close button */}
                 <button
                     onClick={onClose}
                     className="absolute right-10 top-6 lg:right-20 lg:top-10 cursor-pointer"
+                    aria-label="Close Nominate project modal"
                 >
                     <X width={24} height={24} />
                 </button>
 
                 <div className="flex flex-col gap-8 w-full">
-                    {/* Title */}
                     <p className="text-2xl font-coolvetica text-aciu-dark font-bold leading-[125%]">
                         Send a Project Nomination
                     </p>
 
-                    {/* Formik */}
                     <Formik
                         onSubmit={handleSubmit}
                         initialValues={initialValues}

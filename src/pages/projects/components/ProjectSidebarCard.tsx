@@ -14,7 +14,7 @@ export default function ProjectSidebarCard({
     <div className="mx-3.5 lg:mr-3.5 lg:mx-0 order-1 lg:order-2">
       <div className="w-full md:max-w-96 rounded-[.625rem] border border-aciu-border-green h-fit">
         <div className="px-5 pt-10 rounded-t-[.625rem] flex flex-col gap-8 bg-aciu-green-normal">
-            {/* Funds section */}
+
             <div className="flex lg:gap-10 items-center justify-between lg:justify-normal">
             <div className="flex flex-col gap-2.5 text-white">
                 <p className="text-xs text-aciu-green-light">Total Raised</p>
@@ -33,13 +33,14 @@ export default function ProjectSidebarCard({
             </div>
             </div>
 
-            {/* Action buttons */}
+
             <div className="flex flex-col gap-2 pb-10">
                 <div className="flex flex-col lg:flex-row gap-3.5 items-center">
                     <button
                         onClick={onDonateClick}
                         className="py-5 px-4 bg-white rounded-[.625rem] lg:max-w-fit
                         flex gap-3 items-center w-full justify-center lg:justify-normal"
+                        aria-label="Open Donate to Project Modal"
                     >
                     <span className="text-aciu-green-normal text-sm font-coolvetica whitespace-nowrap">
                         Donate to Project
@@ -55,6 +56,7 @@ export default function ProjectSidebarCard({
                         onClick={onShareClick}
                         className="py-5 px-4 bg-inherit rounded-[.625rem] w-full lg:max-w-fit
                         flex gap-3 items-center justify-center lg:justify-normal border border-white whitespace-nowrap"
+                        aria-label="Open Share Link Modal"
                     >
                     <span className="text-white text-sm font-coolvetica">
                         Share Project
@@ -76,7 +78,7 @@ export default function ProjectSidebarCard({
             </div>
         </div>
 
-        {/* Bottom section */}
+
         <div className="px-5 bg-aciu-dark-green pt-6.5 pb-10 rounded-b-[.625rem]">
             <div className="flex gap-4 items-center">
                 <User size={24} color="white" />

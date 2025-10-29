@@ -73,24 +73,10 @@ export default function OngoingProjects() {
 
 
             <div className="grid lg:grid-cols-3 lg:gap-4">
-                {ongoingProjects.map(({ 
-                    name, 
-                    image, 
-                    badge, 
-                    targetFunds, 
-                    collectedFunds, 
-                    description, 
-                    link 
-                }, index) => (
+                {ongoingProjects.map((project, index) => (
                     <ProjectCard
                         key={index}
-                        name={name}
-                        image={image}
-                        badge={badge}
-                        targetFunds={targetFunds}
-                        collectedFunds={collectedFunds}
-                        description={description}
-                        link={link}
+                        project={project}
                     />
                 ))}
             </div>
