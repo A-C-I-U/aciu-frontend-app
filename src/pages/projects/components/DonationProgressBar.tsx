@@ -45,7 +45,7 @@ export default function DonationProgressBar({
             }}
           />
           <span
-            className={`absolute -top-3 lg:-top-4 transform -translate-1/2 bg-aciu-green-normal text-white text-xs px-2 py-[2px] rounded transition-all duration-300`}
+            className={`absolute -top-3 lg:-top-4 transform -translate-1/2 bg-aciu-green-normal text-white text-xs px-2 py-0.5 rounded transition-all duration-300`}
             style={{ left: `${Math.min(Math.max(percentage, 5), 95)}%` }}
           >
             {Math.min(percentage, 100)}%

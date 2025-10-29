@@ -11,7 +11,7 @@ const sectionActions = [
         key="filter"
         className="flex gap-2.5 items-center p-2.5 
         text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-[50px] 
+        font-montserrat font-medium min-h-12.5
         border border-aciu-card-grey"
     >
         Filter
@@ -22,7 +22,7 @@ const sectionActions = [
         key="month"
         className="flex gap-2.5 items-center p-2.5
         text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-[50px]
+        font-montserrat font-medium min-h-12.5
         border border-aciu-card-grey"
     >
         Monthly
@@ -33,7 +33,7 @@ const sectionActions = [
         key="year"
         className="flex gap-2.5 items-center p-2.5
         text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-[50px]
+        font-montserrat font-medium min-h-12.5
         border border-aciu-card-grey"
     >
         2022

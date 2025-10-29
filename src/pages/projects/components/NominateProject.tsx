@@ -148,7 +148,7 @@ export default function NominateProject({
                                                 {!values.image ?
                                                     <div className="gap-2 flex flex-col">
                                                         <div className="border-2 border-dashed flex flex-col justify-center
-                                                            relative h-[13.375rem] rounded-[5px] min-w-[19.5rem] bg-aciu-cyan-light">
+                                                            relative h-53.5 rounded-[5px] min-w-78 bg-aciu-cyan-light">
                                                                 <div
                                                                     className="items-center justify-center
                                                                         text-white font-coolvetica
@@ -170,18 +170,18 @@ export default function NominateProject({
                                                     </div>
                                                     :
                                                        (
-                                                        <div className="flex flex-col gap-[.625rem] items-center">
+                                                        <div className="flex flex-col gap-2.5 items-center">
                                                             {typeof values.image === "string" ? (
                                                                 <img
                                                                     src={values.image}
                                                                     alt="Project cover"
-                                                                    className="rounded-[.625rem] w-full h-[13.375rem] object-cover"
+                                                                    className="rounded-[.625rem] w-full h-53.5 object-cover"
                                                                 />
                                                             ) : (
                                                             <img
                                                                 src={URL.createObjectURL(values.image)}
                                                                 alt="Project cover preview"
-                                                                className="rounded-[.625rem] w-full h-[13.375rem] object-cover"
+                                                                className="rounded-[.625rem] w-full h-53.5 object-cover"
                                                             />
                                                             )}
                                                             <div className="w-full self-end">

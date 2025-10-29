@@ -15,7 +15,7 @@ export default function ProjectCard({
     return (
         <div className="rounded-[1.25rem] py-3.5 px-2 bg-card-200 flex flex-col gap-6">
             <div className="flex flex-col gap-4 lg:gap-6">
-                <div className="flex flex-col gap-[.875rem]">
+                <div className="flex flex-col gap-3.5">
                     <img
                         src={image}
                         alt={name}
