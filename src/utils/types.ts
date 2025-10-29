@@ -247,7 +247,8 @@ export interface ProjectDetailsProps extends ProjectOverviewProps {
     targetFunds: string,
     collectedFunds: string,
     projectImages: string[],
-    projectManager: string
+    projectManager: string,
+    link: string
 }
 
 

@@ -573,7 +573,8 @@ export const projectDetail: ProjectDetailsProps = {
     name: "Prince Chijokie",
     amount: "$1,000",
     time: "2025-10-10"
-  }]
+  }],
+  link: "www.aciuabiriba.org/amogudu-health-centre-roof-repair"
 }
 
 export const projectCategoryOptions = [

@@ -32,7 +32,8 @@ export default function ProjectDetailsPage() {
         targetFunds,
         collectedFunds,
         projectImages,
-        projectManager
+        projectManager,
+        link
     } = projectDetail;
 
     const projectDetailTabs: TabItem[] = [
@@ -97,7 +98,6 @@ export default function ProjectDetailsPage() {
                     </div>
 
 
-                    {/* Project Images */}
                     <div
                         className={`px-3.5 lg:px-6.5 project-gallery min-h-78 md:min-h-80 count-${projectImages?.length}`}
                     >
@@ -115,7 +115,6 @@ export default function ProjectDetailsPage() {
 
                     <div className="grid gap-6 lg:gap-0 lg:grid-cols-[2fr_1fr]">
 
-                        {/* Tabs */}
                         <div className="order-2 lg:order-1">
                             <div className="flex gap-4 md:gap-8 w-full mx-auto px-3.5 lg:px-6.5">
                                 {projectDetailTabs.map((tab) => (
@@ -141,7 +140,6 @@ export default function ProjectDetailsPage() {
                             </div>
                         </div>
 
-                        {/* SidebarCard */}
                         <ProjectSidebarCard
                             collectedFunds={collectedFunds}
                             targetFunds={targetFunds}
@@ -153,7 +151,6 @@ export default function ProjectDetailsPage() {
                    
                    <hr className="w-full border-t-[.5px] text-aciu-dark-grey" />
 
-                   {/* Extra Projects Section */}
                     <div className="flex flex-col gap-4 px-3.5 lg:px-6.5">
                         <h2 className="text-2xl line-height-120">
                             You may also want to donate to
@@ -163,34 +160,19 @@ export default function ProjectDetailsPage() {
                                 .filter(project => project?.id !== id)
                                 .sort(() => 0.5 - Math.random())
                                 .slice(0, 3)
-                                .map((projectDetail, index) => {
-                                    const {
-                                        name, 
-                                        image, 
-                                        badge, 
-                                        targetFunds, 
-                                        collectedFunds, 
-                                        description, 
-                                        link 
-                                    } = projectDetail;
+                                .map((project, index) => {
                                     
                                     return (
                                         <ProjectCard
                                             key={index}
-                                            name={name}
-                                            image={image}
-                                            badge={badge}
-                                            targetFunds={targetFunds}
-                                            collectedFunds={collectedFunds}
-                                            description={description}
-                                            link={link}
+                                            project={project}
                                         />
                                 )})}
                         </div>
                     </div>
 
                     <ShareProject
-                        link="www.aciuabiriba.org/amogudu-health-centre-roof-repair"
+                        link={link}
                         open={showShareProject}
                         onClose={() => setShowShareProject(false)}
                     />
