@@ -7,23 +7,23 @@ import { useState } from "react"
 import ThankYouPrompt from "./ThankYouPrompt"
 import type { DialogFuncProps } from "@/utils/types"
 
+const initialValues = {
+    email: "",
+    name: "",
+    amount: "",
+    remarks: "",
+    anonymous: false
+}
+
 export default function DonateToProject({
     open,
     onClose
 }: DialogFuncProps) {
     const [step, setStep] = useState(1);
 
-    const handleSubmit = async (values: any, actions: any) => {
-        console.log(values, actions); 
+    const handleSubmit = async (_values: any, _actions: any) => {
+        // TODO: Remove underscores once API integration is added
         setStep(2);
-    }
-
-    const initialValues = {
-        email: "",
-        name: "",
-        amount: "",
-        remarks: "",
-        anonymous: false
     }
 
     return (

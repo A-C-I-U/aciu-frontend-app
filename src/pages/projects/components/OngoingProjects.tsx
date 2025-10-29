@@ -43,14 +43,13 @@ const sectionActions = [
 
 
 export default function OngoingProjects() {
-    const [query, setQuery] = useState("");
+    const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
     const isMedium = useMediaQuery("(max-width: 992px)");
     const [showNominate, setShowNominate] = useState(false);
 
 
     const handleSearch = (q: string) => {
         setQuery(q)
-        console.log(query)
     }
 
     return (
