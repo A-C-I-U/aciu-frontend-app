@@ -206,3 +206,68 @@ export interface LocateBranchProps {
     onClose: () => void,
     onBranchLocation: () => void
 }
+
+export interface ProjectCardProps {
+    id?: string,
+    name: string,
+    image: string,
+    badge: string,
+    targetFunds: string,
+    collectedFunds: string,
+    description: string,
+    link: string
+}
+
+interface ProjectSectionBlock {
+    type: "paragraph" | "list",
+    content: string[]
+}
+
+export interface ProjectDonation {
+    time: string,
+    name: string,
+    amount: string
+}
+
+export interface ProjectOverviewProps {
+    description: string,
+    value: string,
+    scope: ProjectSectionBlock[],
+    impact: ProjectSectionBlock[],
+}
+
+export interface ProjectDetailsProps extends ProjectOverviewProps {
+    id: string,
+    title: string,
+    description: string,
+    value: string,
+    badge: string,
+    donations: ProjectDonation[],
+    location: string,
+    targetFunds: string,
+    collectedFunds: string,
+    projectImages: string[],
+    projectManager: string,
+    link: string
+}
+
+
+
+export interface DialogFuncProps {
+    open: boolean,
+    onClose: () => void
+}
+
+
+export interface ProjectSidebarCardProps {
+  collectedFunds: string | number;
+  targetFunds: string | number;
+  projectManager: string;
+  onDonateClick: () => void;
+  onShareClick: () => void;
+}
+
+export interface DonationProgressBarProps {
+  collected: number;
+  target: number;
+}

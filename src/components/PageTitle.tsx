@@ -24,7 +24,7 @@ export const PageTitle = ({ title, tabs = [], activeTab, onTabChange }: PageTitl
                 >
                     {tab?.label}
                     {activeTab?.key === tab?.key && (
-                        <span className="block w-full h-[2px] bg-aciu-red mt-2 rounded-full"></span>
+                        <span className="block w-full h-[2px] bg-aciu-red rounded-full"></span>
                     )}
                 </button>
             ))}

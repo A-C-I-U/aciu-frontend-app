@@ -1,4 +1,5 @@
 import { UserProvider } from "@/context/UserContext"
+import { SnackbarProvider } from "notistack"
 
 export const Providers = (
     { children }: 
@@ -6,6 +7,7 @@ export const Providers = (
 ) => {
     return (
        <UserProvider>
+        <SnackbarProvider />
         {children}
        </UserProvider>
     )

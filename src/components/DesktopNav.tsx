@@ -19,13 +19,14 @@ export const DesktopNav = () => {
                     <p className={"font-montserrat font-medium text-aciu-red"}>
                         Home
                     </p>
-                    {pathnames.map((value, index) => {
+                    {pathnames.slice(0, 1).map((value, index, arr) => {
                         const to = "/" + pathnames.slice(0, index + 1).join("/");
-                        const isLast = index === pathnames.length - 1;
+                        const isLast = index === arr.length - 1;
+
                         return isLast ? (
-                        <p key={to} className="font-montserrat font-medium text-aciu-abriba">
-                            {capitalizeFirstLetters(value)}
-                        </p>
+                            <p key={to} className="font-montserrat font-medium text-aciu-abriba">
+                                {capitalizeFirstLetters(value)}
+                            </p>
                         ) : (
                         <NavLink
                             key={to}
