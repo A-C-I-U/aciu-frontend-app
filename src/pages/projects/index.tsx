@@ -1,10 +1,10 @@
 import { PageTitle } from "@/components/PageTitle";
 import type { TabItem } from "@/utils/types"
-import { Box } from "@mui/material";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import { useState } from "react"
 import OngoingProjects from "./components/OngoingProjects";
 import CompletedProjects from "./components/CompletedProjects";
+import MotionBox from "@/components/MotionBox";
 
 const projectsTabs: TabItem[] = [
     { 
@@ -19,8 +19,6 @@ const projectsTabs: TabItem[] = [
     }
 ]
 
-const MotionBox = motion.create(Box);
-
 export default function ProjectsPage() {
     const [activeTab, setActiveTab] = useState<TabItem>(projectsTabs[0]);
 
@@ -29,11 +27,7 @@ export default function ProjectsPage() {
     }
 
     return (
-        <Box
-            display="flex"
-            flexDirection="column"
-            gap={3}
-        >
+        <div className="flex flex-col gap-6">
             <PageTitle
                 title="ACIU Projects"
                 tabs={projectsTabs}
@@ -55,6 +49,6 @@ export default function ProjectsPage() {
                     {activeTab?.content}
                 </MotionBox>
             </AnimatePresence>
-        </Box>
+        </div>
     )
 }

@@ -1,8 +1,7 @@
 import { ongoingProjects, projectDetail } from "@/utils/data";
 import type { TabItem } from "@/utils/types";
-import { Box } from "@mui/material";
 import { Location } from "iconsax-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { ProjectOverviewTab } from "./ProjectOverviewTab";
@@ -10,9 +9,7 @@ import { DonationsTab } from "./DonationsTab";
 import ShareProject from "./ShareProject";
 import DonateToProject from "./DonateToProject";
 import ProjectSidebarCard from "./ProjectSidebarCard";
-
-const MotionBox = motion.create(Box);
-
+import MotionBox from "@/components/MotionBox";
 
 export default function ProjectDetailsPage() {
     const [showDonateProject, setShowDonateProject] = useState(false);
