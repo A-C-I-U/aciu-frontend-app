@@ -72,7 +72,7 @@ export default function CompletedProjects() {
             <div className="grid lg:grid-cols-3 gap-4">
                 {ongoingProjects.map((project) => (
                     <ProjectCard
-                        key={project?.id}
+                        key={project.id}
                         project={project}
                     />
                 ))}

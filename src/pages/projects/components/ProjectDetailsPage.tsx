@@ -161,7 +161,7 @@ export default function ProjectDetailsPage() {
                                     
                                     return (
                                         <ProjectCard
-                                            key={project?.id}
+                                            key={project.id}
                                             project={project}
                                         />
                                 )})}
