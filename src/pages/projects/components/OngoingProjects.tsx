@@ -72,7 +72,7 @@ export default function OngoingProjects() {
            
 
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-4">
+            <div className="grid lg:grid-cols-3 lg:gap-4">
                 {ongoingProjects.map(({ 
                     name, 
                     image, 

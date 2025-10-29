@@ -70,7 +70,7 @@ export default function CompletedProjects() {
             </div>
             
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="grid lg:grid-cols-3 gap-4">
                 {ongoingProjects.map(({ 
                     name, 
                     image, 

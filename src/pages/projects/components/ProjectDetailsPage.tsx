@@ -113,7 +113,7 @@ export default function ProjectDetailsPage() {
                         })}
                     </div>
 
-                    <div className="grid grid-cols-1 gap-6 lg:gap-0 lg:grid-cols-[2fr_1fr]">
+                    <div className="grid gap-6 lg:gap-0 lg:grid-cols-[2fr_1fr]">
 
                         {/* Tabs */}
                         <div className="order-2 lg:order-1">
@@ -158,7 +158,7 @@ export default function ProjectDetailsPage() {
                         <h2 className="text-2xl line-height-120">
                             You may also want to donate to
                         </h2>
-                        <div className="grid grid-cols-1 lg:grid-cols-3 items-stretch">
+                        <div className="grid lg:grid-cols-3 items-stretch">
                             {ongoingProjects
                                 .filter(project => project?.id !== id)
                                 .sort(() => 0.5 - Math.random())
