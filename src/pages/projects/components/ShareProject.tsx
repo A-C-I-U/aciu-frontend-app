@@ -1,3 +1,4 @@
+import { ShareIcon } from "@/components/Icons";
 import type { DialogFuncProps } from "@/utils/types";
 import { Dialog } from "@mui/material";
 import { Copy } from "iconsax-react";
@@ -41,12 +42,7 @@ export default function ShareProject({
                 className="flex flex-col gap-8 w-full relative mx-auto p-7.5"
             >
                 <div className="flex flex-col items-start gap-6">
-                    <img
-                        src="/images/share-icon.png"
-                        alt=""
-                        aria-hidden="true"
-                        className="pointer-events-none select-none"
-                    />
+                    <ShareIcon />
 
                     <div className="flex flex-col items-start gap-1.5">
                         <h1 className="text-aciu-border-grey font-bold text-[2rem]">

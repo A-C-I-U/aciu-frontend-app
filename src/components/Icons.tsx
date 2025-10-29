@@ -57,3 +57,19 @@ export const MarkIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   )
 }
+
+
+export const ShareIcon = (props: SVGProps<SVGSVGElement>) => {
+  return (
+    <svg {...props} width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="5" y="5" width="56" height="56" rx="28" fill="#00B686"/>
+      <rect x="5" y="5" width="56" height="56" rx="28" stroke="#E6F8F3" stroke-width="10"/>
+      <path d="M37.96 27.1699C39.96 28.5599 41.34 30.7699 41.62 33.3199" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M24.49 33.3707C24.75 30.8307 26.11 28.6207 28.09 27.2207" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M29.1899 41.9395C30.3499 42.5295 31.6699 42.8595 33.0599 42.8595C34.3999 42.8595 35.6599 42.5595 36.7899 42.0095" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M33.06 28.7006C34.5954 28.7006 35.84 27.456 35.84 25.9206C35.84 24.3853 34.5954 23.1406 33.06 23.1406C31.5247 23.1406 30.28 24.3853 30.28 25.9206C30.28 27.456 31.5247 28.7006 33.06 28.7006Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M25.83 40.9194C27.3654 40.9194 28.61 39.6747 28.61 38.1394C28.61 36.604 27.3654 35.3594 25.83 35.3594C24.2947 35.3594 23.05 36.604 23.05 38.1394C23.05 39.6747 24.2947 40.9194 25.83 40.9194Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M40.1699 40.9194C41.7052 40.9194 42.9499 39.6747 42.9499 38.1394C42.9499 36.604 41.7052 35.3594 40.1699 35.3594C38.6345 35.3594 37.3899 36.604 37.3899 38.1394C37.3899 39.6747 38.6345 40.9194 40.1699 40.9194Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  )
+}
