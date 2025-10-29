@@ -72,9 +72,9 @@ export default function OngoingProjects() {
 
 
             <div className="grid lg:grid-cols-3 lg:gap-4">
-                {ongoingProjects.map((project, index) => (
+                {ongoingProjects.map((project) => (
                     <ProjectCard
-                        key={index}
+                        key={project?.id}
                         project={project}
                     />
                 ))}

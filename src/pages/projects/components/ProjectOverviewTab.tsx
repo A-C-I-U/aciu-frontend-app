@@ -37,7 +37,7 @@ export const ProjectOverviewTab = ({
                             <ul className="flex flex-col gap-3" key={index}>
                                 {content.map((item, index) => (
                                     <li 
-                                        key={`${index}-${item.charAt(0)}`}
+                                        key={index}
                                         className="text-xs text-aciu-abriba flex items-center"
                                     >
                                         <Dot size={10} color="#737373"/> {item}
