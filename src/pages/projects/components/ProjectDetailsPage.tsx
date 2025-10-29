@@ -157,11 +157,11 @@ export default function ProjectDetailsPage() {
                                 .filter(project => project?.id !== id)
                                 .sort(() => 0.5 - Math.random())
                                 .slice(0, 3)
-                                .map((project, index) => {
+                                .map((project) => {
                                     
                                     return (
                                         <ProjectCard
-                                            key={index}
+                                            key={project?.id}
                                             project={project}
                                         />
                                 )})}
