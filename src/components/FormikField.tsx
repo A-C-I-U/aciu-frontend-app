@@ -103,32 +103,21 @@ export default function FormikField({
                 },
               }
             },
-             renderValue: (selected) => {
-        if (!selected) {
-          return (
-            <span style={{
-                  color: '#737373',
-                  opacity: 0.5,
-                  fontFamily: "'Montserrat', sans-serif",
-                  fontSize: '.875rem',
-                  fontWeight: 500,
-                }}>
-                  {placeholder}
+            renderValue: (selected) => {
+              if (!selected) {
+                return (
+                  <span className='text-aciu-abriba opacity-50 text-sm font-medium'>
+                    {placeholder}
+                  </span>
+                );
+              }
+              const opt = options?.find(o => o.value === selected);
+              return (
+                <span className='text-aciu-abriba opacity-50 text-sm font-medium'>
+                  {opt?.label ?? selected.toString()}
                 </span>
               );
-            }
-            const opt = options?.find(o => o.value === selected);
-            return (
-              <span style={{
-                color: '#737373',
-                fontFamily: "'Montserrat', sans-serif",
-                fontSize: '.875rem',
-                fontWeight: 500,
-              }}>
-                {opt?.label ?? selected.toString()}
-              </span>
-            );
-      },
+            },
             displayEmpty: true,
           },
           input: {

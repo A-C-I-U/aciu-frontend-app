@@ -61,20 +61,11 @@ export default function CompletedProjects() {
                     showSearch
                     actions={isMedium ? [] : sectionActions}
                 />
-                <button
-                    style={{
-                        padding: "1rem",
-                        gap: ".5rem",
-                        borderRadius: ".75rem",
-                        backgroundColor: "#00B686",
-                        color: "#fff",
-                        fontFamily: "'Coolvetica', sans-serif",
-                        width: "fit-content",
-                        whiteSpace: "nowrap"
-                    }}
-                     onClick={() => setShowNominate(true)}
-                    >
-                        Nominate a Project
+                <button 
+                    className="p-4 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
+                    onClick={() => setShowNominate(true)}
+                >
+                    Nominate a Project
                 </button>
             </div>
             
