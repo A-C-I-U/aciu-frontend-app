@@ -14,7 +14,6 @@ export default function ApprovePost({
         <Dialog
             onClose={() => onClose()}
             open={open}
-            // onTransitionExited={}
             disableScrollLock
             sx={{
                 "& .MuiDialog-paper": {

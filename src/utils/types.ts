@@ -142,6 +142,7 @@ export interface PublicationCardProps {
 }
 
 export interface PublicationDataType {
+    id: string,
     title: string,
     creationDate: string,
     postImpressions: {

@@ -1,129 +1,29 @@
-import { generateMockPublications, publicationStatusMap } from "@/utils/helpers";
-import type { PublicationDataType } from "@/utils/types";
-import { type ColumnDef } from "@tanstack/react-table";
-import { formatDate } from "@/utils/helpers";
+import { formatDate, publicationStatusMap } from "@/utils/helpers";
 import { Eye } from "iconsax-react";
 import { CommentOutlined } from "@ant-design/icons";
-import { ArrowLeftIcon, ArrowRightIcon, MoreVertical } from "lucide-react";
-import { Pagination } from "@heroui/react";
-import MobilePublicationItem from "../my-publications/MobilePublicationItem";
-import { IconButton, Menu, MenuItem, useMediaQuery } from "@mui/material";
+import { Divider, IconButton, Menu, MenuItem } from "@mui/material";
+import {  MoreVertical } from "lucide-react"
+import type { PublicationDataType } from "@/utils/types";
 import { useState } from "react";
-import PostsTable from "../PostsTable";
 import { useNavigate } from "react-router-dom";
+import type { CellContext, ColumnDef, Row } from "@tanstack/react-table";
 
-export default function SubmissionsTable() {
-    const isMobile = useMediaQuery('(max-width:768px)')
-    const itemsPerPage = 5;
-    const [page, setPage] = useState(1);
 
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentItems = mockData.slice(start, end)
-
-    return (
-        <>
-        {!isMobile ? 
-            <PostsTable
-                data={mockData}
-                columns={columns}
-                withSelection
-            /> :
-            
-            currentItems.map((publication, index) => {
-                 const { 
-                    title, 
-                    creationDate, 
-                    lastModified, 
-                    postImpressions,
-                    status
-                } = publication;
-
-                return (
-                    <>
-                    <div className="mt-10 ">
-                        <MobilePublicationItem
-                            key={index}
-                            title={title} 
-                            creationDate={creationDate} 
-                            lastModified={lastModified} 
-                            postImpressions={postImpressions} 
-                            status={status} 
-                        />
-                    </div>
-                </>
-                )
-            })
-        }
-        {isMobile &&
-            <div className="w-full pt-3 pb-4 px-6 flex justify-between items-center">
-                <button
-                    className="rounded-md py-2 px-[.875rem] 
-                    flex gap-2 justify-center items-center
-                    shadow-[0px_1px_2px_0px_#1018280D] border
-                    border-grayscale-300 "
-                    onClick={() => setPage(page - 1)}
-                    disabled={page === 1}
-                >
-                    <ArrowLeftIcon size={20} color="#00B686" />
-                </button>
-                <Pagination
-                    total={Math.ceil(mockData?.length / itemsPerPage)}
-                    page={page}
-                    onChange={setPage}
-                    classNames={{
-                        cursor: "hidden"
-                    }}
-                    renderItem={(item) => {
-                        const isActive = item.page === page;
-                        return (
-                            <button 
-                                key={item.key}
-                                // onPress is not a prop on button but is required from hero ui
-                                onClick={item.onPress as unknown as React.MouseEventHandler<HTMLButtonElement>}
-                                className={`w-[2.5rem] h-[2.5rem] rounded-md
-                                ${isActive ? "bg-aciu-green-light " : ""}
-                                rounded-md text-aciu-new-green-normal hover:bg-aciu-green-light font-inter`}>
-                                {item.page || item.children}
-                            </button>
-                        )
-                    }}
-                />
-                    <button
-                        className="rounded-md py-2 px-[.875rem] 
-                        flex gap-2 justify-center items-center
-                        shadow-[0px_1px_2px_0px_#1018280D] border
-                        border-grayscale-300 text-green-normal"
-                        onClick={() => setPage(page + 1)}
-                        disabled={page >= Math.ceil(mockData?.length / itemsPerPage)}
-                    >
-                        <ArrowRightIcon size={20} color="#00B686" />
-                    </button>
-                </div>
-            }
-        </>
-       
-        
-    )
-}
-
-const mockData: PublicationDataType[] = generateMockPublications(20);
-
-export const columns: ColumnDef<PublicationDataType>[] = [
+export const getColumns = (handleOpenDialog: (type: "approve" | "reject", id: string) => void): ColumnDef<PublicationDataType>[] => [
     {
         accessorKey: "title",
         header: "Title",
-        cell: ({ row }: { row: any }) => <span>{row.original.title}</span>
+        cell: ({ row }: { row: Row<PublicationDataType> }) => <span>{row.original.title}</span>
     },
     {
         accessorKey: "creationDate",
         header: "Creation Date",
-        cell: ({ row }: {row: any}) => <span>{formatDate(row.original.creationDate)}</span>
+        cell: ({ row }: {row: Row<PublicationDataType> }) => <span>{formatDate(row.original.creationDate)}</span>
     },
     {
         accessorKey: "postImpressions",
         header: "Post Impressions",
-        cell: ({ row }: {row: any }) => {
+        cell: ({ row }: {row: Row<PublicationDataType> }) => {
             const { comments, views } = row.original.postImpressions;
 
             return (
@@ -143,13 +43,13 @@ export const columns: ColumnDef<PublicationDataType>[] = [
     {
         accessorKey: "lastModified",
         header: "Last Modified",
-        cell: ({ row }: {row: any}) => <span>{formatDate(row.original.lastModified)}</span>
+        cell: ({ row }: {row: Row<PublicationDataType> }) => <span>{formatDate(row.original.lastModified)}</span>
     },
     {
         accessorKey: "status",
         header: "Status",
         maxSize: 300,
-        cell: ({ getValue }) => {
+        cell: ({ getValue }: CellContext<PublicationDataType, unknown>) => {
             const status = getValue();
             const { 
                 label, 
@@ -181,8 +81,9 @@ export const columns: ColumnDef<PublicationDataType>[] = [
         id: "actions",
         header: "Actions",
         size: 150,
-        cell: ({ row }: { row: any}) => {
+        cell: ({ row }: { row: Row<PublicationDataType> }) => {
             const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
             const open = Boolean(anchorEl);
             const navigate = useNavigate();
 
@@ -249,6 +150,7 @@ export const columns: ColumnDef<PublicationDataType>[] = [
                     >
                         <MenuItem 
                             onClick={handleViewPost}
+                            disabled
                             sx={{
                                 fontFamily: "'Montserrat', sans-serif",
                                 color: "#3E3E3E",
@@ -256,11 +158,15 @@ export const columns: ColumnDef<PublicationDataType>[] = [
                             }}>
                             View Post
                         </MenuItem>
-                        <div className="w-full">
-                            <hr color="#E2E2E2" className="text-[#E2E2E2]" />
-                        </div>
-                         <MenuItem 
-                            onClick={handleViewPost}
+                        <Divider 
+                            sx={{ 
+                                width: "100%", 
+                                borderColor: "#E2E2E2", 
+                                margin: 0 
+                            }} 
+                        />
+                        <MenuItem 
+                            onClick={() => { handleClose(); handleOpenDialog("approve", row.original.id); }}
                             sx={{
                                 fontFamily: "'Montserrat', sans-serif",
                                 color: "#00CA71",
@@ -269,11 +175,15 @@ export const columns: ColumnDef<PublicationDataType>[] = [
                             }}>
                             Approve Post
                         </MenuItem>
-                        <div className="w-full">
-                            <hr color="#E2E2E2" className="text-[#E2E2E2]" />
-                        </div>
-                         <MenuItem 
-                            onClick={handleViewPost}
+                        <Divider 
+                            sx={{ 
+                                width: "100%", 
+                                borderColor: "#E2E2E2", 
+                                margin: 0 
+                            }} 
+                        />
+                        <MenuItem 
+                            onClick={() => { handleClose(); handleOpenDialog("reject", row.original.id); }}
                             sx={{
                                 fontFamily: "'Montserrat', sans-serif",
                                 color: "#FF0707",

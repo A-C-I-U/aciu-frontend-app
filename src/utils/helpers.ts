@@ -23,6 +23,7 @@ export function generateMockPublications(count: number): PublicationDataType[] {
     const modified = randomDate(new Date(2023, 0, 2), new Date());
 
     return {
+      id: `${i + 1}`,
       title: `Publication ${i + 1}`,
       creationDate: creation.toISOString(),
       postImpressions: {
