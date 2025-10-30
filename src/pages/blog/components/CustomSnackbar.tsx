@@ -29,11 +29,12 @@ export const CustomSnackbar: React.FC<CustomSnackbarProps> = ({
     <Slide direction="up" in={visible} mountOnEnter unmountOnExit>
       <Box
         sx={{
-          position: "absolute",
+          position: "fixed",
           bottom: "75px",
           width: "80%",
+          maxWidth: "48.5rem",
           backgroundColor: "white",
-          left: "10%",
+          left: "30%",
           py: 2,
           px: 2.5,
           borderRadius: "6px",
