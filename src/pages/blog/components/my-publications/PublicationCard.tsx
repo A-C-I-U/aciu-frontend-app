@@ -9,7 +9,7 @@ export const PublicationCard = ({
     const sign = +rateOfChange === 0 ? '' : (+rateOfChange > 0 ? '+' : '-');
     
     return (
-        <div className="w-full py-4 px-6 flex flex-col gap-4 rounded-lg bg-white w-full h-[9.688rem]">
+        <div className="w-full py-4 px-6 flex flex-col gap-4 rounded-lg bg-white h-39">
             <div className="flex flex-col justify-between h-full">
                 <p className="font-montserrat text-copy-400 font-medium uppercase text-xs">
                     {title}

@@ -101,11 +101,8 @@ export default function PostsTable(
         table.toggleAllRowsSelected();
     };
 
-    // async function
     const handleDelete = () => {
-        const idsToDelete = table.getSelectedRowModel().rows.map((r: Row<any>) => r.original.id)
-
-        console.log(idsToDelete);
+        // const idsToDelete = table.getSelectedRowModel().rows.map((r: Row<any>) => r.original.id)
         setRowSelection({});
         setOpenDelete(false);
     }
@@ -124,7 +121,6 @@ export default function PostsTable(
             />
 
 
-            {/* Delete Dialog */}
             <Dialog 
                 slotProps={{
                     paper: {
