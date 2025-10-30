@@ -5,14 +5,20 @@ import { CommentOutlined } from "@ant-design/icons";
 import { formatDate } from "@/utils/helpers";
 import { Link } from "react-router-dom";
 
-export default function MobilePublicationItem(publication: PublicationDataType) {
-    const { 
+export default function MobilePublicationItem({ 
+    publication
+}: {
+    publication: PublicationDataType
+}) {
+     const { 
+        id,
         title, 
         creationDate, 
         lastModified, 
         postImpressions,
         status
     } = publication;
+
     const { 
         label, 
         labelColor, 
@@ -58,7 +64,7 @@ export default function MobilePublicationItem(publication: PublicationDataType) 
                 <p className="text-xs font-medium font-montserrat text-aciu-abriba">
                     Creation Date
                 </p>
-                <p className="text-sm font-montserrat text-sm text-aciu-border-grey">
+                <p className="font-montserrat text-sm text-aciu-border-grey">
                     {formatDate(creationDate)}
                 </p>
             </div>
@@ -71,7 +77,7 @@ export default function MobilePublicationItem(publication: PublicationDataType) 
                 <p className="text-xs font-medium font-montserrat text-aciu-abriba">
                     Last Modified
                 </p>
-                <p className="text-sm font-montserrat text-sm text-aciu-border-grey">
+                <p className="font-montserrat text-sm text-aciu-border-grey">
                     {formatDate(lastModified)}
                 </p>
             </div>
@@ -83,7 +89,7 @@ export default function MobilePublicationItem(publication: PublicationDataType) 
                 <p className="text-xs font-medium font-montserrat text-aciu-abriba">
                     Post Impressions
                 </p>
-                <p className="text-sm font-montserrat text-sm text-aciu-border-grey">
+                <p className="text-sm font-montserrat text-aciu-border-grey">
                     <span className="gap-4 flex items-center">
                         <span className="gap-2 flex items-center">
                             <Eye fontVariant="linear" size={16} color="#3E3E3E"/>
@@ -96,9 +102,9 @@ export default function MobilePublicationItem(publication: PublicationDataType) 
                     </span>
                 </p>
             </div>
-            <Link to={"/blog/post/1"}
+            <Link to={`/blogs/${id}`}
                 className="p-2 text-sm font-coolvetica 
-                text-aciu-green-normal rounded-[5px] 
+                text-aciu-green-normal rounded-[5px] pointer-events-none
                 border border-aciu-green-normal min-w-[145px] w-full 
                 text-center whitespace-nowrap">
                 View Post
