@@ -52,7 +52,10 @@ export default function ApprovePost({
                         minWidth: "12.5rem"
                     }}
                     className="flex gap-2 items-center min-w-49"
-                    onClick={() => onClose()}
+                    onClick={() => {
+                        onClose()
+                        navigate(`/blog`)
+                    }}
                 >
                     <span className="font-coolvetica text-base">
                         Go back to blog
@@ -72,7 +75,7 @@ export default function ApprovePost({
                     }}
                     className="flex gap-2 items-center min-w-49"
                     onClick={() => {
-                        navigate(`/blogs/${id}`)
+                        navigate(`/blog/submissions/${id}`)
                     }}
                 >
                     <span className="font-coolvetica text-base">
