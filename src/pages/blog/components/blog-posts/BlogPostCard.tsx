@@ -2,14 +2,16 @@ import type { RegularPostCardType } from "@/utils/types"
 import { Badge } from "@mui/material";
 import { ArrowUpRight } from "lucide-react";
 
-export const BlogPostCard = ({
-    img,
-    title,
-    author,
-    date,
-    subtitle,
-    tags
-}: RegularPostCardType) => {
+export const BlogPostCard = ({ post }: {post: RegularPostCardType }) => {
+    const {
+        img,
+        title,
+        author,
+        date,
+        subtitle,
+        tags
+    } = post;
+    
     return (
         <div className="
             border border-aciu-light-grey 
@@ -20,14 +22,14 @@ export const BlogPostCard = ({
                 src={img}
                 alt="Blog post thumbnail"
                 loading="lazy"
-                className="w-full h-[15rem] object-cover rounded-[.625rem]"
+                className="w-full h-60 object-cover rounded-[.625rem]"
             />
             <div className="flex flex-col gap-4">
                 <div className="flex flex-col gap-3">
                     <p className="text-aciu-green-normal font-semibold text-sm font-montserrat">
                         {author} • {date}
                     </p>
-                    <div className="flex gap-2">
+                    <div className="flex justify-between">
                         <p className="text-aciu-border-grey font-coolvetica text-lg">
                             {title}
                         </p>

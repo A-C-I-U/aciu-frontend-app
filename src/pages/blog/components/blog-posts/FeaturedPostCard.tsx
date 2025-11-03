@@ -2,14 +2,17 @@ import type { FeaturedPostCardType } from '@/utils/types';
 import { CommentOutlined } from '@ant-design/icons';
 import { Eye } from "@solar-icons/react"
 
-export const FeaturedPostCard = ({
-    img,
-    title,
-    author,
-    date,
-    views,
-    comments
-}: FeaturedPostCardType) => {
+export const FeaturedPostCard = ({ post }:
+    { post: FeaturedPostCardType }) => {
+    const { 
+        img, 
+        title, 
+        author, 
+        date, 
+        views, 
+        comments 
+    } = post;
+    
     return (
         <div className="relative w-full h-[27rem] overflow-hidden rounded-[.625rem]">
             <img 
