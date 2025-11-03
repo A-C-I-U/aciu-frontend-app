@@ -1,13 +1,13 @@
 import type { TabItem } from "@/utils/types"
-import BlogPosts from "./components/blog-posts/BlogPosts"
+import BlogPosts from "./components/blog-posts"
 import { PageTitle } from "@/components/PageTitle";
 import { useState } from "react";
 import { publicationStats } from "@/utils/data";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@/context/UserContext";
 import { PublicationCard } from "./components/my-publications/PublicationCard";
-import MyPublications from "./components/my-publications/MyPublications";
-import Submissions from "./components/submissions/Submissions";
+import MyPublications from "./components/my-publications";
+import Submissions from "./components/submissions";
 
 
 const blogsTabs: TabItem[] = [
