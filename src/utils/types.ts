@@ -62,9 +62,10 @@ export interface User {
   occupation: string,
   phoneNumber: string,
   email: string,
-  ageGrade: boolean,
-  branch: boolean,
+  ageGrade: string,
+  branch: string,
   role: Role;
+  verified: boolean
 };
 
 export interface UserContextType {
