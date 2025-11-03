@@ -16,8 +16,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     occupation: "Medical Doctor",
     phoneNumber: "234 903 828 3447",
     email: "janedoe@gmail.com",
-    ageGrade: true,
-    branch: true,
+    ageGrade: "Obiogu Age grade",
+    branch: "Lagos Branch",
+    verified: true,
     role: "branch-admin", 
   });
 
