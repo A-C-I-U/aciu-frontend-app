@@ -101,6 +101,7 @@ export interface PageTitleProps {
 }
 
 export interface BasePostCardType {
+    id: string,
     title: string,
     author: string,
     date: string,
@@ -143,6 +144,7 @@ export interface PublicationCardProps {
 
 export interface PublicationDataType {
     id: string,
+    slug?: string,
     title: string,
     creationDate: string,
     postImpressions: {
@@ -271,4 +273,41 @@ export interface ProjectSidebarCardProps {
 export interface DonationProgressBarProps {
   collected: number;
   target: number;
+}
+
+export interface CommentType {
+    id: string,
+    name: string,
+    date: string,
+    content: string
+}
+
+export interface BlogDetails {
+  id: string;
+  slug: string;
+  title: string;
+  author: string;
+  readingTime: number;
+  createdAt: Date;
+  updatedAt: Date;
+  content: JSONContent;
+  comments: CommentType[];
+}
+
+export interface BlogSubmissionDetails extends BlogDetails {
+    description: string,
+    tags: string[],
+    displayImage: string,
+    imageAlt: string,
+    postVisibility: "public" | "private",
+    status: "published" | "pending approval" | "rejected" | "draft"
+}
+
+export interface StatusBadgeProps {
+  label: string;
+  bgColor: string;
+  labelColor: string;
+  dotColor: string;
+  height?: string | number;
+  className?: string;
 }

@@ -98,3 +98,10 @@ export function timeAgo(dateString: string) {
   const diffYears = Math.floor(diffMonths / 12);
   return `${diffYears} year${diffYears > 1 ? "s" : ""} ago`;
 }
+
+
+export function calculateReadingTime(text: string, wordsPerMinute = 225) {
+  const words = text.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return minutes;
+}
