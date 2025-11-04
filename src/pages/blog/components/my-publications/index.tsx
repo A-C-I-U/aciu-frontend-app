@@ -37,17 +37,19 @@ export default function MyPublications() {
     return (
          <div className="flex flex-col gap-6 lg:gap-4">
             <div className="flex justify-between items-center w-full">
-                <div className="flex justify-between items-start lg:gap-4 lg:items-center w-full">
-                    <SectionHeader
-                        title="My Publications"
-                        onSearch={handleSearch}
-                        showSearch
-                        actions={sectionActions}
-                    />
+                <div className="flex flex-wrap gap-4 justify-between items-start lg:flex-nowrap lg:items-center w-full">
+                    <div className="min-w-fit lg:w-full">
+                        <SectionHeader
+                            title="My Publications"
+                            onSearch={handleSearch}
+                            showSearch
+                            actions={sectionActions}
+                        />
+                    </div>
                     <Link
                         to="/blog/create"
-                        className="p-4 gap-2 pointer-events-none
-                            rounded-xl bg-aciu-green-normal  
+                        className="py-3 px-2 lg:py-4 lg:px-4 gap-2 pointer-events-none
+                            rounded-xl bg-aciu-green-normal whitespace-nowrap min-w-fit
                             text-white font-coolvetica w-full max-w-fit"
                         >
                             Publish new post
