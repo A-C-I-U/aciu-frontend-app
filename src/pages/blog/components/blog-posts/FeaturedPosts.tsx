@@ -30,7 +30,7 @@ export default function FeaturedPosts() {
             <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-[7fr_3fr] gap-2">
                 {featuredPosts.map((post) => (
                     <FeaturedPostCard
-                        key={post?.id}
+                        key={post.id}
                         post={post}
                     />
                 ))}

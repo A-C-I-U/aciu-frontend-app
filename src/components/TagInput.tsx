@@ -1,12 +1,5 @@
+import type { TagInputProps } from "@/utils/types";
 import { useState, useRef } from "react";
-
-interface TagInputProps {
-  value: string[];
-  onChange: (tags: string[]) => void;
-  placeholder?: string;
-  disabled?: boolean;
-  className?: string;
-}
 
 export function TagInput({
   value,
@@ -40,7 +33,7 @@ export function TagInput({
   };
 
   const disabledClass =
-    disabled || value.length === 0 ? "pointer-events-none" : "";
+    disabled ? "pointer-events-none" : "";
 
   return (
     <div
@@ -69,7 +62,7 @@ export function TagInput({
         <input
           ref={inputRef}
           type="text"
-          className="flex-1 border-none focus:outline-none text-sm min-w-[100px]"
+          className="flex-1 border-none focus:outline-none text-sm min-w-25"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={handleKeyDown}

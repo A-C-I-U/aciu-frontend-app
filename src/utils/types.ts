@@ -312,3 +312,19 @@ export interface StatusBadgeProps {
   height?: string | number;
   className?: string;
 }
+
+export interface TagInputProps {
+  value: string[];
+  onChange: (tags: string[]) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  className?: string;
+}
+
+export interface CustomSnackbarProps {
+  selectedCount: number;
+  totalCount: number;
+  onSelectAll: () => void;
+  onDelete: () => void;
+  onClear: () => void;
+}
