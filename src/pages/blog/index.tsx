@@ -50,8 +50,8 @@ export default function BlogPage() {
             />
 
             <AnimatePresence>
-                {(activeTab?.key === "my-publications" || 
-                    activeTab?.key === "submissions") && (
+                {(activeTab.key === "my-publications" || 
+                    activeTab.key === "submissions") && (
                     <motion.div
                         key={activeTab.key}
                         initial={{ opacity: 0, y: -20 }}
@@ -72,14 +72,14 @@ export default function BlogPage() {
                 )}
 
                 <motion.div
-                    key={activeTab?.key + "-content"}
+                    key={activeTab.key + "-content"}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="mx-5 px-4 py-5 bg-white"
                     >
-                    {activeTab?.content}
+                    {activeTab.content}
                 </motion.div>
             </AnimatePresence>
         </div>

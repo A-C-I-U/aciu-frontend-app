@@ -88,17 +88,21 @@ export default function ShareSection({ title, url }: {
                 </div>
             </div>
 
-            <Divider orientation="horizontal" flexItem />
+            {regularPosts.length > 0 &&
+            <>
+                <Divider orientation="horizontal" flexItem />
 
-            <h1 className="text-gray-900 text-2xl leading-8">
-                Related blog posts
-            </h1>
+                <h1 className="text-gray-900 text-2xl leading-8">
+                    Related blog posts
+                </h1>
 
-            <div className="flex flex-col gap-8">
-                {regularPosts?.slice(0, 3).map((post) => (
-                    <BlogPostCard key={post.id} post={post} />
-                ))}
-            </div>
+                <div className="flex flex-col gap-8">
+                    {regularPosts?.slice(0, 3).map((post) => (
+                        <BlogPostCard key={post.id} post={post} />
+                    ))}
+                </div>
+            </>
+            }
         </div>
     );
 }
