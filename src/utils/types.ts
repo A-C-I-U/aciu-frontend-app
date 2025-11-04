@@ -319,3 +319,11 @@ export interface TagInputProps {
   disabled?: boolean;
   className?: string;
 }
+
+export interface CustomSnackbarProps {
+  selectedCount: number;
+  totalCount: number;
+  onSelectAll: () => void;
+  onDelete: () => void;
+  onClear: () => void;
+}

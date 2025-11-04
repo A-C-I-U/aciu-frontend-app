@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Slide } from "@mui/material";
 import { ArrowDown2 } from "iconsax-react";
+import type { CustomSnackbarProps } from "@/utils/types";
 
-interface CustomSnackbarProps {
-  selectedCount: number;
-  totalCount: number;
-  onSelectAll: () => void;
-  onDelete: () => void;
-  onClear: () => void;
-}
-
-export const CustomSnackbar: React.FC<CustomSnackbarProps> = ({
+export const CustomSnackbar = ({
   selectedCount,
   totalCount,
   onSelectAll,
   onClear,
   onDelete
-}) => {
+}: CustomSnackbarProps) => {
   const [visible, setVisible] = useState(false);
 
   // Show snackbar when selection > 0

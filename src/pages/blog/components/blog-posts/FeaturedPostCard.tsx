@@ -26,8 +26,6 @@ export const FeaturedPostCard = ({ post }:
                         bg-gradient-to-b from-transparent 
                         via-transparent to-aciu-darker-grey"
                 >
-                    {/* bg-gradient-to-b 
-                                from-transparent via-black/40 to-aciu-darker-grey */}
                     <div className="relative p-4 h-full flex flex-col justify-between">
                         <div className="
                             bg-aciu-dark-green text-white font-coolvetica

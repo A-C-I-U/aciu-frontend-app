@@ -94,7 +94,7 @@ export default function PostsTable(
         },
     })
 
-    // Retrieve number of selected rows
+    // Retrieves number of selected rows
     const selectedRowCount = Object.keys(rowSelection).length;
 
     const handleSelectAll = () => {

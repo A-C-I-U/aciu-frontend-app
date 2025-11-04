@@ -71,7 +71,7 @@ export const columns: ColumnDef<PublicationDataType>[] = [
         header: "Actions",
         size: 150,
         cell: () => (
-            // Add `{ row }: { row: Row<PublicationDataType> }` as a prop when integrating
+            // TODO: Add `{ row }: { row: Row<PublicationDataType> }` as a prop when integrating
             <Link to={`/blog/posts/${blogDetails.slug}`}
                 className="p-2 text-sm font-coolvetica 
                 text-aciu-green-normal rounded-[5px]
