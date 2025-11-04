@@ -75,7 +75,7 @@ export const columns: ColumnDef<PublicationDataType>[] = [
             <Link to={`/blog/posts/${blogDetails.slug}`}
                 className="p-2 text-sm font-coolvetica 
                 text-aciu-green-normal rounded-[5px]
-                border border-aciu-green-normal min-w-[145px] whitespace-nowrap"
+                border border-aciu-green-normal min-w-36.5 whitespace-nowrap"
             >
                 View Post
             </Link>

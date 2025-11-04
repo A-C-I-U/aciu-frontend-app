@@ -14,7 +14,7 @@ export const FeaturedPostCard = ({ post }:
     } = post;
     
     return (
-        <div className="relative w-full h-[27rem] overflow-hidden rounded-[.625rem]">
+        <div className="relative w-full min-h-108 overflow-hidden rounded-[.625rem]">
             <img 
                 src={img}
                 alt="Blog post thumbnail"

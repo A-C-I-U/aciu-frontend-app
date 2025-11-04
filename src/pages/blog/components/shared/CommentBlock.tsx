@@ -21,7 +21,6 @@ export default function CommentBlock({ comments }: { comments: CommentType[]}) {
 
                     return (
                         <div key={id} className="flex flex-col gap-6">
-
                             <div className="flex flex-col gap-4">
                                 <div className="flex gap-2 items-center">
                                     <div className="flex items-center justify-center w-11.5 h-11.5 bg-aciu-green-light-hover rounded-[2.125rem]">
