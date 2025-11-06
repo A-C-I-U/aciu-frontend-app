@@ -1,37 +1,43 @@
 import { Avatar, Divider } from "@mui/material";
 import DummyProfile from "/images/avatar.png";
+import PersonalInfoForm from "./PersonalInfoForm";
+import { useState } from "react";
+import PersonalInfoModal from "./PersonalInfoModal";
 import { Form, Formik } from "formik";
-import FormikField from "@/components/FormikField";
 import { useUser } from "@/context/UserContext";
+import type { ProfileFormValues } from "@/utils/types";
 
 export default function ProfileSettings() {
+    const [openProfileInfo, setOpenProfileInfo] = useState(false);
+   
     const { user } = useUser();
-    const initialValues = {
-        name: user?.name,
-        email: user?.email,
-        branch: user?.branch, 
-        ageGrade: user?.ageGrade, 
-        occupation: user?.occupation
+    const initialValues: ProfileFormValues = {
+        name: user?.name || "",
+        email: user?.email || "",
+        branch: user?.branch || "", 
+        ageGrade: user?.ageGrade || "", 
+        occupation: user?.occupation || "",
+        phoneNumber: user?.phoneNumber || ""
     }
 
-    const handleSubmit = (_values: any, _actions: any) => {
-        // TODO: Remove underscores when integrating API
-    }
     return (
         <div className="flex flex-col gap-6 w-full">
-            <div className="pl-10 flex flex-col gap-2 max-h-fit">
-                <p className="font-montserrat text-xl font-semibold leading-5 text-aciu-border-grey">
+            <div className="lg:pl-10 flex flex-col gap-2 max-h-fit">
+                <p className="font-montserrat lg:text-xl font-semibold leading-5 text-aciu-border-grey">
                     Personal Information
                 </p>
-                <p className="">
+                <p className="text-sm lg:text-base">
                     Edit your personal information and update your branch or contact details.
                 </p>
             </div>
             <Divider orientation="horizontal" flexItem />
-            <div className="flex flex-col gap-12 px-10 flex-1">
-                <div className="flex gap-6 items-center">
-                    <Avatar src={DummyProfile} className="rounded-[3.125rem] w-20 h-20" />
-                    <div className="flex gap-4 items-center">
+            <div className="flex flex-col gap-12 px-2 lg:px-10 flex-1">
+                <div className="flex flex-col lg:flex-row gap-6 lg:items-center">
+                    <Avatar src={DummyProfile} className="rounded-[3.125rem] w-20 h-20" style={{
+                        width: "5rem",
+                        height: "5rem"
+                    }}/>
+                    <div className="flex gap-4 items-stretch">
                         <button className="rounded bg-aciu-green-normal py-2.5 px-4 text-white font-coolvetica">
                             Upload New Picture
                         </button>
@@ -40,62 +46,28 @@ export default function ProfileSettings() {
                         </button>
                     </div>
                 </div>
-
-                <Formik
-                    initialValues={initialValues}
-                    onSubmit={handleSubmit}
-                >
-                    <Form className="flex flex-col gap-10 max-w-3/5">
-                        <FormikField 
-                            label="Email Address"
-                            name="email"
-                            type="email"
-                            placeholder="princeugbuta@gmail.com"
-                            fullWidth
-                        />
-
-                        <FormikField 
-                            label="Full Name"
-                            name="name"
-                            type="text"
-                            placeholder="princeugbuta@gmail.com"
-                            fullWidth
-                        />
-
-                        <FormikField 
-                            label="Age Grade"
-                            name="ageGrade"
-                            placeholder="Please input your age grade here"
-                            fullWidth
-                        />
-
-                        <FormikField
-                            label="Branch"
-                            name="branch"
-                            placeholder="Please input your current branch"
-                            fullWidth
-                        />
-
-                        <FormikField
-                            label="Occupation"
-                            name="occupation"
-                            placeholder="Please input your occupation"
-                            fullWidth
-                        />
-
-                        <FormikField
-                            label="Phone Number"
-                            name="phoneNumber"
-                            placeholder="Please input your phone number"
-                            fullWidth
-                        />
-
-                        <button className="bg-aciu-green-normal rounded py-2.5 px-6 font-coolvetica text-white w-full">
+               <Formik initialValues={initialValues} onSubmit={() => {}}>
+                    <Form className=" w-full lg:max-w-[90%] flex flex-col gap-10">
+                        <PersonalInfoForm disableInteractions />
+                        <button
+                            type="button"
+                            onClick={() => setOpenProfileInfo(true)}
+                            className="bg-aciu-green-normal rounded py-2.5 px-6 font-coolvetica text-white w-full"
+                        >
                             Edit Profile info
                         </button>
                     </Form>
                 </Formik>
+
+               
             </div>
+            {openProfileInfo &&
+                <PersonalInfoModal 
+                    initialValues={initialValues}
+                    open={openProfileInfo} 
+                    onClose={() => setOpenProfileInfo(false)}
+                />
+            }
         </div>
     )
 }
