@@ -328,3 +328,12 @@ export interface CustomSnackbarProps {
   onDelete: () => void;
   onClear: () => void;
 }
+
+export interface ProfileFormValues {
+  name: string;
+  email: string;
+  branch: string;
+  ageGrade: string;
+  occupation: string;
+  phoneNumber: string;
+};
