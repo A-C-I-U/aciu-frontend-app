@@ -105,3 +105,15 @@ export function calculateReadingTime(text: string, wordsPerMinute = 225) {
   const minutes = Math.ceil(words / wordsPerMinute);
   return minutes;
 }
+
+export function slugify(text: string) {
+  return text
+    .toString()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]+/g, '')
+    .replace(/--+/g, '-');
+}
