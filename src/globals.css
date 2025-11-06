@@ -32,9 +32,18 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Clash Display';
+  src: url('/fonts/ClashDisplay-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --font-coolvetica: 'Coolvetica', sans-serif;
-  --font-clash: 'Clash Grotesk', sans-serif;
+  --font-clash-grotesk: 'Clash Grotesk', sans-serif;
+  --font-clash-display: 'Clash Display', sans-serif;
   --font-montserrat: 'Montserrat', sans-serif;
   --font-plus-jakarta-sans: 'Plus Jakarta Sans', sans-serif;
   --font-inter: 'Inter', sans-serif;
@@ -103,6 +112,7 @@
   --color-card-200: #F9FBFC;
   --color-neutrals-50: #F9F9F9;
   --color-neutrals-100: #E3E3E3;
+  --color-aciu-orange-100: #FE961F;
 }
 
 html, body {
@@ -289,6 +299,20 @@ a, button {
   }
   .project-gallery.count-5 img:nth-child(1) {
     grid-row: span 2;
+  }
+
+  ::-webkit-scrollbar {
+    width: .5rem;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+  }
+
+
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
   }
 
 }
