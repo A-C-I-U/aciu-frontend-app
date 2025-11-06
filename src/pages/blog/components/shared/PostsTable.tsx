@@ -94,18 +94,15 @@ export default function PostsTable(
         },
     })
 
-    // Retrieve number of selected rows
+    // Retrieves number of selected rows
     const selectedRowCount = Object.keys(rowSelection).length;
 
     const handleSelectAll = () => {
         table.toggleAllRowsSelected();
     };
 
-    // async function
     const handleDelete = () => {
-        const idsToDelete = table.getSelectedRowModel().rows.map((r: Row<any>) => r.original.id)
-
-        console.log(idsToDelete);
+        // const idsToDelete = table.getSelectedRowModel().rows.map((r: Row<any>) => r.original.id)
         setRowSelection({});
         setOpenDelete(false);
     }
@@ -124,7 +121,6 @@ export default function PostsTable(
             />
 
 
-            {/* Delete Dialog */}
             <Dialog 
                 slotProps={{
                     paper: {
@@ -162,32 +158,20 @@ export default function PostsTable(
                     </Box>
                     <Box display="flex" gap="1.275rem" alignItems="center">
                         <button
-                            style={{
-                                padding: "1rem",
-                                gap: ".5rem",
-                                borderRadius: ".75rem",
-                                backgroundColor: "#00B686",
-                                color: "#fff",
-                                fontFamily: "'Coolvetica', sans-serif",
-                                width: "100%"
-                            }}
-                            onClick={handleDelete}>
-                                Yes, Delete
+                            className="p-4 gap-2 rounded-xl 
+                            bg-aciu-green-normal text-white 
+                            font-coolvetica w-full"
+                            onClick={handleDelete}
+                        >
+                            Yes, Delete
                         </button>
                         <button
-                            style={{
-                                padding: "1rem",
-                                gap: ".5rem",
-                                borderRadius: ".75rem",
-                                backgroundColor: "#fff",
-                                color: "#000",
-                                border: "1px solid #E5E5E5",
-                                fontFamily: "'Coolvetica', sans-serif",
-                                width: "100%"
-                            }}
+                            className="p-4 gap-2 rounded-xl 
+                            bg-aciu-green-normal text-white 
+                            font-coolvetica w-full"
                             onClick={() => setOpenDelete(false)}
-                            >
-                                No, Cancel
+                        >
+                            No, Cancel
                         </button>
                     </Box>
                 </Box>

@@ -73,3 +73,14 @@ export const ShareIcon = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   )
 }
+
+
+export const RejectIcon = (props: SVGProps<SVGSVGElement>) => {
+  return (
+    <svg {...props} width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="5" y="5" width="56" height="56" rx="28" fill="#F72A30"/>
+      <rect x="5" y="5" width="56" height="56" rx="28" stroke="#FFEAEB" stroke-width="10"/>
+      <path d="M27.7578 38.7419L33.0008 33.4989L38.2438 38.7419M38.2438 28.2559L32.9998 33.4989L27.7578 28.2559" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  )
+}

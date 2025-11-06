@@ -1,13 +1,13 @@
 import type { TabItem } from "@/utils/types"
-import BlogPosts from "./components/blog-posts/BlogPosts"
+import BlogPosts from "./components/blog-posts"
 import { PageTitle } from "@/components/PageTitle";
 import { useState } from "react";
 import { publicationStats } from "@/utils/data";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@/context/UserContext";
 import { PublicationCard } from "./components/my-publications/PublicationCard";
-import MyPublications from "./components/my-publications/MyPublications";
-import Submissions from "./components/submissions/Submissions";
+import MyPublications from "./components/my-publications";
+import Submissions from "./components/submissions";
 
 
 const blogsTabs: TabItem[] = [
@@ -50,8 +50,8 @@ export default function BlogPage() {
             />
 
             <AnimatePresence>
-                {(activeTab?.key === "my-publications" || 
-                    activeTab?.key === "submissions") && (
+                {(activeTab.key === "my-publications" || 
+                    activeTab.key === "submissions") && (
                     <motion.div
                         key={activeTab.key}
                         initial={{ opacity: 0, y: -20 }}
@@ -72,14 +72,14 @@ export default function BlogPage() {
                 )}
 
                 <motion.div
-                    key={activeTab?.key + "-content"}
+                    key={activeTab.key + "-content"}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="mx-5 px-4 py-5 bg-white"
                     >
-                    {activeTab?.content}
+                    {activeTab.content}
                 </motion.div>
             </AnimatePresence>
         </div>

@@ -85,6 +85,8 @@
   --color-primary-100: #F6F5FA;
   --color-primary-200: #EEECF6;
   --color-primary-300: #CBC6E4;
+  --color-red-50: #FBD8D8;
+  --color-red-100: #FF0707;
   --color-accent-100: #FEFCF3;
   --color-accent-300: #E0D394;
   --color-copy-300: #A1A6B1;
@@ -222,7 +224,7 @@ a, button {
   .ProseMirror {
     height: 100%;
     padding: 3.125rem 1.5rem;
-    cursor: text;
+    cursor: default;
   }
 
   .ProseMirror:focus-visible {

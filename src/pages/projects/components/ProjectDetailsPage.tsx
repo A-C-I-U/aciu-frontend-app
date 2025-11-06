@@ -10,6 +10,7 @@ import ShareProject from "./ShareProject";
 import DonateToProject from "./DonateToProject";
 import ProjectSidebarCard from "./ProjectSidebarCard";
 import MotionBox from "@/components/MotionBox";
+import { slugify } from "@/utils/helpers";
 
 export default function ProjectDetailsPage() {
     const [showDonateProject, setShowDonateProject] = useState(false);
@@ -30,7 +31,6 @@ export default function ProjectDetailsPage() {
         collectedFunds,
         projectImages,
         projectManager,
-        link
     } = projectDetail;
 
     const projectDetailTabs: TabItem[] = [
@@ -169,7 +169,7 @@ export default function ProjectDetailsPage() {
                     </div>
 
                     <ShareProject
-                        link={link}
+                        link={`https://aciu-abriba.org/${slugify(title)}`}
                         open={showShareProject}
                         onClose={() => setShowShareProject(false)}
                     />

@@ -22,6 +22,8 @@ import EventDetails from "@/pages/events/components/EventDetails";
 import EventsList from "@/pages/events/components/EventsList";
 import BlogPostForm from "@/pages/blog/components/blog-posts/BlogPostForm";
 import ProjectDetailsPage from "@/pages/projects/components/ProjectDetailsPage";
+import SubmissionViewPage from "@/pages/blog/components/submissions/SubmissionViewPage";
+import PostViewPage from "@/pages/blog/components/blog-posts/PostViewPage";
 
 
 export const protectedRoutes = [
@@ -94,8 +96,16 @@ export const protectedRoutes = [
         element: <BlogPostForm type="create"/>
       },
       {
-        path: ":id/edit",
+        path: "posts/:slug",
+        element: <PostViewPage />
+      },
+      {
+        path: "posts/:slug/edit",
         element: <BlogPostForm type="edit"/>
+      },
+      {
+        path: "submissions/:id",
+        element: <SubmissionViewPage />
       }
     ]
   },
