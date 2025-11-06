@@ -183,6 +183,20 @@ export default function FormikField({
           "& .MuiInputBase-inputAdornedEnd": {
             width: "100%",
           },
+          "& .MuiInputBase-input.Mui-disabled": {
+            color: "#737373",
+            WebkitTextFillColor: "#737373",
+            backgroundColor: "#F7F7F7",
+          },
+          "& .MuiOutlinedInput-root.Mui-disabled fieldset": {
+            borderColor: "#DFE1E7",
+          },
+          "& .MuiOutlinedInput-root.Mui-disabled:hover fieldset": {
+            borderColor: "#DFE1E7",
+          },
+          "& .MuiOutlinedInput-root.Mui-disabled.Mui-focused fieldset": {
+            borderColor: "#DFE1E7",
+          }
         }}
         >
           {options && 
