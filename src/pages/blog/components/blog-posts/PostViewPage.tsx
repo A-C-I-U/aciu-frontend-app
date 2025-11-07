@@ -19,7 +19,7 @@ export default function PostViewPage() {
         <div className="my-8 mx-5 flex flex-col gap-8">
            <PostViewHeader post={blogDetails} />
             <div className="grid lg:grid-cols-[3fr_24rem] gap-4">
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-8">
                     <div className="w-full bg-white rounded-[.625rem] py-6.5 px-6.5 max-h-fit">
                         <PostViewer content={content} />
                     </div>
