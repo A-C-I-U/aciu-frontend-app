@@ -19,7 +19,7 @@ const extensions = [
     }),
 ]
 
-export default function BlogViewer({ content }: { content: any }) {
+export default function PostViewer({ content }: { content: any }) {
   const editor = useEditor({
     extensions,
     content,

@@ -3,8 +3,8 @@ import PostViewHeader from "../shared/PostViewHeader";
 import { useState } from "react";
 import ApprovePost from "./ApprovePost";
 import RejectPost from "./RejectPost";
-import BlogViewer from "../shared/BlogViewer";
 import PostMetaDataForm from "../shared/PostMetadataForm";
+import PostViewer from "../shared/PostViewer";
 
 export default function SubmissionViewPage() {
     const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -47,7 +47,7 @@ export default function SubmissionViewPage() {
             </div>
             <div className="grid lg:grid-cols-[3fr_24rem] gap-4">
                 <div className="w-full bg-white rounded-[.625rem] py-6.5 px-6.5">
-                    <BlogViewer content={content} />
+                    <PostViewer content={content} />
                 </div>
                 <PostMetaDataForm post={blogDetails} />
             </div>

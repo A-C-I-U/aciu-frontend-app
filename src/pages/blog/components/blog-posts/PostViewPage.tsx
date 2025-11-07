@@ -1,8 +1,8 @@
 import { blogDetails } from "@/utils/data";
-import BlogViewer from "../shared/BlogViewer";
 import CommentBlock from "../shared/CommentBlock";
 import ShareSection from "./ShareSection";
 import PostViewHeader from "../shared/PostViewHeader";
+import PostViewer from "../shared/PostViewer";
 
 export default function PostViewPage() {
     const {
@@ -21,7 +21,7 @@ export default function PostViewPage() {
             <div className="grid lg:grid-cols-[3fr_24rem] gap-4">
                 <div className="flex flex-col gap-4">
                     <div className="w-full bg-white rounded-[.625rem] py-6.5 px-6.5 max-h-fit">
-                        <BlogViewer content={content} />
+                        <PostViewer content={content} />
                     </div>
                     <CommentBlock comments={comments} />
                 </div>
