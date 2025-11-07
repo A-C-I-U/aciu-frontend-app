@@ -2,16 +2,19 @@ import type { FeaturedPostCardType } from '@/utils/types';
 import { CommentOutlined } from '@ant-design/icons';
 import { Eye } from "@solar-icons/react"
 
-export const FeaturedPostCard = ({
-    img,
-    title,
-    author,
-    date,
-    views,
-    comments
-}: FeaturedPostCardType) => {
+export const FeaturedPostCard = ({ post }:
+    { post: FeaturedPostCardType }) => {
+    const { 
+        img, 
+        title, 
+        author, 
+        date, 
+        views, 
+        comments 
+    } = post;
+    
     return (
-        <div className="relative w-full h-[27rem] overflow-hidden rounded-[.625rem]">
+        <div className="relative w-full min-h-108 overflow-hidden rounded-[.625rem]">
             <img 
                 src={img}
                 alt="Blog post thumbnail"
@@ -23,8 +26,6 @@ export const FeaturedPostCard = ({
                         bg-gradient-to-b from-transparent 
                         via-transparent to-aciu-darker-grey"
                 >
-                    {/* bg-gradient-to-b 
-                                from-transparent via-black/40 to-aciu-darker-grey */}
                     <div className="relative p-4 h-full flex flex-col justify-between">
                         <div className="
                             bg-aciu-dark-green text-white font-coolvetica

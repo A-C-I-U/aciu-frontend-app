@@ -17,22 +17,10 @@ export default function FeaturedPosts() {
                     }}
                     spaceBetween={20}
                 >
-                    {featuredPosts.map(({ 
-                        img, 
-                        title, 
-                        author, 
-                        date, 
-                        views, 
-                        comments 
-                    }, index) => (
-                        <SwiperSlide key={index}>
+                    {featuredPosts.map((post) => (
+                        <SwiperSlide key={post.id}>
                             <FeaturedPostCard
-                                img={img}
-                                title={title}
-                                author={author}
-                                date={date}
-                                views={views}
-                                comments={comments}
+                                post={post}
                             />
                         </SwiperSlide>
                     ))}
@@ -40,22 +28,10 @@ export default function FeaturedPosts() {
                 <div className="custom-swiper-pagination flex gap-2 items-center mt-4 justify-center"></div>
             </div>
             <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-[7fr_3fr] gap-2">
-                {featuredPosts.map(({ 
-                    img, 
-                    title, 
-                    author, 
-                    date, 
-                    views, 
-                    comments 
-                }, index) => (
+                {featuredPosts.map((post) => (
                     <FeaturedPostCard
-                        key={index}
-                        img={img}
-                        title={title}
-                        author={author}
-                        date={date}
-                        views={views}
-                        comments={comments}
+                        key={post.id}
+                        post={post}
                     />
                 ))}
             </div>

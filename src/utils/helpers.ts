@@ -23,6 +23,7 @@ export function generateMockPublications(count: number): PublicationDataType[] {
     const modified = randomDate(new Date(2023, 0, 2), new Date());
 
     return {
+      id: `${i + 1}`,
       title: `Publication ${i + 1}`,
       creationDate: creation.toISOString(),
       postImpressions: {
@@ -96,4 +97,23 @@ export function timeAgo(dateString: string) {
 
   const diffYears = Math.floor(diffMonths / 12);
   return `${diffYears} year${diffYears > 1 ? "s" : ""} ago`;
+}
+
+
+export function calculateReadingTime(text: string, wordsPerMinute = 225) {
+  const words = text.trim().split(/\s+/).length;
+  const minutes = Math.ceil(words / wordsPerMinute);
+  return minutes;
+}
+
+export function slugify(text: string) {
+  return text
+    .toString()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w-]+/g, '')
+    .replace(/--+/g, '-');
 }
