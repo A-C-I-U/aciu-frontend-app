@@ -1,6 +1,15 @@
+import CustomSwitch from "@/components/CustomSwitch";
 import { Divider } from "@mui/material";
+import { Form, Formik, type FormikHelpers } from "formik";
 
+type MultiFactorType = {
+    multiFactorAuth: boolean
+}
 export default function SecuritySettings() {
+    const handleSubmit = (_values: MultiFactorType, _action: FormikHelpers<MultiFactorType>) => {
+        // Remove underscores when integrating API
+    }
+
     return (
         <div className="flex flex-col gap-6">
             <div className="lg:px-10 flex flex-col gap-2">
@@ -13,7 +22,7 @@ export default function SecuritySettings() {
             </div>
             <Divider orientation="horizontal" flexItem />
             <div className="flex flex-col gap-3 lg:px-10 py-4 lg:py-7">
-                <div className="flex justify-between flex-col gap-6 lg:gap-0">
+                <div className="flex justify-between flex-col lg:flex-row gap-6 lg:gap-0">
                     <div className="flex flex-col gap-2">
                         <p className="font-semibold text-sm md:text-[1.125rem] text-aciu-border-grey">
                             Change Password
@@ -41,39 +50,44 @@ export default function SecuritySettings() {
                             An OTP would be sent to your email every time you want to access your account.
                         </p>
                     </div>
-                    {/* <FormControlLabel
-                        sx={{
-                        "& .MuiFormControlLabel-label": {
-                            color: "#737373",
-                            fontFamily: "'Montserrat', sans-serif",
-                            fontWeight: 500,
-                            fontSize: ".75rem"
-                        },
-                        }}
-                        control={
-                        <Switch
-                            checked={}
-                            onChange={(e) => onChange(fieldName, e.target.checked)}
-                            sx={{
-                            height: "2.625rem",
-                            width: "3.625rem",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            borderRadius: "50%",
-                            "& .MuiSwitch-switchBase.Mui-checked": {
-                                color: "#fff",
-                                padding: "10px",
-                                transform: "translateX(1rem)",
-                            },
-                            "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
-                                backgroundColor: "#00B686",
-                                opacity: 1,
-                            }
-                            }}
-                        />
-                        }
-                        label=""
-                    /> */}
+                    <Formik
+                        initialValues={{ multiFactorAuth: false }}
+                        onSubmit={handleSubmit}
+                    >
+                        {({ values, setFieldValue }) => (
+                            <Form>
+                                <div>
+                                <CustomSwitch 
+                                    checked={values.multiFactorAuth}
+                                    onChange={setFieldValue}
+                                    fieldName="multiFactorAuth"
+                                    sx={{
+                                        width: "5rem",
+                                        "& .MuiSwitch-switchBase": {
+                                            transform: "translate(.275rem, -50%)",
+                                            top: "50%",
+                                        },
+                                        "& .MuiSwitch-switchBase.Mui-checked": {
+                                            color: "#fff",
+                                            transform: "translate(1.875rem, -50%)",
+                                        },
+                                        "& .MuiSwitch-track": {
+                                            height: "1.875rem",
+                                            borderRadius: "99999px",
+                                            backgroundColor: "#d1d5db",
+                                            opacity: 1,
+                                        },
+                                        "& .MuiSwitch-thumb": {
+                                            width: "1.625rem",
+                                            height: "1.625rem",
+                                        },
+                                    }}
+                                />
+                                </div>
+                            </Form>
+                        )}
+                    </Formik>
+                    
                 </div>
 
                 <Divider orientation="horizontal" className="text-[#F4F4F4]" flexItem />

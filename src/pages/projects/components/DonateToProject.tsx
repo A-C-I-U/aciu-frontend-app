@@ -1,11 +1,12 @@
 import FormikField from "@/components/FormikField"
 import { donationSchema } from "@/utils/schemas"
-import { Button, CircularProgress, Dialog, FormControlLabel, Switch } from "@mui/material"
+import { Button, CircularProgress, Dialog, FormControlLabel } from "@mui/material"
 import { Form, Formik } from "formik"
 import { X } from "lucide-react"
 import { useState } from "react"
 import ThankYouPrompt from "./ThankYouPrompt"
 import type { DialogFuncProps } from "@/utils/types"
+import CustomSwitch from "@/components/CustomSwitch"
 
 const initialValues = {
     email: "",
@@ -98,55 +99,16 @@ export default function DonateToProject({
                                                 placeholder="10, 000"
                                                 fullWidth
                                             />
-                                            <FormControlLabel
-                                                sx={{
-                                                    "& .MuiFormControlLabel-label": {
-                                                        color: "#737373",
-                                                        fontFamily: "'Montserrat', sans-serif",
-                                                        fontWeight: 500,
-                                                        fontSize: ".75rem"
-                                                    },
-                                                }}
+                                            <FormControlLabel 
                                                 control={
-                                                    <Switch
+                                                    <CustomSwitch 
                                                         checked={values.anonymous}
-                                                        onChange={(e) => setFieldValue("anonymous", e.target.checked)}
-                                                        sx={{
-                                                            width: "3.75rem",
-                                                            alignItems: "center",
-                                                            justifyContent: "center",
-                                                            position: "relative",
-                                                            "& .MuiSwitch-switchBase": {
-                                                                transform: "translate(.275rem, -50%)",
-                                                                top: "50%",
-                                                            },
-
-                                                            "& .MuiSwitch-switchBase.Mui-checked": {
-                                                                color: "#fff",
-                                                                transform: "translate(1.25rem, -50%)",
-                                                            },
-
-                                                            "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
-                                                                backgroundColor: "#00B686",
-                                                                opacity: 1,
-                                                            },
-
-                                                            "& .MuiSwitch-track": {
-                                                                borderRadius: "99999px",
-                                                                backgroundColor: "#d1d5db",
-                                                                opacity: 1,
-                                                                height: "1.25rem"
-                                                            },
-                                                            "& .MuiSwitch-thumb": {
-                                                                width: "1.125rem",
-                                                                height: "1.125rem"
-                                                            }
-                                                        }}
+                                                        onChange={setFieldValue}
+                                                        fieldName="anonymous"
                                                     />
                                                 }
                                                 label="Share anonymously"
                                             />
-
                                         </div>
 
                                         <FormikField

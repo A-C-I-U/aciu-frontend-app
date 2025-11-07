@@ -15,7 +15,10 @@ const initialValues = {
 type NotificationSettingsType = typeof initialValues;
 
 export default function NotificationSettings() {
-    const handleSubmit = async (_values: typeof initialValues, _actions: FormikHelpers<NotificationSettingsType>) => {
+    const handleSubmit = async (
+        _values: typeof initialValues, 
+        _actions: FormikHelpers<NotificationSettingsType>
+    ) => {
         // TODO: Remove underscores once API is integrated
     }
 
@@ -26,7 +29,7 @@ export default function NotificationSettings() {
         >
             {({ values, setFieldValue }) => (
                 <Form>
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col gap-8 lg:gap-6">
                         <div className="lg:pl-10 flex flex-col gap-2">
                             <p className="lg:text-xl font-semibold leading-5 text-aciu-border-grey">
                                 Notification Settings
@@ -102,7 +105,7 @@ export default function NotificationSettings() {
                                         {
                                             label: "Comments Replies",
                                             description: "Receive a a notification when someone replies a comment on our blog.",
-                                            fieldName: "commentsReplies",
+                                            fieldName: "commentsAndReplies",
                                             checked: values.commentsAndReplies,
                                             onChange: setFieldValue
                                         },
@@ -117,9 +120,9 @@ export default function NotificationSettings() {
                                 />
                         </div>
                     </div>
-                    <div className="p-7 flex justify-end w-full">
+                    <div className="p-7 flex justify-center lg:justify-end w-full">
                         <button 
-                            className="p-4 rounded-xl bg-color-red-100 font-coolvetica text-white"
+                            className="p-4 rounded-xl bg-red-100 font-coolvetica text-white min-w-54.5"
                             type="submit"
                         >
                             Reset Changes
