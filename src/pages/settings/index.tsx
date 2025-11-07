@@ -39,7 +39,7 @@ export default function SettingsPage() {
     const [activeTab, setActiveTab] = useState(settingsTabs[0]);
     const { user } = useUser();
     const [screen, setScreen] = useState<"overview" | "content">("overview");
-    const isMobile = useMediaQuery("(max-width: 768px)");
+    const isMedium = useMediaQuery("(max-width: 1024px)");
 
     const handleTabClick = (tab: ExtendedTabItem) => {
         setActiveTab(tab)
@@ -82,7 +82,7 @@ export default function SettingsPage() {
                 </div>
             </div>
 
-            {!isMobile
+            {!isMedium
             && (
                 <MotionBox
                     initial={{ opacity: 0, y: -20 }}
@@ -91,7 +91,7 @@ export default function SettingsPage() {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="bg-white relative mx-5 flex"
                 >
-                    <div className="hidden lg:flex py-8 px-6.5 flex-col gap-8 min-w-105">
+                    <div className="hidden md:flex py-8 px-6.5 flex-col gap-8 lg:min-w-105">
                         {user?.verified ?
                             <ProfileVerificationPopup /> : 
                         ""}
@@ -135,7 +135,7 @@ export default function SettingsPage() {
 
             )}
 
-            {isMobile && (
+            {isMedium && (
                 <MotionBox
                     key={screen}
                     initial={{ opacity: 0, y: 20 }}

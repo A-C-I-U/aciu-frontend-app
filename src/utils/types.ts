@@ -337,3 +337,17 @@ export interface ProfileFormValues {
   occupation: string;
   phoneNumber: string;
 };
+
+export interface NotificationOption {
+  label: string;
+  description: string;
+  fieldName: string;
+  checked: boolean;
+  onChange: (field: string, value: boolean, shouldValidate?: boolean) => void;
+}
+
+export interface NotificationSectionProps {
+  title: string;
+  description: string;
+  options: NotificationOption[];
+}
