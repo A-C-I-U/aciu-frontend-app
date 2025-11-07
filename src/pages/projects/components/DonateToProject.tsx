@@ -112,19 +112,34 @@ export default function DonateToProject({
                                                         checked={values.anonymous}
                                                         onChange={(e) => setFieldValue("anonymous", e.target.checked)}
                                                         sx={{
-                                                            height: "2.625rem",
-                                                            width: "3.625rem",
+                                                            width: "3.75rem",
                                                             alignItems: "center",
                                                             justifyContent: "center",
-                                                            borderRadius: "50%",
+                                                            position: "relative",
+                                                            "& .MuiSwitch-switchBase": {
+                                                                transform: "translate(.275rem, -50%)",
+                                                                top: "50%",
+                                                            },
+
                                                             "& .MuiSwitch-switchBase.Mui-checked": {
                                                                 color: "#fff",
-                                                                padding: "10px",
-                                                                transform: "translateX(1rem)",
+                                                                transform: "translate(1.25rem, -50%)",
                                                             },
-                                                            "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
+
+                                                            "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
                                                                 backgroundColor: "#00B686",
                                                                 opacity: 1,
+                                                            },
+
+                                                            "& .MuiSwitch-track": {
+                                                                borderRadius: "99999px",
+                                                                backgroundColor: "#d1d5db",
+                                                                opacity: 1,
+                                                                height: "1.25rem"
+                                                            },
+                                                            "& .MuiSwitch-thumb": {
+                                                                width: "1.125rem",
+                                                                height: "1.125rem"
                                                             }
                                                         }}
                                                     />

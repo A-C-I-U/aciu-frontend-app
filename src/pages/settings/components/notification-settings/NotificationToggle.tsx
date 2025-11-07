@@ -24,28 +24,43 @@ export const NotificationToggle = ({ label, description, fieldName, checked, onC
                 },
             }}
             control={
-            <Switch
-                checked={checked}
-                onChange={(e) => onChange(fieldName, e.target.checked)}
-                sx={{
-                height: "2.625rem",
-                width: "3.625rem",
-                alignItems: "center",
-                justifyContent: "center",
-                borderRadius: "50%",
-                "& .MuiSwitch-switchBase.Mui-checked": {
-                    color: "#fff",
-                    padding: "10px",
-                    transform: "translateX(1rem)",
-                },
-                "& .MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track": {
-                    backgroundColor: "#00B686",
-                    opacity: 1,
-                }
+                <Switch
+                    checked={checked}
+                    onChange={(e) => onChange(fieldName, e.target.checked)}
+                    sx={{
+                    width: "3.75rem",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    position: "relative",
+                   "& .MuiSwitch-switchBase": {
+                        transform: "translate(.275rem, -50%)",
+                        top: "50%",
+                    },
+
+                    "& .MuiSwitch-switchBase.Mui-checked": {
+                        color: "#fff",
+                        transform: "translate(1.25rem, -50%)",
+                    },
+
+                    "& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track": {
+                        backgroundColor: "#00B686",
+                        opacity: 1,
+                    },
+
+                    "& .MuiSwitch-track": {
+                        borderRadius: "99999px",
+                        backgroundColor: "#d1d5db",
+                        opacity: 1,
+                        height: "1.25rem"
+                    },
+                    "& .MuiSwitch-thumb": {
+                        width: "1.125rem",
+                        height: "1.125rem"
+                    }
                 }}
             />
-            }
-            label=""
-        />
+        }
+        label=""
+    />
     </div>
 );
