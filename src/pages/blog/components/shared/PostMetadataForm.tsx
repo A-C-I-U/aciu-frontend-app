@@ -20,6 +20,7 @@ export default function PostMetaDataForm({ post }: { post: BlogSubmissionDetails
                         font-montserrat leading-5 pointer-events-none
                         rounded-[.625rem] px-3 py-3"
                         value={post.title}
+                        readOnly
                     />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -35,6 +36,7 @@ export default function PostMetaDataForm({ post }: { post: BlogSubmissionDetails
                         rounded-[.625rem] py-3 px-3"
                         value={post.description}
                         rows={5}
+                        readOnly
                     />
                 </div>
                 <div className="flex flex-col gap-2">
@@ -73,6 +75,7 @@ export default function PostMetaDataForm({ post }: { post: BlogSubmissionDetails
                         font-montserrat leading-5 pointer-events-none
                         rounded-[.625rem] px-3 py-3 capitalize"
                         value={post.postVisibility}  
+                        readOnly
                     />
                 </div>
             </div>
