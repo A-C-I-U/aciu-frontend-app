@@ -8,10 +8,11 @@ import NotificationSettings from "./components/notification-settings";
 import SecuritySettings from "./components/security-settings";
 import { useUser } from "@/context/UserContext";
 import ProfileVerificationPopup from "./components/profile-settings/ProfileVerificationPopup";
-import { ArrowRight2 } from "iconsax-react";
+import { ArrowLeft2 } from "iconsax-react";
 
 interface ExtendedTabItem extends TabItem {
   description?: string;
+  contentDescription?: string
 }
 
 const settingsTabs: ExtendedTabItem[] = [
@@ -19,18 +20,21 @@ const settingsTabs: ExtendedTabItem[] = [
         key: "profile-settings", 
         label: "Profile Settings", 
         description: "Personal Information, Contact Details", 
+        contentDescription: "Edit your personal information and update your branch or contact details.",
         content: <ProfileSettings />
     },
     { 
         key: "notification-settings", 
         label: "Notification Settings", 
         description: "Emails, Sms, In-App",
+        contentDescription: "Choose how and where you receive updates from ACIU.",
         content: <NotificationSettings />
     },
     { 
         key: "security-settings", 
         label: "Security Settings", 
         description: "Change Password, 2FA",
+        contentDescription: "Keep your account safe and secure.",
         content: <SecuritySettings />
     }
 ]
@@ -48,10 +52,9 @@ export default function SettingsPage() {
     const handleOpenContent = (tab: TabItem) => {
         setActiveTab(tab);
         setScreen("content");
-      };
+    };
     
-    //   We might need this function later
-    // const handleBack = () => setScreen("overview");
+    const handleBack = () => setScreen("overview");
 
     useEffect(() => {
         window.scrollTo({
@@ -81,6 +84,7 @@ export default function SettingsPage() {
                     </button>
                 </div>
             </div>
+
 
             {!isMedium
             && (
@@ -135,6 +139,8 @@ export default function SettingsPage() {
 
             )}
 
+
+            
             {isMedium && (
                 <MotionBox
                     key={screen}
@@ -156,13 +162,19 @@ export default function SettingsPage() {
                                     <button
                                         key={tab.key}
                                         onClick={() => handleOpenContent(tab)}
-                                        className="w-full flex justify-between items-center p-4.5 bg-white h-19 rounded-[.625rem]"
+                                        className={`bg-aciu-bg-grey py-4 px-2.5 flex justify-between items-center w-full`}
                                     >
-                                        <span className="font-medium font-montserrat text-sm text-aciu-abriba leading-[140%]">
+                                    <span className="font-montserrat flex flex-col gap-2 items-start">
+                                        <span className="text-aciu-border-grey font-semibold "
+                                        >
                                             {tab.label}
                                         </span>
-                                        <ArrowRight2 size={20} variant="Linear" color="#151515" />
-                                    </button>
+                                        <span className={`text-aciu-abriba text-sm `}>
+                                            {tab.description}
+                                        </span>
+                                    </span>
+                                    <ArrowRightIcon color="#00B686" size={20}/>
+                                </button>
                                 ))}
                             </div>
                         </div>
@@ -178,7 +190,32 @@ export default function SettingsPage() {
                             borderRadius=".625rem"
                             py={3}
                             px={2}
-                        >   
+                        > 
+                            
+                            <div className="flex flex-col gap-6 w-full mb-6">
+                                <div className="flex items-center gap-3">
+                                    <button
+                                        type="button"
+                                        onClick={handleBack}
+                                        aria-label="Go back to Settings Overview"
+                                        title="Go back to Settings Overview"
+                                        className="flex items-center text-aciu-neutral font-montserrat text-sm
+                                            border border-neutrals-100 rounded-[0.75rem] px-2 py-4 bg-transparent hover:bg-neutrals-50 transition-colors"
+                                    >
+                                        <ArrowLeft2 size={20} color="#898483" />
+                                    </button>
+                                    <div className="lg:pl-10 flex flex-col gap-2 max-h-fit">
+                                        <p className="font-montserrat lg:text-xl font-semibold leading-5 text-aciu-border-grey">
+                                            {activeTab?.key === "profile-settings" ?
+                                            "Personal Information" : activeTab?.label}
+                                        </p>
+                                        <p className="text-sm lg:text-base">
+                                            {activeTab?.contentDescription}
+                                        </p>
+                                    </div>
+                                </div>
+                                <Divider orientation="horizontal" flexItem />  
+                            </div> 
                             {activeTab.content}
                         </MotionBox>
                     )}
