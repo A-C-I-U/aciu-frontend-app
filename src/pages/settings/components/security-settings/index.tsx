@@ -1,18 +1,21 @@
 import CustomSwitch from "@/components/CustomSwitch";
 import { Divider } from "@mui/material";
 import { Form, Formik, type FormikHelpers } from "formik";
+import ChangePassword from "./ChangePassword";
+import { useState } from "react";
 
 type MultiFactorType = {
     multiFactorAuth: boolean
 }
 export default function SecuritySettings() {
+    const [openChangePassword, setOpenChangePassword] = useState(false)
     const handleSubmit = (_values: MultiFactorType, _action: FormikHelpers<MultiFactorType>) => {
         // Remove underscores when integrating API
     }
 
     return (
         <div className="flex flex-col gap-6">
-            <div className="lg:px-10 flex flex-col gap-2">
+            <div className="lg:px-10 hidden lg:flex flex-col gap-2">
                 <p className="lg:text-xl font-semibold leading-5 text-aciu-border-grey">
                     Security Settings
                 </p>
@@ -20,7 +23,7 @@ export default function SecuritySettings() {
                     Keep your account safe and secure.
                 </p>
             </div>
-            <Divider orientation="horizontal" flexItem />
+            <Divider orientation="horizontal" flexItem className="hidden lg:block"/>
             <div className="flex flex-col gap-3 lg:px-10 py-4 lg:py-7">
                 <div className="flex justify-between flex-col lg:flex-row gap-6 lg:gap-0">
                     <div className="flex flex-col gap-2">
@@ -32,8 +35,9 @@ export default function SecuritySettings() {
                         </p>
                     </div>
                     <button
-                        className="rounded-xl p-4 border border-aciu-green-normal text-[#122730]
+                        className="rounded-xl p-4 border border-aciu-green-normal text-aciu-cyan-dark
                         font-clash-display bg-aciu-green-light text-sm font-medium max-w-fit"
+                        onClick={() => setOpenChangePassword(true)}
                         
                     >
                        Change Password
@@ -90,7 +94,7 @@ export default function SecuritySettings() {
                     
                 </div>
 
-                <Divider orientation="horizontal" className="text-[#F4F4F4]" flexItem />
+                <Divider orientation="horizontal" className="text-aciu-white-dark" flexItem />
                 <div className="flex justify-between flex-col gap-6 lg:flex-row lg:gap-0 py-4 lg:py-7">
                     <div className="flex flex-col gap-2">
                         <p className="font-semibold text-sm md:text-[1.125rem] text-aciu-border-grey">
@@ -109,6 +113,11 @@ export default function SecuritySettings() {
                     </button>
                 </div>
             </div>
+
+            <ChangePassword
+                open={openChangePassword}
+                onClose={() => setOpenChangePassword(false)}
+            />
         </div>
     )
 }

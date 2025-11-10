@@ -142,3 +142,15 @@ export const profileValidationSchema = object({
         .matches(/^\+\d{10,15}$/, 'Must be a valid phone number with country code')
         .required('Phone number is required'),
 })
+
+
+export const changePasswordSchema = object({
+    oldPassword: string()
+        .required("Ypur old password is required"),
+    newPassword: string()
+        .min(8, "Password must be at least 8 characters")
+        .required("Your new password is required"),
+    confirmPassword: string()
+        .oneOf([ref('password')], 'Passwords must match')
+        .required("Confirm your password")
+})
