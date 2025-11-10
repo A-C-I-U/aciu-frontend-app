@@ -8,7 +8,7 @@ import MobilePublicationItem from "./MobilePublicationItem";
 import { PaginationControls } from "../shared/PaginationControls";
 
 export default function PublicationsTable() {
-    const isMobile = useMediaQuery('(max-width:768px)')
+    const isMedium = useMediaQuery('(max-width:992px)')
     const itemsPerPage = 5;
     const [page, setPage] = useState(1);
 
@@ -18,24 +18,24 @@ export default function PublicationsTable() {
 
     return (
         <>
-        {!isMobile ? 
+        {!isMedium ? 
             <PostsTable
                 data={mockData}
                 columns={columns}
                 withSelection
             /> :
-            currentItems.map((publication, index) => {
+            currentItems.map((publication) => {
                 return (
                     <>
                         <MobilePublicationItem
-                            key={index}
+                            key={publication.id}
                             publication={publication} 
                         />
                     </>
                 )
             })
         }
-        {isMobile &&
+        {isMedium &&
            <PaginationControls
                 total={mockData.length}
                 page={page}
