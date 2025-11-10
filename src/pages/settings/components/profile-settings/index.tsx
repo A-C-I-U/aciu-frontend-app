@@ -22,7 +22,7 @@ export default function ProfileSettings() {
 
     return (
         <div className="flex flex-col gap-6 w-full">
-            <div className="lg:pl-10 flex flex-col gap-2 max-h-fit">
+            <div className="lg:pl-10 hidden lg:flex flex-col gap-2 max-h-fit">
                 <p className="font-montserrat lg:text-xl font-semibold leading-5 text-aciu-border-grey">
                     Personal Information
                 </p>
@@ -30,7 +30,7 @@ export default function ProfileSettings() {
                     Edit your personal information and update your branch or contact details.
                 </p>
             </div>
-            <Divider orientation="horizontal" flexItem />
+            <Divider orientation="horizontal" flexItem className="hidden lg:block"/>
             <div className="flex flex-col gap-12 px-2 lg:px-10 flex-1">
                 <div className="flex flex-col lg:flex-row gap-6 lg:items-center">
                     <Avatar src={DummyProfile} className="rounded-[3.125rem] w-20 h-20" style={{
@@ -47,7 +47,7 @@ export default function ProfileSettings() {
                     </div>
                 </div>
                <Formik initialValues={initialValues} onSubmit={() => {}}>
-                    <Form className=" w-full lg:max-w-[90%] flex flex-col gap-10">
+                    <Form className=" w-full lg:max-w-11/12 flex flex-col gap-10">
                         <PersonalInfoForm disableInteractions />
                         <button
                             type="button"

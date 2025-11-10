@@ -30,7 +30,7 @@ export default function NotificationSettings() {
             {({ values, setFieldValue }) => (
                 <Form>
                     <div className="flex flex-col gap-8 lg:gap-6">
-                        <div className="lg:pl-10 flex flex-col gap-2">
+                        <div className="lg:pl-10 hidden lg:flex flex-col gap-2">
                             <p className="lg:text-xl font-semibold leading-5 text-aciu-border-grey">
                                 Notification Settings
                             </p>
@@ -38,7 +38,7 @@ export default function NotificationSettings() {
                                 Choose how and where you receive updates from ACIU.
                             </p>
                         </div>
-                        <Divider orientation="horizontal" flexItem />
+                        <Divider orientation="horizontal" flexItem className="hidden lg:block"/>
                         <div className="flex flex-col gap-3 px-3 lg:px-10">
                             <NotificationCategory 
                                 heading="Email Notifications"
