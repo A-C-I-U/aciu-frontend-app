@@ -17,18 +17,6 @@ const sectionActions = [
         Filter
         <Sort variant="Outline" color="#A4ACB9" size={20} />
     </button>,
-
-    <button
-        key="month"
-        className="flex gap-2.5 items-center p-2.5
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
-    >
-        Monthly
-        <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
-    </button>,
-
     <button
         key="year"
         className="flex gap-2.5 items-center p-2.5
