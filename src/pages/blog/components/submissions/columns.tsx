@@ -128,15 +128,15 @@ export const getColumns = (
                             sx: {
                                 display: "flex",
                                 flexDirection: "column",
-                                gap: ".5rem",
-                                py: 1,
+                                py: 0,
                                 "& .MuiMenuItem-root": {
-                                px: 2,
-                                borderRadius: "6px",
-                                    "&:hover": {
-                                        backgroundColor: "#f7f7f7"
+                                    px: 2,
+                                    py: 2,
+                                    borderRadius: "6px",
+                                        "&:hover": {
+                                            backgroundColor: "#f7f7f7"
+                                        }
                                     }
-                                }
                             }
                         }
                     }}
@@ -147,17 +147,20 @@ export const getColumns = (
                             sx={{
                                 fontFamily: "'Montserrat', sans-serif",
                                 color: "#3E3E3E",
-                                fontSize: ".875rem"
+                                fontSize: ".875rem",
                             }}>
-                            View Post
+                                <span>View Post</span>
+                           
                         </MenuItem>
-                        <Divider 
-                            sx={{ 
-                                width: "100%", 
-                                borderColor: "#E2E2E2", 
-                                margin: 0 
-                            }} 
-                        />
+                         <Divider 
+                                sx={{ 
+                                    width: "100%", 
+                                    borderColor: "#E2E2E2", 
+                                    marginTop:"0 !important",
+                                    marginBottom: "0 !important",
+                                    
+                                }} 
+                            />
                         <MenuItem 
                             onClick={() => { 
                                 handleClose(); 
@@ -167,7 +170,7 @@ export const getColumns = (
                                 fontFamily: "'Montserrat', sans-serif",
                                 color: "#00CA71",
                                 fontSize: ".875rem",
-                                fontWeight: 600
+                                fontWeight: 600,
                             }}>
                             Approve Post
                         </MenuItem>
@@ -175,7 +178,8 @@ export const getColumns = (
                             sx={{ 
                                 width: "100%", 
                                 borderColor: "#E2E2E2", 
-                                margin: 0 
+                                marginTop:"0 !important",
+                                marginBottom: "0 !important",
                             }} 
                         />
                         <MenuItem 
