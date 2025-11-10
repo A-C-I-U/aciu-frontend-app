@@ -16,14 +16,14 @@ export default function NotificationCategory({
                 <p className="text-aciu-abriba text-sm lg:text-base">{subtext}</p>
             </div>
 
-            <Divider orientation="horizontal" className="text-[#F4F4F4]" />
+            <Divider orientation="horizontal" className="text-aciu-white-dark" />
 
             <NotificationSection 
                 title={section.title}
                 description={section.description}
                 options={section.options}
             />
-            <Divider orientation="horizontal" className="text-[#F4F4F4]" />
+            <Divider orientation="horizontal" className="text-aciu-white-dark" />
         </div>
     )
 }
