@@ -113,7 +113,7 @@ export default function FormikField({
               }
               const opt = options?.find(o => o.value === selected);
               return (
-                <span className='text-aciu-abriba opacity-50 text-sm font-medium'>
+                <span className='text-aciu-abriba text-sm font-medium'>
                   {opt?.label ?? selected.toString()}
                 </span>
               );
