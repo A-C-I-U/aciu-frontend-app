@@ -10,9 +10,10 @@ import type {
   OptionLabelProps, 
   ProjectCardProps, 
   ProjectDetailsProps, 
-  PublicationCardProps, 
   PublicationDataType, 
-  RegularPostCardType 
+  RegularPostCardType, 
+  StatsCardProps,
+  UpcomingEventCardProps
 } from "./types";
 import { timeAgo } from "./helpers";
 
@@ -263,21 +264,24 @@ export const featuredPosts: FeaturedPostCardType[] = [
     }
 ]
 
-export const publicationStats: PublicationCardProps[] = [
+export const publicationStats: StatsCardProps[] = [
     {
         title: 'Total Submissions',
-        postNumber: '5',
-        rateOfChange: '+12.5'
+        number: '5',
+        rateOfChange: '+12.5',
+        itemLabel: "Post(s)"
     },
     {
         title: 'Published Posts',
-        postNumber: '3',
-        rateOfChange: '+12.5'
+        number: '3',
+        rateOfChange: '+12.5',
+        itemLabel: "Post(s)"
     },
      {
         title: 'Pending Approval',
-        postNumber: '2',
-        rateOfChange: '-12.5'
+        number: '2',
+        rateOfChange: '-12.5',
+        itemLabel: "Post(s)"
     },
 ]
 
@@ -810,3 +814,71 @@ export const blogDetails: BlogSubmissionDetails = {
   postVisibility: "private",
   status: "pending approval",
 }
+
+export const myPaymentsStats: StatsCardProps[] = [
+  {
+    title: "Total Contributions",
+    number: "450000",
+    rateOfChange: "12",
+    currency: "N"
+  },
+  {
+    title: "Outstanding Balance",
+    number: "35000",
+    rateOfChange: "12.5",
+    currency: "N"
+  }
+]
+
+export const myDonationsStats: StatsCardProps[] = [
+  {
+    title: "My Total Donations",
+    number: "1050000",
+    rateOfChange: "12.5",
+    currency: "N"
+  },
+  {
+    title: "Projects Supported",
+    number: "6",
+    itemLabel: "Projects",
+    rateOfChange: "12.5"
+  },
+  {
+    title: "Events Supported",
+    number: "3",
+    itemLabel: "Events",
+    rateOfChange: "12.5"
+  }
+]
+
+
+export const dashboardUpcomingEvents: UpcomingEventCardProps[] = [
+  {
+    id: "1",
+    label: "Igwa Mang Cultural Festival",
+    image: "/images/abriba-event.jpg",
+    dateStr: "21 January 2026",
+    timeRange: "12:00PM - 5:00PM"
+  },
+  {
+    id: "2",
+    label: "Igwa Mang Cultural Festival",
+    image: "/images/abriba-event.jpg",
+    dateStr: "21 January 2026",
+    timeRange: "12:00PM - 5:00PM"
+  },
+  {
+    id: "3",
+    label: "Igwa Mang Cultural Festival",
+    image: "/images/abriba-event.jpg",
+    dateStr: "21 January 2026",
+    timeRange: "12:00PM - 5:00PM"
+  },
+  {
+    id: "4",
+    label: "Igwa Mang Cultural Festival",
+    image: "/images/abriba-event.jpg",
+    dateStr: "21 January 2026",
+    timeRange: "12:00PM - 5:00PM"
+  },
+]
