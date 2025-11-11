@@ -5,7 +5,7 @@ import { useState } from "react";
 import { publicationStats } from "@/utils/data";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@/context/UserContext";
-import { PublicationCard } from "./components/my-publications/PublicationCard";
+import { StatsCard } from "../../components/StatsCard";
 import MyPublications from "./components/my-publications";
 import Submissions from "./components/submissions";
 
@@ -58,14 +58,15 @@ export default function BlogPage() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.4, ease: "easeOut" }}
-                        className="mx-5 grid grid-cols-1 lg:grid-cols-3 gap-3"
+                        className="mx-5 grid lg:grid-cols-3 gap-3"
                     >
-                        {publicationStats.map(({ title, postNumber, rateOfChange }) => (
-                            <PublicationCard
-                                key={title}
-                                title={title} 
-                                postNumber={postNumber} 
-                                rateOfChange={rateOfChange} 
+                        {publicationStats.map((stat, index) => (
+                            <StatsCard
+                                key={index}
+                                title={stat.title} 
+                                number={stat.number} 
+                                rateOfChange={stat.rateOfChange} 
+                                itemLabel={stat.itemLabel}
                             />
                         ))}
                     </motion.div>
