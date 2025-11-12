@@ -43,7 +43,10 @@ export default function ProjectsPage() {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="bg-white"
                     mx="1.25rem"
-                    px={2}
+                    px={{
+                        xs: ".5rem",
+                        md: "1.625rem"
+                    }}
                     py="1.25rem"
                 >
                     {activeTab?.content}
