@@ -9,8 +9,8 @@ import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 
 export default function PaymentsTable() {
-    const isMedium = useMediaQuery('(max-width:992px)');
-    const itemsPerPage = 5;
+    const isMedium = useMediaQuery('(max-width:1250px)');
+    const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
     const start = (page - 1) * itemsPerPage;
@@ -32,12 +32,16 @@ export default function PaymentsTable() {
                     table={table}
                 />
                 :
-                currentItems.map((payment: PaymentDataType) => (
-                    <MobilePaymentItem
-                        key={payment.id}
-                        payment={payment}
-                    />
-                ))}
+               
+                <div className="grid gap-4 md:grid-cols-2">
+                    {currentItems.map((payment: PaymentDataType) => (
+                        <MobilePaymentItem
+                            key={payment.id}
+                            payment={payment}
+                        />
+                    ))}
+                </div>
+                }
             {isMedium &&
                 <PaginationControls
                     total={mockData.length}

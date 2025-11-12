@@ -72,7 +72,7 @@ export default function MyPaymentsPage() {
                             <PaymentReminderCard 
                                 targetDate={nextMonth} 
                                 amount="150000" 
-                                className="h-39"
+                                className="lg:h-39"
                             />
                         }
                     </MotionBox>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowDown2, Sort } from "iconsax-react";
 import SectionHeader from "@/components/SectionHeader";
 import PaymentsTable from "../PaymentsTable";
+import { useMediaQuery } from "@mui/material";
 
 const sectionActions = [
     <button
@@ -28,6 +29,7 @@ const sectionActions = [
 
 export default function Donations() {
     const [ _query, setQuery ] = useState("");
+    const isMedium = useMediaQuery("(max-width:1250px")
         
     const handleSearch = (q: string) => {
         setQuery(q);
@@ -40,7 +42,7 @@ export default function Donations() {
                     <SectionHeader
                         title="Payment History"
                         onSearch={handleSearch}
-                        showSearch
+                        showSearch={isMedium ? false : true}
                         actions={sectionActions}
                     />
                 </div> 

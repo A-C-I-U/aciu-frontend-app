@@ -76,10 +76,11 @@ export default function MobilePaymentItem({
                     {description}
                 </p>
             </div>
+            <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey"/>
             <button
                 className="p-2 text-sm font-coolvetica 
                 text-aciu-green-normal rounded-[5px] pointer-events-none
-                border border-aciu-green-normal min-w-36.5 w-full 
+                border border-aciu-green-normal w-11/12 mx-auto 
                 text-center whitespace-nowrap">
                 Download Receipt
             </button>
