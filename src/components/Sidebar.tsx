@@ -1,40 +1,40 @@
-import { protectedRoutes } from "@/routes/protectedRoutes";
-import AciuLogo from "/images/sidebar-aciu-logo-admin.png";
-import MemberAciuLogo from "/images/sidebar-aciu-logo.png"
+import { protectedRoutes } from "@/routes/protectedRoutes"
 import { useUser } from "@/context/UserContext";
 import { NavLink } from "react-router-dom";
-import { IconButton } from "@mui/material";
+import { IconButton, useMediaQuery } from "@mui/material";
 import { createElement } from "react";
-
-const isMobile = window.innerWidth <= 768;
-
+import AciuLogo from "/images/sidebar-aciu-logo-admin.png";
+import MemberAciuLogo from "/images/sidebar-aciu-logo.png"
 
 export default function Sidebar() {
     const { user } = useUser();
     const activeRole = user?.role || "member"
     const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
+    const isMobile = useMediaQuery('max-width:768px')
 
 
     const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
     
 
     return (
-        <div className="flex flex-col gap-10 h-full p-5 overflow-y-scroll no-scrollbar">
-            <img 
-                src={isAdmin ? AciuLogo : MemberAciuLogo} 
-                alt="Official Abriba Community Improvement Union Logo" 
-                width={isMobile ? 80 : 120} 
-                height={isMobile ? 30 : 45 }
-                loading="eager"
-            />
-            <div className="flex flex-col gap-3">
+        <div className="flex flex-col h-full pt-5 px-5 overflow-hidden">
+            <div className="pb-3">
+                <img 
+                    src={isAdmin ? AciuLogo : MemberAciuLogo } 
+                    alt="Official Abriba Community Improvement Union Logo" 
+                    width={isMobile ? 80 : 120} 
+                    height={isMobile ? 30 : 45 }
+                    loading="eager"
+                />
+            </div>
+            <div className="flex flex-col gap-3 overflow-y-auto py-5 no-scrollbar">
                 {links.map(({ label, icon, path}, index) => (
                     <NavLink
                         key={index}
                         to={path}
                         className={({ isActive }) =>
                             [
-                            "flex items-center gap-2 py-[.813rem] px-[.563rem] rounded-md transition-colors group",
+                            "flex items-center gap-2 py-3.5 px-2 rounded-md transition-colors group",
                             "text-sm font-coolvetica font-semibold",
                             isAdmin
                                 ? "hover:bg-white hover:text-aciu-green-normal"
