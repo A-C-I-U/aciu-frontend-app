@@ -1,4 +1,4 @@
-import { Box, Checkbox, Dialog } from "@mui/material";
+import { Checkbox } from "@mui/material";
 import {
     getCoreRowModel, 
     getPaginationRowModel, 
@@ -10,7 +10,7 @@ import { CheckIcon, MinusIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { CustomSnackbar } from "./CustomSnackbar";
 import DataTable from "@/components/DataTable";
-import { TrashIcon } from "@/components/Icons";
+import DeletePost from "./DeletePost";
 
 export default function PostsTable(
     {
@@ -120,62 +120,11 @@ export default function PostsTable(
                 onDelete={() => setOpenDelete(true)}
             />
 
-
-            <Dialog 
-                slotProps={{
-                    paper: {
-                        sx: {
-                            borderRadius: "1.25rem"
-                        }
-                    }
-                }}
-                onClose={() => setOpenDelete(false)} 
+            <DeletePost
                 open={openDelete}
-                disableScrollLock
-            >
-                <Box
-                    sx={{
-                        padding: "1.875rem",
-                        width: "31.25rem",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "1.375rem",
-                        borderRadius: "1.25rem"
-                    }}>
-                    <TrashIcon />
-                    <Box
-                        display="flex"
-                        flexDirection="column"
-                        gap={1}
-                    >
-                        <h3 className="text-2xl font-coolvetica text-aciu-border-grey font-bold">
-                            Delete Post?
-                        </h3> 
-                        <p className="text-aciu-neutral font-montserrat">
-                            Are you sure you want to permanently delete these selected posts? 
-                            This action cannot be undone.
-                        </p>
-                    </Box>
-                    <Box display="flex" gap="1.275rem" alignItems="center">
-                        <button
-                            className="p-4 gap-2 rounded-xl 
-                            bg-aciu-green-normal text-white 
-                            font-coolvetica w-full"
-                            onClick={handleDelete}
-                        >
-                            Yes, Delete
-                        </button>
-                        <button
-                            className="p-4 gap-2 rounded-xl 
-                            bg-aciu-green-normal text-white 
-                            font-coolvetica w-full"
-                            onClick={() => setOpenDelete(false)}
-                        >
-                            No, Cancel
-                        </button>
-                    </Box>
-                </Box>
-            </Dialog>
+                onClose={() => setOpenDelete(false)}
+                handleDelete={handleDelete} 
+            />
         </div>
     )
 }
