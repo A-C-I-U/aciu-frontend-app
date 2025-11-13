@@ -1,6 +1,9 @@
+import FormikField from "@/components/FormikField";
+import { ScrollLock } from "@/components/ScrollLock";
 import { formatSize, getExtension } from "@/utils/helpers";
 import type { FileViewDrawerProps } from "@/utils/types";
-import { Box, capitalize, Drawer, Typography } from "@mui/material";
+import { capitalize, Divider, Drawer } from "@mui/material";
+import { Form, Formik } from "formik";
 import { X } from "lucide-react";
 
 export default function FileViewDrawer({
@@ -13,113 +16,83 @@ export default function FileViewDrawer({
     const size = formatSize(file.size);
     const extension = getExtension(file);
 
+    const initialValues = {
+        fileName: name,
+        fileDescription: description
+    }
+
     return (
+        <>
+        <ScrollLock open={open} />
         <Drawer
             anchor="right"
             open={open}
             onClose={onClose}
+            disableScrollLock={false}
+            sx={{
+                "& .MuiDrawer-paper": {
+                    width: "40%",
+                    maxWidth: "70%",
+            }
+        }}
         >
-            <Box
-                px="1.375rem"
-                py="1.125rem"
-                display="flex"
-            >
-                <div className="flex justify-between items-center">
-                    <Typography variant="h3" color="#313131">
-                        View Resources
-                    </Typography>
-                    <X size={24} color="#3E3E3E" />
-                </div>
-                <div className="w-full flex items-center justify-center">
-                    <Box
-                        marginTop="4rem"
-                        py="3.125rem"
-                        px="2.25rem"
-                        borderRadius="xl"
-                        bgcolor="#F9FBFC"
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        gap={4}
-                    >
-                        <Box 
-                            borderRadius="7px"
-                            borderColor="#E5E5E5"
-                            textAlign="center">
-                                <p className="font-montserrat text-sm">
-                                    {capitalize(extension)}
-                                </p>
-                        </Box>
+            <div className="flex flex-col gap-4 w-full h-full relative">
+                <p className="text-aciu-dark font-coolvetica leading-[125%] px-5.5 pt-4.5 text-2xl">
+                    View resources
+                </p>
+                <button
+                    onClick={onClose}
+                    className="absolute right-5 top-4 cursor-pointer"
+                > 
+                    <X width={24} height={24} color="#3E3E3E"/>
+                </button>
+                <div className="w-full flex items-center justify-center px-5.5 pb-4.5">
+                    <div className="mt-16 py-12.5 px-9 w-65 h-52 rounded-xl bg-card-200 flex flex-col items-center justify-center gap-4">
+                        <div className="flex items-center justify-center w-22 h-22 rounded-lg bg-aciu-dashboard-background">
+                            <p className="font-montserrat text-sm">
+                                {capitalize(extension)}
+                            </p>
+                        </div>
                         <p className="font-montserrat font-medium text-xs text-aciu-border-grey">
                             {size}
                         </p>
-                    </Box>
+                    </div>   
                 </div>
-                <hr className="mt-[4rem] text-aciu-dashboard-background w-full" />
-                <Box 
-                    marginTop="3.375rem"
-                    gap="1rem"
-                >
-                    <Box
-                        display="flex"
-                        gap={2}
-                    >
-                        {/* <FormikField
-                            value={name}
-                            name="name"
+                <Divider orientation="horizontal" className="mt-16 text-aciu-dashboard-background" flexItem />
+                <Formik initialValues={initialValues} onSubmit={() => {}}>
+                    <Form className="flex-1 overflow-y-auto  mt-13.5 px-5.5 flex flex-col gap-4">
+                        <FormikField
                             label="File Name"
+                            name="fileName"
+                            placeholder={name}
+                            disabled
                             fullWidth
-                        /> */}
-                        <p>{name}</p>
-                        <p>{description}</p>
-                    </Box>
-                    <Box
-                        display="flex"
-                        gap={2}
-                    >
-                        {/* <FormikField
-                            // value={description}
-                            type="text"
-                            name="description"
+                        />
+                        <FormikField
                             label="File Description"
+                            name="fileDescription"
+                            placeholder={description}
+                            disabled
                             fullWidth
-                        /> */}
-                    </Box>
-                </Box>
-                <Box
-                    width="100%"
-                    display="flex"
-                    alignSelf="flex-end"
-                    gap="1.125rem"
-                >
+                        />
+                    </Form>
+                </Formik>
+                
+                <div className="px-5.5 mb-4 flex items-center gap-2">
                     <button
-                        style={{
-                            padding: "1rem",
-                            gap: ".5rem",
-                            borderRadius: ".75rem",
-                            backgroundColor: "#00B686",
-                            color: "#fff",
-                            fontFamily: "'Coolvetica', sans-serif",
-                            width: "100%"
-                        }}
+                        className="p-4 gap-2 rounded-xl bg-aciu-green-normal text-white font-coolvetica
+                            w-full"
                         >
                             Edit Resource
                     </button>
                     <button
-                        style={{
-                            padding: "1rem",
-                            gap: ".5rem",
-                            borderColor: "#E5E5E5",
-                            borderRadius: ".75rem",
-                            color: "#3E3E3E",
-                            fontFamily: "'Coolvetica', sans-serif",
-                            width: "100%"
-                        }}
+                        className="p-4 gap-2 rounded-xl border border-aciu-dashboard-background text-aciu-border-grey w-full"
                         >
                             Archive Resource
                     </button>
-                </Box>
-            </Box>
+                </div>
+            </div>
         </Drawer>
+        </>
     )
 }

@@ -15,7 +15,7 @@ export default function FileView({
     const size = formatSize(file.size);
 
     const handleOpen = () => {
-        setFileOpen(false)
+        setFileOpen(true)
     }
 
     const handleClose = () => {
