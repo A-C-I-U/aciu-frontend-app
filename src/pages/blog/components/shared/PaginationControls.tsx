@@ -1,4 +1,4 @@
-import { Pagination } from "@heroui/react";
+import { Pagination, PaginationItemType } from "@heroui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
 type PaginationControlsProps = {
@@ -16,14 +16,22 @@ export function PaginationControls({
 }: PaginationControlsProps) {
     const totalPages = Math.ceil(total / itemsPerPage);
 
+    const handlePress = (onPress: any) => (e: any) => {
+        onPress(e);
+        window.scrollTo({ top: 675, behavior: "smooth" });
+    };
+
     return (
-        <div className="w-full pt-3 pb-4 px-6 flex justify-between items-center">
+        <div className="w-full pt-3 mx-auto pb-4 flex justify-center relative items-center">
             <button
-                className="rounded-md py-2 px-3.5 
+                className="rounded-md py-1.5 px-2.5 
                 flex gap-2 justify-center items-center
                 shadow-[0px_1px_2px_0px_#1018280D] border
-                border-grayscale-300"
-                onClick={() => onPageChange(page - 1)}
+                border-grayscale-300 absolute left-2"
+                onClick={() => {
+                    onPageChange(page - 1);
+                    window.scrollTo({ top: 675, behavior: "smooth" });
+                }}
                 disabled={page === 1}
             >
                 <ArrowLeftIcon size={20} color="#00B686" />
@@ -33,31 +41,47 @@ export function PaginationControls({
                 total={totalPages}
                 page={page}
                 onChange={onPageChange}
+                showControls={false}
+                siblings={0}
+                boundaries={1}
+                size="lg"
                 classNames={{ cursor: "hidden" }}
-                renderItem={(item) => {
-                    const isActive = item.page === page;
+                renderItem={({ key, page, onPress, children, value, isActive }) => {
+                    
+                    if (value === PaginationItemType.DOTS) {
+                        return (
+                            <span 
+                                key={key}
+                                className="w-10 h-10 flex items-center justify-center text-aciu-new-green-normal"
+                            >
+                                ...
+                            </span>
+                        );
+                    }
+                    
                     return (
-                    <button
-                        key={item.key}
-                        onClick={
-                            item.onPress as unknown as React.MouseEventHandler<HTMLButtonElement>
-                        }
-                        className={`w-10 h-10 rounded-md
-                            ${isActive ? "bg-aciu-green-light" : ""}
-                            rounded-md text-aciu-new-green-normal hover:bg-aciu-green-light font-inter`}
-                    >
-                        {item.page || item.children}
-                    </button>
+                        <button
+                            key={key}
+                            onClick={handlePress(onPress)}
+                            className={`w-8 h-8 rounded-md
+                                ${isActive ? "bg-aciu-green-light" : ""}
+                                text-aciu-new-green-normal hover:bg-aciu-green-light font-inter`}
+                        >
+                            {page || children}
+                        </button>
                     );
                 }}
             />
 
             <button
-                className="rounded-md py-2 px-3.5
+                className="rounded-md py-1.5 px-2.5 absolute right-2
                 flex gap-2 justify-center items-center
                 shadow-[0px_1px_2px_0px_#1018280D] border
                 border-grayscale-300 text-green-normal"
-                onClick={() => onPageChange(page + 1)}
+                onClick={() => {
+                    onPageChange(page + 1);
+                    window.scrollTo({ top: 675, behavior: "smooth" });
+                }}
                 disabled={page >= totalPages}
             >
                 <ArrowRightIcon size={20} color="#00B686" />
