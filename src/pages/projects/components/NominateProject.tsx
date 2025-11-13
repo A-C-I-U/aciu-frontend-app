@@ -60,21 +60,8 @@ export default function NominateProject({
                     onClose={() => onClose()} 
                 />
             :
-            <div
-                className="no-scrollbar flex flex-col gap-8 w-full overflow-y-scroll relative mx-auto py-4 md:py-10 px-4 md:px-20"
-            >
-                <button
-                    onClick={onClose}
-                    className="absolute right-10 top-6 lg:right-20 lg:top-10 cursor-pointer"
-                    aria-label="Close Nominate project modal"
-                >
-                    <X width={24} height={24} />
-                </button>
 
-                <div className="flex flex-col gap-8 w-full">
-                    <p className="text-2xl font-coolvetica text-aciu-dark font-bold leading-[125%]">
-                        Send a Project Nomination
-                    </p>
+                
 
                     <Formik
                         onSubmit={handleSubmit}
@@ -84,90 +71,103 @@ export default function NominateProject({
                     >
                         {({ values, setFieldValue, isValid, isSubmitting }) => {
                             return (
-                                <Form>
-                                    <div className="flex flex-col gap-8">
-                                        <FormikField
-                                            label="Project Title"
-                                            name="title"
-                                            placeholder="Itumbauzo Road Lighting Project"
-                                            fullWidth
-                                        />
+                                <div 
+                                    className="flex flex-col gap-8 w-full mx-auto rounded-lg h-4/5 overflow-hidden"
+                                >
+                                    <p className="text-2xl font-coolvetica text-aciu-dark font-bold leading-[125%] pt-4 md:pt-10 px-4 md:px-20">
+                                       Send a Project Nomination
+                                    </p>
+                                    <button
+                                        aria-label="Close donation modal"
+                                        onClick={onClose}
+                                        className="absolute right-5 top-6 lg:right-20 lg:top-10 cursor-pointer"
+                                    >
+                                        <X width={24} height={24} />
+                                    </button>
+                                    <div className="flex-1 overflow-y-auto pb-4 md:pb-10 px-4 md:px-20">
+                                        <Form className="flex flex-col gap-8">
+                                            <FormikField
+                                                label="Project Title"
+                                                name="title"
+                                                placeholder="Itumbauzo Road Lighting Project"
+                                                fullWidth
+                                            />
 
-                                        <FormikField
-                                            label="Project Category"
-                                            name="category"
-                                            options={projectCategoryOptions}
-                                            placeholder="Health, Education, Infrastructure, Youth, Elder Welfare"
-                                            select
-                                            fullWidth
-                                        />
+                                            <FormikField
+                                                label="Project Category"
+                                                name="category"
+                                                options={projectCategoryOptions}
+                                                placeholder="Health, Education, Infrastructure, Youth, Elder Welfare"
+                                                select
+                                                fullWidth
+                                            />
 
-                                        <FormikField
-                                            label="Location"
-                                            name="location"
-                                            placeholder="Village/Town/State/Country where this will take place"
-                                            fullWidth
-                                        />
+                                            <FormikField
+                                                label="Location"
+                                                name="location"
+                                                placeholder="Village/Town/State/Country where this will take place"
+                                                fullWidth
+                                            />
 
-                                        <FormikField
-                                            label="Brief Description"
-                                            name="description"
-                                            placeholder="What’s the goal of this project and why is it needed?"
-                                            fullWidth
-                                        />
+                                            <FormikField
+                                                label="Brief Description"
+                                                name="description"
+                                                placeholder="What’s the goal of this project and why is it needed?"
+                                                fullWidth
+                                            />
 
-                                        <FormikField
-                                            label="Expected Impact"
-                                            name="impact"
-                                            placeholder="Who will benefit? What will this project solve or improve?"
-                                            fullWidth
-                                        />
+                                            <FormikField
+                                                label="Expected Impact"
+                                                name="impact"
+                                                placeholder="Who will benefit? What will this project solve or improve?"
+                                                fullWidth
+                                            />
 
-                                         <FormikField
-                                            label="Expected Cost(USD)"
-                                            name="cost"
-                                            placeholder="Provide an approximate budget if known"
-                                            fullWidth
-                                        />
+                                            <FormikField
+                                                label="Expected Cost(USD)"
+                                                name="cost"
+                                                placeholder="Provide an approximate budget if known"
+                                                fullWidth
+                                            />
 
-                                        <div className="flex flex-col gap-2">
-                                            <FormLabel
-                                                sx={{
-                                                    fontWeight: 500,
-                                                    fontFamily: '"Montserrat", sans-serif',
-                                                    fontSize: ".875rem",
-                                                    color: "#3E3E3E"
-                                                }}>
-                                                   Upload any related image&nbsp;
-                                            </FormLabel>
-                                            <div 
-                                                className="cursor-pointer"
-                                                onClick={() => inputRef.current?.click()}>
-                                                {!values.image ?
-                                                    <div className="gap-2 flex flex-col">
-                                                        <div className="border-2 border-dashed flex flex-col justify-center
-                                                            relative h-53.5 rounded-[5px] min-w-78 bg-aciu-cyan-light">
-                                                                <div
-                                                                    className="items-center justify-center
-                                                                        text-white font-coolvetica
-                                                                        flex flex-col gap-3 w-full">
-                                                                    <CloudIcon />
-                                                                    <p className="text-aciu-abriba font-montserrat font-medium text-sm">
-                                                                        Drag & drop or click to choose file
-                                                                    </p>
-                                                                </div>
+                                            <div className="flex flex-col gap-2">
+                                                <FormLabel
+                                                    sx={{
+                                                        fontWeight: 500,
+                                                        fontFamily: '"Montserrat", sans-serif',
+                                                        fontSize: ".875rem",
+                                                        color: "#3E3E3E"
+                                                    }}>
+                                                    Upload any related image&nbsp;
+                                                </FormLabel>
+                                                <div 
+                                                    className="cursor-pointer"
+                                                    onClick={() => inputRef.current?.click()}>
+                                                    {!values.image ?
+                                                        <div className="gap-2 flex flex-col">
+                                                            <div className="border-2 border-dashed flex flex-col justify-center
+                                                                relative h-53.5 rounded-[5px] min-w-78 bg-aciu-cyan-light">
+                                                                    <div
+                                                                        className="items-center justify-center
+                                                                            text-white font-coolvetica
+                                                                            flex flex-col gap-3 w-full">
+                                                                        <CloudIcon />
+                                                                        <p className="text-aciu-abriba font-montserrat font-medium text-sm">
+                                                                            Drag & drop or click to choose file
+                                                                        </p>
+                                                                    </div>
+                                                            </div>
+                                                            <div className="flex justify-between items-center">
+                                                                <p className="font-montserrat text-grayscale-400 text-sm">
+                                                                    Supported formats: png & jpg
+                                                                </p>
+                                                                <p className="font-montserrat text-grayscale-400 text-sm">
+                                                                    Max: 10mb
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div className="flex justify-between items-center">
-                                                            <p className="font-montserrat text-grayscale-400 text-sm">
-                                                                Supported formats: png & jpg
-                                                            </p>
-                                                            <p className="font-montserrat text-grayscale-400 text-sm">
-                                                                Max: 10mb
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    :
-                                                       (
+                                                        :
+                                                        (
                                                         <div className="flex flex-col gap-2.5 items-center">
                                                             {typeof values.image === "string" ? (
                                                                 <img
@@ -189,17 +189,19 @@ export default function NominateProject({
                                                             </div>
                                                         </div>
                                                     )}
-                                            </div>
-                                            <input
-                                                ref={inputRef}
-                                                type="file"
-                                                accept="image/jpeg, image/png, image/webp, image/jpg"
-                                                hidden
-                                                onChange={(e) => setFieldValue("image", e.target.files?.[0] || null)}
-                                            />
-                                        </div>
-
-                                         <Button
+                                                </div>
+                                                <input
+                                                    ref={inputRef}
+                                                    type="file"
+                                                    accept="image/jpeg, image/png, image/webp, image/jpg"
+                                                    hidden
+                                                    onChange={(e) => setFieldValue("image", e.target.files?.[0] || null)}
+                                                />
+                                            </div>       
+                                        </Form>
+                                    </div>
+                                    <div className="pb-4 md:pb-10 px-4 md:px-20 w-full">
+                                        <Button
                                             sx={{
                                                 color: "white",
                                                 fontSize: ".75rem",
@@ -213,6 +215,7 @@ export default function NominateProject({
                                                     color: "#9e9e9e",
                                                     opacity: 0.6,
                                                 },
+                                                width: "100%"
                                             }}
                                             className="flex gap-2 items-center"
                                             disabled={isSubmitting || !isValid}
@@ -221,7 +224,7 @@ export default function NominateProject({
                                             <span className="font-coolvetica text-base">
                                                 Send Project Nomination
                                             </span>
-    
+
                                             {isSubmitting && (
                                                 <span className="mt-1.5">
                                                     <CircularProgress sx={{ color: "white" }} size={12} />
@@ -229,14 +232,11 @@ export default function NominateProject({
                                             )}
                                         </Button>
                                     </div>
-                                </Form>
+                                </div>
                             )
                         }}
                     </Formik>
-                </div>
-
-            </div>
-        }
-        </Dialog>
-    )
+                }
+            </Dialog>
+        )
 }

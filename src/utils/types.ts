@@ -62,9 +62,10 @@ export interface User {
   occupation: string,
   phoneNumber: string,
   email: string,
-  ageGrade: boolean,
-  branch: boolean,
+  ageGrade: string,
+  branch: string,
   role: Role;
+  verified: boolean
 };
 
 export interface UserContextType {
@@ -326,4 +327,27 @@ export interface CustomSnackbarProps {
   onSelectAll: () => void;
   onDelete: () => void;
   onClear: () => void;
+}
+
+export interface ProfileFormValues {
+  name: string;
+  email: string;
+  branch: string;
+  ageGrade: string;
+  occupation: string;
+  phoneNumber: string;
+};
+
+export interface NotificationOption {
+  label: string;
+  description: string;
+  fieldName: string;
+  checked: boolean;
+  onChange: (field: string, value: boolean, shouldValidate?: boolean) => void;
+}
+
+export interface NotificationSectionProps {
+  title: string;
+  description: string;
+  options: NotificationOption[];
 }

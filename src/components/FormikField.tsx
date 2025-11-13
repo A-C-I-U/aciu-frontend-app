@@ -113,7 +113,7 @@ export default function FormikField({
               }
               const opt = options?.find(o => o.value === selected);
               return (
-                <span className='text-aciu-abriba opacity-50 text-sm font-medium'>
+                <span className='text-aciu-abriba text-sm font-medium'>
                   {opt?.label ?? selected.toString()}
                 </span>
               );
@@ -183,6 +183,20 @@ export default function FormikField({
           "& .MuiInputBase-inputAdornedEnd": {
             width: "100%",
           },
+          "& .MuiInputBase-input.Mui-disabled": {
+            color: "#737373",
+            WebkitTextFillColor: "#737373",
+            backgroundColor: "#F7F7F7",
+          },
+          "& .MuiOutlinedInput-root.Mui-disabled fieldset": {
+            borderColor: "#DFE1E7",
+          },
+          "& .MuiOutlinedInput-root.Mui-disabled:hover fieldset": {
+            borderColor: "#DFE1E7",
+          },
+          "& .MuiOutlinedInput-root.Mui-disabled.Mui-focused fieldset": {
+            borderColor: "#DFE1E7",
+          }
         }}
         >
           {options && 
