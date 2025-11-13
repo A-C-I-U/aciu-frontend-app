@@ -97,3 +97,10 @@ export function timeAgo(dateString: string) {
   const diffYears = Math.floor(diffMonths / 12);
   return `${diffYears} year${diffYears > 1 ? "s" : ""} ago`;
 }
+
+  export const formatCurrency = (amount: number) => {
+        return new Intl.NumberFormat('en-NG', {
+            style: 'currency',
+            currency: 'NGN'
+        }).format(amount);
+    };

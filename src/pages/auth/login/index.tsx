@@ -5,6 +5,7 @@ import { Form, Formik } from "formik";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { object, string } from "yup";
+import { useLogin } from "@/services/mutations/auth"; 
 
 const validationSchema = object({
     email: string()
@@ -18,25 +19,41 @@ const validationSchema = object({
 export default function LoginPage() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    
+    const loginMutation = useLogin();
 
     const initialValues = {
         email: '',
         password: ''
     }
 
-    const handleSubmit = (
+    const handleSubmit = async (
         values: typeof initialValues, 
         { setSubmitting }: any
     ) => {
         setLoading(true);
-        setTimeout(() => {
-            console.log(values);
+        
+        try {
+            const response = await loginMutation.mutateAsync({
+                email: values.email,
+                password: values.password
+            });
+            
+            console.log('Login successful! API Response:', response);
+            console.log('Access Token:', response.token.accessToken);
+            console.log('Refresh Token:', response.token.refreshToken);
+            
             setLoading(false);
             setSubmitting(false);
-            navigate('/');
-        }, 800);
+            navigate('/dashboard'); 
+            
+        } catch (error) {
+            console.error('Login failed:', error);
+            setLoading(false);
+            setSubmitting(false);
+            // You can show an error message to the user here
+        }
     };
-
 
     return (
         <div className="flex flex-col gap-4">
@@ -110,13 +127,16 @@ export default function LoginPage() {
                                         }
                                     }}
                                     className="flex gap-2 items-center"
-                                    disabled={isSubmitting || !isValid}
+                                    disabled={isSubmitting || !isValid || loginMutation.isPending}
                                     type="submit"
                                 >
                                     <span className="font-coolvetica text-base">Login</span>
-                                    {(isSubmitting || loading) &&
+                                    {(isSubmitting || loading || loginMutation.isPending) &&
                                         <span className="mt-1.5">
-                                            <CircularProgress size={12} />
+                                            <CircularProgress 
+                                                sx={{ color: "white" }}
+                                                size={12} 
+                                            />
                                         </span>
                                     }
                                 </Button>

@@ -37,6 +37,7 @@ export interface SignUpFormValues {
     email?: string;
     password?: string;
     confirmPassword?: string;
+    phoneNumber?: string;
     verificationCode?: string;
     gender?: string;
     location?: string;

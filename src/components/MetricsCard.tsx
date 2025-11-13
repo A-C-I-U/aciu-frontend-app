@@ -14,7 +14,7 @@ export const MetricsCard = ({ title, price, timeStamp, trend }: MetricsCardProps
                 {title}
             </p>
             <div className="flex flex-col gap-4">
-                <p className="font-montserrat font-semibold text-[1.75rem] text-copy-500">N{price}</p>
+                <p className="font-montserrat font-semibold text-[1.75rem] text-copy-500">{price}</p>
                 <div className="flex items-center justify-between">
                     <p className="font-montserrat text-xs text-copy-300">
                         {timeStamp}
