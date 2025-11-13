@@ -1,5 +1,5 @@
 import { publicationStatuses } from "./data";
-import type { PublicationDataType } from "./types";
+import type { PaymentDataType, PublicationDataType } from "./types";
 import { format } from "date-fns";
 
 export const capitalizeFirstLetters = (str: string) => {
@@ -64,9 +64,30 @@ export const publicationStatusMap: Record<PublicationDataType["status"], {
         labelColor: "#3E3E3E",
         dotColor: "#3E3E3E",
         bgColor: "#E5E5E5"
-    }
-
+    },
 }
+
+
+export const paymentStatusMap: Record<PaymentDataType["status"], { 
+    label: string, 
+    labelColor: string, 
+    dotColor: string, 
+    bgColor: string }> = {
+    completed: { 
+        label: "Completed", 
+        labelColor: "#027A48", 
+        dotColor: "#12B76A", 
+        bgColor: "#ECFDF3" 
+    },
+    failed: {
+        label: "Failed",
+        labelColor: "#FF2E2E",
+        dotColor: "#FF2E2E",
+        bgColor: "#FFEAEA"
+    },
+}
+
+
 
 export const getExtension = (file: File) => {
   const name = file.name;
@@ -117,3 +138,40 @@ export function slugify(text: string) {
     .replace(/[^\w-]+/g, '')
     .replace(/--+/g, '-');
 }
+
+const getRandomDate = (start: Date, end: Date): string => {
+    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    return date.toISOString();
+};
+
+const getRandomFileSize = (min: number = 50000, max: number = 5000000): number => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const generateMockPayment = (count: number): PaymentDataType[] => {
+  return Array.from({ length: count }, (_, i) => {
+    const categories = ["Monthly Dues", "Event Fee", "Donation", "Fine", "Registration Fee", "Levy"];
+    const statuses = ["completed", "failed"];
+    const amounts = ["15000", "25000", "10000", "50000", "2000", "30000"];
+    
+    const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+    const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+    const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];
+    const randomDate = getRandomDate(new Date(2024, 0, 1), new Date());
+    
+    return {
+        id: `PAY-${i + 1}`,
+        date: randomDate,
+        category: randomCategory,
+        description: `Payment for ${randomCategory.toLowerCase()}`,
+        amountPaid: randomAmount,
+        status: randomStatus,
+        file: {
+            url: `https://example.com/receipts/receipt-${Date.now()}.pdf`,
+            name: `payment-receipt-${Date.now()}.pdf`,
+            type: "application/pdf",
+            size: getRandomFileSize(),
+            uploadedAt: randomDate
+      },
+    };
+})}

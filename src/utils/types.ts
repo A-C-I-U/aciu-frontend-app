@@ -198,6 +198,7 @@ export interface MenuCardProps {
 
 
 export interface BranchExecCardProps {
+    id: string | number,
     name: string,
     position: string,
     occupation: string,
@@ -350,4 +351,53 @@ export interface NotificationSectionProps {
   title: string;
   description: string;
   options: NotificationOption[];
+}
+
+export interface StatsCardProps {
+    title: string;
+    number: string;
+    itemLabel?: string;
+    currency?: string;
+    rateOfChange: string
+}
+
+export interface PaymentDataType {
+    id: string,
+    date: string,
+    category: string,
+    description: string,
+    amountPaid: string,
+    status: string,
+    file: {
+        url: string;
+        name: string;
+        type: string;
+        size: number;
+        uploadedAt?: string;
+  }
+}
+
+export interface UpcomingEventCardProps {
+    id: string | number,
+    image: string,
+    label: string,
+    dateStr: string,
+    timeRange: string
+}
+
+export interface PaymentReminderCardProps {
+    label?: string;
+    amount: string;
+    targetDate: Date;
+    paymentRoute?: string;
+    buttonText?: string;
+    className?: string;
+    countdownVariant?: "inline" | "block";
+}
+
+export interface MetricsCardProps {
+    title: string,
+    price: string,
+    timeStamp: string,
+    trend: string
 }

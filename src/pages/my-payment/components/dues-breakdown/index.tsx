@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { ArrowDown2, Sort } from "iconsax-react";
-import { Link } from "react-router-dom";
-import PublicationsTable from "./PublicationsTable";
 import SectionHeader from "@/components/SectionHeader";
+import PaymentsTable from "../PaymentsTable";
 import { useMediaQuery } from "@mui/material";
 
 const sectionActions = [
@@ -25,13 +24,13 @@ const sectionActions = [
     >
         2022
         <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
-    </button>,
+    </button>
 ]
 
-export default function MyPublications() {
+export default function DueBreakdown() {
     const [ _query, setQuery ] = useState("");
-    const isMedium = useMediaQuery('(max-width:1250px)')
-           
+    const isMedium = useMediaQuery("(max-width:1250px")
+        
     const handleSearch = (q: string) => {
         setQuery(q);
     }
@@ -42,23 +41,15 @@ export default function MyPublications() {
                 <div className="flex flex-wrap gap-4 justify-between items-start lg:flex-nowrap lg:items-center w-full">
                     <div className="min-w-fit lg:w-full">
                         <SectionHeader
-                            title="My Publications"
+                            title="Payment History"
                             onSearch={handleSearch}
                             showSearch={isMedium ? false : true}
                             actions={sectionActions}
                         />
                     </div>
-                    <Link
-                        to="/blog/create"
-                        className="py-3 px-2 lg:py-4 lg:px-4 gap-2 pointer-events-none
-                            rounded-xl bg-aciu-green-normal whitespace-nowrap min-w-fit
-                            text-white font-coolvetica w-full max-w-fit"
-                        >
-                            Publish new post
-                    </Link>
                 </div>    
             </div>
-            <PublicationsTable />
+            <PaymentsTable />
         </div>
     )
 }

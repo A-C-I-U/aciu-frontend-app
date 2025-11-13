@@ -8,8 +8,8 @@ import MobilePublicationItem from "./MobilePublicationItem";
 import { PaginationControls } from "../shared/PaginationControls";
 
 export default function PublicationsTable() {
-    const isMedium = useMediaQuery('(max-width:992px)')
-    const itemsPerPage = 5;
+    const isMedium = useMediaQuery('(max-width:1250px)')
+    const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
     const start = (page - 1) * itemsPerPage;
@@ -24,16 +24,14 @@ export default function PublicationsTable() {
                 columns={columns}
                 withSelection
             /> :
-            currentItems.map((publication) => {
-                return (
-                    <>
-                        <MobilePublicationItem
-                            key={publication.id}
-                            publication={publication} 
-                        />
-                    </>
-                )
-            })
+            <div className="grid gap-4 md:grid-cols-2">
+                {currentItems.map((publication) => (
+                    <MobilePublicationItem
+                        key={publication.id}
+                        publication={publication} 
+                    />
+                ))}
+            </div>
         }
         {isMedium &&
            <PaginationControls
