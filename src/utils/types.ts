@@ -198,6 +198,7 @@ export interface MenuCardProps {
 
 
 export interface BranchExecCardProps {
+    id: string | number,
     name: string,
     position: string,
     occupation: string,
