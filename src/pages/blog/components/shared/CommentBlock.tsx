@@ -1,7 +1,24 @@
 import type { CommentType } from "@/utils/types";
 import { Divider } from "@mui/material";
+import { Field, Form, Formik, type FormikHelpers } from "formik";
+
+
+interface CommentFormValues {
+  comment: string;
+}
+
+const initialValues: CommentFormValues = {
+    comment: ""
+}
 
 export default function CommentBlock({ comments }: { comments: CommentType[]}) {
+    const handleSubmit = (
+        _values: CommentFormValues, 
+        _actions: FormikHelpers<CommentFormValues>
+    ) => {
+        // TODO: Remove underscores when integrating
+    }
+
     return (
         <div className="flex flex-col gap-8">
             <h1 className="text-aciu-border-grey text-2xl ml-6.5">
@@ -46,6 +63,31 @@ export default function CommentBlock({ comments }: { comments: CommentType[]}) {
                         </div>
                     )
                 })}
+                <Formik
+                    onSubmit={handleSubmit}
+                    initialValues={initialValues}
+                >
+                    {() => (
+                        <Form>
+                            <div className="flex gap-3 items-stretch">
+                               <Field
+                                    type="text"
+                                    name="comment"
+                                    placeholder="Type your thoughts here"
+                                    className="border-aciu-card-grey text-sm
+                                        font-montserrat leading-5 border
+                                        rounded-[.625rem] p-6 flex-1 focus:outline-0"
+                                />
+                                <button
+                                    className="rounded-[.625rem] p-6 bg-aciu-green-light-hover
+                                    border border-aciu-green-normal text-aciu-green-normal font-coolvetica"
+                                >
+                                    Add Comment
+                                </button>
+                            </div>
+                        </Form>
+                    )}
+                </Formik>
             </div>
         </div>
     )

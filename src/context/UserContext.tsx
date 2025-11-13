@@ -14,10 +14,11 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     id: "1",
     name: "Jane Doe",
     occupation: "Medical Doctor",
-    phoneNumber: "234 903 828 3447",
+    phoneNumber: "+2349038283447",
     email: "janedoe@gmail.com",
-    ageGrade: true,
-    branch: true,
+    ageGrade: "Obiogu Age grade",
+    branch: "Lagos Branch",
+    verified: true,
     role: "branch-admin", 
   });
 

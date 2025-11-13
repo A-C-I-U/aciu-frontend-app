@@ -9,17 +9,13 @@ export const BranchLeadershipTab = () => {
             </h4>
 
             <div
-                className="grid grid-cols-1 lg:grid-cols-3 gap-x-4 gap-y-4"
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4"
             >
                 {branchExecutiveMockData.map(
-                    ({ name, position, occupation, email, phoneNumber }, index) => (
+                    (branchExec) => (
                         <BranchExecCard
-                            key={index}
-                            name={name}
-                            position={position}
-                            occupation={occupation}
-                            email={email}
-                            phoneNumber={phoneNumber}
+                            key={branchExec.id}
+                            branchExec={branchExec}
                         />
                     )
                 )}

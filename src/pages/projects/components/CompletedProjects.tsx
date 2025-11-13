@@ -17,18 +17,6 @@ const sectionActions = [
         Filter
         <Sort variant="Outline" color="#A4ACB9" size={20} />
     </button>,
-
-    <button
-        key="month"
-        className="flex gap-2.5 items-center p-2.5
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
-    >
-        Monthly
-        <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
-    </button>,
-
     <button
         key="year"
         className="flex gap-2.5 items-center p-2.5
@@ -43,7 +31,7 @@ const sectionActions = [
 
 export default function CompletedProjects() {
     const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
-    const isMedium = useMediaQuery("(max-width: 992px)");
+    const isMedium = useMediaQuery("(max-width: 1250px)");
     const [showNominate, setShowNominate] = useState(false);
     
 
@@ -53,15 +41,15 @@ export default function CompletedProjects() {
 
     return (
         <div className="flex flex-col gap-4 lg:gap-8">
-            <div className="flex items-center gap-4">
+            <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                 <SectionHeader
                     title="Completed Projects"
                     onSearch={handleSearch}
-                    showSearch
-                    actions={isMedium ? [] : sectionActions}
+                    showSearch={isMedium ? false : true}
+                    actions={sectionActions}
                 />
                 <button 
-                    className="p-4 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
+                    className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
                     onClick={() => setShowNominate(true)}
                 >
                     Nominate a Project
@@ -69,7 +57,7 @@ export default function CompletedProjects() {
             </div>
             
 
-            <div className="grid lg:grid-cols-3 gap-4">
+            <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
                 {ongoingProjects.map((project) => (
                     <ProjectCard
                         key={project.id}

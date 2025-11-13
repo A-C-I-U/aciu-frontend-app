@@ -3,6 +3,7 @@ import { ArrowDown2, Sort } from "iconsax-react";
 import { Link } from "react-router-dom";
 import PublicationsTable from "./PublicationsTable";
 import SectionHeader from "@/components/SectionHeader";
+import { useMediaQuery } from "@mui/material";
 
 const sectionActions = [
     <button
@@ -29,7 +30,8 @@ const sectionActions = [
 
 export default function MyPublications() {
     const [ _query, setQuery ] = useState("");
-        
+    const isMedium = useMediaQuery('(max-width:1250px)')
+           
     const handleSearch = (q: string) => {
         setQuery(q);
     }
@@ -42,7 +44,7 @@ export default function MyPublications() {
                         <SectionHeader
                             title="My Publications"
                             onSearch={handleSearch}
-                            showSearch
+                            showSearch={isMedium ? false : true}
                             actions={sectionActions}
                         />
                     </div>

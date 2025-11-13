@@ -121,3 +121,36 @@ export const donationSchema = object({
         
     anonymousDonate: boolean()
 });
+
+
+export const profileValidationSchema = object({
+    name: string()
+        .required("Name is required")
+        .min(2, "Name must be at least two characters"),
+    email: string()
+        .email("Please enter a valid email address")
+        .required("Email is required"),
+    branch: string()
+        .oneOf(BRANCHES, "Please select a branch")
+        .required("Branch is required"),
+    ageGrade: string()
+        .oneOf(AGEGRADES, "Select one age grade")
+        .required("Age grade is required"),
+    occupation: string()
+        .required("Occupation is required"),
+    phoneNumber: string()
+        .matches(/^\+\d{10,15}$/, 'Must be a valid phone number with country code')
+        .required('Phone number is required'),
+})
+
+
+export const changePasswordSchema = object({
+    oldPassword: string()
+        .required("Ypur old password is required"),
+    newPassword: string()
+        .min(8, "Password must be at least 8 characters")
+        .required("Your new password is required"),
+    confirmPassword: string()
+        .oneOf([ref('password')], 'Passwords must match')
+        .required("Confirm your password")
+})
