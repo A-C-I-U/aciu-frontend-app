@@ -156,6 +156,15 @@ export const changePasswordSchema = object({
 })
 
 export const editResourceSchema = object({
+    fileName: string()
+        .required("File name is required"),
+
+    fileDescription: string()
+        .required("File description is required")
+        .min(10, "File description must be at least 10 characters"),
+})
+
+export const uploadResourceSchema = object({
     name: string()
         .required("File name is required"),
 

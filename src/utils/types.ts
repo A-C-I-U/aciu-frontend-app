@@ -162,7 +162,7 @@ export interface FileViewProps {
     description: string;
 };
 
-export interface FileViewDrawerProps extends FileViewProps {
+export interface FileViewDrawerProps {
     open: boolean,
     onClose: () => void
 }
