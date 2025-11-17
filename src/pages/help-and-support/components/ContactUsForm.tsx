@@ -1,18 +1,45 @@
 import FormikField from "@/components/FormikField";
 import { contactUsSchema } from "@/utils/schemas";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { Form, Formik } from "formik";
+import { useHelpTicketMutation } from "@/services/mutations/helpandsupport";
+import { enqueueSnackbar } from "notistack";
 
 export default function ContactUsForm() {
-    const handleSubmit = async (values: any, actions: any) => {
-        console.log(values, actions);
-    }
+    const { mutate: submitHelpTicket, isPending } = useHelpTicketMutation();
 
     const initialValues = {
         fullName: "",
         email: "",
         phoneNumber: "",
         messageBox: ""
+    }
+
+    const handleSubmit = async (values: any, actions: any) => {
+        submitHelpTicket(
+            {
+                fullName: values.fullName,
+                email: values.email,
+                phoneNumber: values.phoneNumber,
+                message: values.messageBox
+            },
+            {
+                onSuccess: (data) => {
+                    enqueueSnackbar(data.message, {
+                        variant: 'success',
+                      
+                    });
+                    actions.resetForm();
+                },
+                onError: (error: any) => {
+                    const errorMessage = error.response?.data?.message || 
+                                      'Failed to submit help ticket. Please try again.';
+                    enqueueSnackbar(errorMessage, {
+                        variant: 'error',                    
+                    });
+                }
+            }
+        );
     }
 
     return (
@@ -42,7 +69,7 @@ export default function ContactUsForm() {
                     validationSchema={contactUsSchema}
                     validateOnMount
                 >
-                {({ isValid, isSubmitting }) => (
+                {({ isValid }) => (
                     <Form>
                         <div className="flex flex-col gap-4">
                             <FormikField
@@ -97,10 +124,17 @@ export default function ContactUsForm() {
                             },
                             }}
                             className="flex gap-2 items-center"
-                            disabled={isSubmitting || !isValid}
+                            disabled={isPending || !isValid}
                             type="submit"
                         >
-                            Submit Report
+                            {isPending ? (
+                                <>
+                                    <CircularProgress size={16} sx={{ color: "green" }} />
+                                    Submitting...
+                                </>
+                            ) : (
+                                "Submit Report"
+                            )}
                         </Button>
                     </Form>
                 )}

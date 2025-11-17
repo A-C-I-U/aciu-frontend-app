@@ -7,33 +7,44 @@ import { BranchInitials } from "./BranchInitials"
 import { StatTag } from "./BranchStatTag"
 import { BranchLeadershipTab } from "./BranchLeadershipTab"
 import EventsList from "@/pages/events/components/EventsList"
+import type { BranchSearchResponse } from "@/services/types/helpandsupport"
+
 
 const MotionBox = motion.create(Box)
 
-const branchSupportTabs: TabItem[] = [
-    { 
-        key: "branch-leadership",
-        label: "Branch Leadership",
-        content: <BranchLeadershipTab />
-    },
-    {
-        key: "branch-events",
-        label: "Branch Events",
-        content: (
-            <div className="flex flex-col gap-4 lg:gap-8">
-                <EventsList />
-            </div>
-        )
-    }
-]
-
+interface BranchSupportPageProps {
+  onBackToSupport: () => void
+  branchData?: BranchSearchResponse
+}
 
 export default function BranchSupportPage({
-    onBackToSupport
-}: { onBackToSupport: () => void}) {
-  const [activeTab, setActiveTab] = useState<TabItem | null>(branchSupportTabs[0]);
+  onBackToSupport, 
+  branchData
+}: BranchSupportPageProps) {
+  const [activeTab, setActiveTab] = useState<TabItem | null>(null);
   const [screen, setScreen] = useState<"overview" | "content">("overview");
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  const branchSupportTabs: TabItem[] = [
+    { 
+      key: "branch-leadership",
+      label: "Branch Leadership", 
+      content: <BranchLeadershipTab leadership={branchData?.leadership || []} />
+    },
+    {
+      key: "branch-events",
+      label: "Branch Events",
+      content: (
+        <div className="flex flex-col gap-4 lg:gap-8">
+          <EventsList />
+        </div>
+      )
+    }
+  ]
+
+  if (!activeTab && branchSupportTabs.length > 0) {
+    setActiveTab(branchSupportTabs[0]);
+  }
 
   const handleOpenContent = (tab: TabItem) => {
     setActiveTab(tab);
@@ -225,5 +236,5 @@ export default function BranchSupportPage({
             </MotionBox>
         )}
     </div>
-    )
+  )
 }

@@ -1,6 +1,7 @@
 import type React from "react"
 import { type JSONContent, Editor } from '@tiptap/react'
 import type { Icon } from "iconsax-react";
+import type { BranchSearchResponse } from "@/services/types/helpandsupport";
 
 export interface AuthCardProps {
     header?: string,
@@ -202,10 +203,16 @@ export interface BranchExecCardProps {
     phoneNumber: string
 }
 
+// export interface LocateBranchProps {
+//     open: boolean,
+//     onClose: () => void,
+//     onBranchLocation: () => void
+// }
+
 export interface LocateBranchProps {
-    open: boolean,
-    onClose: () => void,
-    onBranchLocation: () => void
+    open: boolean;
+    onClose: () => void;
+    onBranchLocation: (data?: BranchSearchResponse) => void;
 }
 
 export interface ProjectCardProps {

@@ -9,7 +9,7 @@ export default function ContactInfo() {
                 <p className="text-aciu-border-grey lg:text-xl">
                     National Secretariat
                 </p>
-                <p className="font-semibold lg:text-xl">
+                <p className="font-semibold lg:text-lg">
                 ACIU Headquarters, Enachioken Road, Abiriba Abia State, Nigeria
                 </p>
             </div>
@@ -19,14 +19,14 @@ export default function ContactInfo() {
                 <p className="text-aciu-border-grey lg:text-xl">
                     Telephone
                 </p>
-                <p className="font-semibold lg:text-xl">
+                <p className="font-semibold lg:text-lg">
                     +234 701 000 0000
                 </p>
             </div>
 
             {/* Email */}
             <div className="flex flex-col gap-4">
-                <p className="text-aciu-border-grey lg:text-xl">
+                <p className="text-aciu-border-grey lg:text-lg">
                 Email
                 </p>
                 <p className="font-semibold lg:text-xl">
@@ -36,10 +36,10 @@ export default function ContactInfo() {
 
             {/* Office Hours */}
             <div className="flex flex-col gap-4">
-                <p className="text-aciu-border-grey lg:text-xl">
+                <p className="text-aciu-border-grey lg:text-lg">
                 Office Hours
                 </p>
-                <p className="font-semibold lg:text-xl">
+                <p className="font-semibold lg:text-lg">
                 info@aciuabiriba.org
                 </p>
             </div>
