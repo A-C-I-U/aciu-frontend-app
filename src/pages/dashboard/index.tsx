@@ -1,12 +1,12 @@
 import { CustomCountdown } from "@/components/MonthlyCountdown";
 import { ProfileCard } from "@/components/ProfileCard";
-import { EventsCard } from "@/components/EventsCard";
 import { MetricsCard } from "@/components/MetricsCard";
 import { NavLink } from "react-router-dom";
 import { CircularProgress, Box } from "@mui/material";
 import { useFinances } from "@/services/hooks/dashboard";
 import { useDashboardOverview } from "@/services/hooks/dashboard";
 import { formatCurrency } from "@/utils/helpers";
+import { UpcomingEventsSection } from "./components/UpcomingEventsSection";
 
 export default function Dashboard() {
   const {
@@ -67,16 +67,20 @@ export default function Dashboard() {
             {finances && (
               <>
                 <MetricsCard
-                  title="Monthly Contributions"
-                  price={formatCurrency(finances.monthlyContributions.amount)}
-                  timeStamp="Last Month"
-                  trend={finances.monthlyContributions.growth}
+                  metric={{
+                    title: "Monthly Contributions",
+                    price: formatCurrency(finances.monthlyContributions.amount),
+                    timeStamp: "Last Month",
+                    trend: finances.monthlyContributions.growth
+                  }}
                 />
                 <MetricsCard
-                  title="Project Donations"
-                  price={formatCurrency(finances.projectDonations.amount)}
-                  timeStamp="Last Month"
-                  trend={finances.projectDonations.growth}
+                  metric={{
+                    title: "Project Donations",
+                    price: formatCurrency(finances.projectDonations.amount),
+                    timeStamp: "Last Month", 
+                    trend: finances.projectDonations.growth
+                  }}
                 />
               </>
             )}
@@ -111,7 +115,7 @@ export default function Dashboard() {
         </div>
       </section>
       <section>
-        <EventsCard />
+        <UpcomingEventsSection />
       </section>
     </div>
   );

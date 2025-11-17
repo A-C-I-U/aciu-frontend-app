@@ -64,9 +64,10 @@ export interface User {
   occupation: string,
   phoneNumber: string,
   email: string,
-  ageGrade: boolean,
-  branch: boolean,
+  ageGrade: string,
+  branch: string,
   role: Role;
+  verified: boolean
 };
 
 export interface UserContextType {
@@ -103,6 +104,7 @@ export interface PageTitleProps {
 }
 
 export interface BasePostCardType {
+    id: string,
     title: string,
     author: string,
     date: string,
@@ -144,6 +146,8 @@ export interface PublicationCardProps {
 }
 
 export interface PublicationDataType {
+    id: string,
+    slug?: string,
     title: string,
     creationDate: string,
     postImpressions: {
@@ -196,6 +200,7 @@ export interface MenuCardProps {
 
 
 export interface BranchExecCardProps {
+    id: string | number,
     name: string,
     position: string,
     occupation: string,
@@ -278,4 +283,129 @@ export interface ProjectSidebarCardProps {
 export interface DonationProgressBarProps {
   collected: number;
   target: number;
+}
+
+export interface CommentType {
+    id: string,
+    name: string,
+    date: string,
+    content: string
+}
+
+export interface BlogDetails {
+  id: string;
+  slug: string;
+  title: string;
+  author: string;
+  readingTime: number;
+  createdAt: Date;
+  updatedAt: Date;
+  content: JSONContent;
+  comments: CommentType[];
+}
+
+export interface BlogSubmissionDetails extends BlogDetails {
+    description: string,
+    tags: string[],
+    displayImage: string,
+    imageAlt: string,
+    postVisibility: "public" | "private",
+    status: "published" | "pending approval" | "rejected" | "draft"
+}
+
+export interface StatusBadgeProps {
+  label: string;
+  bgColor: string;
+  labelColor: string;
+  dotColor: string;
+  height?: string | number;
+  className?: string;
+}
+
+export interface TagInputProps {
+  value: string[];
+  onChange: (tags: string[]) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  className?: string;
+}
+
+export interface CustomSnackbarProps {
+  selectedCount: number;
+  totalCount: number;
+  onSelectAll: () => void;
+  onDelete: () => void;
+  onClear: () => void;
+}
+
+export interface ProfileFormValues {
+  name: string;
+  email: string;
+  branch: string;
+  ageGrade: string;
+  occupation: string;
+  phoneNumber: string;
+};
+
+export interface NotificationOption {
+  label: string;
+  description: string;
+  fieldName: string;
+  checked: boolean;
+  onChange: (field: string, value: boolean, shouldValidate?: boolean) => void;
+}
+
+export interface NotificationSectionProps {
+  title: string;
+  description: string;
+  options: NotificationOption[];
+}
+
+export interface StatsCardProps {
+    title: string;
+    number: string;
+    itemLabel?: string;
+    currency?: string;
+    rateOfChange: string
+}
+
+export interface PaymentDataType {
+    id: string,
+    date: string,
+    category: string,
+    description: string,
+    amountPaid: string,
+    status: string,
+    file: {
+        url: string;
+        name: string;
+        type: string;
+        size: number;
+        uploadedAt?: string;
+  }
+}
+
+export interface UpcomingEventCardProps {
+    id: string | number,
+    image: string,
+    label: string,
+    dateStr: string,
+    timeRange: string
+}
+
+export interface PaymentReminderCardProps {
+    label?: string;
+    amount: string;
+    targetDate: Date;
+    paymentRoute?: string;
+    buttonText?: string;
+    className?: string;
+    countdownVariant?: "inline" | "block";
+}
+
+export interface MetricsCardProps {
+    title: string,
+    price: string,
+    timeStamp: string,
+    trend: string
 }

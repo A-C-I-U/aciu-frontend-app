@@ -27,11 +27,14 @@ export const BranchLeadershipTab = ({ leadership }: BranchLeadershipTabProps) =>
         {leadership.map((leader) => (
           <BranchExecCard
             key={leader.id}
-            name={leader.fullName}
-            position={leader.role}
-            occupation={leader.occupation}
-            email={leader.email}
-            phoneNumber={leader.phone}
+            branchExec={{
+              id: leader.id, 
+              name: leader.fullName,
+              position: leader.role,
+              occupation: leader.occupation,
+              email: leader.email,
+              phoneNumber: leader.phone
+            }}
           />
         ))}
       </div>

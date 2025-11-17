@@ -1,6 +1,5 @@
 import { helpSupportMenu } from "@/utils/data";
-import { Box } from "@mui/material";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import MenuCard from "./components/MenuCard";
 import { useState } from "react";
 import ContactUsForm from "./components/ContactUsForm";
@@ -9,9 +8,7 @@ import FAQSection from "./components/FaqSection";
 import LocateBranch from "./components/LocateBranch";
 import type { BranchSearchResponse } from "@/services/types/helpandsupport";
 import BranchSupportPage from "./components/BranchSupportPage";
-
-
-const MotionBox = motion.create(Box)
+import MotionBox from "@/components/MotionBox";
 
 export default function HelpAndSupportPage() {
     const [showBranchPopup, setShowBranchPopup] = useState(false);
@@ -48,9 +45,7 @@ export default function HelpAndSupportPage() {
                             flexDirection="column"
                             gap={6}
                         >
-
-                            {/* Intro Section */}
-                            <div className="flex flex-col gap-4 w-full lg:w-[70%]">
+                            <div className="flex flex-col gap-4 w-full lg:w-3/4">
                                 <h2 
                                     className="font-coolvetica font-bold text-aciu-border-grey text-xl line-height-120"
                                 >
@@ -65,8 +60,6 @@ export default function HelpAndSupportPage() {
                                 </p>
                             </div>
 
-
-                            {/* Help and Support Grid */}
                             <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch">
                                 {helpSupportMenu && helpSupportMenu.map(({ 
                                     icon, 
@@ -87,8 +80,6 @@ export default function HelpAndSupportPage() {
                             </div>
                         </MotionBox>
 
-
-                        {/* FAQ Section */}
                         <MotionBox
                             key="faq-section"
                             initial={{ opacity: 0, y: -20 }}
@@ -104,7 +95,6 @@ export default function HelpAndSupportPage() {
                         </MotionBox>
 
 
-                        {/* Contact + Info Grid */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch mx-5">
                             <ContactUsForm />
                             <ContactInfo />

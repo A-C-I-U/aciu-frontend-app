@@ -1,21 +1,23 @@
-import type { PublicationCardProps } from "@/utils/types";
+import type { StatsCardProps } from "@/utils/types";
 import { ArrowTopRightIcon } from "@/components/Icons";
 
-export const PublicationCard = ({ 
+export const StatsCard = ({ 
     title, 
-    postNumber, 
+    number,
+    itemLabel,
+    currency,
     rateOfChange 
-}: PublicationCardProps) => {
+}: StatsCardProps) => {
     const sign = +rateOfChange === 0 ? '' : (+rateOfChange > 0 ? '+' : '-');
     
     return (
-        <div className="w-full py-4 px-6 flex flex-col gap-4 rounded-lg bg-white w-full h-[9.688rem]">
+        <div className="w-full py-4 px-6 flex flex-col gap-4 rounded-lg bg-white h-39">
             <div className="flex flex-col justify-between h-full">
                 <p className="font-montserrat text-copy-400 font-medium uppercase text-xs">
                     {title}
                 </p>
                 <p className="font-montserrat font-semibold text-[1.75rem] text-copy-500">
-                    {postNumber.padStart(2, '0')} Post(s)
+                    {currency}{number.padStart(2, '0')} {itemLabel}
                 </p>
             </div>
             <div className="w-full flex justify-end">
@@ -37,7 +39,7 @@ export const PublicationCard = ({
                         'text-red-600' : 
                         'text-aciu-abriba')}`
                     }>                
-                        {rateOfChange}
+                        {rateOfChange}%
                     </span>
                 </span> 
             </div>

@@ -1,5 +1,6 @@
 import { Calendar2, DollarSquare, FolderOpen, Routing } from "iconsax-react";
 import type { 
+  BlogSubmissionDetails,
   BranchExecCardProps,
   EventDetailsProps, 
   EventItemProps, 
@@ -9,10 +10,12 @@ import type {
   OptionLabelProps, 
   ProjectCardProps, 
   ProjectDetailsProps, 
-  PublicationCardProps, 
   PublicationDataType, 
-  RegularPostCardType 
+  RegularPostCardType, 
+  StatsCardProps,
+  UpcomingEventCardProps
 } from "./types";
+import { timeAgo } from "./helpers";
 
 export const BRANCHES: string[] = [
   "home", "aba", "umuahia", "enugu", "owerri",
@@ -167,105 +170,118 @@ export const eventDetails: EventDetailsProps = {
 
 export const regularPosts: RegularPostCardType[] = [
     {
-        img: "/images/nig-uk-flag.jpg",
-        title: "My First Igwa Mang: Walking with My Age Grade",
-        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-        author: "Chinedu Okoro",
-        date: "16 Jan 2025",
-        tags: ["ACIU News", "Union Updates"]
+      id: "1",
+      img: "/images/nig-uk-flag.jpg",
+      title: "My First Igwa Mang: Walking with My Age Grade",
+      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+      author: "Chinedu Okoro",
+      date: "16 Jan 2025",
+      tags: ["ACIU News", "Union Updates"]
     },
     {
-        img: "/images/nig-uk-flag.jpg",
-        title: "My First Igwa Mang: Walking with My Age Grade",
-        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-        author: "Chinedu Okoro",
-        date: "16 Jan 2025",
-        tags: ["ACIU News", "Union Updates"]
+      id: "2",
+      img: "/images/nig-uk-flag.jpg",
+      title: "My First Igwa Mang: Walking with My Age Grade",
+      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+      author: "Chinedu Okoro",
+      date: "16 Jan 2025",
+      tags: ["ACIU News", "Union Updates"]
     },
     {
-        img: "/images/nig-uk-flag.jpg",
-        title: "My First Igwa Mang: Walking with My Age Grade",
-        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-        author: "Chinedu Okoro",
-        date: "16 Jan 2025",
-        tags: ["ACIU News", "Union Updates"]
+      id: "3",
+      img: "/images/nig-uk-flag.jpg",
+      title: "My First Igwa Mang: Walking with My Age Grade",
+      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+      author: "Chinedu Okoro",
+      date: "16 Jan 2025",
+      tags: ["ACIU News", "Union Updates"]
     },
     {
-        img: "/images/nig-uk-flag.jpg",
-        title: "My First Igwa Mang: Walking with My Age Grade",
-        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-        author: "Chinedu Okoro",
-        date: "16 Jan 2025",
-        tags: ["ACIU News", "Union Updates"]
+      id: "4",
+      img: "/images/nig-uk-flag.jpg",
+      title: "My First Igwa Mang: Walking with My Age Grade",
+      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+      author: "Chinedu Okoro",
+      date: "16 Jan 2025",
+      tags: ["ACIU News", "Union Updates"]
     },
     {
-        img: "/images/nig-uk-flag.jpg",
-        title: "My First Igwa Mang: Walking with My Age Grade",
-        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-        author: "Chinedu Okoro",
-        date: "16 Jan 2025",
-        tags: ["ACIU News", "Union Updates"]
+      id: "5",
+      img: "/images/nig-uk-flag.jpg",
+      title: "My First Igwa Mang: Walking with My Age Grade",
+      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+      author: "Chinedu Okoro",
+      date: "16 Jan 2025",
+      tags: ["ACIU News", "Union Updates"]
     },
     {
-        img: "/images/nig-uk-flag.jpg",
-        title: "My First Igwa Mang: Walking with My Age Grade",
-        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-        author: "Chinedu Okoro",
-        date: "16 Jan 2025",
-        tags: ["ACIU News", "Union Updates"]
+      id: "6",
+      img: "/images/nig-uk-flag.jpg",
+      title: "My First Igwa Mang: Walking with My Age Grade",
+      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+      author: "Chinedu Okoro",
+      date: "16 Jan 2025",
+      tags: ["ACIU News", "Union Updates"]
     },
     {
-        img: "/images/nig-uk-flag.jpg",
-        title: "My First Igwa Mang: Walking with My Age Grade",
-        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-        author: "Chinedu Okoro",
-        date: "16 Jan 2025",
-        tags: ["ACIU News", "Union Updates"]
+      id: "7",
+      img: "/images/nig-uk-flag.jpg",
+      title: "My First Igwa Mang: Walking with My Age Grade",
+      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+      author: "Chinedu Okoro",
+      date: "16 Jan 2025",
+      tags: ["ACIU News", "Union Updates"]
     },
     {
-        img: "/images/nig-uk-flag.jpg",
-        title: "My First Igwa Mang: Walking with My Age Grade",
-        subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-        author: "Chinedu Okoro",
-        date: "16 Jan 2025",
-        tags: ["ACIU News", "Union Updates"]
+      id: "8",
+      img: "/images/nig-uk-flag.jpg",
+      title: "My First Igwa Mang: Walking with My Age Grade",
+      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+      author: "Chinedu Okoro",
+      date: "16 Jan 2025",
+      tags: ["ACIU News", "Union Updates"]
     },
 ]
 
 export const featuredPosts: FeaturedPostCardType[] = [
     {
-        img: "/images/blog-placeholder.jpg",
-        title: "Tech, Tradition and the Future of ACIU",
-        author: "Eke Urum",
-        date: "20 Jan 2025",
-        views: 239,
-        comments: 21
+      id: "10",
+      img: "/images/blog-placeholder.jpg",
+      title: "Tech, Tradition and the Future of ACIU",
+      author: "Eke Urum",
+      date: "20 Jan 2025",
+      views: 239,
+      comments: 21
     },
     {
-        img: "/images/blog-placeholder.jpg",
-        title: "Tech, Tradition and the Future of ACIU",
-        author: "Eke Urum",
-        date: "20 Jan 2025",
-        views: 239,
-        comments: 21
+      id: "12",
+      img: "/images/blog-placeholder.jpg",
+      title: "Tech, Tradition and the Future of ACIU",
+      author: "Eke Urum",
+      date: "20 Jan 2025",
+      views: 239,
+      comments: 21
     }
 ]
 
-export const publicationStats: PublicationCardProps[] = [
+export const publicationStats: StatsCardProps[] = [
     {
         title: 'Total Submissions',
-        postNumber: '5',
-        rateOfChange: '+12.5'
+        number: '5',
+        rateOfChange: '+12.5',
+        itemLabel: "Post(s)"
     },
     {
         title: 'Published Posts',
-        postNumber: '3',
-        rateOfChange: '+12.5'
+        number: '3',
+        rateOfChange: '+12.5',
+        itemLabel: "Post(s)"
     },
      {
         title: 'Pending Approval',
-        postNumber: '2',
-        rateOfChange: '-12.5'
+        number: '2',
+        rateOfChange: '-12.5',
+        itemLabel: "Post(s)"
     },
 ]
 
@@ -388,6 +404,7 @@ export const helpAndSupportAccordion = [
 
 export const branchExecutiveMockData: BranchExecCardProps[] = [
   {
+    id: "1",
     name: "Mazi Emeka Kalu",
     position: "Chairman",
     occupation: "Contractor",
@@ -395,6 +412,7 @@ export const branchExecutiveMockData: BranchExecCardProps[] = [
     phoneNumber: "+234 903 828 3447"
   },
   {
+    id: "2",
     name: "Adaora Emezi",
     position: "Secretary",
     occupation: "Contractor",
@@ -402,6 +420,7 @@ export const branchExecutiveMockData: BranchExecCardProps[] = [
     phoneNumber: "+234 903 828 3447"
   },
   {
+    id: "3",
     name: "Mr. Ikenna O.",
     position: "Treasurer",
     occupation: "Contractor",
@@ -409,6 +428,7 @@ export const branchExecutiveMockData: BranchExecCardProps[] = [
     phoneNumber: "+234 903 828 3447"
   },
   {
+    id: "4",
     name: "Mazi Emeka Kalu",
     position: "Chairman",
     occupation: "Contractor",
@@ -416,6 +436,7 @@ export const branchExecutiveMockData: BranchExecCardProps[] = [
     phoneNumber: "+234 903 828 3447"
   },
   {
+    id: "5",
     name: "Adaora Emezi",
     position: "Secretary",
     occupation: "Contractor",
@@ -423,6 +444,7 @@ export const branchExecutiveMockData: BranchExecCardProps[] = [
     phoneNumber: "+234 903 828 3447"
   },
   {
+    id: "6",
     name: "Mr. Ikenna O.",
     position: "Treasurer",
     occupation: "Contractor",
@@ -602,4 +624,267 @@ export const projectCategoryOptions = [
     label: "Welfare",
     value: "welfare"
   }
+]
+
+
+
+export const mockTiptapContent = {
+  type: "doc",
+  content: [
+    {
+      type: "heading",
+      attrs: { level: 1, textAlign: "center" },
+      content: [
+        {
+          type: "text",
+          text: "Welcome to the Tiptap Showcase",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      attrs: { textAlign: "center" },
+      content: [
+        {
+          type: "text",
+          marks: [{ type: "underline" }],
+          text: "Rich text editing with custom styles, alignment, and images.",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "This paragraph demonstrates ",
+        },
+        {
+          type: "text",
+          marks: [{ type: "bold" }],
+          text: "bold",
+        },
+        {
+          type: "text",
+          text: ", ",
+        },
+        {
+          type: "text",
+          marks: [{ type: "italic" }],
+          text: "italic",
+        },
+        {
+          type: "text",
+          text: ", and ",
+        },
+        {
+          type: "text",
+          marks: [{ type: "underline" }],
+          text: "underlined",
+        },
+        {
+          type: "text",
+          text: " text styles all in one sentence.",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      attrs: { textAlign: "right" },
+      content: [
+        {
+          type: "text",
+          text: "This paragraph is right-aligned using the TextAlign extension.",
+        },
+      ],
+    },
+    {
+      type: "heading",
+      attrs: { level: 2, textAlign: "left" },
+      content: [
+        {
+          type: "text",
+          text: "Image Example",
+        },
+      ],
+    },
+    {
+      type: "image",
+      attrs: {
+        src: "https://picsum.photos/600/300",
+        alt: "Random test image",
+        title: "Sample Image",
+      },
+    },
+    {
+      type: "paragraph",
+      attrs: { textAlign: "center" },
+      content: [
+        {
+          type: "text",
+          text: "Above is an example image rendered through the Image extension.",
+        },
+      ],
+    },
+    {
+      type: "heading",
+      attrs: { level: 3, textAlign: "left" },
+      content: [
+        {
+          type: "text",
+          text: "Nested Formatting Example",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "You can combine multiple marks like ",
+        },
+        {
+          type: "text",
+          marks: [
+            { type: "bold" },
+            { type: "italic" },
+            { type: "underline" },
+          ],
+          text: "bold + italic + underline",
+        },
+        {
+          type: "text",
+          text: " together in one phrase.",
+        },
+      ],
+    },
+    {
+      type: "paragraph",
+      content: [
+        {
+          type: "text",
+          text: "This last paragraph shows normal left-aligned text as a control.",
+        },
+      ],
+    },
+  ],
+};
+
+
+export const blogDetails: BlogSubmissionDetails = {
+  id: "1",
+  slug: "tiptap-showcase",
+  title: "Tiptap Showcase",
+  author: "Obinna Kalu",
+  readingTime: 4,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  content: mockTiptapContent,
+  comments: [{
+    id: '4',
+    name: "Mazi Mathew Uko",
+    date: timeAgo(new Date().toDateString()),
+    content: `Technology is not here to replace who we are. 
+      It is here to preserve it. And with this new platform, 
+      ACIU continues to lead — not just as a union of the past, 
+      but as a community shaping the future.`
+  }, {
+    id: "1",
+    name: "Mazi Mathew Uko",
+    date: timeAgo(new Date().toDateString()),
+    content: `Technology is not here to replace who we are. 
+      It is here to preserve it. And with this new platform, 
+      ACIU continues to lead — not just as a union of the past, 
+      but as a community shaping the future.`
+  }, {
+    id: "2",
+    name: "Mazi Mathew Uko",
+    date: timeAgo(new Date().toDateString()),
+    content: `Technology is not here to replace who we are. 
+      It is here to preserve it. And with this new platform, 
+      ACIU continues to lead — not just as a union of the past, 
+      but as a community shaping the future.`
+  }, {
+    id: "3",
+    name: "Mazi Mathew Uko",
+    date: timeAgo(new Date().toDateString()),
+    content: `Technology is not here to replace who we are. 
+      It is here to preserve it. And with this new platform, 
+      ACIU continues to lead — not just as a union of the past, 
+      but as a community shaping the future.`
+  }],
+  description: "An internal showcase of our new editor setup.",
+  tags: ["editor", "react", "tiptap"],
+  displayImage: "https://picsum.photos/600/300",
+  imageAlt: "Tiptap editor demo image",
+  postVisibility: "private",
+  status: "pending approval",
+}
+
+export const myPaymentsStats: StatsCardProps[] = [
+  {
+    title: "Total Contributions",
+    number: "450000",
+    rateOfChange: "12",
+    currency: "N"
+  },
+  {
+    title: "Outstanding Balance",
+    number: "35000",
+    rateOfChange: "12.5",
+    currency: "N"
+  }
+]
+
+export const myDonationsStats: StatsCardProps[] = [
+  {
+    title: "My Total Donations",
+    number: "1050000",
+    rateOfChange: "12.5",
+    currency: "N"
+  },
+  {
+    title: "Projects Supported",
+    number: "6",
+    itemLabel: "Projects",
+    rateOfChange: "12.5"
+  },
+  {
+    title: "Events Supported",
+    number: "3",
+    itemLabel: "Events",
+    rateOfChange: "12.5"
+  }
+]
+
+
+export const dashboardUpcomingEvents: UpcomingEventCardProps[] = [
+  {
+    id: "1",
+    label: "Igwa Mang Cultural Festival",
+    image: "/images/abriba-event.jpg",
+    dateStr: "21 January 2026",
+    timeRange: "12:00PM - 5:00PM"
+  },
+  {
+    id: "2",
+    label: "Igwa Mang Cultural Festival",
+    image: "/images/abriba-event.jpg",
+    dateStr: "21 January 2026",
+    timeRange: "12:00PM - 5:00PM"
+  },
+  {
+    id: "3",
+    label: "Igwa Mang Cultural Festival",
+    image: "/images/abriba-event.jpg",
+    dateStr: "21 January 2026",
+    timeRange: "12:00PM - 5:00PM"
+  },
+  {
+    id: "4",
+    label: "Igwa Mang Cultural Festival",
+    image: "/images/abriba-event.jpg",
+    dateStr: "21 January 2026",
+    timeRange: "12:00PM - 5:00PM"
+  },
 ]

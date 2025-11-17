@@ -1,12 +1,11 @@
 import Header from "@/components/Header";
+import ScrollToTopOnRouteChange from "@/components/ScrollToTop";
 import Sidebar from "@/components/Sidebar";
 import { useUser } from "@/context/UserContext";
-import { AnimatePresence, motion } from "motion/react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 export default function MainLayout() {
     const { user } = useUser();
-    const location = useLocation();
 
     const activeRole = user?.role || "member";
     const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
@@ -19,20 +18,12 @@ export default function MainLayout() {
             >
                 <Sidebar />
             </aside>
+            <ScrollToTopOnRouteChange />
             <div className="w-full flex-1 ml-0 md:ml-[14.8rem] ">
                 <Header />
                 <main className="bg-aciu-body">
                     <div className="max-w-[90rem] mx-auto">
-                        <AnimatePresence>
-                            <motion.div
-                                key={location.pathname}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 1, ease: "easeInOut" }}
-                            >
-                                <Outlet />
-                            </motion.div>
-                        </AnimatePresence>
+                        <Outlet />
                     </div>
                 </main>
             </div>

@@ -4,6 +4,14 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 import { CircularProgress, Box } from "@mui/material";
 import { useDashboardOverview } from "@/services/hooks/dashboard";
 
+
+const quickActions = [
+    { label: "Pay my dues", path: "/my-payments" },
+    { label: "View projects", path: "/projects" },
+    { label: "View events", path: "/events" },
+    { label: "Edit profile info", path: "/settings" }
+]
+
 export const ProfileCard = () => {
     const { data, isLoading, error } = useDashboardOverview();
 
@@ -67,8 +75,8 @@ export const ProfileCard = () => {
                             {data?.profile?.occupation}
                         </p>
                     </div>
-                    <div className="w-full flex flex-col items-start gap-4 md:items-center md:flex-row">
-                        <span className="w-full flex gap-2 items-center">
+                    <div className="w-full flex flex-col gap-4 md:items-center md:flex-row md:flex-wrap">
+                        <span className="flex gap-2 items-center">
                             <Call size={16} color="#00CA71" />
                             <span className="font-montserrat text-aciu-border-grey text-sm">
                                 {data?.profile?.phone}
@@ -106,13 +114,13 @@ export const ProfileCard = () => {
                 <p className="text-aciu-blue-dark font-coolvetica">
                     Quick Actions
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-2 gap-4">
                     {quickActions.map(({ label, path }, index) => (
                         <NavLink
                             key={index}
                             to={path}
                              className={[
-                                    "flex justify-between items-center rounded-sm py-[.688rem] px-[.875rem] border transition-colors",
+                                    "flex justify-between items-center rounded-sm py-2.5 px-3.5 border transition-colors",
                                     index % 2 === 0
                                     ? "bg-accent-100 border-accent-300"
                                     : "bg-primary-100 border-primary-300"
@@ -137,9 +145,3 @@ export const ProfileCard = () => {
     )
 }
 
-const quickActions = [
-    { label: "Pay my dues", path: "/my-payments" },
-    { label: "View projects", path: "/projects" },
-    { label: "View events", path: "/events" },
-    { label: "Edit profile info", path: "/settings" }
-]

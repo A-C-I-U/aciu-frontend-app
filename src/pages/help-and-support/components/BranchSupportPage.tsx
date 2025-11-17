@@ -1,5 +1,5 @@
 import type { TabItem } from "@/utils/types"
-import { Box, Button, useMediaQuery } from "@mui/material"
+import { Box, Button, Divider, useMediaQuery } from "@mui/material"
 import { ArrowLeft2, ArrowRight2, People, Verify } from "iconsax-react"
 import { motion } from "motion/react"
 import { useState } from "react"
@@ -76,7 +76,7 @@ export default function BranchSupportPage({
                     type="button"
                     onClick={onBackToSupport}
                     className="absolute left-4 mb-2 flex items-center text-aciu-neutral font-montserrat text-sm
-                        border border-neutrals-100 rounded-[0.75rem] px-4 py-4 bg-transparent hover:bg-neutrals-50 transition-colors"
+                        border border-neutrals-100 rounded-xl px-4 py-4 bg-transparent hover:bg-neutrals-50 transition-colors"
                 >
                     <ArrowLeft2 size={20} color="#898483" />
                     <span className="ml-3">Go Back</span>
@@ -138,7 +138,7 @@ export default function BranchSupportPage({
                             </button>
                         ))}
                     </div>
-                    <hr className="w-full border-t-[.5px] text-aciu-dark-grey" />
+                    <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
                 </div>
 
                 <MotionBox
@@ -170,7 +170,7 @@ export default function BranchSupportPage({
                             type="button"
                             onClick={onBackToSupport}
                             className="absolute left-4 top-4 mb-2 flex items-center text-aciu-neutral font-montserrat text-xs
-                                border border-neutrals-100 rounded-[0.75rem] px-2 py-2 bg-transparent hover:bg-neutrals-50 transition-colors"
+                                border border-neutrals-100 rounded-xl px-2 py-2 bg-transparent hover:bg-neutrals-50 transition-colors"
                         >
                             <ArrowLeft2 size={18} color="#898483" />
                         </button>
@@ -225,7 +225,7 @@ export default function BranchSupportPage({
                             type="button"
                             onClick={handleBack}
                             className="md:absolute left-4 mb-2 flex items-center text-aciu-neutral font-montserrat text-sm
-                                border border-neutrals-100 rounded-[0.75rem] p-2 md:p-4 bg-transparent hover:bg-neutrals-50 transition-colors"
+                                border border-neutrals-100 rounded-xl p-2 md:p-4 bg-transparent hover:bg-neutrals-50 transition-colors"
                         >
                             <ArrowLeft2 size={isDesktop ? 20 : 18} color="#898483" />
                             <span className="ml-3 hidden lg:inline-block">Go Back</span>
