@@ -1,4 +1,4 @@
-import { boolean, mixed, number, object, ref, string } from "yup";
+import { array, boolean, mixed, number, object, ref, string } from "yup";
 import { AGEGRADES, BRANCHES } from "./data";
 
 export const signupValidationSchemas = [
@@ -146,7 +146,7 @@ export const profileValidationSchema = object({
 
 export const changePasswordSchema = object({
     oldPassword: string()
-        .required("Ypur old password is required"),
+        .required("Your old password is required"),
     newPassword: string()
         .min(8, "Password must be at least 8 characters")
         .required("Your new password is required"),
@@ -154,3 +154,29 @@ export const changePasswordSchema = object({
         .oneOf([ref('password')], 'Passwords must match')
         .required("Confirm your password")
 })
+
+export const editResourceSchema = object({
+    fileName: string()
+        .required("File name is required"),
+
+    fileDescription: string()
+        .required("File description is required")
+        .min(10, "File description must be at least 10 characters"),
+})
+
+export const uploadResourceSchema = object({
+    name: string()
+        .required("File name is required"),
+
+    description: string()
+        .required("File description is required")
+        .min(10, "File description must be at least 10 characters"),
+
+    doc: mixed()
+        .required("A file is required")
+        .test("is-file", "Invalid file", value => value instanceof File),
+
+    accessLevel: array()
+        .of(string().required("Access level is required"))
+        .min(1, "Access level is required")
+});
