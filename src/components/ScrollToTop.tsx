@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
-function ScrollToTopOnRouteChange({ children }: { children: React.ReactElement }) {
+function ScrollToTopOnRouteChange() {
   const location = useLocation();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ function ScrollToTopOnRouteChange({ children }: { children: React.ReactElement }
     });
   }, [location.pathname]);
 
-  return <>{children}</>;
+  return null;
 }
 
 export default ScrollToTopOnRouteChange;

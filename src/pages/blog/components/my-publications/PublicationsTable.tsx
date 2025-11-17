@@ -47,4 +47,4 @@ export default function PublicationsTable() {
     )
 }
 
-const mockData: PublicationDataType[] = generateMockPublications(20);
+const mockData: PublicationDataType[] = generateMockPublications(30);
