@@ -6,7 +6,7 @@ import { Form, Formik } from "formik";
 import { X } from "lucide-react";
 import { useRef } from "react";
 import { FilePreviewCard } from "./FilePreviewCard";
-import { editResourceSchema } from "@/utils/schemas";
+import { uploadResourceSchema } from "@/utils/schemas";
 
 const initialValues = {
     name: "",
@@ -15,47 +15,46 @@ const initialValues = {
     doc: ""
 }
 
-export default function EditResourceContent({
-    onClose,
-    onSubmit
-}: { onClose: () => void, onSubmit: () => void }) {
+export default function UploadResourceContent({
+    onClose, onSuccess
+}: { onClose: () => void, onSuccess: () => void }) {
 
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleSubmit = (_values: any, _actions: any) => {
-        onSubmit()
-        onClose()
+        onSuccess()
     };
 
     return (
-        <div className="resources-modal-section">
-            <p className="resources-modal-title">
-                Upload Material
-            </p>
-            <button
-                onClick={onClose}
-                className="resources-modal-close"
-            > 
-                <X width={24} height={24} color="#3E3E3E"/>
-            </button>
+        <div className="resources-modal-section overflow-hidden md:h-full h-4/5 flex flex-col">
+             <div className="relative flex items-center justify-between">
+                <p className="resources-modal-title">
+                    Upload Material
+                </p>
+                <button
+                    onClick={onClose}
+                    className="resources-modal-close"
+                > 
+                    <X width={24} height={24} color="#3E3E3E"/>
+                </button>
+            </div>
             <Divider orientation="horizontal" flexItem />
             <Formik 
                 initialValues={initialValues} 
                 onSubmit={handleSubmit}
-                validationSchema={editResourceSchema}
+                validationSchema={uploadResourceSchema}
                 validateOnMount
             >
                  {({
                     values,
-                    errors,
                     setFieldValue,
                     isSubmitting,
-                    isValid
+                    isValid,
+                    submitForm
                 }) => {
-                    console.log(errors, values)
                     return (
-                        <Form className="w-full h-full relative flex flex-col justify-between">
-                            <div className="resources-modal-body mb-4 no-scrollbar">
+                        <div className="w-full h-full overflow-hidden relative flex flex-col justify-between">
+                            <Form className="resources-modal-body mb-4 no-scrollbar">
                                 <FormikField
                                     label="File Name"
                                     name="name"
@@ -102,7 +101,7 @@ export default function EditResourceContent({
                                                 </div>
                                             </div>
                                             :
-                                            <div className="flex flex-col gap-[.625rem] items-center">
+                                            <div className="flex flex-col gap-2.5 items-center">
                                                 <FilePreviewCard 
                                                     file={values.doc} 
                                                     width="w-65" 
@@ -110,7 +109,7 @@ export default function EditResourceContent({
                                                     className="!mt-0"
                                                 />
                                                 <div className="w-full self-end">
-                                                    <p className="text-aciu-green-normal font-coolvetica text-xl">
+                                                    <p className="text-aciu-green-normal font-coolvetica text-sm">
                                                         Edit file
                                                     </p>
                                                 </div>
@@ -125,11 +124,12 @@ export default function EditResourceContent({
                                         onChange={(e) => setFieldValue("doc", e.target.files?.[0] || null)}
                                     />
                                 </div>
-                            </div>
+                            </Form>
                             <div className="py-5.5 px-10.5 resource-buttons-container">
                                 <button
                                     className="btn btn-primary"
                                         type="submit"
+                                        onClick={submitForm}
                                         disabled={isSubmitting || !isValid}
                                     >
                                         Upload Resource
@@ -141,7 +141,7 @@ export default function EditResourceContent({
                                         Cancel
                                 </button>
                             </div>
-                        </Form>
+                        </div>
                     )
                 }}
                 
