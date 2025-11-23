@@ -402,3 +402,8 @@ export interface MetricsCardProps {
     timeStamp: string,
     trend: string
 }
+
+export interface ExtendedTabItem extends TabItem {
+  description?: string;
+  contentDescription?: string
+}

@@ -1,5 +1,5 @@
 import MotionBox from "@/components/MotionBox";
-import type { TabItem } from "@/utils/types";
+import type { ExtendedTabItem, TabItem } from "@/utils/types";
 import { Divider, useMediaQuery } from "@mui/material";
 import { ArrowRightIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -9,11 +9,6 @@ import SecuritySettings from "./components/security-settings";
 import { useUser } from "@/context/UserContext";
 import ProfileVerificationPopup from "./components/profile-settings/ProfileVerificationPopup";
 import { ArrowLeft2 } from "iconsax-react";
-
-interface ExtendedTabItem extends TabItem {
-  description?: string;
-  contentDescription?: string
-}
 
 const settingsTabs: ExtendedTabItem[] = [
     { 
