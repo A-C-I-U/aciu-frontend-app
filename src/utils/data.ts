@@ -894,3 +894,43 @@ export const dashboardUpcomingEvents: UpcomingEventCardProps[] = [
     timeRange: "12:00PM - 5:00PM"
   },
 ]
+
+
+export const branchInfo = {
+  createdAt: "20/3/2025",
+  meetingLocation: "Community Hall, Bode Thomas Street, Surulere, Lagos State",
+  branchKey: "Lagos Branch",
+  branchName: "ACIU Lagos Mainland Branch",
+  branchChairman: "Emeka Kalu",
+  branchChairmanEmail: "emeka.kalu@aciu.org"
+}
+
+export const branchStats = [
+  {
+      title: "Total Verified Members",
+      number: "25",
+      rateOfChange: "12.5"
+  },
+  {
+      title: "Active Age Grades",
+      number: "3",
+      rateOfChange: "12.5"
+  },
+  {
+      title: "Pending Verification",
+      number: "45",
+      rateOfChange: "33"
+  },
+  {
+      title: "Total Dues Collected",
+      number: "25104000",
+      rateOfChange: "44",
+      currency: "N"
+  },
+  {
+      title: "Total Withdrawals",
+      number: "30100000",
+      rateOfChange: "44",
+      currency: "N"
+  }
+]
