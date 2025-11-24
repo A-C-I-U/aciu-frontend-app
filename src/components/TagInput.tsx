@@ -2,6 +2,7 @@ import type { TagInputProps } from "@/utils/types";
 import { useState, useRef } from "react";
 
 export function TagInput({
+  name,
   value,
   onChange,
   placeholder = "Add a tag...",
@@ -40,23 +41,25 @@ export function TagInput({
       onClick={() => inputRef.current?.focus()}
       className={`flex flex-wrap items-center gap-2 border border-aciu-card-grey rounded-[.625rem] px-3 py-2 bg-white transition ${className} ${disabledClass}`}
     >
-      {value.map((tag, index) => (
-        <div
-          key={index}
-          className="rounded-2xl capitalize flex items-center gap-1 bg-aciu-light-grey leading-5 text-aciu-abriba font-medium px-2.5 py-1 text-xs"
-        >
-          {tag}
-          {!disabled && (
-            <button
-              type="button"
-              onClick={() => removeTag(index)}
-              className="ml-1 text-aciu-abriba focus:outline-none text-2xl"
-            >
-              ×
-            </button>
-          )}
-        </div>
-      ))}
+      {value.map((tag, index) => {
+        if (tag === "") return;
+        return (
+          <div
+            key={index}
+            className="rounded-2xl capitalize flex items-center gap-1 bg-aciu-light-grey leading-5 text-aciu-abriba font-medium px-2.5 py-1 text-xs"
+          >
+            {tag}
+            {!disabled && (
+              <button
+                type="button"
+                onClick={() => removeTag(index)}
+                className="ml-1 text-aciu-abriba focus:outline-none text-2xl"
+              >
+                ×
+              </button>
+            )}
+          </div>
+      )})}
 
       {!disabled && (
         <input
@@ -64,6 +67,7 @@ export function TagInput({
           type="text"
           className="flex-1 border-none focus:outline-none text-sm min-w-25"
           value={draft}
+          name={name}
           onChange={(e) => setDraft(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={value.length ? "" : placeholder}

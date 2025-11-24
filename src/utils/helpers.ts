@@ -198,3 +198,9 @@ export const generateMockPayment = (count: number): PaymentDataType[] => {
       },
     };
 })}
+
+
+export const getExtensionFromUrl = (url: string): string => {
+  const match = url.match(/\.([^./?]+)(?:[?#]|$)/);
+  return match ? match[1] : '';
+};

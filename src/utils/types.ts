@@ -180,7 +180,7 @@ export interface FileViewProps {
     description: string;
 };
 
-export interface FileViewDrawerProps extends FileViewProps {
+export interface FileViewDrawerProps {
     open: boolean,
     onClose: () => void
 }
@@ -340,11 +340,12 @@ export interface StatusBadgeProps {
 }
 
 export interface TagInputProps {
-  value: string[];
-  onChange: (tags: string[]) => void;
-  placeholder?: string;
-  disabled?: boolean;
-  className?: string;
+    name?: string;
+    value: string[];
+    onChange: (tags: string[]) => void;
+    placeholder?: string;
+    disabled?: boolean;
+    className?: string;
 }
 
 export interface CustomSnackbarProps {

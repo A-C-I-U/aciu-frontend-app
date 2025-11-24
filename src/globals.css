@@ -166,6 +166,29 @@ a, button {
     width: 100%;
   }
 
+  .border-custom-dash {
+    border-width: 1px;
+    border-style: solid;
+    border-image: repeating-linear-gradient(
+        45deg,
+        var(--color-aciu-green-normal) 0,
+        var(--color-aciu-green-normal) 8px,
+        transparent 8px,
+        transparent 16px
+      );
+    border-image-slice: 1;
+    border-radius: 10px;
+  }
+
+  .resource-buttons-container {
+    box-shadow: 0px 4px 50px 0px #0000001A;
+    display: flex;
+    align-items: center;
+    gap: 1.375rem;
+    width: 100%;
+  }
+
+
 }
 
 @layer components {
@@ -325,7 +348,122 @@ a, button {
     background-color: #f1f1f1;
   }
 
+  .btn {
+    padding: 1rem;
+    border-radius: 0.75rem;
+    font-family: "Coolvetica", sans-serif;
+    width: 100%;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: opacity 0.2s, background 0.2s, color 0.2s, border 0.2s;
+  }
+
+  .btn-primary {
+    background: var(--color-aciu-green-normal);
+    color: white;
+    border: none;
+  }
+
+  .btn-secondary {
+    background: none;
+    color: var(--color-aciu-border-grey);
+    border: 1px solid var(--color-aciu-dashboard-background);
+  }
+
+  .btn-danger {
+    background: none;
+    color: #FF5A5A;
+    border: 1px solid #FF5A5A;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .resources-modal-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .resources-modal-title {
+    color: var(--color-aciu-dark);
+    font-family: "Coolvetica", sans-serif;
+    line-height: 125%;
+    padding-left: 1.375rem;
+    padding-right: 1.375rem;
+    padding-top: 1.125rem;
+    font-size: 1.5rem;
+  }
+
+  .resources-modal-close {
+    position: absolute;
+    right: 1.25rem;
+    top: 1rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
+
+  .resources-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding-left: 1.375rem;
+    padding-right: 1.375rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .resources-form-label {
+    font-weight: 500;
+    color: var(--color-aciu-border-grey);
+    font-family: 'Montserrat', sans-serif;
+    font-size: .875rem;
+  }
+
+  .success-modal-title {
+    color: var(--color-aciu-border-grey);
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 130%;
+  }
+
+  .section-action-button {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px;
+    font-size: 0.875rem;
+    color: var(--color-grayscale-100);
+    border-radius: 0.375rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    min-height: 3.125rem;
+    border: 1px solid var(--color-aciu-card-grey);
+  }
+
+  .resource-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 2rem;
+    row-gap: 1.5rem;
+  }
 }
+
+@media screen and (max-width: 1024px) {
+  .resource-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 
 @media screen and (max-width: 991px){
   .project-gallery.count-5 {
@@ -336,5 +474,21 @@ a, button {
   .project-gallery.count-5 img:nth-child(1) {
     grid-column: 1 / -1;
     grid-row: auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .resources-modal-title {
+    font-size: 1rem;
+  }
+
+  .btn {
+    font-size: .75rem;
+    padding: .875rem
+  }
+
+  .resource-grid {
+    column-gap: .5rem;
+    row-gap: 1rem;
   }
 }

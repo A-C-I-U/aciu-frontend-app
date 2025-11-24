@@ -317,6 +317,12 @@ export const dummyResources: FileViewProps[] = [
   }
 ];
 
+export const resourceDetail: FileViewProps = {
+  file: new File(["Hello world content"], "document.txt", { type: "text/plain", lastModified: Date.now() }),
+  name: "My Document",
+  description: "A simple text document"
+}
+
 
 export const fields = [
   {
