@@ -164,7 +164,8 @@ export default function ProjectDetailsPage() {
                                             key={project.id}
                                             project={project}
                                         />
-                                )})}
+                                )
+                                })}
                         </div>
                     </div>
 
@@ -182,3 +183,4 @@ export default function ProjectDetailsPage() {
             </AnimatePresence>
     )
 }
+

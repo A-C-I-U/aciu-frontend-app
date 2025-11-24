@@ -3,14 +3,44 @@ import { Divider } from "@mui/material";
 import { Form, Formik, type FormikHelpers } from "formik";
 import ChangePassword from "./ChangePassword";
 import { useState } from "react";
+import { useUpdateSecurity } from "@/services/hooks/settings";
+import { useUserSettings } from "@/services/hooks/settings";
+import { enqueueSnackbar } from "notistack";
 
 type MultiFactorType = {
     multiFactorAuth: boolean
 }
+
 export default function SecuritySettings() {
-    const [openChangePassword, setOpenChangePassword] = useState(false)
-    const handleSubmit = (_values: MultiFactorType, _action: FormikHelpers<MultiFactorType>) => {
-        // Remove underscores when integrating API
+    const [openChangePassword, setOpenChangePassword] = useState(false);
+    const updateSecurityMutation = useUpdateSecurity();
+    const { data: userSettings } = useUserSettings();
+
+    const initialMfaState = userSettings?.security?.mfaEnabled || false;
+
+    const handleSubmit = async (values: MultiFactorType, actions: FormikHelpers<MultiFactorType>) => {
+        try {
+            const payload = {
+                mfaEnabled: values.multiFactorAuth
+            };
+
+            const result = await updateSecurityMutation.mutateAsync(payload);
+            
+            enqueueSnackbar(result.message || 'Security settings updated successfully', {
+                variant: 'success',
+            });
+            
+            actions.setSubmitting(false);
+        } catch (error: any) {
+            const errorMessage = error.response?.data?.message || 'Failed to update security settings';
+            enqueueSnackbar(errorMessage, {
+                variant: 'error',
+            });
+            
+            actions.setSubmitting(false);
+            
+            actions.setFieldValue('multiFactorAuth', !values.multiFactorAuth);
+        }
     }
 
     return (
@@ -36,9 +66,9 @@ export default function SecuritySettings() {
                     </div>
                     <button
                         className="rounded-xl p-4 border border-aciu-green-normal text-aciu-cyan-dark
-                        font-clash-display bg-aciu-green-light text-sm font-medium max-w-fit"
+                        font-clash-display bg-aciu-green-light text-sm font-medium max-w-fit
+                        hover:bg-aciu-green-normal hover:text-white transition-colors"
                         onClick={() => setOpenChangePassword(true)}
-                        
                     >
                        Change Password
                     </button>
@@ -55,43 +85,46 @@ export default function SecuritySettings() {
                         </p>
                     </div>
                     <Formik
-                        initialValues={{ multiFactorAuth: false }}
+                        initialValues={{ multiFactorAuth: initialMfaState }}
                         onSubmit={handleSubmit}
+                        enableReinitialize
                     >
-                        {({ values, setFieldValue }) => (
+                        {({ values, setFieldValue, submitForm }) => (
                             <Form>
                                 <div>
-                                <CustomSwitch 
-                                    checked={values.multiFactorAuth}
-                                    onChange={setFieldValue}
-                                    fieldName="multiFactorAuth"
-                                    sx={{
-                                        width: "5rem",
-                                        "& .MuiSwitch-switchBase": {
-                                            transform: "translate(.275rem, -50%)",
-                                            top: "50%",
-                                        },
-                                        "& .MuiSwitch-switchBase.Mui-checked": {
-                                            color: "#fff",
-                                            transform: "translate(1.875rem, -50%)",
-                                        },
-                                        "& .MuiSwitch-track": {
-                                            height: "1.875rem",
-                                            borderRadius: "99999px",
-                                            backgroundColor: "#d1d5db",
-                                            opacity: 1,
-                                        },
-                                        "& .MuiSwitch-thumb": {
-                                            width: "1.625rem",
-                                            height: "1.625rem",
-                                        },
-                                    }}
-                                />
+                                    <CustomSwitch 
+                                        checked={values.multiFactorAuth}
+                                        onChange={(fieldName, value) => {
+                                            setFieldValue(fieldName, value);
+                                            submitForm();
+                                        }}
+                                        fieldName="multiFactorAuth"
+                                        sx={{
+                                            width: "5rem",
+                                            "& .MuiSwitch-switchBase": {
+                                                transform: "translate(.275rem, -50%)",
+                                                top: "50%",
+                                            },
+                                            "& .MuiSwitch-switchBase.Mui-checked": {
+                                                color: "#fff",
+                                                transform: "translate(1.875rem, -50%)",
+                                            },
+                                            "& .MuiSwitch-track": {
+                                                height: "1.875rem",
+                                                borderRadius: "99999px",
+                                                backgroundColor: "#d1d5db",
+                                                opacity: 1,
+                                            },
+                                            "& .MuiSwitch-thumb": {
+                                                width: "1.625rem",
+                                                height: "1.625rem",
+                                            },
+                                        }}
+                                    />
                                 </div>
                             </Form>
                         )}
                     </Formik>
-                    
                 </div>
 
                 <Divider orientation="horizontal" className="text-aciu-white-dark" flexItem />
@@ -106,8 +139,8 @@ export default function SecuritySettings() {
                     </div>
                     <button
                         className="rounded-xl p-4 border border-red-50 max-w-fit
-                        font-clash-display text-red-100 font-medium text-sm"
-                        
+                        font-clash-display text-red-100 font-medium text-sm
+                        hover:bg-red-50 hover:text-white transition-colors"
                     >
                        Deactivate Account
                     </button>
@@ -119,5 +152,5 @@ export default function SecuritySettings() {
                 onClose={() => setOpenChangePassword(false)}
             />
         </div>
-    )
+    );
 }

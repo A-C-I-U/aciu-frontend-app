@@ -147,7 +147,7 @@ export default function LocateBranch({
 
                       {isPending && (
                         <span className="mt-1.5">
-                          <CircularProgress sx={{ color: "white" }} size={12} />
+                          <CircularProgress sx={{ color: "green" }} size={12} />
                         </span>
                       )}
                     </Button>

@@ -68,11 +68,8 @@ export const publicationStatusMap: Record<PublicationDataType["status"], {
 }
 
 
-export const paymentStatusMap: Record<PaymentDataType["status"], { 
-    label: string, 
-    labelColor: string, 
-    dotColor: string, 
-    bgColor: string }> = {
+// utils/helpers.ts
+export const paymentStatusMap = {
     completed: { 
         label: "Completed", 
         labelColor: "#027A48", 
@@ -85,8 +82,28 @@ export const paymentStatusMap: Record<PaymentDataType["status"], {
         dotColor: "#FF2E2E",
         bgColor: "#FFEAEA"
     },
-}
+    overdue: {
+        label: "Overdue",
+        labelColor: "#B54708",
+        dotColor: "#F79009",
+        bgColor: "#FFFAEB"
+    },
+    pending: {
+        label: "Pending",
+        labelColor: "#6941C6",
+        dotColor: "#9E77ED",
+        bgColor: "#F9F5FF"
+    }
+} as const;
 
+export const getPaymentStatusConfig = (status: string) => {
+    return paymentStatusMap[status as keyof typeof paymentStatusMap] || {
+        label: status.charAt(0).toUpperCase() + status.slice(1),
+        labelColor: "#667085",
+        dotColor: "#667085",
+        bgColor: "#F2F4F7"
+    };
+};
 
 
 export const getExtension = (file: File) => {

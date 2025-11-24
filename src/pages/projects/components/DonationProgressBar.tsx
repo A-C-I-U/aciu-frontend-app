@@ -3,11 +3,11 @@ import { LinearProgress } from "@mui/material";
 
 export default function DonationProgressBar({ 
   collected, 
-  target 
+  target,
+  percentage 
 }: DonationProgressBarProps) {
   
-  const floatingPercentage = (collected / target) * 100;
-  const percentage = Math.round(floatingPercentage)
+  const displayPercentage = Math.min(percentage, 100);
 
   const formatCurrency = (amount: number) => {
     const formatNumber = (num: number) => {
@@ -24,13 +24,12 @@ export default function DonationProgressBar({
     }
   };
 
-
   return (
       <div className="flex flex-col gap-1.5 w-full">
         <div className="relative w-full">
           <LinearProgress
             variant="determinate"
-            value={Math.min(percentage, 100)}
+            value={displayPercentage}
             sx={{
               width: "100%",
               height: ".625rem",
@@ -46,9 +45,9 @@ export default function DonationProgressBar({
           />
           <span
             className={`absolute -top-3 lg:-top-4 transform -translate-1/2 bg-aciu-green-normal text-white text-xs px-2 py-0.5 rounded transition-all duration-300`}
-            style={{ left: `${Math.min(Math.max(percentage, 5), 95)}%` }}
+            style={{ left: `${Math.min(Math.max(displayPercentage, 5), 95)}%` }}
           >
-            {Math.min(percentage, 100)}%
+            {displayPercentage}%
           </span>
         </div>
 

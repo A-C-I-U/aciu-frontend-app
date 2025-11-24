@@ -45,4 +45,7 @@ export interface BranchEvent {
 export interface BranchSearchResponse {
   leadership: Leadership[];
   events: BranchEvent[];
+  meetingLocation: string;
+  branchCity: string;
+  registeredUsersCount: number;
 }

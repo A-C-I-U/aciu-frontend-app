@@ -1,5 +1,7 @@
 import { boolean, mixed, number, object, ref, string } from "yup";
 import { AGEGRADES, BRANCHES } from "./data";
+import * as yup from 'yup';
+
 
 export const signupValidationSchemas = [
     object({
@@ -144,13 +146,20 @@ export const profileValidationSchema = object({
 })
 
 
-export const changePasswordSchema = object({
-    oldPassword: string()
-        .required("Ypur old password is required"),
-    newPassword: string()
-        .min(8, "Password must be at least 8 characters")
-        .required("Your new password is required"),
-    confirmPassword: string()
-        .oneOf([ref('password')], 'Passwords must match')
-        .required("Confirm your password")
-})
+export const changePasswordSchema = yup.object({
+  oldPassword: yup
+    .string()
+    .required('Old password is required')
+    .min(6, 'Old password must be at least 6 characters'),
+  
+  newPassword: yup
+    .string()
+    .required('New password is required')
+    .min(6, 'New password must be at least 6 characters')
+    .notOneOf([yup.ref('oldPassword')], 'New password must be different from old password'),
+  
+  confirmPassword: yup
+    .string()
+    .required('Please confirm your password')
+    .oneOf([yup.ref('newPassword')], 'Passwords must match'),
+});

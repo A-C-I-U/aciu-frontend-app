@@ -81,13 +81,24 @@ export interface NavProps {
     handleClose?: () => void
 }
 
+// export interface EventItemProps {
+//     id: string,
+//     title: string,
+//     img: string,
+//     host: string,
+//     date: string,
+//     time: string,
+// }
+
 export interface EventItemProps {
-    id: string,
-    title: string,
-    img: string,
-    host: string,
-    date: string,
-    time: string,
+    id: string;
+    title: string;
+    img: string;
+    host: string;
+    date: string;
+    time: string;
+    description?: string;
+    location?: string;
 }
 
 export interface TabItem {
@@ -283,6 +294,7 @@ export interface ProjectSidebarCardProps {
 export interface DonationProgressBarProps {
   collected: number;
   target: number;
+  percentage: number; 
 }
 
 export interface CommentType {
@@ -393,6 +405,16 @@ export interface UpcomingEventCardProps {
     timeRange: string
 }
 
+// export interface PaymentReminderCardProps {
+//     label?: string;
+//     amount: string;
+//     targetDate: Date;
+//     paymentRoute?: string;
+//     buttonText?: string;
+//     className?: string;
+//     countdownVariant?: "inline" | "block";
+// }
+
 export interface PaymentReminderCardProps {
     label?: string;
     amount: string;
@@ -401,6 +423,12 @@ export interface PaymentReminderCardProps {
     buttonText?: string;
     className?: string;
     countdownVariant?: "inline" | "block";
+    timeUntilDue?: {
+        days: string;
+        hours: string;
+        minutes: string;
+        seconds: string;
+    };
 }
 
 export interface MetricsCardProps {

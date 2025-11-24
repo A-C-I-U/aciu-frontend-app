@@ -602,27 +602,27 @@ export const projectDetail: ProjectDetailsProps = {
 export const projectCategoryOptions = [
   {
     label: "Health",
-    value: "health"
+    value: "Health"
   },
   {
     label: "Education",
-    value: "education"
+    value: "Education"
   },
   {
     label: "Infrastructure",
-    value: "infrastructure"
+    value: "Infrastructure"
   },
   {
     label: "Youth",
-    value: "youth"
+    value: "Youth"
   },
   {
     label: "Elder",
-    value: "elder"
+    value: "Elder"
   },
   {
     label: "Welfare",
-    value: "welfare"
+    value: "Welfare"
   }
 ]
 
@@ -821,41 +821,8 @@ export const blogDetails: BlogSubmissionDetails = {
   status: "pending approval",
 }
 
-export const myPaymentsStats: StatsCardProps[] = [
-  {
-    title: "Total Contributions",
-    number: "450000",
-    rateOfChange: "12",
-    currency: "N"
-  },
-  {
-    title: "Outstanding Balance",
-    number: "35000",
-    rateOfChange: "12.5",
-    currency: "N"
-  }
-]
 
-export const myDonationsStats: StatsCardProps[] = [
-  {
-    title: "My Total Donations",
-    number: "1050000",
-    rateOfChange: "12.5",
-    currency: "N"
-  },
-  {
-    title: "Projects Supported",
-    number: "6",
-    itemLabel: "Projects",
-    rateOfChange: "12.5"
-  },
-  {
-    title: "Events Supported",
-    number: "3",
-    itemLabel: "Events",
-    rateOfChange: "12.5"
-  }
-]
+
 
 
 export const dashboardUpcomingEvents: UpcomingEventCardProps[] = [

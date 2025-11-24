@@ -1,10 +1,11 @@
 import SectionHeader from "@/components/SectionHeader";
-import { ongoingProjects } from "@/utils/data";
 import { ArrowDown2, Sort } from "iconsax-react";
 import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { useMediaQuery } from "@mui/material";
 import NominateProject from "./NominateProject";
+import { Skeleton } from "@mui/material";
+import { useProjects } from "@/services/hooks/project";
 
 const sectionActions = [
     <button
@@ -27,17 +28,56 @@ const sectionActions = [
         2022
         <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
     </button>,
-]
-
+];
 
 export default function OngoingProjects() {
-    const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
+    const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const [showNominate, setShowNominate] = useState(false);
-
+    
+    const { data: projects, isLoading, error } = useProjects('ongoing');
 
     const handleSearch = (q: string) => {
-        setQuery(q)
+        setQuery(q);
+    }
+
+    const ProjectSkeleton = () => (
+        <div className="rounded-[1.25rem] py-3.5 px-2 bg-card-200 flex flex-col gap-6">
+            <div className="flex flex-col gap-4 lg:gap-6">
+                <div className="flex flex-col gap-3.5">
+                    <Skeleton variant="rounded" width="100%" height={154} />
+                    <Skeleton variant="rounded" width={100} height={32} />
+                </div>
+                <Skeleton variant="text" width="80%" height={32} />
+                <Skeleton variant="rounded" width="100%" height={8} />
+                <Skeleton variant="text" width="100%" height={60} />
+            </div>
+            <Skeleton variant="rounded" width={184} height={56} />
+        </div>
+    );
+
+    if (error) {
+        return (
+            <div className="flex flex-col gap-4 lg:gap-8">
+                <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
+                    <SectionHeader
+                        title="Ongoing Projects"
+                        onSearch={handleSearch}
+                        showSearch={isMedium ? false : true}
+                        actions={sectionActions}
+                    />
+                    <button 
+                        className="py-3 px-1 text-sm md:text-base md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
+                        onClick={() => setShowNominate(true)}
+                    >
+                        Nominate a Project
+                    </button>
+                </div>
+                <div className="text-center py-8 text-red-500">
+                    Failed to load ongoing projects. Please try again.
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -56,22 +96,33 @@ export default function OngoingProjects() {
                     Nominate a Project
                 </button>
             </div>
-           
 
-
-            <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
-                {ongoingProjects.map((project) => (
-                    <ProjectCard
-                        key={project.id}
-                        project={project}
-                    />
-                ))}
-            </div>
+            {isLoading ? (
+                <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
+                    {[...Array(6)].map((_, index) => (
+                        <ProjectSkeleton key={index} />
+                    ))}
+                </div>
+            ) : (
+                <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
+                    {projects?.map((project) => (
+                        <ProjectCard
+                            key={project.id}
+                            project={project}
+                        />
+                    ))}
+                    {projects?.length === 0 && (
+                        <div className="col-span-full text-center py-8 text-gray-500">
+                            No ongoing projects found.
+                        </div>
+                    )}
+                </div>
+            )}
 
             <NominateProject 
                 open={showNominate}
                 onClose={() => setShowNominate(false)}
             />
         </div>
-    )
+    );
 }

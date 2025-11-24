@@ -4,7 +4,6 @@ export default function ContactInfo() {
             className="
                 flex flex-col gap-12 bg-aciu-light-yellow rounded-[0.625rem] py-5.5 px-3.5 md:py-13 md:px-12"
             >
-            {/* National Secretariat */}
             <div className="flex flex-col gap-4">
                 <p className="text-aciu-border-grey lg:text-xl">
                     National Secretariat
@@ -14,7 +13,6 @@ export default function ContactInfo() {
                 </p>
             </div>
 
-            {/* Telephone */}
             <div className="flex flex-col gap-4">
                 <p className="text-aciu-border-grey lg:text-xl">
                     Telephone
@@ -24,7 +22,6 @@ export default function ContactInfo() {
                 </p>
             </div>
 
-            {/* Email */}
             <div className="flex flex-col gap-4">
                 <p className="text-aciu-border-grey lg:text-lg">
                 Email
@@ -34,7 +31,6 @@ export default function ContactInfo() {
                 </p>
             </div>
 
-            {/* Office Hours */}
             <div className="flex flex-col gap-4">
                 <p className="text-aciu-border-grey lg:text-lg">
                 Office Hours
