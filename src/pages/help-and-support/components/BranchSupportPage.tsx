@@ -6,8 +6,8 @@ import { useState } from "react"
 import { BranchInitials } from "./BranchInitials"
 import { StatTag } from "./BranchStatTag"
 import { BranchLeadershipTab } from "./BranchLeadershipTab"
-import EventsList from "@/pages/events/components/EventsList"
 import type { BranchSearchResponse } from "@/services/types/helpandsupport"
+import EventsList from "@/pages/events/components/EventsList"
 
 const MotionBox = motion.create(Box)
 

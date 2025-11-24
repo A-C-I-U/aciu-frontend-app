@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "motion/react";
 
 const eventsTabs: TabItem[] = [
     { key: "upcoming-events", label: "Upcoming Events", content: <UpcomingEvents /> },
-    { key: "registered-events", label: "Registered Events", content: <UpcomingEvents /> },
+    { key: "registered-events", label: "Registered Events", content: <UpcomingEvents /> }, // You might want to create a separate component for this
     { key: "past-events", label: "Past Events", content: <PastEvents /> }
 ]
 
