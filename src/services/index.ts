@@ -2,8 +2,6 @@ import axios, { type AxiosInstance, type AxiosError, type InternalAxiosRequestCo
 import type { ErrorResponse } from 'react-router-dom';
 import type { RefreshTokenResponse, TokenResponse } from './types/auth';
 
-
-
 const TOKEN_KEYS = {
   ACCESS_TOKEN: 'authToken',
   REFRESH_TOKEN: 'refreshToken'
@@ -44,9 +42,7 @@ apiClient.interceptors.request.use(
     if (apiKey) {
       config.headers['X-API-Key'] = apiKey;
     }
-    
-    console.log('Request:', config.method?.toUpperCase(), config.url);
-    return config;
+        return config;
   },
   (error: AxiosError) => {
     console.error('Request error:', error);
@@ -57,7 +53,6 @@ apiClient.interceptors.request.use(
 // Response interceptor with token refresh logic
 apiClient.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log('Response:', response.status, response.config.url);
     return response;
   },
   async (error: AxiosError<ErrorResponse>) => {

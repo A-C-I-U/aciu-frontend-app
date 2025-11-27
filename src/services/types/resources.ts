@@ -18,3 +18,14 @@ export interface Resource {
 }
 
 export type ResourcesResponse = Resource[];
+
+export interface UploadResourceData {
+  file: File;
+  file_name: string;
+  file_description: string;
+  access_level: string;
+}
+
+export interface UploadResourceResponse {
+  message: string;
+}

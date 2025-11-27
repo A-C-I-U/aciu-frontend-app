@@ -185,7 +185,7 @@ export const uploadResourceSchema = object({
         .required("A file is required")
         .test("is-file", "Invalid file", value => value instanceof File),
 
-    accessLevel: array()
-        .of(string().required("Access level is required"))
-        .min(1, "Access level is required")
+    accessLevel: string() 
+        .required("Access level is required")
+        .oneOf(['all_members', 'only_admins'], 'Please select a valid access level'),
 });

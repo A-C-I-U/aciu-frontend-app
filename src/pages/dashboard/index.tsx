@@ -2,7 +2,7 @@ import { CustomCountdown } from "@/components/MonthlyCountdown";
 import { ProfileCard } from "@/components/ProfileCard";
 import { MetricsCard } from "@/components/MetricsCard";
 import { NavLink } from "react-router-dom";
-import { CircularProgress, Box } from "@mui/material";
+import {  Skeleton } from "@mui/material";
 import { useFinances } from "@/services/hooks/dashboard";
 import { useDashboardOverview } from "@/services/hooks/dashboard";
 import { formatCurrency } from "@/utils/helpers";
@@ -14,7 +14,11 @@ export default function Dashboard() {
     isLoading: financesLoading,
     error: financesError,
   } = useFinances();
-  const { data: dashboardData } = useDashboardOverview();
+  
+  const { 
+    data: dashboardData, 
+    isLoading: dashboardLoading 
+  } = useDashboardOverview();
 
   const nextMonth = new Date(
     new Date().getFullYear(),
@@ -22,14 +26,74 @@ export default function Dashboard() {
     1
   );
 
-  if (financesLoading) {
+  if (financesLoading || dashboardLoading) {
     return (
       <div className="flex flex-col gap-6 p-6">
-        <div className="flex justify-center items-center h-32">
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <CircularProgress size={24} color="success" />
-          </Box>
-        </div>
+        <Skeleton 
+          variant="text" 
+          width={300} 
+          height={40} 
+          sx={{ fontSize: '1.5rem' }}
+        />
+        
+        <section className="grid grid-cols-1 lg:grid-cols-2 auto-rows-auto items-stretch gap-3 w-full">
+          <div className="bg-white rounded-lg p-6">
+            <Skeleton variant="circular" width={80} height={80} />
+            <Skeleton variant="text" width={200} height={30} sx={{ mt: 2 }} />
+            <Skeleton variant="text" width={150} height={20} />
+            <Skeleton variant="text" width={180} height={20} />
+            <Skeleton 
+              variant="rectangular" 
+              width={120} 
+              height={40} 
+              sx={{ mt: 2, borderRadius: '8px' }}
+            />
+          </div>
+          
+          <div className="flex flex-col gap-4 items-center w-full">
+            <div className="flex flex-col lg:flex-row gap-[1.375rem] items-center w-full">
+              <div className="bg-white rounded-lg p-6 w-full">
+                <Skeleton variant="text" width={150} height={25} />
+                <Skeleton variant="text" width={120} height={35} sx={{ mt: 1 }} />
+                <Skeleton variant="text" width={100} height={20} sx={{ mt: 1 }} />
+              </div>
+              <div className="bg-white rounded-lg p-6 w-full">
+                <Skeleton variant="text" width={150} height={25} />
+                <Skeleton variant="text" width={120} height={35} sx={{ mt: 1 }} />
+                <Skeleton variant="text" width={100} height={20} sx={{ mt: 1 }} />
+              </div>
+            </div>
+            
+            <div className="flex flex-col gap-6 md:flex-row md:gap-0 justify-between items-center bg-white rounded-md px-6 py-[3.125rem] w-full">
+              <div className="flex flex-col gap-4">
+                <Skeleton variant="text" width={250} height={25} />
+                <div className="bg-aciu-light-red p-4 rounded">
+                  <Skeleton variant="text" width={200} height={20} />
+                </div>
+              </div>
+              <Skeleton 
+                variant="rectangular" 
+                width={120} 
+                height={44} 
+                sx={{ borderRadius: '12px' }}
+              />
+            </div>
+          </div>
+        </section>
+        
+        <section>
+          <Skeleton variant="text" width={200} height={30} sx={{ mb: 3 }} />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[...Array(3)].map((_, index) => (
+              <div key={index} className="bg-white rounded-lg p-4">
+                <Skeleton variant="rectangular" width="100%" height={120} sx={{ borderRadius: '8px' }} />
+                <Skeleton variant="text" width="80%" height={25} sx={{ mt: 2 }} />
+                <Skeleton variant="text" width="60%" height={20} />
+                <Skeleton variant="text" width="90%" height={60} sx={{ mt: 1 }} />
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     );
   }
