@@ -1,6 +1,7 @@
 import type React from "react"
 import { type JSONContent, Editor } from '@tiptap/react'
 import type { Icon } from "iconsax-react";
+import type { BranchSearchResponse } from "@/services/types/helpandsupport";
 
 export interface AuthCardProps {
     header?: string,
@@ -37,6 +38,7 @@ export interface SignUpFormValues {
     email?: string;
     password?: string;
     confirmPassword?: string;
+    phoneNumber?: string;
     verificationCode?: string;
     gender?: string;
     location?: string;
@@ -78,14 +80,30 @@ export interface NavProps {
     handleOpen?: () => void,
     handleClose?: () => void
 }
-
 export interface EventItemProps {
-    id: string,
-    title: string,
-    img: string,
-    host: string,
-    date: string,
-    time: string,
+    id: string;
+    title: string;
+    img: string;
+    host: string;
+    date: string;
+    time: string;
+    description?: string;
+    location?: string;
+    category?: string;
+    entryFee?: string;
+    enableRSVP?: boolean;
+    enableDonations?: boolean;
+    registeredCount?: number;
+}
+export interface EventItemProps {
+    id: string;
+    title: string;
+    img: string;
+    host: string;
+    date: string;
+    time: string;
+    description?: string;
+    location?: string;
 }
 
 export interface TabItem {
@@ -156,15 +174,33 @@ export interface PublicationDataType {
     status: "published" | "pending approval" | "rejected" | "draft"
 }
 
+// export interface FileViewProps {
+//     file: File;
+//     name: string;
+//     description: string;
+// };
+
+// export interface FileViewDrawerProps {
+//     open: boolean,
+//     onClose: () => void
+// }
+
 export interface FileViewProps {
-    file: File;
+    file: {
+        url: string;
+        size: number;
+        format: string;
+        name: string;
+    };
     name: string;
-    description: string;
-};
+    description?: string;
+    resourceId?: string;
+}
 
 export interface FileViewDrawerProps {
-    open: boolean,
-    onClose: () => void
+    open: boolean;
+    onClose: () => void;
+    resourceId?: string;
 }
 
 export interface UploadResourceProps {
@@ -206,10 +242,16 @@ export interface BranchExecCardProps {
     phoneNumber: string
 }
 
+// export interface LocateBranchProps {
+//     open: boolean,
+//     onClose: () => void,
+//     onBranchLocation: () => void
+// }
+
 export interface LocateBranchProps {
-    open: boolean,
-    onClose: () => void,
-    onBranchLocation: () => void
+    open: boolean;
+    onClose: () => void;
+    onBranchLocation: (data?: BranchSearchResponse) => void;
 }
 
 export interface ProjectCardProps {
@@ -275,6 +317,7 @@ export interface ProjectSidebarCardProps {
 export interface DonationProgressBarProps {
   collected: number;
   target: number;
+  percentage: number; 
 }
 
 export interface CommentType {
@@ -384,7 +427,10 @@ export interface UpcomingEventCardProps {
     label: string,
     dateStr: string,
     timeRange: string
+    location?: string;
+
 }
+
 
 export interface PaymentReminderCardProps {
     label?: string;
@@ -394,6 +440,12 @@ export interface PaymentReminderCardProps {
     buttonText?: string;
     className?: string;
     countdownVariant?: "inline" | "block";
+    timeUntilDue?: {
+        days: string;
+        hours: string;
+        minutes: string;
+        seconds: string;
+    };
 }
 
 export interface MetricsCardProps {

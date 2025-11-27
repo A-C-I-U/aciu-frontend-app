@@ -3,6 +3,7 @@ import { ArrowDown2, Sort } from "iconsax-react";
 import SectionHeader from "@/components/SectionHeader";
 import PaymentsTable from "../PaymentsTable";
 import { useMediaQuery } from "@mui/material";
+import { useDuesPayments } from "@/services/hooks/mypaments";
 
 const sectionActions = [
     <button
@@ -30,6 +31,7 @@ const sectionActions = [
 export default function DueBreakdown() {
     const [ _query, setQuery ] = useState("");
     const isMedium = useMediaQuery("(max-width:1250px")
+    const { data: payments, isLoading, error } = useDuesPayments();
         
     const handleSearch = (q: string) => {
         setQuery(q);
@@ -49,7 +51,12 @@ export default function DueBreakdown() {
                     </div>
                 </div>    
             </div>
-            <PaymentsTable />
+            <PaymentsTable 
+                payments={payments || []}
+                isLoading={isLoading}
+                error={error}
+                paymentType="DUE"
+            />
         </div>
     )
 }

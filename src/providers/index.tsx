@@ -1,14 +1,21 @@
-import { UserProvider } from "@/context/UserContext"
-import { SnackbarProvider } from "notistack"
+import { UserProvider } from "@/context/UserContext";
+import { SnackbarProvider } from "notistack";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-export const Providers = (
-    { children }: 
-    { children: React.ReactElement}
-) => {
-    return (
-       <UserProvider>
-        <SnackbarProvider />
-        {children}
-       </UserProvider>
-    )
-}
+const queryClient = new QueryClient();
+
+export const Providers = ({ children }: { children: React.ReactElement }) => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <UserProvider>
+        <SnackbarProvider
+          maxSnack={3}
+          autoHideDuration={4000}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          {children}
+        </SnackbarProvider>
+      </UserProvider>
+    </QueryClientProvider>
+  );
+};

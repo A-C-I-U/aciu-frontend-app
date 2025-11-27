@@ -5,7 +5,6 @@ import type {
   EventDetailsProps, 
   EventItemProps, 
   FeaturedPostCardType, 
-  FileViewProps, 
   MenuCardProps, 
   OptionLabelProps, 
   ProjectCardProps, 
@@ -288,40 +287,6 @@ export const publicationStats: StatsCardProps[] = [
 export const publicationStatuses: PublicationDataType["status"][] = 
 ["published", "pending approval", "rejected", "draft"]
 
-
-export const dummyResources: FileViewProps[] = [
-  {
-    file: new File(["Hello world content"], "document.txt", { type: "text/plain", lastModified: Date.now() }),
-    name: "My Document",
-    description: "A simple text document"
-  },
-  {
-    file: new File([new Uint8Array([137, 80, 78, 71])], "image.png", { type: "image/png", lastModified: Date.now() }),
-    name: "Profile Image",
-    description: "User profile picture"
-  },
-  {
-    file: new File(["<html></html>"], "index.html", { type: "text/html", lastModified: Date.now() }),
-    name: "Website Index",
-    description: "HTML index file"
-  },
-  {
-    file: new File([new ArrayBuffer(1024 * 1024)], "video.mp4", { type: "video/mp4", lastModified: Date.now() }),
-    name: "Promo Video",
-    description: "Marketing video clip"
-  },
-  {
-    file: new File([JSON.stringify({ foo: "bar" })], "data.json", { type: "application/json", lastModified: Date.now() }),
-    name: "Data Export",
-    description: "JSON export of app data"
-  }
-];
-
-export const resourceDetail: FileViewProps = {
-  file: new File(["Hello world content"], "document.txt", { type: "text/plain", lastModified: Date.now() }),
-  name: "My Document",
-  description: "A simple text document"
-}
 
 
 export const fields = [
@@ -608,27 +573,27 @@ export const projectDetail: ProjectDetailsProps = {
 export const projectCategoryOptions = [
   {
     label: "Health",
-    value: "health"
+    value: "Health"
   },
   {
     label: "Education",
-    value: "education"
+    value: "Education"
   },
   {
     label: "Infrastructure",
-    value: "infrastructure"
+    value: "Infrastructure"
   },
   {
     label: "Youth",
-    value: "youth"
+    value: "Youth"
   },
   {
     label: "Elder",
-    value: "elder"
+    value: "Elder"
   },
   {
     label: "Welfare",
-    value: "welfare"
+    value: "Welfare"
   }
 ]
 
@@ -827,41 +792,8 @@ export const blogDetails: BlogSubmissionDetails = {
   status: "pending approval",
 }
 
-export const myPaymentsStats: StatsCardProps[] = [
-  {
-    title: "Total Contributions",
-    number: "450000",
-    rateOfChange: "12",
-    currency: "N"
-  },
-  {
-    title: "Outstanding Balance",
-    number: "35000",
-    rateOfChange: "12.5",
-    currency: "N"
-  }
-]
 
-export const myDonationsStats: StatsCardProps[] = [
-  {
-    title: "My Total Donations",
-    number: "1050000",
-    rateOfChange: "12.5",
-    currency: "N"
-  },
-  {
-    title: "Projects Supported",
-    number: "6",
-    itemLabel: "Projects",
-    rateOfChange: "12.5"
-  },
-  {
-    title: "Events Supported",
-    number: "3",
-    itemLabel: "Events",
-    rateOfChange: "12.5"
-  }
-]
+
 
 
 export const dashboardUpcomingEvents: UpcomingEventCardProps[] = [

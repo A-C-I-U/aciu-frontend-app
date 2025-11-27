@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { TabItem } from "@/utils/types";
 import PastEvents from "./components/PastEvents";
 import { motion, AnimatePresence } from "motion/react";
+import { Outlet, useLocation } from "react-router-dom";
 
 const eventsTabs: TabItem[] = [
     { key: "upcoming-events", label: "Upcoming Events", content: <UpcomingEvents /> },
@@ -13,6 +14,10 @@ const eventsTabs: TabItem[] = [
 
 export default function EventsPage() {
     const [activeTab, setActiveTab] = useState(eventsTabs[0]);
+    const location = useLocation();
+    
+    const isEventDetailsPage = location.pathname.includes('/events/') && location.pathname !== '/events';
+
     const handleTabChange = (tab: TabItem) => {
         setActiveTab(tab);
     }
@@ -25,6 +30,7 @@ export default function EventsPage() {
                 activeTab={activeTab}
                 onTabChange={handleTabChange} 
             />
+            
             <AnimatePresence>
                 <motion.div
                     key={activeTab?.key + "-content"}
@@ -33,8 +39,8 @@ export default function EventsPage() {
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="mx-5 px-4 py-5 bg-white"
-                    >
-                    {activeTab?.content}
+                >
+                    {isEventDetailsPage ? <Outlet /> : activeTab?.content}
                 </motion.div>
             </AnimatePresence>
         </div>

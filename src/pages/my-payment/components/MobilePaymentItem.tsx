@@ -1,18 +1,20 @@
-import { paymentStatusMap } from "@/utils/helpers";
-import type { PaymentDataType } from "@/utils/types";
+import { getPaymentStatusConfig } from "@/utils/helpers";
 import { formatDate } from "@/utils/helpers";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Divider } from "@mui/material";
+import type { Payment } from "@/services/types/mypayments";
+
+interface MobilePaymentItemProps {
+    payment: Payment;
+    paymentType: 'DUE' | 'DONATION';
+}
 
 export default function MobilePaymentItem({ 
-    payment
-}: {
-    payment: PaymentDataType
-}) {
+    payment,
+    paymentType
+}: MobilePaymentItemProps) {
      const { 
         date,
-        category,
-        description,
         amountPaid,
         status
     } = payment;
@@ -22,8 +24,23 @@ export default function MobilePaymentItem({
         labelColor, 
         dotColor, 
         bgColor 
-    } = paymentStatusMap[status as PaymentDataType["status"]];
+    } = getPaymentStatusConfig(status); 
 
+    const getCategoryText = () => {
+        if (paymentType === 'DUE') {
+            return payment.dueType || 'Due Payment';
+        } else {
+            return payment.targetType || 'Donation';
+        }
+    };
+
+    const getDescriptionText = () => {
+        if (paymentType === 'DUE') {
+            return payment.period || 'Payment';
+        } else {
+            return payment.description || 'No description';
+        }
+    };
 
     return (
         <div className="w-full py-4.5 flex flex-col gap-4 items-center rounded-[.625rem] border border-grayscale-200">
@@ -48,14 +65,14 @@ export default function MobilePaymentItem({
 
             <div className="flex justify-between w-full items-center px-3">
                 <p className="text-xs font-medium text-aciu-abriba">
-                    Category
+                    {paymentType === 'DUE' ? 'Due Type' : 'Target Type'}
                 </p>
                 <p className="text-sm text-aciu-border-grey">
-                    {category}
+                    {getCategoryText()}
                 </p>
             </div>
 
-             <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey"/>
+            <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey"/>
 
             <div className="flex justify-between w-full items-center px-3">
                 <p className="text-xs font-medium text-aciu-abriba">
@@ -70,13 +87,15 @@ export default function MobilePaymentItem({
 
             <div className="flex justify-between w-full items-center px-3">
                 <p className="text-xs font-medium text-aciu-abriba">
-                    Description
+                    {paymentType === 'DUE' ? 'Period' : 'Description'}
                 </p>
                 <p className="text-sm text-aciu-border-grey truncate">
-                    {description}
+                    {getDescriptionText()}
                 </p>
             </div>
+            
             <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey"/>
+            
             <button
                 className="p-2 text-sm font-coolvetica 
                 text-aciu-green-normal rounded-[5px] pointer-events-none
@@ -85,5 +104,5 @@ export default function MobilePaymentItem({
                 Download Receipt
             </button>
         </div>
-    )
+    );
 }

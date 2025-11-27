@@ -1,13 +1,17 @@
 import type { NotificationOption } from "@/utils/types";
 import { NotificationToggle } from "./NotificationToggle";
 
-export const NotificationSection = ({ title, description, options }:
-  { 
-    title: string, 
-    description: string, 
-    options: NotificationOption[] 
-  }
-) => (
+export const NotificationSection = ({ 
+  title, 
+  description, 
+  options, 
+  disabled = false 
+}: { 
+  title: string; 
+  description: string; 
+  options: NotificationOption[];
+  disabled?: boolean;
+}) => (
   <div className="grid gap-8 lg:grid-cols-2 lg:gap-4">
     <div className="flex flex-col gap-2">
       <p className="font-semibold text-sm lg:text-base">
@@ -26,6 +30,7 @@ export const NotificationSection = ({ title, description, options }:
           description={opt.description}
           fieldName={opt.fieldName}
           onChange={opt.onChange}
+          disabled={disabled}
         />
       ))}
     </div>

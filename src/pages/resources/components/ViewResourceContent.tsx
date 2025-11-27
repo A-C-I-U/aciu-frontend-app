@@ -1,37 +1,60 @@
 import FormikField from "@/components/FormikField";
-import type { FileViewDrawerProps } from "@/utils/types";
+import type { FileViewDrawerProps,  } from "@/utils/types";
 import { Divider } from "@mui/material";
 import { Form, Formik } from "formik";
 import { X } from "lucide-react";
 import { FilePreviewCard } from "./FilePreviewCard";
 import { useState } from "react";
-import { resourceDetail } from "@/utils/data";
 import { editResourceSchema } from "@/utils/schemas";
+import type { Resource } from "@/services/types/resources";
 
 interface ResourceContentProps extends FileViewDrawerProps {
-    onSuccess: () => void
+    onSuccess: () => void;
+    resource?: Resource; 
 }
 
-
 export default function ResourceContent({
-    onClose, onSuccess
+    onClose, 
+    onSuccess,
+    resource 
 }: ResourceContentProps) {
     const [mode, setMode] = useState<"view" | "edit">("view");
-    const { file, name, description } = resourceDetail;
-
+    
     const initialValues = {
-        fileName: name,
-        fileDescription: description
+        fileName: resource?.file_name || "",
+        fileDescription: resource?.file_description || ""
     }
 
-    const handleSubmit = (_values: any, _actions: any) => {
-        // Update resource values here
-        onSuccess()
+    const handleSubmit = async ( actions: any) => {
+        try {
+           
+            
+            onSuccess();
+            actions.setSubmitting(false);
+        } catch (error) {
+            console.error('Failed to update resource:', error);
+            actions.setSubmitting(false);
+        }
+    }
+
+    if (!resource) {
+        return (
+            <div className="resources-modal-section flex flex-col h-4/5 md:h-full overflow-hidden">
+                <div className="relative flex items-center justify-between flex-shrink-0">
+                    <p className="resources-modal-title">Resource Details</p>
+                    <button onClick={onClose} className="resources-modal-close">
+                        <X width={24} height={24} color="#3E3E3E" />
+                    </button>
+                </div>
+                <div className="flex items-center justify-center h-full">
+                    <p>Resource not found</p>
+                </div>
+            </div>
+        );
     }
     
     return (
         <div className="resources-modal-section flex flex-col h-4/5 md:h-full overflow-hidden">
-
             <div className="relative flex items-center justify-between flex-shrink-0">
                 <p className="resources-modal-title">
                     {mode === "view" ? "View resources" : "Edit resources"}
@@ -49,13 +72,17 @@ export default function ResourceContent({
                 validationSchema={editResourceSchema}
                 enableReinitialize
             >
-                {({ isValid, submitForm }) => (
+                {({ isValid, submitForm, isSubmitting }) => (
                     <div className="flex flex-col h-4/5 md:h-full overflow-hidden">
                         <Form className="resources-modal-body">
-                            
                             <div className="w-full flex items-center justify-center pb-4.5">
                                 <FilePreviewCard
-                                    file={file}
+                                    file={{
+                                        url: resource.file_url,
+                                        size: resource.file_size,
+                                        format: resource.file_format,
+                                        name: resource.file_name
+                                    }}
                                     height="h-65"
                                     className="!mt-12"
                                 />
@@ -81,7 +108,6 @@ export default function ResourceContent({
                         </Form>
 
                         <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-
                             {mode === "view" ? (
                                 <>
                                     <button
@@ -102,15 +128,16 @@ export default function ResourceContent({
                                         type="submit"
                                         className="btn btn-primary"
                                         onClick={submitForm}
-                                        disabled={!isValid}
+                                        disabled={!isValid || isSubmitting}
                                     >
-                                        Update Resource
+                                        {isSubmitting ? 'Updating...' : 'Update Resource'}
                                     </button>
 
                                     <button
                                         type="button"
                                         className="btn btn-secondary"
                                         onClick={() => setMode("view")}
+                                        disabled={isSubmitting}
                                     >
                                         Cancel
                                     </button>
@@ -120,8 +147,6 @@ export default function ResourceContent({
                     </div>
                 )}
              </Formik>
-
         </div>
-
     )
 }

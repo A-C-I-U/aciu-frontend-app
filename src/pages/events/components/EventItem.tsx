@@ -9,6 +9,8 @@ export const EventItem = ({
     host,
     date,
     time,
+    description,
+    location
 }: EventItemProps) => {
     
     return (
@@ -21,6 +23,9 @@ export const EventItem = ({
                     height={145}
                     className="rounded-sm object-cover w-full" 
                     alt="Event image" 
+                    onError={(e) => {
+                        e.currentTarget.src = '/images/event-placeholder.jpg';
+                    }}
                 />
                 <span className={[
                     "bg-aciu-yellow rounded-md ",
@@ -32,9 +37,23 @@ export const EventItem = ({
                 </span>
             </span>
             <span className="flex flex-col gap-7">
-                <span className="text-lg font-coolvetica font-semibold text-aciu-border-grey">
+                <span className="text-lg font-coolvetica font-semibold text-aciu-border-grey line-clamp-2">
                     {title}
                 </span>
+                
+                {location && (
+                    <span className="flex items-center gap-2 text-sm text-aciu-darker-grey">
+                        <Icon icon="mdi:location" width="16" height="16" />
+                        {location}
+                    </span>
+                )}
+                
+                {description && (
+                    <p className="text-sm text-aciu-abriba line-clamp-3">
+                        {description}
+                    </p>
+                )}
+                
                 <span className="flex justify-between items-center">
                     <span className="flex flex-col gap-2.5">
                         <span className="text-xs font-montserrat text-aciu-dark-red">
@@ -55,13 +74,13 @@ export const EventItem = ({
                     </span>
                 </span>
                 <NavLink
-                    to={`/events/5`}
+                    to={`/events/${id}`}
                     className={[
                         "border border-aciu-red rounded-lg max-w-fit flex justify-center items-center gap-2 px-5 py-3"
                     ].join("")}
-                    >
-                        <span className="font-coolvetica text-sm text-aciu-red font-semibold">Learn more</span>
-                        <Icon icon="ic:round-arrow-back" width="20" height="20" color="#00CA71" className="transform rotate-[135deg]"/>
+                >
+                    <span className="font-coolvetica text-sm text-aciu-red font-semibold">Learn more</span>
+                    <Icon icon="ic:round-arrow-back" width="20" height="20" color="#00CA71" className="transform rotate-[135deg]"/>
                 </NavLink>
             </span>
         </div>
