@@ -407,3 +407,58 @@ export interface ExtendedTabItem extends TabItem {
   description?: string;
   contentDescription?: string
 }
+
+export interface BranchDueDataType {
+    id: string,
+    creationDate: string,
+    dueType: string,
+    intervals: string,
+    amountPaid: string,
+    status: "inactive" | "active"
+}
+
+export interface FieldConfig<T> {
+    label: string;
+    value: (item: T) => React.ReactNode;
+}
+
+export interface StatusConfig {
+    label: string;
+    labelColor: string;
+    dotColor: string;
+    bgColor: string;
+}
+
+export interface BranchPaymentsDataType {
+    id: string,
+    memberName: string,
+    date: string,
+    amountPaid: string,
+    status: string
+}
+
+export interface WithdrawalDataType {
+    id: string,
+    submittedBy: string,
+    date: string,
+    amount: string,
+    status: string
+}
+
+export interface BranchMemberDataType {
+    id: string,
+    fullName: string,
+    ageGrade: string,
+    joinedOn: string,
+    occupation: string
+    verificationStatus: string
+}
+
+export interface BranchEventDataType {
+    id: string,
+    eventTitle: string,
+    createdBy: string,
+    createdOn: string,
+    registered: string,
+    verificationStatus: string
+}
