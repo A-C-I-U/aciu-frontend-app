@@ -29,4 +29,32 @@ export interface EventsResponse {
   events: Event[];
 }
 
-// Removed all the enum types since we're using strings
+export interface EventDetailsResponse {
+  event: {
+    id: string;
+    title: string;
+    description: string;
+    category: string;
+    type: string;
+    branchId: string;
+    guestExpectation: number;
+    dressCode: string;
+    entryFee: string;
+    eventDate: string;
+    startTime: string;
+    endTime: string;
+    location: string;
+    highlights: string[];
+    coverImage: string;
+    enableRSVP: boolean;
+    enableDonations: boolean;
+    enableCountdown: boolean;
+    createdBy: string;
+    verificationStatus: string;
+    registeredCount: number;
+    shareableLink: string;
+    createdAt: string;
+    updatedAt: string;
+    registrations: any[];
+  };
+}

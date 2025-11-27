@@ -1,15 +1,20 @@
 export interface Project {
   id: string;
-  branchId: string;
+  branchId: string | null;
   title: string;
   category: string;
   location: string;
   briefDescription: string;
   expectedImpact: string;
   estimatedCostUSD: number;
-  image: string;
+  image: string | null; 
+  projectScope: string; 
+  projectImpact: string; 
+  whyItMatters: string; 
+  images: string[]; 
   isCompleted: boolean;
   isApproved: boolean;
+  isNomination: boolean; 
   createdBy: string;
   createdOn: string;
   rejectionReason: string | null;
@@ -20,7 +25,12 @@ export interface Project {
     targetAmount: number;
     percentageReached: number;
   };
-  collectedFunds?: number;
+  fundStatus: { 
+    totalRaised: number;
+    targetAmount: number;
+    managedBy: string;
+  };
+  collectedFunds?: number; 
 }
 
 
@@ -76,4 +86,10 @@ export interface RecommendedProject {
 
 export interface ProjectRecommendationsResponse {
   recommendedProjects: RecommendedProject[];
+}
+
+export interface ProjectDonation {
+  DonorName: string;
+  Amount: number;
+  DaysAgo: number;
 }

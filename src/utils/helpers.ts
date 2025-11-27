@@ -106,10 +106,20 @@ export const getPaymentStatusConfig = (status: string) => {
 };
 
 
-export const getExtension = (file: File) => {
-  const name = file.name;
-  const parts = name.split(".");
-  return parts.length > 1 ? parts.pop()!.toLowerCase() : "";
+// export const getExtension = (file: File) => {
+//   const name = file.name;
+//   const parts = name.split(".");
+//   return parts.length > 1 ? parts.pop()!.toLowerCase() : "";
+// };
+
+export const getExtension = (file: File | string): string => {
+  if (typeof file === 'string') {
+    const filename = file.split('/').pop() || ''; 
+    return filename.split('.').pop()?.toUpperCase() || 'FILE';
+  }
+  
+  // Handle File object (original logic)
+  return file.name.split('.').pop()?.toUpperCase() || 'FILE';
 };
 
 export const formatSize = (bytes: number) => {

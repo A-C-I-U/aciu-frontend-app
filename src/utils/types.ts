@@ -174,15 +174,33 @@ export interface PublicationDataType {
     status: "published" | "pending approval" | "rejected" | "draft"
 }
 
+// export interface FileViewProps {
+//     file: File;
+//     name: string;
+//     description: string;
+// };
+
+// export interface FileViewDrawerProps {
+//     open: boolean,
+//     onClose: () => void
+// }
+
 export interface FileViewProps {
-    file: File;
+    file: {
+        url: string;
+        size: number;
+        format: string;
+        name: string;
+    };
     name: string;
-    description: string;
-};
+    description?: string;
+    resourceId?: string;
+}
 
 export interface FileViewDrawerProps {
-    open: boolean,
-    onClose: () => void
+    open: boolean;
+    onClose: () => void;
+    resourceId?: string;
 }
 
 export interface UploadResourceProps {

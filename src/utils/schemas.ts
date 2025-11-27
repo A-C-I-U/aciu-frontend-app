@@ -163,3 +163,29 @@ export const changePasswordSchema = yup.object({
     .required('Please confirm your password')
     .oneOf([yup.ref('newPassword')], 'Passwords must match'),
 });
+
+export const editResourceSchema = object({
+    fileName: string()
+        .required("File name is required"),
+
+    fileDescription: string()
+        .required("File description is required")
+        .min(10, "File description must be at least 10 characters"),
+})
+
+export const uploadResourceSchema = object({
+    name: string()
+        .required("File name is required"),
+
+    description: string()
+        .required("File description is required")
+        .min(10, "File description must be at least 10 characters"),
+
+    doc: mixed()
+        .required("A file is required")
+        .test("is-file", "Invalid file", value => value instanceof File),
+
+    accessLevel: array()
+        .of(string().required("Access level is required"))
+        .min(1, "Access level is required")
+});

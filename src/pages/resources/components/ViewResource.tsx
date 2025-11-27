@@ -5,12 +5,15 @@ import { SuccessDialog } from "@/components/SuccessDialog";
 import { MarkIcon } from "@/components/Icons";
 import ShellModal from "@/components/ShellModal";
 
+interface ViewResourceProps extends FileViewDrawerProps {
+    resourceId?: string;
+}
 
-// Retrieve file using id in `ResourceContent` instead of passing props
 export default function ViewResource({
     open,
     onClose,
-}: FileViewDrawerProps) {
+    resourceId,
+}: ViewResourceProps) {
     const [openEditSuccess, setOpenEditSuccess] = useState(false)
 
     return (
@@ -26,6 +29,7 @@ export default function ViewResource({
                         setOpenEditSuccess(true)
                         onClose()
                     }}
+                    resourceId={resourceId} 
                 />
             </ShellModal>
             <SuccessDialog

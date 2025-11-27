@@ -9,11 +9,8 @@ import { useUserSettings, useUpdateProfile } from "@/services/hooks/settings";
 import { enqueueSnackbar } from "notistack";
 
 const transformFormToPayload = (values: ProfileFormValues) => ({
-  ageGrade: values.ageGrade,
-  branch: values.branch,
   occupation: values.occupation,
   phone: values.phoneNumber,
-  fullName: values.name,
 });
 
 const mapSettingsToFormValues = (settings: any): ProfileFormValues => ({
@@ -42,7 +39,6 @@ export default function PersonalInfoModal({
             
             enqueueSnackbar(result.message || 'Profile updated successfully', {
                 variant: 'success',
-            
             });
             
             actions.setSubmitting(false);
@@ -51,7 +47,6 @@ export default function PersonalInfoModal({
             const errorMessage = error.response?.data?.message || 'Failed to update profile';
             enqueueSnackbar(errorMessage, {
                 variant: 'error',
-              
             });
             
             actions.setSubmitting(false);
@@ -152,7 +147,7 @@ export default function PersonalInfoModal({
                         </button>
                         <div className="flex-1 overflow-y-auto px-6 lg:px-20 pb-10">
                             <Form className="flex flex-col gap-10">
-                                <PersonalInfoForm disableInteractions={false} />
+                                <PersonalInfoForm />
                             </Form>
                         </div>
 

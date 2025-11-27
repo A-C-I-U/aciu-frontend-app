@@ -33,11 +33,11 @@ export interface UserSettings {
 }
 
 export interface UpdateProfilePayload {
-  ageGrade: string;
-  branch: string;
+  // ageGrade: string;
+  // branch: string;
   occupation: string;
   phone: string;
-  fullName: string;
+  // fullName: string;
 }
 
 export interface UpdateProfileResponse {
