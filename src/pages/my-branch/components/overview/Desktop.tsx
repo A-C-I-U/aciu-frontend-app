@@ -37,7 +37,7 @@ export default function MyBranchDesktopOverview({
                 </div>
             </div>
 
-            <div className="bg-white py-5 rounded-xl">
+            <div className="bg-white rounded-xl py-5">
                 <div className="flex gap-4 md:gap-8 justify-start w-full mx-auto px-4">
                     {myBranchTabs.map((tab) => (
                         <button
@@ -57,9 +57,7 @@ export default function MyBranchDesktopOverview({
                     ))}
                 </div>
                 <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
-            </div>
-
-            <MotionBox
+                <MotionBox
                 key={activeTab?.key}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -68,6 +66,9 @@ export default function MyBranchDesktopOverview({
             >
                 {activeTab?.content}
             </MotionBox>
+            </div>
+
+            
         </MotionBox>
     )
 }

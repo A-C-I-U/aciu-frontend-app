@@ -1,5 +1,5 @@
+import { BranchExecCard } from "@/components/BranchExecCard"
 import { branchExecutiveMockData } from "@/utils/data"
-import { BranchExecCard } from "./BranchExecCard"
 
 export const BranchLeadershipTab = () => {
     return (
