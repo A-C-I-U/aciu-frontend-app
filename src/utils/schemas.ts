@@ -1,4 +1,4 @@
-import { array, boolean, mixed, number, object, ref, string } from "yup";
+import { boolean, mixed, number, object, ref, string } from "yup";
 import { AGEGRADES, BRANCHES } from "./data";
 import * as yup from 'yup';
 

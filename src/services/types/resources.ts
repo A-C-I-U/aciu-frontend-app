@@ -29,3 +29,9 @@ export interface UploadResourceData {
 export interface UploadResourceResponse {
   message: string;
 }
+
+export interface MeetingReportsResponse {
+  category: string;
+  count: number;
+  resources: Resource[];
+}
