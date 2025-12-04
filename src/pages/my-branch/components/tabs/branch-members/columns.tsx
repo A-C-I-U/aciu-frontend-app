@@ -5,7 +5,7 @@ import type { ColumnDef, Row } from "@tanstack/react-table";
 import { formatDate } from "date-fns";
 
 
-export const columns: ColumnDef<BranchMemberDataType>[] = [
+export const columns = (setSelected: (p: BranchMemberDataType) => void): ColumnDef<BranchMemberDataType>[] => [
     {
         accessorKey: "fullName",
         header: "Full name",
@@ -53,8 +53,11 @@ export const columns: ColumnDef<BranchMemberDataType>[] = [
             id: "actions",
             header: "Actions",
             size: 150,
-            cell: () => (
+            cell: ({ row }: { row: Row<BranchMemberDataType> }) => (
                 <button
+                    onClick={() => {
+                        setSelected(row.original)
+                    }}
                     className="p-2 text-sm font-coolvetica 
                     text-aciu-green-normal rounded-[5px]
                     border border-aciu-green-normal min-w-fit whitespace-nowrap"

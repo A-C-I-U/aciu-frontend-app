@@ -8,6 +8,7 @@ import DataTable from "@/components/DataTable";
 import { branchMemberStatusMap, generateMockBranchMembers } from "@/utils/helpers";
 import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
+import ViewBranchMember from "./ViewBranchMember";
 
 const sectionActions = [
     <button className="section-action-button">
@@ -21,6 +22,7 @@ const sectionActions = [
 
 export default function BranchMembersTab() {
     const [_query, setQuery] = useState("");
+    const [selected, setSelected] = useState<BranchMemberDataType | null>(null);
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
@@ -31,7 +33,7 @@ export default function BranchMembersTab() {
 
     const table = useReactTable<BranchMemberDataType>({
         data: mockData,
-        columns: columns,
+        columns: columns(setSelected),
         pageCount: Math.ceil(mockData.length / 10),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
@@ -67,7 +69,7 @@ export default function BranchMembersTab() {
                                 fields={fields}
                                 status={branchMemberStatusMap[branchMember.verificationStatus]}
                                 actionLabel="View Dues"
-                                onActionClick={() => {}}
+                                onActionClick={() => setSelected(branchMember)}
                             />
                         ))}
                     </div>
@@ -81,6 +83,9 @@ export default function BranchMembersTab() {
                     />
                 }
             </>
+            {selected && (
+                <ViewBranchMember open={!!selected} onClose={() => setSelected(null)} branchMember={selected}/>
+            )}
         </div>
     )
     
