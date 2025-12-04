@@ -26,7 +26,7 @@ export const columns: ColumnDef<WithdrawalDataType>[] = [
         cell: ({ row }: { row: Row<WithdrawalDataType> }) => <span>{`N${(+row.original.amount).toLocaleString()}`}</span>
     },
         {
-            accessorKey: "verificationStatus",
+            accessorKey: "status",
             header: "Status",
             maxSize: 300,
             cell: ({ getValue }) => {

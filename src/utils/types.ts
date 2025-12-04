@@ -442,7 +442,7 @@ export interface WithdrawalDataType {
     submittedBy: string,
     date: string,
     amount: string,
-    status: string
+    status: "pending" | "approved"
 }
 
 export interface BranchMemberDataType {

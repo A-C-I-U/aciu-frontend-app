@@ -178,8 +178,8 @@ export const withdrawalStatusMap: Record<WithdrawalDataType["status"], StatusMap
       dotColor: "#FE961F",
       bgColor: "#FAF5EF"
     },
-    completed: { 
-      label: "Completed", 
+    approved: { 
+      label: "Approved", 
       labelColor: "#027A48", 
       dotColor: "#12B76A", 
       bgColor: "#ECFDF3" 
