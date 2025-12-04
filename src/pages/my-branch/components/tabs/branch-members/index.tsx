@@ -1,11 +1,11 @@
-import { formatDate, generateMockWithdrawals, withdrawalStatusMap } from "@/utils/helpers";
-import type { FieldConfig, WithdrawalDataType } from "@/utils/types";
+import type { BranchMemberDataType, FieldConfig } from "@/utils/types";
 import { useMediaQuery } from "@mui/material";
 import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
-import { useState } from "react"
+import { useState } from "react";
 import { columns } from "./columns";
 import SectionHeader from "@/components/SectionHeader";
 import DataTable from "@/components/DataTable";
+import { branchMemberStatusMap, generateMockBranchMembers } from "@/utils/helpers";
 import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 
@@ -18,10 +18,10 @@ const sectionActions = [
     </button>
 ]
 
-export default function WithdrawalTab() {
+
+export default function BranchMembersTab() {
     const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
-    const [showSubmitRequest, setShowSubmitRequest] = useState(false);
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
@@ -29,7 +29,7 @@ export default function WithdrawalTab() {
     const end = start + itemsPerPage;
     const currentItems = mockData.slice(start, end);
 
-    const table = useReactTable<WithdrawalDataType>({
+    const table = useReactTable<BranchMemberDataType>({
         data: mockData,
         columns: columns,
         pageCount: Math.ceil(mockData.length / 10),
@@ -42,20 +42,14 @@ export default function WithdrawalTab() {
     }
 
     return (
-          <div className="flex flex-col gap-6 px-4">
+        <div className="flex flex-col gap-6 px-4">
             <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                 <SectionHeader
-                    title="Withdrawals"
+                    title="Branch Member Management"
                     onSearch={handleSearch}
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
                 />
-                <button 
-                    className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                    onClick={() => setShowSubmitRequest(true)}
-                >
-                    Submit Withdrawal Request
-                </button>
             </div>
 
             <>
@@ -66,12 +60,12 @@ export default function WithdrawalTab() {
                     :
                     
                     <div className="grid gap-4 md:grid-cols-2">
-                        {currentItems.map((withdrawal: WithdrawalDataType) => (
+                        {currentItems.map((branchMember: BranchMemberDataType) => (
                             <MobileItemCard
-                                key={withdrawal.id}
-                                item={withdrawal}
+                                key={branchMember.id}
+                                item={branchMember}
                                 fields={fields}
-                                status={withdrawalStatusMap[withdrawal.status]}
+                                status={branchMemberStatusMap[branchMember.verificationStatus]}
                                 actionLabel="View Dues"
                                 onActionClick={() => {}}
                             />
@@ -89,26 +83,26 @@ export default function WithdrawalTab() {
             </>
         </div>
     )
-
+    
 }
+    
+const mockData = generateMockBranchMembers(20);
 
-const mockData = generateMockWithdrawals(20);
-
-const fields: FieldConfig<WithdrawalDataType>[] = [
+const fields: FieldConfig<BranchMemberDataType>[] = [
     {
-        label: "Amount",
-        value: (p) => `N${(+p.amount).toLocaleString()}`,
+        label: "Full Name",
+        value: (p) => p.fullName,
     },
     {
-        label: "Transaction ID",
-        value: (p) => p.id
+        label: "Age Grade",
+        value: (p) => p.ageGrade
     },
     {
-        label: "Date",
-        value: (p) => formatDate(p.date)
+        label: "Joined On",
+        value: (p) => p.joinedOn
     },
     {
-        label: "Submitted by",
-        value: (p) => p.submittedBy
+        label: "Occupation",
+        value: (p) => p.occupation
     }
 ]

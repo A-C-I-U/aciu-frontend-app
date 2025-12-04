@@ -1,5 +1,5 @@
 
-import { publicationStatuses } from "./data";
+import { ageGradeOptions, publicationStatuses } from "./data";
 import type { BranchDueDataType, BranchEventDataType, BranchMemberDataType, BranchPaymentsDataType, PaymentDataType, PublicationDataType, WithdrawalDataType } from "./types";
 import { format } from "date-fns";
 
@@ -89,6 +89,26 @@ export function generateMockWithdrawals(
     }
   })
 }
+
+export function generateMockBranchMembers(
+  count: number
+): BranchMemberDataType[] {
+  const statuses = ["pending", "verified"] as const;
+
+  return Array.from({ length: count }, (_, i) => {
+    const date = randomDate(new Date(2023, 0, 1), new Date());
+
+    return {
+      id: `${i + 1}`,
+      fullName: `Person ${i + 1}`,
+      ageGrade: ageGradeOptions[Math.floor(Math.random() * ageGradeOptions.length)].label,
+      joinedOn: date.toISOString(),
+      occupation: ageGradeOptions[Math.floor(Math.random() * ageGradeOptions.length)].label,
+      verificationStatus: statuses[Math.floor(Math.random() * statuses.length)],
+    }
+  })
+}
+
 
 export function generateMockBranchEvents(count: number): BranchEventDataType[] {
   const statuses = ["ongoing", "completed"] as const;

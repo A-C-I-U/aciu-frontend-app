@@ -4,6 +4,8 @@ import { BranchLeadershipTab } from "@/pages/help-and-support/components/BranchL
 import BranchPaymentsTab from "./tabs/payments";
 import WithdrawalTab from "./tabs/withdrawals";
 import BranchEventsTab from "./tabs/branch-events";
+import BranchMembersTab from "./tabs/branch-members";
+import BranchGalleryTab from "./tabs/branch-gallery";
 
 
 export const myBranchTabs: ExtendedTabItem[] = [
@@ -40,7 +42,7 @@ export const myBranchTabs: ExtendedTabItem[] = [
         label: "Branch Members",
         description: "",
         contentDescription: "",
-        content: <></>
+        content: <BranchMembersTab />
     },
     {
         key: "branch-events",
@@ -54,7 +56,7 @@ export const myBranchTabs: ExtendedTabItem[] = [
         label: "Branch Gallery",
         description: "",
         contentDescription: "",
-        content: <></>
+        content: <BranchGalleryTab />
     },
 
 ]

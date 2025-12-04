@@ -1,33 +1,34 @@
 import { StatusBadge } from "@/components/StatusBadge";
-import { branchEventStatusMap } from "@/utils/helpers";
-import type { BranchEventDataType } from "@/utils/types";
+import { branchMemberStatusMap } from "@/utils/helpers";
+import type { BranchMemberDataType } from "@/utils/types";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 import { formatDate } from "date-fns";
 
-export const columns: ColumnDef<BranchEventDataType>[] = [
+
+export const columns: ColumnDef<BranchMemberDataType>[] = [
     {
-        accessorKey: "eventTitle",
-        header: "Event Title",
-        cell: ({ row }: { row: Row<BranchEventDataType> }) => <span>{row.original.eventTitle}</span>
+        accessorKey: "fullName",
+        header: "Full name",
+        cell: ({ row }: { row: Row<BranchMemberDataType> }) => <span>{row.original.fullName}</span>
+    },
+    {
+        accessorKey: "ageGrade",
+        header: "Age Grade",
+        cell: ({ row }: { row: Row<BranchMemberDataType> }) => <span>{row.original.ageGrade}</span>
+    },
+    {
+        accessorKey: "joinedOn",
+        header: "Joined On",
+        cell: ({ row }: { row: Row<BranchMemberDataType> }) => <span>{formatDate(row.original.joinedOn, "dd-MM-yyyy h:mm  aaaaa'm'")}</span>
+    },
+    {
+        accessorKey: "occupation",
+        header: "Occupation",
+        cell: ({ row }: { row: Row<BranchMemberDataType> }) => <span>{row.original.occupation}</span>
     },
         {
-        accessorKey: "createdBy",
-        header: "Created by",
-        cell: ({ row }: { row: Row<BranchEventDataType> }) => <span>{row.original.createdBy}</span>
-    },
-    {
-        accessorKey: "createdOn",
-        header: "Created on",
-        cell: ({ row }: { row: Row<BranchEventDataType> }) => <span>{formatDate(row.original.createdOn, "dd-MM-yyyy h:mm  aaaaa'm'")}</span>
-    },
-    {
-        accessorKey: "registered",
-        header: "Registered",
-        cell: ({ row }: { row: Row<BranchEventDataType> }) => <span>{row.original.registered}</span>
-    },
-      {
             accessorKey: "verificationStatus",
-            header: "Verification Status",
+            header: "Verfication Status",
             maxSize: 300,
             cell: ({ getValue }) => {
                 const status = getValue();
@@ -36,7 +37,7 @@ export const columns: ColumnDef<BranchEventDataType>[] = [
                     labelColor, 
                     dotColor, 
                     bgColor 
-                } = branchEventStatusMap[status as BranchEventDataType["verificationStatus"]];
+                } = branchMemberStatusMap[status as BranchMemberDataType["verificationStatus"]];
     
                 return (
                     <StatusBadge
@@ -48,7 +49,7 @@ export const columns: ColumnDef<BranchEventDataType>[] = [
                 )
             }
         },
-         {
+        {
             id: "actions",
             header: "Actions",
             size: 150,
@@ -61,5 +62,6 @@ export const columns: ColumnDef<BranchEventDataType>[] = [
                     View Details
                 </button>
             )
-        }
+            }
+        
 ]
