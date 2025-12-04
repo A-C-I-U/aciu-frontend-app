@@ -45,8 +45,8 @@ export default function BranchInfoCard({
             </div>
 
             <div className="hidden lg:grid grid-cols-[1fr_.5fr_.5fr_.5fr] items-center gap-4">
-                {branchInfoDetails.map(({ title, content }) => (
-                    <div className="flex flex-col gap-2 max-w-83.25">
+                {branchInfoDetails.map(({title, content }, index) => (
+                    <div key={index} className="flex flex-col gap-2 max-w-83.25">
                         <p className="text-aciu-abriba">
                             {title}
                         </p>

@@ -468,6 +468,22 @@ a, button {
     color: white;
     font-family: 'Coolvetica', sans-serif;
   }
+
+  .payment-table-column {
+    border: 1px solid var(--color-aciu-dark-grey);
+    padding: .875rem 1.25rem;
+    font-size: .875rem;
+    font-family: var(--font-montserrat);
+    color: var(--color-aciu-border-grey)
+  }
+
+  .payment-table-column.title {
+    background-color: var(--color-aciu-light-grey);
+  }
+
+  .payment-table-column.desc {
+    background-color: #FCFCFC;
+  }
 }
 
 @media screen and (max-width: 1024px) {

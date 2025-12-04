@@ -62,6 +62,7 @@ export default function ShellModal({
                 onClose={onClose}
                 disableScrollLock={false}
                 sx={defaultDrawerSx}
+                variant="temporary"
             >
                 {children}
             </Drawer>
