@@ -3,6 +3,7 @@ import { branchEventStatusMap } from "@/utils/helpers";
 import type { BranchEventDataType } from "@/utils/types";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 import { formatDate } from "date-fns";
+import { Link } from "react-router-dom";
 
 export const columns: ColumnDef<BranchEventDataType>[] = [
     {
@@ -48,18 +49,20 @@ export const columns: ColumnDef<BranchEventDataType>[] = [
                 )
             }
         },
-         {
+        // TODO: Remove `pointer-events-none` when integrating
+        {
             id: "actions",
             header: "Actions",
             size: 150,
-            cell: () => (
-                <button
+            cell: ({ row }: { row: Row<BranchEventDataType>}) => (
+                <Link
+                    to={`/events/${row.original.id}`}
                     className="p-2 text-sm font-coolvetica 
                     text-aciu-green-normal rounded-[5px]
-                    border border-aciu-green-normal min-w-fit whitespace-nowrap"
+                    border border-aciu-green-normal min-w-fit whitespace-nowrap pointer-events-none"
                 >
                     View Details
-                </button>
+                </Link>
             )
         }
 ]
