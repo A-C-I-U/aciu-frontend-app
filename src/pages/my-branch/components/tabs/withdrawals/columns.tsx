@@ -4,7 +4,7 @@ import type { WithdrawalDataType } from "@/utils/types";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 
 
-export const columns: ColumnDef<WithdrawalDataType>[] = [
+export const columns = (setSelected: (p: WithdrawalDataType) => void): ColumnDef<WithdrawalDataType>[] => [
     {
         accessorKey: "id",
         header: "Transaction ID",
@@ -52,8 +52,12 @@ export const columns: ColumnDef<WithdrawalDataType>[] = [
             id: "actions",
             header: "Actions",
             size: 150,
-            cell: () => (
+            cell: ({ row }: { row: Row<WithdrawalDataType>}) => (
                 <button
+                    onClick={() => {
+                        console.log("Open")
+                        setSelected(row.original)
+                    }}
                     className="p-2 text-sm font-coolvetica 
                     text-aciu-green-normal rounded-[5px]
                     border border-aciu-green-normal min-w-fit whitespace-nowrap"

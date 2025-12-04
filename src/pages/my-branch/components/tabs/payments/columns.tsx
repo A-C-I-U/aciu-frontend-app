@@ -1,9 +1,10 @@
 import { StatusBadge } from "@/components/StatusBadge";
-import { formatDate, paymentStatusMap } from "@/utils/helpers";
+import { paymentStatusMap } from "@/utils/helpers";
 import type { BranchPaymentsDataType } from "@/utils/types";
 import type { ColumnDef, Row } from "@tanstack/react-table";
+import { formatDate } from "date-fns";
 
-export const columns: ColumnDef<BranchPaymentsDataType>[] = [
+export const columns = (setSelected: (p: BranchPaymentsDataType) => void): ColumnDef<BranchPaymentsDataType>[] => [
     {
         accessorKey: "id",
         header: "Transaction ID",
@@ -17,7 +18,7 @@ export const columns: ColumnDef<BranchPaymentsDataType>[] = [
     {
         accessorKey: "date",
         header: "Date",
-        cell: ({ row }: { row: Row<BranchPaymentsDataType> }) => <span>{formatDate(row.original.date)}</span>
+        cell: ({ row }: { row: Row<BranchPaymentsDataType> }) => <span>{formatDate(row.original.date, "dd-MM-yyyy h:mm  aaaaa'm'")}</span>
     },
     {
         accessorKey: "amountPaid",
@@ -51,8 +52,9 @@ export const columns: ColumnDef<BranchPaymentsDataType>[] = [
             id: "actions",
             header: "Actions",
             size: 150,
-            cell: () => (
+            cell: ({ row }: { row: Row<BranchPaymentsDataType>}) => (
                 <button
+                    onClick={() => setSelected(row.original)}
                     className="p-2 text-sm font-coolvetica 
                     text-aciu-green-normal rounded-[5px]
                     border border-aciu-green-normal min-w-fit whitespace-nowrap"

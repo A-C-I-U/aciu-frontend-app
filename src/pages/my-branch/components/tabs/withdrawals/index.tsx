@@ -8,6 +8,7 @@ import SectionHeader from "@/components/SectionHeader";
 import DataTable from "@/components/DataTable";
 import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
+import ViewWithdrawalRequest from "./ViewWithdrawalRequest";
 
 const sectionActions = [
     <button className="section-action-button">
@@ -22,6 +23,8 @@ export default function WithdrawalTab() {
     const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const [showSubmitRequest, setShowSubmitRequest] = useState(false);
+    const [selected, setSelected] = useState<WithdrawalDataType | null>(null);
+
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
@@ -31,7 +34,7 @@ export default function WithdrawalTab() {
 
     const table = useReactTable<WithdrawalDataType>({
         data: mockData,
-        columns: columns,
+        columns: columns(setSelected),
         pageCount: Math.ceil(mockData.length / 10),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
@@ -42,7 +45,8 @@ export default function WithdrawalTab() {
     }
 
     return (
-          <div className="flex flex-col gap-6 px-4">
+        <>
+        <div className="flex flex-col gap-6 px-4">
             <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                 <SectionHeader
                     title="Withdrawals"
@@ -73,7 +77,7 @@ export default function WithdrawalTab() {
                                 fields={fields}
                                 status={withdrawalStatusMap[withdrawal.status]}
                                 actionLabel="View Dues"
-                                onActionClick={() => {}}
+                                onActionClick={() => setSelected(withdrawal)}
                             />
                         ))}
                     </div>
@@ -87,7 +91,16 @@ export default function WithdrawalTab() {
                     />
                 }
             </>
+
         </div>
+        {selected && (
+            <ViewWithdrawalRequest
+                open={!!selected}
+                onClose={() => setSelected(null)}
+                withdrawal={selected}
+            />
+        )}
+        </>
     )
 
 }

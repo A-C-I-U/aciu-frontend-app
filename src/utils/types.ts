@@ -433,6 +433,8 @@ export interface BranchPaymentsDataType {
     id: string,
     memberName: string,
     date: string,
+    title: string,
+    type: string,
     amountPaid: string,
     status: string
 }
@@ -440,8 +442,12 @@ export interface BranchPaymentsDataType {
 export interface WithdrawalDataType {
     id: string,
     submittedBy: string,
+    reasons: string,
+    type: string,
+    title: string,
     date: string,
     amount: string,
+    source: string,
     status: "pending" | "approved"
 }
 

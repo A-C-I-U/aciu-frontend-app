@@ -61,10 +61,13 @@ export function generateMockBranchPayments(
 
   return Array.from({ length: count }, (_, i) => {
     const date = randomDate(new Date(2023, 0, 1), new Date());
+    const categories = ["Monthly Dues", "Event Fee", "Donation", "Fine", "Registration Fee", "Levy"];
 
     return {
       id: `${i + 1}`,
       memberName: `Member ${i + 1}`,
+      type: "Dues",
+      title: categories[Math.floor(Math.random() * categories.length)],
       date: date.toISOString(),
       amountPaid: `${Math.floor(Math.random() * 100000)}`,
       status: statuses[Math.floor(Math.random() * statuses.length)],
@@ -83,6 +86,10 @@ export function generateMockWithdrawals(
     return {
       id: `${i + 1}`,
       submittedBy: `Person ${i + 1}`,
+      reasons: `Narration ${i + 1}`,
+      title: `Branch Dues`,
+      type: `Branch Dues`,
+      source: "Branch Dues",
       date: date.toISOString(),
       amount: `${Math.floor(Math.random() * 100000)}`,
       status: statuses[Math.floor(Math.random() * statuses.length)],

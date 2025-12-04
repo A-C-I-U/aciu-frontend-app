@@ -8,6 +8,7 @@ import { columns } from "./columns";
 import DataTable from "@/components/DataTable";
 import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
+import ViewPayment from "./ViewPayment";
 
 const sectionActions = [
     <button className="section-action-button">
@@ -21,6 +22,7 @@ export default function BranchPaymentsTab() {
     const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const [showDuesReminder, setShowDuesReminder] = useState(false);
+    const [selected, setSelected] = useState<BranchPaymentsDataType | null>(null)
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
@@ -30,7 +32,7 @@ export default function BranchPaymentsTab() {
 
     const table = useReactTable<BranchPaymentsDataType>({
         data: mockData,
-        columns: columns,
+        columns: columns(setSelected),
         pageCount: Math.ceil(mockData.length / 10),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
@@ -72,7 +74,7 @@ export default function BranchPaymentsTab() {
                                 fields={fields}
                                 status={paymentStatusMap[branchPayment.status]}
                                 actionLabel="View Dues"
-                                onActionClick={() => {}}
+                                onActionClick={() => {setSelected(branchPayment)}}
                             />
                         ))}
                     </div>
@@ -86,11 +88,18 @@ export default function BranchPaymentsTab() {
                     />
                 }
             </>
+            {selected && (
+                <ViewPayment
+                    open={!!selected}
+                    onClose={() => setSelected(null)}
+                    payment={selected}
+                />
+            )}
         </div>
     )
 }
 
-const mockData = generateMockBranchPayments(20)
+const mockData = generateMockBranchPayments(20);
 const fields: FieldConfig<BranchPaymentsDataType>[] = [
     {
         label: "Amount Paid",
