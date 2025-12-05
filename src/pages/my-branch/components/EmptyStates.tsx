@@ -28,3 +28,17 @@ export const EmptyPaymentsState = () => {
         </div>
     )
 }
+
+export const EmptyRecords = () => {
+    return (
+        <div className="flex flex-col gap-2">
+            <Document width={32} height={32} />
+            <p className="font-semibold text-aciu-border-grey">
+                No Payments Found Yet
+            </p>
+            <p className="text-sm text-aciu-abriba">
+                There are no records available at the moment. Once activities are logged, they will appear here.
+            </p>
+        </div>
+    )
+}
