@@ -8,7 +8,7 @@ export default function BranchExecutivesTab() {
                 <h2 className="text-xl text-aciu-border-grey">
                     Branch Dues
                 </h2>
-                <button className="section-primary-action lg:py-4 lg:px-4 pointer-events-none">
+                <button className="btn btn-primary max-w-fit">
                     Add admin
                 </button>
             </div>

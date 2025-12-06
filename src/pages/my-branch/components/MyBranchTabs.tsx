@@ -1,11 +1,11 @@
 import type { ExtendedTabItem } from "@/utils/types";
 import BranchDuesTab from "./tabs/branch-dues";
-import { BranchLeadershipTab } from "@/pages/help-and-support/components/BranchLeadershipTab";
 import BranchPaymentsTab from "./tabs/payments";
 import WithdrawalTab from "./tabs/withdrawals";
 import BranchEventsTab from "./tabs/branch-events";
 import BranchMembersTab from "./tabs/branch-members";
 import BranchGalleryTab from "./tabs/branch-gallery";
+import BranchExecutivesTab from "./tabs/branch-leadership";
 
 
 export const myBranchTabs: ExtendedTabItem[] = [
@@ -21,7 +21,7 @@ export const myBranchTabs: ExtendedTabItem[] = [
         label: "Branch Leadership",
         description: "",
         contentDescription: "",
-        content: <BranchLeadershipTab />
+        content: <BranchExecutivesTab />
     },
     {
         key: "payments",
