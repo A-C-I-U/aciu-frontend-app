@@ -10,6 +10,7 @@ import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 import ViewWithdrawalRequest from "./ViewWithdrawalRequest";
 import SubmitWithdrawalRequest from "./SubmitWithdrawalRequest";
+import SuccessfulRequest from "./SuccessfulRequest";
 
 const sectionActions = [
     <button className="section-action-button">
@@ -26,6 +27,7 @@ export default function WithdrawalTab() {
     const [showSubmitRequest, setShowSubmitRequest] = useState(false);
     const [selected, setSelected] = useState<WithdrawalDataType | null>(null);
     const [isViewOpen, setViewOpen] = useState(false);
+    const [isSuccessOpen, setSuccessOpen] = useState(false);
 
     // Separated open state from selected to allow proper exit and entry animations
     // Using !!selected as open={!!selected} caused instant mounting and unmounting
@@ -56,8 +58,6 @@ export default function WithdrawalTab() {
     const handleSearch = (q: string) => {
         setQuery(q)
     }
-
-    
 
     return (
         <>
@@ -117,8 +117,13 @@ export default function WithdrawalTab() {
             <SubmitWithdrawalRequest
                 open={showSubmitRequest}
                 onClose={() => setShowSubmitRequest(false)}
+                onSuccess={() => setSuccessOpen(true)}
             />
             
+            <SuccessfulRequest
+                open={isSuccessOpen}
+                onClose={() => setSuccessOpen(true)}
+            />
         </>
     )
 

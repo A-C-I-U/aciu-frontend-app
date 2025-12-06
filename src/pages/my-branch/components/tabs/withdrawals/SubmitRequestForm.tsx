@@ -19,11 +19,11 @@ const initialValues = {
     document: ""
 }
 
-export default function SubmitRequestForm({ onClose }: { onClose: () => void }) {
+export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () => void, onSuccess: () => void }) {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleSubmit = (_values: any, _actions: any) => {
-
+        onSuccess();
     }
 
     return (

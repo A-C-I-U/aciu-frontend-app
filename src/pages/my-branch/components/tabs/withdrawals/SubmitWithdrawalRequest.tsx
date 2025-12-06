@@ -4,7 +4,7 @@ import type { DialogFuncProps } from "@/utils/types";
 import { Divider } from "@mui/material";
 import SubmitRequestForm from "./SubmitRequestForm";
 
-export default function SubmitWithdrawalRequest({ open, onClose }: DialogFuncProps) {
+export default function SubmitWithdrawalRequest({ open, onClose, onSuccess }: DialogFuncProps & { onSuccess: () => void }) {
     return (
         <ShellModal
             open={open}
@@ -13,7 +13,7 @@ export default function SubmitWithdrawalRequest({ open, onClose }: DialogFuncPro
             <div className="resources-modal-section">
                 <ShellHeader title="Withdrawal Request" onClose={onClose} />
                 <Divider className="flex shrink-0" />
-                <SubmitRequestForm onClose={onClose}/>
+                <SubmitRequestForm onClose={onClose} onSuccess={onSuccess}/>
             </div>
         </ShellModal>
     )
