@@ -1,5 +1,4 @@
 import type { ExtendedTabItem } from "@/utils/types";
-import { AnimatePresence } from "motion/react";
 import { useState } from "react";
 import { myBranchTabs } from "./components/MyBranchTabs";
 import { useMediaQuery } from "@mui/material";
@@ -11,12 +10,12 @@ export default function MyBranchPage() {
     const [activeTab, setActiveTab] = useState<ExtendedTabItem>(myBranchTabs[0])
 
     return (
-        <AnimatePresence>
+        <>
             {isMedium ? (
                 <MyBranchMobileOverview activeTab={activeTab} setActiveTab={setActiveTab} />
             ) : (
                 <MyBranchDesktopOverview activeTab={activeTab} setActiveTab={setActiveTab} />
             )}
-        </AnimatePresence>
+        </>
     )
 }
