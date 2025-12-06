@@ -6,6 +6,7 @@ import { Form, Formik } from "formik";
 import { Trash } from "iconsax-react";
 import { useRef } from "react";
 
+// submittedBy - Name of Current User
 const initialValues = {
     source: "",
     amount: "",

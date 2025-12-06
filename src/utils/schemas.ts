@@ -1,4 +1,4 @@
-import { array, boolean, mixed, number, object, ref, string } from "yup";
+import { array, boolean, date, mixed, number, object, ref, string } from "yup";
 import { AGEGRADES, BRANCHES } from "./data";
 
 export const signupValidationSchemas = [
@@ -202,4 +202,38 @@ export const withdrawalRequestSchema = object({
         .required("A file is required")
         .test("is-file", "Invalid file", value => value instanceof File),
 
+})
+
+export const adminSchema = object({
+    memberName: string()
+        .required("Member's name is required"),
+    createdBy: string()
+        .required("This field is required"),
+    createdOn: string()
+        .required("Creation date is required"),
+    startDate: date()
+        .required("Start date is required"),
+    endDate: date()
+        .nullable()
+        .min(ref("startDate"), "End date cannot be before start date"),
+    permissions: object({
+        // Member Access
+        viewProfiles: boolean().default(false),
+        approveMembers: boolean().default(false),
+        deleteMemberInfo: boolean().default(false),
+
+        // Dues & Payments
+        createEditDues: boolean().default(false),
+        viewPayments: boolean().default(false),
+        sendReminders: boolean().default(false),
+
+        // Events & Communications
+        createEvents: boolean().default(false),
+        approvePublications: boolean().default(false),
+    })
+    .test(
+        "at-least-one",
+        "At least one permission must be selected",
+        (obj) => Object.values(obj).some(Boolean)
+    ),
 })
