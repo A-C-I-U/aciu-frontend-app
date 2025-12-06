@@ -7,8 +7,10 @@ import ShellHeader from "@/components/ShellHeader";
 export default function ViewPayment({ open, onClose, payment }: {
     open: boolean,
     onClose: () => void,
-    payment: BranchPaymentsDataType
+    payment: BranchPaymentsDataType | null
 }) {    
+    if (!payment) return null;
+    
     return (
         <ShellModal
             open={open}

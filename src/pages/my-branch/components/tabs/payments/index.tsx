@@ -9,6 +9,7 @@ import DataTable from "@/components/DataTable";
 import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 import ViewPayment from "./ViewPayment";
+import DuesReminder from "./DuesReminder";
 
 const sectionActions = [
     <button className="section-action-button">
@@ -22,7 +23,9 @@ export default function BranchPaymentsTab() {
     const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const [showDuesReminder, setShowDuesReminder] = useState(false);
-    const [selected, setSelected] = useState<BranchPaymentsDataType | null>(null)
+    const [selected, setSelected] = useState<BranchPaymentsDataType | null>(null);
+    const [isViewOpen, setViewOpen] = useState(false);
+
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
@@ -30,9 +33,14 @@ export default function BranchPaymentsTab() {
     const end = start + itemsPerPage;
     const currentItems = mockData.slice(start, end);
 
+    const handleViewClick = (payment: BranchPaymentsDataType) => {
+        setSelected(payment);
+        setViewOpen(true);
+    }
+
     const table = useReactTable<BranchPaymentsDataType>({
         data: mockData,
-        columns: columns(setSelected),
+        columns: columns(handleViewClick),
         pageCount: Math.ceil(mockData.length / 10),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
@@ -88,13 +96,15 @@ export default function BranchPaymentsTab() {
                     />
                 }
             </>
-            {selected && (
-                <ViewPayment
-                    open={!!selected}
-                    onClose={() => setSelected(null)}
-                    payment={selected}
-                />
-            )}
+            <ViewPayment
+                open={isViewOpen}
+                onClose={() => setViewOpen(false)}
+                payment={selected}
+            />
+            <DuesReminder
+                open={showDuesReminder}
+                onClose={() => setShowDuesReminder(false)}
+            />
         </div>
     )
 }

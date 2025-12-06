@@ -119,3 +119,13 @@ export const UploadImageShort = (props: SVGProps<SVGSVGElement>) => {
     </svg>
   )
 }
+
+export const NotificationBell = (props: SVGProps<SVGSVGElement>) => {
+  return (
+    <svg {...props} viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="5" y="5" width="56" height="56" rx="28" fill="#00B686"/>
+      <rect x="5" y="5" width="56" height="56" rx="28" stroke="#E6F8F3" stroke-width="10"/>
+      <path d="M41.92 39H24.08C23.7956 38.9996 23.5146 38.9385 23.2558 38.8209C22.9969 38.7033 22.7661 38.5318 22.5787 38.318C22.3913 38.1041 22.2517 37.8527 22.1691 37.5806C22.0866 37.3085 22.063 37.0219 22.1 36.74C22.44 34.22 23.48 32.6 25.04 32.14C25.2 29.36 26.26 21 33 21C39.74 21 40.8 29.36 40.96 32.14C42.5 32.6 43.56 34.22 43.9 36.74C43.98 37.32 43.8 37.9 43.42 38.32C43.04 38.74 42.5 39 41.92 39ZM33 45C35.2 45 37 43.2 37 41H29C29 43.2 30.8 45 33 45Z" fill="white"/>
+    </svg>
+  )
+}
