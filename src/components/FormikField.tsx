@@ -42,7 +42,7 @@ export default function FormikField({
   };
 
   return (
-    <div className="flex flex-col gap-2 items-start">
+    <div className="flex flex-col gap-2 items-start w-full">
       <FormLabel
         sx={{
           fontFamily: "'Montserrat', sans-serif",

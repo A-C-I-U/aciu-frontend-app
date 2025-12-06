@@ -13,7 +13,7 @@ export default function SubmitWithdrawalRequest({ open, onClose }: DialogFuncPro
             <div className="resources-modal-section">
                 <ShellHeader title="Withdrawal Request" onClose={onClose} />
                 <Divider className="flex shrink-0" />
-                <SubmitRequestForm />
+                <SubmitRequestForm onClose={onClose}/>
             </div>
         </ShellModal>
     )

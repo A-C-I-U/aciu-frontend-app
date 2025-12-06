@@ -1,5 +1,7 @@
 import FormikField from "@/components/FormikField";
-import { UploadFileImage } from "@/components/Icons";
+import { UploadImageShort } from "@/components/Icons";
+import { withdrawalRequestSchema } from "@/utils/schemas";
+import { formatDate } from "date-fns";
 import { Form, Formik } from "formik";
 import { Trash } from "iconsax-react";
 import { useRef } from "react";
@@ -7,8 +9,8 @@ import { useRef } from "react";
 const initialValues = {
     source: "",
     amount: "",
-    submittedBy: "",
-    submittedOn: "",
+    submittedBy: "ACIU Leadership",
+    submittedOn: formatDate(new Date().toISOString(), "dd MMMMMMM, yyyy"),
     bankName: "",
     accountName: "",
     accountNumber: "",
@@ -17,24 +19,27 @@ const initialValues = {
     document: ""
 }
 
-export default function SubmitRequestForm() {
+export default function SubmitRequestForm({ onClose }: { onClose: () => void }) {
     const inputRef = useRef<HTMLInputElement | null>(null);
 
     const handleSubmit = (_values: any, _actions: any) => {
 
     }
+
     return (
         <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
+            validationSchema={withdrawalRequestSchema}
         >
             {({
-                values
+                values,
+                setFieldValue
             }) => {
                 return (
                     <Form className="flex flex-col h-4/5 md:h-full overflow-hidden">
                         <div className="resources-modal-body">
-                            <h5 className="text-lg font-medium text-aciu-border-grey">
+                            <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
                                 Request Summary
                             </h5>
                             <FormikField 
@@ -53,7 +58,7 @@ export default function SubmitRequestForm() {
                                 placeholder="Input the amount you'd like to withdraw"
                                 fullWidth
                             />
-                            <div className="flex gap-4 items-center">
+                            <div className="flex gap-2 items-center w-full">
                                 <FormikField
                                     label="Submitted By"
                                     name="submittedBy"
@@ -69,7 +74,7 @@ export default function SubmitRequestForm() {
                             </div>
 
 
-                            <h5 className="text-lg font-medium text-aciu-border-grey">
+                            <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
                                 Bank Account Details
                             </h5>
                             <FormikField 
@@ -96,7 +101,7 @@ export default function SubmitRequestForm() {
                             />
 
 
-                            <h5 className="text-lg font-medium text-aciu-border-grey">
+                            <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
                                 Request Reason
                             </h5>
                             <FormikField 
@@ -117,10 +122,10 @@ export default function SubmitRequestForm() {
                             />
 
 
-                            <h5 className="text-lg font-medium text-aciu-border-grey">
+                            <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
                                 Supporting Documents(if any)
                             </h5>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-2 mb-10">
                                 <label className="resources-form-label">
                                     Upload document
                                 </label>
@@ -129,8 +134,8 @@ export default function SubmitRequestForm() {
                                     onClick={() => inputRef.current?.click()}
                                 >
                                     {!values.document ?
-                                        <div className="gap-2 flex flex-col">
-                                            <UploadFileImage width="100%" capHeight={76} height="auto" />
+                                        <div className="gap-2 flex flex-col w-full">
+                                            <UploadImageShort width="100%" height="auto" />
                                             <div className="flex justify-between items-center">
                                                 <p className="font-montserrat text-grayscale-100 text-sm">
                                                     Supported formats: pdf, jpg, png
@@ -158,9 +163,28 @@ export default function SubmitRequestForm() {
                                                 <Trash width={20} height={20} color="#737373" />
                                             </div>
                                         </div>
-                                        }
+                                    }
                                 </div>
+                                <input 
+                                    ref={inputRef}
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setFieldValue("document", e.target.value)}
+                                />
                             </div>
+                        </div>
+                        <div className="py-5.5 px-10.5 resource-buttons-container">
+                            <button 
+                                className="btn btn-primary"
+                            >
+                                Send Request
+                            </button>
+                            <button 
+                                className="btn btn-danger"
+                                onClick={onClose}
+                            >
+                                Cancel
+                            </button>
                         </div>
                     </Form>
                 )

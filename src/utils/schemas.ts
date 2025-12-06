@@ -180,3 +180,26 @@ export const uploadResourceSchema = object({
         .of(string().required("Access level is required"))
         .min(1, "Access level is required")
 });
+
+export const withdrawalRequestSchema = object({
+    source: string()
+        .required("Withdrawal source is required"),
+    amount: string()
+        .required("Amount is required"),
+    submittedBy: string()
+        .required("This field is required"),
+    submittedOn: string()
+        .required("This field is required"),
+    bankName: string()
+        .required("Bank name is required"),
+    accountNumber: string()
+        .required("Account number is required"),
+    reason: string()
+        .required("Reason is required"),
+    customReason: string()
+        .optional(), 
+    document: mixed()
+        .required("A file is required")
+        .test("is-file", "Invalid file", value => value instanceof File),
+
+})
