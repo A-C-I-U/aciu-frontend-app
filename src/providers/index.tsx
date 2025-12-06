@@ -1,5 +1,7 @@
 import { UserProvider } from "@/context/UserContext"
+import { ThemeProvider } from "@mui/material"
 import { SnackbarProvider } from "notistack"
+import { theme } from "@/utils/theme";
 
 export const Providers = (
     { children }: 
@@ -7,8 +9,10 @@ export const Providers = (
 ) => {
     return (
        <UserProvider>
-        <SnackbarProvider />
-        {children}
+            <ThemeProvider theme={theme}>
+                <SnackbarProvider />
+                {children}
+            </ThemeProvider>
        </UserProvider>
     )
 }
