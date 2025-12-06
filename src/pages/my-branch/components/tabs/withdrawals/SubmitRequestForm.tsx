@@ -177,6 +177,7 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
                         <div className="py-5.5 px-10.5 resource-buttons-container">
                             <button 
                                 className="btn btn-primary"
+                                type="submit"
                             >
                                 Send Request
                             </button>
