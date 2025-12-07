@@ -50,5 +50,12 @@ export const theme = createTheme({
                 }
             }
         }
-    }
+    },
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          borderColor: "#C9C9C9",
+        },
+      },
+    },
 }});

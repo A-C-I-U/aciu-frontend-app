@@ -24,6 +24,7 @@ import BlogPostForm from "@/pages/blog/components/blog-posts/BlogPostForm";
 import ProjectDetailsPage from "@/pages/projects/components/ProjectDetailsPage";
 import SubmissionViewPage from "@/pages/blog/components/submissions/SubmissionViewPage";
 import PostViewPage from "@/pages/blog/components/blog-posts/PostViewPage";
+import AddEventPage from "@/pages/my-branch/components/tabs/branch-events/add-event";
 
 
 export const protectedRoutes = [
@@ -76,10 +77,19 @@ export const protectedRoutes = [
   },
     {
     path: "/my-branch",
-    element: <MyBranchPage />,
     label: "My Branch",
     icon: Hashtag,
     roles: ["member", "branch-admin", "national-admin"],
+    children: [
+      {
+        index: true,
+        element: <MyBranchPage />
+      },
+      {
+        path: "add-event",
+        element: <AddEventPage />
+      }
+    ]
   },
     {
     path: "/blog",

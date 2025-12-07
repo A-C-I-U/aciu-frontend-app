@@ -8,6 +8,7 @@ import { columns } from "./columns";
 import DataTable from "@/components/DataTable";
 import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
+import { Link } from "react-router-dom";
 
 const sectionActions = [
     <button className="section-action-button">
@@ -20,7 +21,8 @@ const sectionActions = [
 export default function BranchEventsTab() {
     const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
     const isMedium = useMediaQuery("(max-width: 1250px)");
-    const [showDuesReminder, setShowDuesReminder] = useState(false);
+
+
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
@@ -49,12 +51,12 @@ export default function BranchEventsTab() {
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
                 />
-                <button 
-                    className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                    onClick={() => setShowDuesReminder(true)}
+                <Link
+                    className="btn btn-primary max-w-fit"
+                    to={`/my-branch/add-event`}
                 >
                    Add new Event
-                </button>
+                </Link>
             </div>
 
             <>
