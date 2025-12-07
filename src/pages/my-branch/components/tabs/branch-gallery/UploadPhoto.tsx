@@ -11,7 +11,7 @@ const dialogSx = {
     "& .MuiDialog-paper": {
         overflow: "hidden",
         width: { xs: "92%", md: "38.25rem" },
-        height: "auto",
+        maxHeight: "95%",
         margin: "0 auto",
         borderRadius: "1.25rem",
     },
@@ -25,28 +25,29 @@ export default function UploadPhoto({
     open, onClose
 }: DialogFuncProps) {
     const inputRef = useRef<HTMLInputElement | null>(null);
-    const [isUploading, setIsUploading] = useState(false);
-    const [uploadProgress, setUploadProgress] = useState(0);
+    const [uploads, setUploads] = useState<{ id: string; image: File; progress: number }[]>([]);
 
-    const simulateUpload = () => {
-        setIsUploading(true);
-        setUploadProgress(0);
+    const simulateUpload = (image: File) => {
+        const id = `${image.name}-${image.lastModified}`;
+
+        setUploads((prev) => [...prev, { id, image, progress: 0 }]);
 
         const interval = setInterval(() => {
-            setUploadProgress((prev) => {
-            if (prev >= 100) {
-                clearInterval(interval);
-                setIsUploading(false);
-                return 100;
-            }
-                return prev + 10;
-            });
+            setUploads((prev) =>
+                prev.map((u) =>
+                    u.id === id
+                    ? {
+                        ...u,
+                        progress: u.progress >= 100 ? 100 : u.progress + 10,
+                    }
+                    : u
+                )
+            );
         }, 300);
-    };
+            setTimeout(() => clearInterval(interval), 300 * 11);
+        };
 
-    const handleSubmit = (_values: any, _actions: any) => {
-        
-    }
+    const handleSubmit = (_values: any, _actions: any) => {}
 
     
     return (
@@ -64,16 +65,18 @@ export default function UploadPhoto({
                         initialValues={initialValues}
                         onSubmit={handleSubmit}
                     >
-                        {({ values, setFieldValue }) => {
+                        {({ values, setFieldValue, isSubmitting, isValid }) => {
 
-                            const handleDeleteImage = (values: any, index: number) => {
-                                const newImages = values.images.filter((_: any, i: number) => i !== index);
+                            const handleDeleteImage = (index: number) => {
+                                const newImages = values.images.filter((_, i) => i !== index);
                                 setFieldValue("images", newImages);
-                            }
+                                setUploads((prev) => prev.filter((_, i) => i !== index));
+                            };
+
 
                             return (
                                 <Form className="flex flex-col h-4/5 md:h-full overflow-hidden">
-                                    <div className="resources-modal-body">
+                                    <div className="resources-modal-body mb-10">
                                         <div 
                                             className="cursor-pointer"
                                             onClick={() => inputRef.current?.click()}
@@ -101,25 +104,22 @@ export default function UploadPhoto({
                                                             ["image/png", "image/jpeg", "image/jpg"].includes(file.type) &&
                                                             file.size <= 10 * 1024 * 1024
                                                     );
-                                                    if (files.length > 0) {
-                                                        simulateUpload();
-                                                    }
+                                                    validFiles.forEach((file) => simulateUpload(file));
                                                     setFieldValue("images", [...values.images, ...validFiles]);
                                                 }}
                                             />
                                         </div>
-                                        {values.images &&
-                                            <div className="flex flex-col gap-2">
+                                        {uploads.length > 0 &&
+                                            <div className="flex flex-col gap-2 overflow-y-auto max-h-50">
                                                 <p className="font-semibold leading-[100%] text-aciu-border-grey">
                                                     Upload Document
                                                 </p>
-                                                {values.images.map((file, index) => (
+                                                {uploads.map((upload, index) => (
                                                     <ImageUploaded
                                                         key={index}
-                                                        image={file}
-                                                        onDelete={() => handleDeleteImage(values, index)}
-                                                        loading={isUploading}
-                                                        progress={uploadProgress}
+                                                        image={upload.image}
+                                                        onDelete={() => handleDeleteImage(index)}
+                                                        progress={upload.progress}
                                                     />
                                                 ))}
                                             </div>
@@ -128,12 +128,15 @@ export default function UploadPhoto({
                                     <div className="py-5.5 px-10.5 resource-buttons-container items-start">
                                         <button 
                                             className="btn btn-primary"
+                                            disabled={isSubmitting || !isValid}
+                                            type="submit"
                                         >
                                             Upload Media
                                         </button>
                                         <button 
                                             className="btn btn-danger"
                                             onClick={onClose}
+                                            type="button"
                                         >
                                             Cancel Upload
                                         </button>
