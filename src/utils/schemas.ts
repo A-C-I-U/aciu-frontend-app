@@ -237,3 +237,43 @@ export const adminSchema = object({
         (obj) => Object.values(obj).some(Boolean)
     ),
 })
+
+
+export const duesValidationSchema = object({
+    duesTitle: string()
+        .required("Dues title is required"),
+    createdBy: string()
+        .required("Created by is required"),
+    createdOn: string()
+        .required("Created on date is required"),
+    interval: string()
+        .required("Interval is required"),
+    amount: number()
+        .typeError("Amount must be a number")
+        .positive("Amount must be positive")
+        .required("Amount is required"),
+    startDate: date()
+        .required("Start date is required"),
+    endDate: date()
+        .min(
+        ref("startDate"),
+        "End date must be after start date"
+        )
+        .required("End date is required"),
+    ageGrades: array()
+        .of(string().required("Age grade is required"))
+        .min(1, "At least one age grade is required"),
+
+    gender: string()
+        .required("Gender is required"),
+
+    location: string()
+        .required("Location is required"),
+
+    memberRoles: string()
+        .required("Member role is required"),
+
+    notifications: array()
+        .of(string().required("Notification is required"))
+        .min(1, "At least one notification is required"),
+});

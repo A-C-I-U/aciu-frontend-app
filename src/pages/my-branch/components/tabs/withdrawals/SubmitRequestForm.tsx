@@ -59,7 +59,7 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
                                 placeholder="Input the amount you'd like to withdraw"
                                 fullWidth
                             />
-                            <div className="flex gap-2 items-center w-full">
+                            <div className="flex gap-2 items-start w-full">
                                 <FormikField
                                     label="Submitted By"
                                     name="submittedBy"

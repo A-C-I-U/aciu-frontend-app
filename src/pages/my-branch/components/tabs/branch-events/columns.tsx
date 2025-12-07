@@ -29,7 +29,7 @@ export const columns: ColumnDef<BranchEventDataType>[] = [
       {
             accessorKey: "verificationStatus",
             header: "Verification Status",
-            maxSize: 300,
+            maxSize: 200,
             cell: ({ getValue }) => {
                 const status = getValue();
                 const { 
@@ -53,7 +53,6 @@ export const columns: ColumnDef<BranchEventDataType>[] = [
         {
             id: "actions",
             header: "Actions",
-            size: 150,
             cell: ({ row }: { row: Row<BranchEventDataType>}) => (
                 <Link
                     to={`/events/${row.original.id}`}

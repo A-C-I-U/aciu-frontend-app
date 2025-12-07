@@ -17,6 +17,7 @@ type FormikFieldProps = {
     label: string
   }[];
   rows?: number;
+  multiple?: boolean;
   [key: string]: any;
 };
 
@@ -66,6 +67,7 @@ export default function FormikField({
         helperText={meta.touched && meta.error}
         slotProps={{
           select: {
+            multiple: props.multiple,
             endAdornment: select && (
               <InputAdornment position="end">
                 <ArrowDown2 variant='Linear' size={20} color="#3E3E3E" />
