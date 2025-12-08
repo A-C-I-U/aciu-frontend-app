@@ -1,15 +1,15 @@
-import type React from "react"
-import { type JSONContent, Editor } from '@tiptap/react'
+import type React from "react";
+import { type JSONContent, Editor } from "@tiptap/react";
 import type { Icon } from "iconsax-react";
 import type { BranchSearchResponse } from "@/services/types/helpandsupport";
 
 export interface AuthCardProps {
-    header?: string,
-    subheader?: React.ReactNode,
-    cardFooter?: boolean,
-    optionalHeader?: boolean,
-    optionalCardHeader?: React.ReactElement,
-    children: React.ReactElement;
+  header?: string;
+  subheader?: React.ReactNode;
+  cardFooter?: boolean;
+  optionalHeader?: boolean;
+  optionalCardHeader?: React.ReactElement;
+  children: React.ReactElement;
 }
 
 export interface FormikPhoneInputProps {
@@ -19,159 +19,158 @@ export interface FormikPhoneInputProps {
 }
 
 export interface StepContentProps {
-    header: string,
-    optionalHeader?: boolean,
-    optionalCardHeader?: React.ReactElement,
-    subheader: React.ReactNode,
-    initialValues: any,
-    footer: () => React.ReactElement,
-    submit: () => void
+  header: string;
+  optionalHeader?: boolean;
+  optionalCardHeader?: React.ReactElement;
+  subheader: React.ReactNode;
+  initialValues: any;
+  footer: () => React.ReactElement;
+  submit: () => void;
 }
 
 export interface OptionLabelProps {
-    value: string,
-    label: string
+  value: string;
+  label: string;
 }
 
 export interface SignUpFormValues {
-    fullName?: string;
-    email?: string;
-    password?: string;
-    confirmPassword?: string;
-    phoneNumber?: string;
-    verificationCode?: string;
-    gender?: string;
-    location?: string;
-    branch?: string;
-    village?: string;
-    ageGrade?: string;
-    occupation?: string;
+  fullName?: string;
+  email?: string;
+  password?: string;
+  confirmPassword?: string;
+  phoneNumber?: string;
+  verificationCode?: string;
+  gender?: string;
+  location?: string;
+  branch?: string;
+  village?: string;
+  ageGrade?: string;
+  occupation?: string;
 }
 
 export interface ForgotPasswordValues {
-    email?: string;
-    verificationCode?: string;
-    password?: string;
-    confirmPassword?: string;
+  email?: string;
+  verificationCode?: string;
+  password?: string;
+  confirmPassword?: string;
 }
-
 
 type Role = "member" | "branch-admin" | "national-admin";
 
 export interface User {
   id: string;
   name: string;
-  occupation: string,
-  phoneNumber: string,
-  email: string,
-  ageGrade: string,
-  branch: string,
+  occupation: string;
+  phoneNumber: string;
+  email: string;
+  ageGrade: string;
+  branch: string;
   role: Role;
-  verified: boolean
-};
+  verified: boolean;
+}
 
 export interface UserContextType {
   user: User | null;
   setUser: (user: User | null) => void;
-};
+}
 
 export interface NavProps {
-    open?: boolean,
-    handleOpen?: () => void,
-    handleClose?: () => void
+  open?: boolean;
+  handleOpen?: () => void;
+  handleClose?: () => void;
 }
 export interface EventItemProps {
-    id: string;
-    title: string;
-    img: string;
-    host: string;
-    date: string;
-    time: string;
-    description?: string;
-    location?: string;
-    category?: string;
-    entryFee?: string;
-    enableRSVP?: boolean;
-    enableDonations?: boolean;
-    registeredCount?: number;
+  id: string;
+  title: string;
+  img: string;
+  host: string;
+  date: string;
+  time: string;
+  description?: string;
+  location?: string;
+  category?: string;
+  entryFee?: string;
+  enableRSVP?: boolean;
+  enableDonations?: boolean;
+  registeredCount?: number;
 }
 export interface EventItemProps {
-    id: string;
-    title: string;
-    img: string;
-    host: string;
-    date: string;
-    time: string;
-    description?: string;
-    location?: string;
+  id: string;
+  title: string;
+  img: string;
+  host: string;
+  date: string;
+  time: string;
+  description?: string;
+  location?: string;
 }
 
 export interface TabItem {
-    key: string,
-    label: string,
-    content: React.ReactNode
+  key: string;
+  label: string;
+  content: React.ReactNode;
 }
 
 export interface PageTitleProps {
-    title: string,
-    tabs: TabItem[],
-    activeTab: TabItem,
-    onTabChange: (tab: TabItem) => void
+  title: string;
+  tabs: TabItem[];
+  activeTab: TabItem;
+  onTabChange: (tab: TabItem) => void;
 }
 
 export interface BasePostCardType {
-    id: string,
-    title: string,
-    author: string,
-    date: string,
-    img: string,
+  id: string;
+  title: string;
+  author: string;
+  date: string;
+  img: string;
 }
 
 export interface RegularPostCardType extends BasePostCardType {
-    subtitle: string,
-    tags: string[]
+  subtitle: string;
+  tags: string[];
 }
 
 export interface FeaturedPostCardType extends BasePostCardType {
-    views: number,
-    comments: number
+  views: number;
+  comments: number;
 }
 
 export interface DetailCardProps {
-    icon: React.ReactNode,
-    title: string,
-    content: string
+  icon: React.ReactNode;
+  title: string;
+  content: string;
 }
 
 export interface EventDetailsProps {
-    id: string,
-    img: string,
-    branch: string,
-    title: string,
-    content: string,
-    eventDate: string,
-    eventTime: string,
-    eventLocation: string,
-    eventHighlights: string[],
+  id: string;
+  img: string;
+  branch: string;
+  title: string;
+  content: string;
+  eventDate: string;
+  eventTime: string;
+  eventLocation: string;
+  eventHighlights: string[];
 }
 
-export interface PublicationCardProps { 
-    title: string,
-    postNumber: string,
-    rateOfChange: string
+export interface PublicationCardProps {
+  title: string;
+  postNumber: string;
+  rateOfChange: string;
 }
 
 export interface PublicationDataType {
-    id: string,
-    slug?: string,
-    title: string,
-    creationDate: string,
-    postImpressions: {
-        comments: number,
-        views: number
-    },
-    lastModified: string,
-    status: "published" | "pending approval" | "rejected" | "draft"
+  id: string;
+  slug?: string;
+  title: string;
+  creationDate: string;
+  postImpressions: {
+    comments: number;
+    views: number;
+  };
+  lastModified: string;
+  status: "published" | "pending approval" | "rejected" | "draft";
 }
 
 // export interface FileViewProps {
@@ -186,60 +185,58 @@ export interface PublicationDataType {
 // }
 
 export interface FileViewProps {
-    file: {
-        url: string;
-        size: number;
-        format: string;
-        name: string;
-    };
+  file: {
+    url: string;
+    size: number;
+    format: string;
     name: string;
-    description?: string;
-    resourceId?: string;
+  };
+  name: string;
+  description?: string;
+  resourceId?: string;
 }
 
 export interface FileViewDrawerProps {
-    open: boolean;
-    onClose: () => void;
-    resourceId?: string;
+  open: boolean;
+  onClose: () => void;
+  resourceId?: string;
 }
 
 export interface UploadResourceProps {
-    type: "upload" | "edit",
-    open: boolean,
-    onClose: () => void
+  type: "upload" | "edit";
+  open: boolean;
+  onClose: () => void;
 }
 
 export interface BlogPostFormValues {
-    title: string,
-    description: string,
-    tags: string[],
-    displayImage: string,
-    imageAlt: string,
-    content: string,
-    postVisibility: "public" | "private",
-    status: "published" | "pending approval" | "rejected" | "draft"
+  title: string;
+  description: string;
+  tags: string[];
+  displayImage: string;
+  imageAlt: string;
+  content: string;
+  postVisibility: "public" | "private";
+  status: "published" | "pending approval" | "rejected" | "draft";
 }
-
 
 export type EditorContent = Editor | string | JSONContent | null;
 
 export interface MenuCardProps {
-    icon: Icon,
-    title: string,
-    description: string,
-    route: string,
-    action?: boolean,
-    onClick?: () => void
+  icon: Icon;
+  title: string;
+  description: string;
+  route: string;
+  action?: boolean;
+  onClick?: () => void;
 }
 
-
 export interface BranchExecCardProps {
-    id: string | number,
-    name: string,
-    position: string,
-    occupation: string,
-    email: string,
-    phoneNumber: string
+  id: string | number;
+  name: string;
+  position: string;
+  occupation: string;
+  email: string;
+  phoneNumber: string;
 }
 
 // export interface LocateBranchProps {
@@ -249,67 +246,65 @@ export interface BranchExecCardProps {
 // }
 
 export interface LocateBranchProps {
-    open: boolean;
-    onClose: () => void;
-    onBranchLocation: (data?: BranchSearchResponse) => void;
+  open: boolean;
+  onClose: () => void;
+  onBranchLocation: (data?: BranchSearchResponse) => void;
 }
 
 export interface ProjectCardProps {
-    id?: string,
-    name: string,
-    image: string,
-    badge: string,
-    targetFunds: string,
-    collectedFunds: string,
-    description: string,
-    link: string
+  id?: string;
+  name: string;
+  image: string;
+  badge: string;
+  targetFunds: string;
+  collectedFunds: string;
+  description: string;
+  link: string;
 }
 
 interface ProjectSectionBlock {
-    type: "paragraph" | "list",
-    content: string[]
+  type: "paragraph" | "list";
+  content: string[];
 }
 
 export interface ProjectDonation {
-    time: string,
-    name: string,
-    amount: string
+  time: string;
+  name: string;
+  amount: string;
 }
 
 export interface ProjectOverviewProps {
-    description: string,
-    value: string,
-    scope: ProjectSectionBlock[],
-    impact: ProjectSectionBlock[],
+  description: string;
+  value: string;
+  scope: ProjectSectionBlock[];
+  impact: ProjectSectionBlock[];
 }
 
 export interface ProjectDetailsProps extends ProjectOverviewProps {
-    id: string,
-    title: string,
-    description: string,
-    value: string,
-    badge: string,
-    donations: ProjectDonation[],
-    location: string,
-    targetFunds: string,
-    collectedFunds: string,
-    projectImages: string[],
-    projectManager: string,
-    link: string
+  id: string;
+  title: string;
+  description: string;
+  value: string;
+  badge: string;
+  donations: ProjectDonation[];
+  location: string;
+  targetFunds: string;
+  collectedFunds: string;
+  projectImages: string[];
+  projectManager: string;
+  link: string;
 }
-
-
 
 export interface DialogFuncProps {
-    open: boolean,
-    onClose: () => void
+  open: boolean;
+  onClose: () => void;
 }
-
 
 export interface ProjectSidebarCardProps {
   collectedFunds: string | number;
   targetFunds: string | number;
   projectManager: string;
+  isCompleted?: boolean;
   onDonateClick: () => void;
   onShareClick: () => void;
 }
@@ -317,14 +312,14 @@ export interface ProjectSidebarCardProps {
 export interface DonationProgressBarProps {
   collected: number;
   target: number;
-  percentage: number; 
+  percentage: number;
 }
 
 export interface CommentType {
-    id: string,
-    name: string,
-    date: string,
-    content: string
+  id: string;
+  name: string;
+  date: string;
+  content: string;
 }
 
 export interface BlogDetails {
@@ -340,12 +335,12 @@ export interface BlogDetails {
 }
 
 export interface BlogSubmissionDetails extends BlogDetails {
-    description: string,
-    tags: string[],
-    displayImage: string,
-    imageAlt: string,
-    postVisibility: "public" | "private",
-    status: "published" | "pending approval" | "rejected" | "draft"
+  description: string;
+  tags: string[];
+  displayImage: string;
+  imageAlt: string;
+  postVisibility: "public" | "private";
+  status: "published" | "pending approval" | "rejected" | "draft";
 }
 
 export interface StatusBadgeProps {
@@ -358,12 +353,12 @@ export interface StatusBadgeProps {
 }
 
 export interface TagInputProps {
-    name?: string;
-    value: string[];
-    onChange: (tags: string[]) => void;
-    placeholder?: string;
-    disabled?: boolean;
-    className?: string;
+  name?: string;
+  value: string[];
+  onChange: (tags: string[]) => void;
+  placeholder?: string;
+  disabled?: boolean;
+  className?: string;
 }
 
 export interface CustomSnackbarProps {
@@ -381,7 +376,7 @@ export interface ProfileFormValues {
   ageGrade: string;
   occupation: string;
   phoneNumber: string;
-};
+}
 
 export interface NotificationOption {
   label: string;
@@ -398,59 +393,57 @@ export interface NotificationSectionProps {
 }
 
 export interface StatsCardProps {
-    title: string;
-    number: string;
-    itemLabel?: string;
-    currency?: string;
-    rateOfChange: string
+  title: string;
+  number: string;
+  itemLabel?: string;
+  currency?: string;
+  rateOfChange: string;
 }
 
 export interface PaymentDataType {
-    id: string,
-    date: string,
-    category: string,
-    description: string,
-    amountPaid: string,
-    status: string,
-    file: {
-        url: string;
-        name: string;
-        type: string;
-        size: number;
-        uploadedAt?: string;
-  }
+  id: string;
+  date: string;
+  category: string;
+  description: string;
+  amountPaid: string;
+  status: string;
+  file: {
+    url: string;
+    name: string;
+    type: string;
+    size: number;
+    uploadedAt?: string;
+  };
 }
 
 export interface UpcomingEventCardProps {
-    id: string | number,
-    image: string,
-    label: string,
-    dateStr: string,
-    timeRange: string
-    location?: string;
-
+  id: string | number;
+  image: string;
+  label: string;
+  dateStr: string;
+  timeRange: string;
+  location?: string;
 }
 
-
 export interface PaymentReminderCardProps {
-    label?: string;
-    amount: string;
-    targetDate: Date;
-    paymentRoute?: string;
-    buttonText?: string;
-    className?: string;
-    countdownVariant?: "inline" | "block";
-    timeUntilDue?: {
-        days: string;
-        hours: string;
-        minutes: string;
-        seconds: string;
-    };
+  label?: string;
+  amount: string;
+  targetDate: Date;
+  paymentRoute?: string;
+  buttonText?: string;
+  className?: string;
+  countdownVariant?: "inline" | "block";
+  timeUntilDue?: {
+    days: string;
+    hours: string;
+    minutes: string;
+    seconds: string;
+  };
 }
 
 export interface MetricsCardProps {
-    title: string,
-    price: string,
-    timeStamp: string,
-    trend: string
+  title: string;
+  price: string;
+  timeStamp: string;
+  trend: string;
 }

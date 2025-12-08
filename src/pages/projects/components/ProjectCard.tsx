@@ -5,9 +5,10 @@ import type { Project } from "@/services/types/projects";
 
 interface ProjectCardProps {
   project: Project;
+  isCompleted?: boolean; 
 }
 
-export default function ProjectCard({ project }: ProjectCardProps) {
+export default function ProjectCard({ project, isCompleted = false }: ProjectCardProps) {
   const { id, title, images, category, briefDescription, donationStats } =
     project;
 
@@ -58,7 +59,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         className="rounded-[.5rem] border border-aciu-green-normal p-5 max-w-46
                 font-coolvetica text-sm text-aciu-green-normal flex gap-2 items-center hover:bg-aciu-green-normal hover:text-white transition-colors"
       >
-        <span>Donate To Project</span>
+        <span>{isCompleted ? "View Project" : "Donate To Project"}</span>
         <ArrowRightIcon
           color="currentColor"
           size="1.25rem"

@@ -75,7 +75,7 @@ export interface RecommendedProject {
     category: string;
     location: string;
     briefDescription: string;
-    image: string;
+    images: string[]; 
   };
   donationStats: {
     totalDonated: number;
@@ -92,4 +92,28 @@ export interface ProjectDonation {
   DonorName: string;
   Amount: number;
   DaysAgo: number;
+}
+
+// export interface DonationPayload {
+//   amountUSD: string;
+//   anonymous: boolean;
+//   remarks: string;
+// }
+
+// export interface StripeCheckoutResponse {
+//   id: string; 
+//   url: string; 
+// }
+
+export interface DonationPayload {
+  amountUSD: string
+  anonymous: boolean
+  remarks: string
+}
+
+export interface PaymentIntentResponse {
+  clientSecret: string
+  paymentIntentId: string
+  amount: number
+  currency: string
 }
