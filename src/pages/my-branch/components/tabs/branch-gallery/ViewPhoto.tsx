@@ -21,7 +21,7 @@ export default function ViewPhoto({
         >
             <div className="resources-modal-section">
                 <ShellHeader title="View Image" onClose={onClose} />
-                <div className="flex flex-col h-4/5 md:h-full overflow-hidden">
+                <div className="flex flex-col h-full overflow-hidden">
                     <img src={url} alt="" className="w-full object-cover h-auto px-5.5 max-h-75.75" />
                     <div className="resources-modal-body">
                         <Divider className="flex shrink-0" />

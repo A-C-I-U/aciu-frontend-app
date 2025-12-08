@@ -12,6 +12,7 @@ export interface Img {
     category: string
 }
 
+
 const sectionActions = [
     <button className="section-action-button">
         Filter
@@ -41,7 +42,7 @@ export default function BranchGalleryTab() {
     return (
         <>
             <div className="flex flex-col gap-6 px-4">
-                <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
+                <div className={`flex ${isMedium ? "items-start" : "items-center"} flex-wrap gap-y-2 md:gap-4`}>
                     <SectionHeader
                         title={!isMedium ? "Branch Gallery" : ""}
                         onSearch={handleSearch}

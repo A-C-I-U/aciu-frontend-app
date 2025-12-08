@@ -16,7 +16,7 @@ export default function ViewPayment({ open, onClose, payment }: {
             open={open}
             onClose={onClose}
         >
-            <div className="resources-modal-section flex flex-col h-4/5 md:h-full overflow-hidden">
+            <div className="resources-modal-section flex flex-col h-full overflow-hidden">
                 <ShellHeader title="View Payment" onClose={onClose} />
                 <Divider className="flex shrink-0" />
                 <PaymentDetailTable payment={payment} />

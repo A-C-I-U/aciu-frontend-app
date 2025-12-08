@@ -17,7 +17,7 @@ export default function BranchExecutivesTab() {
                         Our Branch Executives
                     </h2>
                     <button 
-                        className="btn btn-primary max-w-fit"
+                        className="btn btn-primary max-w-fit !text-sm md:text-base!"
                         onClick={() => setIsAddOpen(true)}
                     >
                         Add admin

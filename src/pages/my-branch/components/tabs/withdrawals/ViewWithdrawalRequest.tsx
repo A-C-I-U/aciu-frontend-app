@@ -19,10 +19,10 @@ export default function ViewWithdrawalRequest({ open, onClose, withdrawal }: {
             open={open}
             onClose={onClose}
         >
-            <div className="resources-modal-section flex flex-col h-4/5 md:h-full overflow-hidden">
+            <div className="resources-modal-section flex flex-col h-full overflow-hidden">
                 <ShellHeader title="View Request" onClose={onClose} />
                 <Divider className="flex shrink-0" />
-                <div className="flex flex-col h-4/5 md:h-full overflow-hidden">
+                <div className="flex flex-col h-full overflow-hidden">
                     <div className="resources-modal-body">               
                         <table>
                             <thead>

@@ -14,6 +14,7 @@ const initialValues = {
     endDate: "",
     ageGrades: [],
     gender: "",
+    currency: "",
     // Location is based on the current branch
     location: "Nigeria",
     memberRoles: "",
@@ -34,8 +35,8 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
         >
             {() => {
                 return (
-                    <Form className="flex flex-col h-4/5 md:h-full overflow-hidden">
-                        <div className="resources-modal-body flex-col gap-8">
+                    <Form className="flex flex-col h-full overflow-hidden">
+                        <div className="resources-modal-body flex-col gap-8 overflow-y-auto">
                             <div className="flex flex-col gap-4">
                                 <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
                                     Dues Information

@@ -52,7 +52,7 @@ export default function BranchMembersTab() {
 
     return (
         <div className="flex flex-col gap-6 px-4">
-            <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
+            <div className={`flex ${isMedium ? "items-start" : "items-center"} flex-wrap gap-y-2 md:gap-4`}>
                 <SectionHeader
                     title={!isMedium ? "Branch Member Management" : ""}
                     onSearch={handleSearch}
@@ -77,7 +77,7 @@ export default function BranchMembersTab() {
                                 fields={fields}
                                 status={branchMemberStatusMap[branchMember.verificationStatus]}
                                 actionLabel="View Dues"
-                                onActionClick={() => setSelected(branchMember)}
+                                onActionClick={() => handleViewClick(branchMember)}
                             />
                         ))}
                     </div>

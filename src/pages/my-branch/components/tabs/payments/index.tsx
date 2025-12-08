@@ -19,6 +19,7 @@ const sectionActions = [
         2022
     </button>
 ]
+
 export default function BranchPaymentsTab() {
     const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
     const isMedium = useMediaQuery("(max-width: 1250px)");
@@ -52,7 +53,7 @@ export default function BranchPaymentsTab() {
     
     return (
         <div className="flex flex-col gap-6 px-4">
-            <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
+            <div className={`flex ${isMedium ? "items-start" : "items-center"} flex-wrap gap-y-2 md:gap-4`}>
                 <SectionHeader
                     title={!isMedium ? "Branch Payments" : ""}
                     onSearch={handleSearch}
@@ -83,7 +84,7 @@ export default function BranchPaymentsTab() {
                                 fields={fields}
                                 status={paymentStatusMap[branchPayment.status]}
                                 actionLabel="View Dues"
-                                onActionClick={() => {setSelected(branchPayment)}}
+                                onActionClick={() => {handleViewClick(branchPayment)}}
                             />
                         ))}
                     </div>

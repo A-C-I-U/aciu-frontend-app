@@ -38,7 +38,7 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
                 setFieldValue
             }) => {
                 return (
-                    <Form className="flex flex-col h-4/5 md:h-full overflow-hidden">
+                    <Form className="flex flex-col h-full overflow-hidden">
                         <div className="resources-modal-body">
                             <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
                                 Request Summary

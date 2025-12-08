@@ -61,7 +61,7 @@ export default function WithdrawalTab() {
 
     return (
         <>
-            <div className="flex flex-col gap-6 px-4">
+            <div className="flex flex-col gap-6 lg:px-4">
                 <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                     <SectionHeader
                         title={!isMedium ? "Withdrawals" : ""}
@@ -71,7 +71,7 @@ export default function WithdrawalTab() {
                         noTitle={!isMedium ? false : true}
                     />
                     <button 
-                        className="btn btn-primary max-w-fit"
+                        className="btn btn-primary max-w-fit !text-sm md:text-base!"
                         onClick={() => setShowSubmitRequest(true)}
                     >
                         Submit Withdrawal Request
@@ -93,7 +93,7 @@ export default function WithdrawalTab() {
                                     fields={fields}
                                     status={withdrawalStatusMap[withdrawal.status]}
                                     actionLabel="View Dues"
-                                    onActionClick={() => setSelected(withdrawal)}
+                                    onActionClick={() => handleViewClick(withdrawal)}
                                 />
                             ))}
                         </div>

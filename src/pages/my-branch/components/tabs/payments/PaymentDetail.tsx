@@ -8,7 +8,7 @@ export default function PaymentDetailTable({
 }: { payment: BranchPaymentsDataType }) {
     const { label, labelColor, dotColor, bgColor } = paymentStatusMap[payment.status as BranchPaymentsDataType["status"]];
     return (
-        <div className="flex flex-col h-4/5 md:h-full overflow-hidden">
+        <div className="flex flex-col h-full overflow-hidden">
             <div className="resources-modal-body">
                                 
                 <table>

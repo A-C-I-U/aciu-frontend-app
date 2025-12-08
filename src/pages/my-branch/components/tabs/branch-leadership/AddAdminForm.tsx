@@ -42,7 +42,7 @@ export default function AddAdminForm({
         >
             {({ isValid, isSubmitting }) => {
                 return (
-                    <Form className="flex flex-col h-4/5 md:h-full overflow-hidden">
+                    <Form className="flex flex-col h-full overflow-hidden">
                         <div className="resources-modal-body">
                             <p className="text-lg font-medium text-aciu-border-grey">
                                 Select Member

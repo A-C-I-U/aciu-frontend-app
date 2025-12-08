@@ -30,9 +30,11 @@ const SectionHeader = ({
                 <SearchBar onSearch={onSearch} placeholder={`Search ${title.toLowerCase()}`} />
               </div>
             )}
-            {actions.map((action, index) => (
-              <React.Fragment key={index}>{action}</React.Fragment>
-            ))}
+            <div className="flex items-center gap-2 lg:gap-4">
+              {actions.map((action, index) => (
+                <React.Fragment key={index}>{action}</React.Fragment>
+              ))}
+            </div>
           </div>
         )}
       </div>

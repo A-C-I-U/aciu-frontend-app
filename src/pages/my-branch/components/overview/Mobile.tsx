@@ -78,7 +78,10 @@ export default function MyBranchMobileOverview({
                     bgcolor="#fff"
                     borderRadius=".625rem"
                     py={3}
-                    px={2}
+                    px={{
+                        xs: 1,
+                        md: 2
+                    }}
                 > 
                     
                     <div className="flex flex-col gap-6 w-full mb-6">

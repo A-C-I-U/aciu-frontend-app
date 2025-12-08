@@ -39,7 +39,7 @@ export default function MyBranchDesktopOverview({
             </div>
 
             <div className="bg-white rounded-xl pb-5">
-                <div className="flex gap-4 md:gap-8 justify-start w-full mx-auto px-4 pt-5">
+                <div className="flex gap-4 md:gap-8 justify-start w-full mx-auto px-4 pt-5 overflow-x-auto">
                     {myBranchTabs.map((tab) => (
                         <button
                             key={tab.key}

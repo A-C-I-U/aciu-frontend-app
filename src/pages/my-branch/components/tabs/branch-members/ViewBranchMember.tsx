@@ -9,6 +9,7 @@ import { useState } from "react";
 import ProfileOverviewTab from "./ProfileOverviewTab";
 import MemberPaymentTab from "./MemberPaymentTab";
 import MemberActivityTab from "./MemberActivityTab";
+import { X } from "lucide-react";
 
 const defaultDialogSx = {
     "& .MuiDialog-paper": {
@@ -62,7 +63,8 @@ export default function ViewBranchMember({
         <>
             <ScrollLock open={open} />
             <Dialog open={open} onClose={onClose} sx={defaultDialogSx}>
-                <div className="pt-15 px-7 flex flex-col gap-4">
+                <button onClick={onClose}><X size={24} /></button>
+                <div className="pt-15 px-3.75 md:px-7 flex flex-col gap-4 overflow-y-auto">
                     <div className="flex flex-col gap-4">
                         <Avatar src={DummyProfile} className="rounded-[4.8rem] !w-21.25 !h-21.25"/>
                         <div className="flex flex-col gap-5">
@@ -72,7 +74,7 @@ export default function ViewBranchMember({
                                 </p>
                                 <StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} /> 
                             </div>
-                            <div className="flex flex-wrap gap-8 items-center">
+                            <div className="hidden md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-8 items-center">
                                 <MemberField title="Joined on" content={formatDate(joinedOn, "dd-MM-yyyy h:mm  aaaaa'm'")} />
                                 <Divider orientation="vertical" className="h-7" />
                                 <MemberField title="Veirfied on" content="Nov 12, 2025" />
@@ -124,7 +126,7 @@ export default function ViewBranchMember({
                             ))}
                         </div>
                         <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
-                        <div className="mt-6">
+                        <div className="mt-6 overflow-y-auto h-full">
                             <ActiveTabComponent branchMember={branchMember} />
                         </div>
                     </div>

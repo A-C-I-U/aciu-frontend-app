@@ -43,7 +43,7 @@ export default function BranchDuesTab() {
     return (
         <>
         <div className="flex flex-col gap-6 px-4">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-col flex-wrap gap-y-2 lg:flex-row lg:items-center lg:justify-between">
                 <h2 className="hidden lg:block text-xl text-aciu-border-grey">
                     Branch Dues
                 </h2>
@@ -54,7 +54,7 @@ export default function BranchDuesTab() {
                     </button>
                     <button 
                         onClick={() => {setShowAddDues(true)}}
-                        className="btn btn-primary max-w-fit">
+                        className="btn btn-primary max-w-fit !text-sm md:text-base!">
                         Add new dues
                     </button>
                 </div>
@@ -76,7 +76,7 @@ export default function BranchDuesTab() {
                                 fields={fields}
                                 status={branchStatusMap[branchDue.status]}
                                 actionLabel="View Dues"
-                                onActionClick={() => {}}
+                                onActionClick={() => handleViewClick(branchDue)}
                             />
                         ))}
                     </div>

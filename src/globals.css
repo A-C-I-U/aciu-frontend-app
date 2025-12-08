@@ -364,6 +364,7 @@ a, button {
     justify-content: center;
     gap: 0.5rem;
     transition: opacity 0.2s, background 0.2s, color 0.2s, border 0.2s;
+    white-space: nowrap;
   }
 
   .btn-primary {
@@ -448,9 +449,9 @@ a, button {
 
   .section-action-button {
     display: flex;
-    gap: 10px;
+    gap: .625rem;
     align-items: center;
-    padding: 10px;
+    padding: .625rem;
     font-size: 0.875rem;
     color: var(--color-grayscale-100);
     border-radius: 0.375rem;
