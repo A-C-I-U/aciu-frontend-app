@@ -1,4 +1,4 @@
-import { array, boolean, mixed, number, object, ref, string } from "yup";
+import { array, boolean, date, mixed, number, object, ref, string } from "yup";
 import { AGEGRADES, BRANCHES } from "./data";
 
 export const signupValidationSchemas = [
@@ -179,4 +179,101 @@ export const uploadResourceSchema = object({
     accessLevel: array()
         .of(string().required("Access level is required"))
         .min(1, "Access level is required")
+});
+
+export const withdrawalRequestSchema = object({
+    source: string()
+        .required("Withdrawal source is required"),
+    amount: string()
+        .required("Amount is required"),
+    submittedBy: string()
+        .required("This field is required"),
+    submittedOn: string()
+        .required("This field is required"),
+    bankName: string()
+        .required("Bank name is required"),
+    accountNumber: string()
+        .required("Account number is required"),
+    reason: string()
+        .required("Reason is required"),
+    customReason: string()
+        .optional(), 
+    document: mixed()
+        .required("A file is required")
+        .test("is-file", "Invalid file", value => value instanceof File),
+
+})
+
+export const adminSchema = object({
+    memberName: string()
+        .required("Member's name is required"),
+    createdBy: string()
+        .required("This field is required"),
+    createdOn: string()
+        .required("Creation date is required"),
+    startDate: date()
+        .required("Start date is required"),
+    endDate: date()
+        .nullable()
+        .min(ref("startDate"), "End date cannot be before start date"),
+    permissions: object({
+        // Member Access
+        viewProfiles: boolean().default(false),
+        approveMembers: boolean().default(false),
+        deleteMemberInfo: boolean().default(false),
+
+        // Dues & Payments
+        createEditDues: boolean().default(false),
+        viewPayments: boolean().default(false),
+        sendReminders: boolean().default(false),
+
+        // Events & Communications
+        createEvents: boolean().default(false),
+        approvePublications: boolean().default(false),
+    })
+    .test(
+        "at-least-one",
+        "At least one permission must be selected",
+        (obj) => Object.values(obj).some(Boolean)
+    ),
+})
+
+
+export const duesValidationSchema = object({
+    duesTitle: string()
+        .required("Dues title is required"),
+    createdBy: string()
+        .required("Created by is required"),
+    createdOn: string()
+        .required("Created on date is required"),
+    interval: string()
+        .required("Interval is required"),
+    amount: number()
+        .typeError("Amount must be a number")
+        .positive("Amount must be positive")
+        .required("Amount is required"),
+    startDate: date()
+        .required("Start date is required"),
+    endDate: date()
+        .min(
+        ref("startDate"),
+        "End date must be after start date"
+        )
+        .required("End date is required"),
+    ageGrades: array()
+        .of(string().required("Age grade is required"))
+        .min(1, "At least one age grade is required"),
+
+    gender: string()
+        .required("Gender is required"),
+
+    location: string()
+        .required("Location is required"),
+
+    memberRoles: string()
+        .required("Member role is required"),
+
+    notifications: array()
+        .of(string().required("Notification is required"))
+        .min(1, "At least one notification is required"),
 });

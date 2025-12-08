@@ -11,7 +11,7 @@ interface ActionButton {
 interface SuccessDialogProps extends DialogFuncProps {
     icon: React.ReactNode,
     title: string,
-    message: string,
+    message: React.ReactNode,
     primaryAction: ActionButton,
     secondaryAction?: ActionButton
 }

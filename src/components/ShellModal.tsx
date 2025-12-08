@@ -29,7 +29,8 @@ export default function ShellModal({
             width: { xs: "92%", md: "38.25rem" },
             margin: "0 auto",
             borderRadius: "1.25rem",
-            maxHeight: "90vh",
+            maxHeight: "none",
+            height: "90dvh",
             display: "flex",
             flexDirection: "column",
         },
@@ -62,6 +63,7 @@ export default function ShellModal({
                 onClose={onClose}
                 disableScrollLock={false}
                 sx={defaultDrawerSx}
+                variant="temporary"
             >
                 {children}
             </Drawer>

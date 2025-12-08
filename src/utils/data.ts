@@ -1,5 +1,6 @@
 import { Calendar2, DollarSquare, FolderOpen, Routing } from "iconsax-react";
 import type { 
+  ActivityLog,
   BlogSubmissionDetails,
   BranchExecCardProps,
   EventDetailsProps, 
@@ -16,6 +17,7 @@ import type {
   UpcomingEventCardProps
 } from "./types";
 import { timeAgo } from "./helpers";
+import type { Img } from "@/pages/my-branch/components/tabs/branch-gallery";
 
 export const BRANCHES: string[] = [
   "home", "aba", "umuahia", "enugu", "owerri",
@@ -894,3 +896,98 @@ export const dashboardUpcomingEvents: UpcomingEventCardProps[] = [
     timeRange: "12:00PM - 5:00PM"
   },
 ]
+
+
+export const branchInfo = {
+  createdAt: "20/3/2025",
+  meetingLocation: "Community Hall, Bode Thomas Street, Surulere, Lagos State",
+  branchKey: "Lagos Branch",
+  branchName: "ACIU Lagos Mainland Branch",
+  branchChairman: "Emeka Kalu",
+  branchChairmanEmail: "emeka.kalu@aciu.org"
+}
+
+export const branchStats = [
+  {
+      title: "Total Verified Members",
+      number: "25",
+      rateOfChange: "12.5"
+  },
+  {
+      title: "Active Age Grades",
+      number: "3",
+      rateOfChange: "12.5"
+  },
+  {
+      title: "Pending Verification",
+      number: "45",
+      rateOfChange: "33"
+  },
+  {
+      title: "Total Dues Collected",
+      number: "25104000",
+      rateOfChange: "44",
+      currency: "N"
+  },
+  {
+      title: "Total Withdrawals",
+      number: "30100000",
+      rateOfChange: "44",
+      currency: "N"
+  }
+]
+
+export const galleryImages: Img[] = [
+  {
+    name: "IMG 7756879",
+    url: "./public/images/abriba-event.jpg",
+    category: "Branch Events"
+  },
+  {
+    name: "IMG 7756879",
+    url: "./public/images/abriba-event.jpg",
+    category: "Branch Events"
+  },
+  {
+    name: "IMG 7756879",
+    url: "./public/images/abriba-event.jpg",
+    category: "Branch Events"
+  },
+  {
+    name: "IMG 7756879",
+    url: "./public/images/ojode-ena.jpg",
+    category: "Branch Events"
+  },
+  {
+    name: "IMG 7756879",
+    url: "./public/images/abriba-event.jpg",
+    category: "Branch Events"
+  },
+  {
+    name: "IMG 7756879",
+    url: "./public/images/nig-uk-flag.jpg",
+    category: "Branch Events"
+  },
+  {
+    name: "IMG 7756879",
+    url: "./public/images/nig-uk-flag.jpg",
+    category: "Branch Events"
+  },
+]
+
+export const logs: ActivityLog[] = [
+  {
+    id: "1",
+    action: "Created Due",
+    timestamp: "2025-12-08T09:30:00Z",
+    actor: "ACIU Leadership",
+    details: "Initial due created with amount ₦5000",
+  },
+  {
+    id: "2",
+    action: "Updated Status",
+    timestamp: "2025-12-08T10:15:00Z",
+    actor: "Treasurer",
+    metadata: { status: "Paid" },
+  },
+];
