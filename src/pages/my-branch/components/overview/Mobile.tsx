@@ -52,7 +52,7 @@ export default function MyBranchMobileOverview({
                             currency={stat.currency}
                         />  
                     ))}
-                    <div className="flex flex-col gap-4 lg:gap-8 justify-center w-full mx-auto">
+                    <div className="flex flex-col gap-4 justify-center w-full mx-auto">
                         {myBranchTabs.map((tab) => (
                             <button
                                 key={tab.key}

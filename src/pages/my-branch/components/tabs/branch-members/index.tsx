@@ -26,6 +26,7 @@ export default function BranchMembersTab() {
     const [isViewOpen, setIsViewOpen] = useState(false);
 
     const isMedium = useMediaQuery("(max-width: 1250px)");
+    const isLarge = useMediaQuery("(max-width: 1024px)");
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
@@ -52,13 +53,13 @@ export default function BranchMembersTab() {
 
     return (
         <div className="flex flex-col gap-6 px-4">
-            <div className={`flex ${isMedium ? "items-start" : "items-center"} flex-wrap gap-y-2 md:gap-4`}>
+            <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                 <SectionHeader
-                    title={!isMedium ? "Branch Member Management" : ""}
+                    title={!isLarge ? "Branch Member Management" : ""}
                     onSearch={handleSearch}
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
-                    noTitle={!isMedium ? false : true}
+                    noTitle={!isLarge ? false : true}
                 />
             </div>
 

@@ -38,25 +38,29 @@ export default function MyBranchDesktopOverview({
                 </div>
             </div>
 
-            <div className="bg-white rounded-xl pb-5">
-                <div className="flex gap-4 md:gap-8 justify-start w-full mx-auto px-4 pt-5 overflow-x-auto">
-                    {myBranchTabs.map((tab) => (
-                        <button
+            <div className="bg-white rounded-xl pb-5 w-full">
+                <div className="overflow-x-auto">
+                    <div className="flex flex-nowrap gap-4 md:gap-8 px-4 pt-5">
+                        {myBranchTabs.map((tab) => (
+                            <button
                             key={tab.key}
                             onClick={() => setActiveTab(tab)}
                             className={`${
                                 activeTab?.key === tab.key
                                 ? "text-aciu-red font-semibold"
                                 : "text-aciu-abriba font-medium pb-4"
-                            } text-xs md:text-sm font-montserrat flex flex-col gap-2`}
-                        >
+                            } text-xs md:text-sm font-montserrat flex flex-col gap-2 whitespace-nowrap`}
+                            >
                             {tab.label}
                             {activeTab?.key === tab.key && (
                                 <span className="block w-full h-0.5 bg-aciu-red mt-2 rounded-full"></span>
                             )}
-                        </button>
-                    ))}
+                            </button>
+                        ))}
+                    </div>
                 </div>
+            
+
                 <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
                 <AnimatePresence mode="wait">
                     <MotionBox

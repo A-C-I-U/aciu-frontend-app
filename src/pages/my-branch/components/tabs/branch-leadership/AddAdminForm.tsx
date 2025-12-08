@@ -182,7 +182,7 @@ export function PermissionGroup({ title, permissions }: {
                 </p>
             </div>
 
-            <div className="flex items-center gap-8.5">
+            <div className="flex flex-wrap items-center gap-4 lg:gap-8.5">
                 {permissions.map((perm) => (
                     <PermissionCheckbox
                         key={perm.name}

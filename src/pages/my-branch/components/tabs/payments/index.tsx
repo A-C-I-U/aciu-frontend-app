@@ -23,6 +23,7 @@ const sectionActions = [
 export default function BranchPaymentsTab() {
     const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
     const isMedium = useMediaQuery("(max-width: 1250px)");
+    const isLarge = useMediaQuery("(max-width: 1024px)");
     const [showDuesReminder, setShowDuesReminder] = useState(false);
     const [selected, setSelected] = useState<BranchPaymentsDataType | null>(null);
     const [isViewOpen, setViewOpen] = useState(false);
@@ -53,13 +54,13 @@ export default function BranchPaymentsTab() {
     
     return (
         <div className="flex flex-col gap-6 px-4">
-            <div className={`flex ${isMedium ? "items-start" : "items-center"} flex-wrap gap-y-2 md:gap-4`}>
+            <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                 <SectionHeader
-                    title={!isMedium ? "Branch Payments" : ""}
+                    title={!isLarge ? "Branch Payments" : ""}
                     onSearch={handleSearch}
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
-                    noTitle={!isMedium ? false : true}
+                    noTitle={!isLarge ? false : true}
                 />
                 <button 
                     className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"

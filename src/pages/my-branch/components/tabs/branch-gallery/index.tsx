@@ -26,6 +26,7 @@ const sectionActions = [
 export default function BranchGalleryTab() {
     const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
+    const isLarge = useMediaQuery("(max-width: 1024px)");
     const [selected, setSelected] = useState<Img | null>(null);
     const [showUploadPhoto, setShowUploadPhoto] = useState(false);
     const [isViewOpen, setIsViewOpen] = useState(false);
@@ -42,13 +43,13 @@ export default function BranchGalleryTab() {
     return (
         <>
             <div className="flex flex-col gap-6 px-4">
-                <div className={`flex ${isMedium ? "items-start" : "items-center"} flex-wrap gap-y-2 md:gap-4`}>
+                <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                     <SectionHeader
-                        title={!isMedium ? "Branch Gallery" : ""}
+                        title={!isLarge ? "Branch Gallery" : ""}
                         onSearch={handleSearch}
                         showSearch={false}
                         actions={sectionActions}
-                        noTitle={!isMedium ? false : true}
+                        noTitle={!isLarge ? false : true}
                     />
                     <button 
                         className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
