@@ -174,21 +174,6 @@ export const publicationStatusMap: Record<PublicationDataType["status"], StatusM
 }
 
 
-export const paymentStatusMap: Record<PaymentDataType["status"], StatusMap> = {
-    completed: { 
-        label: "Completed", 
-        labelColor: "#027A48", 
-        dotColor: "#12B76A", 
-        bgColor: "#ECFDF3" 
-    },
-    failed: {
-        label: "Failed",
-        labelColor: "#FF2E2E",
-        dotColor: "#FF2E2E",
-        bgColor: "#FFEAEA"
-    },
-}
-
 export const branchStatusMap: Record<BranchDueDataType["status"], StatusMap> = {
     active: { 
         label: "Active", 
@@ -203,6 +188,8 @@ export const branchStatusMap: Record<BranchDueDataType["status"], StatusMap> = {
         bgColor: "#E5E5E5"
     },
 }
+
+
 export interface StatusMap {
   label: string, 
   labelColor: string, 
@@ -256,11 +243,58 @@ export const branchEventStatusMap: Record<BranchEventDataType["verificationStatu
     }
 }
 
+// utils/helpers.ts
+export const paymentStatusMap = {
+    completed: { 
+        label: "Completed", 
+        labelColor: "#027A48", 
+        dotColor: "#12B76A", 
+        bgColor: "#ECFDF3" 
+    },
+    failed: {
+        label: "Failed",
+        labelColor: "#FF2E2E",
+        dotColor: "#FF2E2E",
+        bgColor: "#FFEAEA"
+    },
+    overdue: {
+        label: "Overdue",
+        labelColor: "#B54708",
+        dotColor: "#F79009",
+        bgColor: "#FFFAEB"
+    },
+    pending: {
+        label: "Pending",
+        labelColor: "#6941C6",
+        dotColor: "#9E77ED",
+        bgColor: "#F9F5FF"
+    }
+} as const;
 
-export const getExtension = (file: File) => {
-  const name = file.name;
-  const parts = name.split(".");
-  return parts.length > 1 ? parts.pop()!.toLowerCase() : "";
+export const getPaymentStatusConfig = (status: string) => {
+    return paymentStatusMap[status as keyof typeof paymentStatusMap] || {
+        label: status.charAt(0).toUpperCase() + status.slice(1),
+        labelColor: "#667085",
+        dotColor: "#667085",
+        bgColor: "#F2F4F7"
+    };
+};
+
+
+// export const getExtension = (file: File) => {
+//   const name = file.name;
+//   const parts = name.split(".");
+//   return parts.length > 1 ? parts.pop()!.toLowerCase() : "";
+// };
+
+export const getExtension = (file: File | string): string => {
+  if (typeof file === 'string') {
+    const filename = file.split('/').pop() || ''; 
+    return filename.split('.').pop()?.toUpperCase() || 'FILE';
+  }
+  
+  // Handle File object (original logic)
+  return file.name.split('.').pop()?.toUpperCase() || 'FILE';
 };
 
 export const formatSize = (bytes: number) => {
@@ -288,6 +322,12 @@ export function timeAgo(dateString: string) {
   return `${diffYears} year${diffYears > 1 ? "s" : ""} ago`;
 }
 
+  export const formatCurrency = (amount: number) => {
+        return new Intl.NumberFormat('en-NG', {
+            style: 'currency',
+            currency: 'NGN'
+        }).format(amount);
+    };
 
 export function calculateReadingTime(text: string, wordsPerMinute = 225) {
   const words = text.trim().split(/\s+/).length;

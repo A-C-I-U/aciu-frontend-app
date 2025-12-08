@@ -48,7 +48,7 @@ export default function ProfileSettings() {
                 </div>
                <Formik initialValues={initialValues} onSubmit={() => {}}>
                     <Form className=" w-full lg:max-w-11/12 flex flex-col gap-10">
-                        <PersonalInfoForm disableInteractions />
+                        <PersonalInfoForm  />
                         <button
                             type="button"
                             onClick={() => setOpenProfileInfo(true)}

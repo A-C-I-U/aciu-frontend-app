@@ -1,28 +1,28 @@
 import { StatusBadge } from "@/components/StatusBadge";
-import { formatDate, paymentStatusMap } from "@/utils/helpers";
-import type { PaymentDataType } from "@/utils/types";
-import type { ColumnDef, Row } from "@tanstack/react-table";
+import { formatDate, getPaymentStatusConfig } from "@/utils/helpers";
+import type { Payment } from "@/services/types/mypayments";
+import type { ColumnDef } from "@tanstack/react-table";
 
-export const columns: ColumnDef<PaymentDataType>[] = [
+export const columns: ColumnDef<Payment>[] = [
     {
         accessorKey: "date",
         header: "Date",
-        cell: ({ row }: { row: Row<PaymentDataType> }) => <span>{formatDate(row.original.date)}</span>
+        cell: ({ row }) => <span>{formatDate(row.original.date)}</span>
     },
     {
-        accessorKey: "category",
-        header: "Category",
-        cell: ({ row }: { row: Row<PaymentDataType> }) => <span>{row.original.category}</span>
+        accessorKey: "dueType",
+        header: "Due Type",
+        cell: ({ row }) => <span>{row.original.dueType || 'N/A'}</span>
     }, 
     {
-        accessorKey: "description",
-        header: "Description",
-        cell: ({ row }: { row: Row<PaymentDataType> }) => <span>{row.original.description}</span>
+        accessorKey: "period",
+        header: "Period",
+        cell: ({ row }) => <span>{row.original.period || 'N/A'}</span>
     },
     {
         accessorKey: "amountPaid",
         header: "Amount Paid",
-        cell: ({ row }: { row: Row<PaymentDataType> }) => {
+        cell: ({ row }) => {
             const { amountPaid } = row.original;
             return (
                 <span>
@@ -35,14 +35,13 @@ export const columns: ColumnDef<PaymentDataType>[] = [
         accessorKey: "status",
         header: "Status",
         cell: ({ getValue }) => {
-            const status = getValue();
-
+            const status = getValue() as string;
             const {
                 label,
                 labelColor,
                 dotColor,
                 bgColor
-            } = paymentStatusMap[status as PaymentDataType["status"]];
+            } = getPaymentStatusConfig(status);
 
             return (
                 <StatusBadge
@@ -64,4 +63,4 @@ export const columns: ColumnDef<PaymentDataType>[] = [
             </p>
         )
     }
-]
+];
