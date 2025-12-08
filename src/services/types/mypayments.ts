@@ -51,3 +51,14 @@ export interface Payment {
   targetType?: string | null;
   paymentId?: string | null; 
 }
+
+export interface PaymentIntentResponse {
+  clientSecret: string;
+  paymentIntentId: string;
+  amount: number;
+  currency: string;
+}
+
+export interface PaymentIntentError {
+  error: string;
+}
