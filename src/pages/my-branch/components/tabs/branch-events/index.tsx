@@ -1,5 +1,5 @@
 import SectionHeader from "@/components/SectionHeader";
-import { formatDate, generateMockBranchEvents, paymentStatusMap } from "@/utils/helpers";
+import { branchPaymentStatusMap, formatDate, generateMockBranchEvents } from "@/utils/helpers";
 import type { BranchEventDataType, FieldConfig } from "@/utils/types";
 import { useMediaQuery } from "@mui/material";
 import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
@@ -75,7 +75,7 @@ export default function BranchEventsTab() {
                                 key={branchEvent.id}
                                 item={branchEvent}
                                 fields={fields}
-                                status={paymentStatusMap[branchEvent.verificationStatus]}
+                                status={branchPaymentStatusMap[branchEvent.verificationStatus]}
                                 actionLabel="View Dues"
                                 onActionClick={() => navigate(`/events/${1}`)}
                             />

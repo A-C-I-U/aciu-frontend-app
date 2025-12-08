@@ -63,7 +63,7 @@ export default function ViewBranchMember({
         <>
             <ScrollLock open={open} />
             <Dialog open={open} onClose={onClose} sx={defaultDialogSx}>
-                <button onClick={onClose}><X size={24} /></button>
+                <button onClick={onClose} className="pt-4 flex justify-end px-3.75"><X size={24} /></button>
                 <div className="pt-15 px-3.75 md:px-7 flex flex-col gap-4 overflow-y-auto">
                     <div className="flex flex-col gap-4">
                         <Avatar src={DummyProfile} className="rounded-[4.8rem] !w-21.25 !h-21.25"/>

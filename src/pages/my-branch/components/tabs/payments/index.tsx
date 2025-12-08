@@ -1,5 +1,5 @@
 import SectionHeader from "@/components/SectionHeader";
-import { formatDate, generateMockBranchPayments, paymentStatusMap } from "@/utils/helpers";
+import { branchPaymentStatusMap, formatDate, generateMockBranchPayments } from "@/utils/helpers";
 import type { BranchPaymentsDataType, FieldConfig } from "@/utils/types";
 import { useMediaQuery } from "@mui/material";
 import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
@@ -83,7 +83,7 @@ export default function BranchPaymentsTab() {
                                 key={branchPayment.id}
                                 item={branchPayment}
                                 fields={fields}
-                                status={paymentStatusMap[branchPayment.status]}
+                                status={branchPaymentStatusMap[branchPayment.status]}
                                 actionLabel="View Dues"
                                 onActionClick={() => {handleViewClick(branchPayment)}}
                             />

@@ -1,12 +1,12 @@
 import { StatusBadge } from "@/components/StatusBadge";
-import { paymentStatusMap } from "@/utils/helpers";
+import { branchPaymentStatusMap } from "@/utils/helpers";
 import type { BranchPaymentsDataType } from "@/utils/types";
 import { formatDate } from "date-fns";
 
 export default function PaymentDetailTable({
     payment
 }: { payment: BranchPaymentsDataType }) {
-    const { label, labelColor, dotColor, bgColor } = paymentStatusMap[payment.status as BranchPaymentsDataType["status"]];
+    const { label, labelColor, dotColor, bgColor } = branchPaymentStatusMap[payment.status as BranchPaymentsDataType["status"]];
     return (
         <div className="flex flex-col h-full overflow-hidden">
             <div className="resources-modal-body">

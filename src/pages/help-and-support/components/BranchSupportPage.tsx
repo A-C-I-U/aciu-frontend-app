@@ -6,34 +6,44 @@ import { useState } from "react"
 import { BranchInitials } from "./BranchInitials"
 import { StatTag } from "./BranchStatTag"
 import { BranchLeadershipTab } from "./BranchLeadershipTab"
+import type { BranchSearchResponse } from "@/services/types/helpandsupport"
 import EventsList from "@/pages/events/components/EventsList"
 
 const MotionBox = motion.create(Box)
 
-const branchSupportTabs: TabItem[] = [
-    { 
-        key: "branch-leadership",
-        label: "Branch Leadership",
-        content: <BranchLeadershipTab />
-    },
-    {
-        key: "branch-events",
-        label: "Branch Events",
-        content: (
-            <div className="flex flex-col gap-4 lg:gap-8">
-                <EventsList />
-            </div>
-        )
-    }
-]
-
+interface BranchSupportPageProps {
+  onBackToSupport: () => void
+  branchData?: BranchSearchResponse
+}
 
 export default function BranchSupportPage({
-    onBackToSupport
-}: { onBackToSupport: () => void}) {
-  const [activeTab, setActiveTab] = useState<TabItem | null>(branchSupportTabs[0]);
+  onBackToSupport, 
+  branchData
+}: BranchSupportPageProps) {
+  const [activeTab, setActiveTab] = useState<TabItem | null>(null);
   const [screen, setScreen] = useState<"overview" | "content">("overview");
   const isMobile = useMediaQuery("(max-width: 768px)");
+
+  const branchSupportTabs: TabItem[] = [
+    { 
+      key: "branch-leadership",
+      label: "Branch Leadership", 
+      content: <BranchLeadershipTab leadership={branchData?.leadership || []} />
+    },
+    {
+      key: "branch-events",
+      label: "Branch Events",
+      content: (
+        <div className="flex flex-col gap-4 lg:gap-8">
+          <EventsList events={branchData?.events || []} />
+        </div>
+      )
+    }
+  ]
+
+  if (!activeTab && branchSupportTabs.length > 0) {
+    setActiveTab(branchSupportTabs[0]);
+  }
 
   const handleOpenContent = (tab: TabItem) => {
     setActiveTab(tab);
@@ -43,6 +53,10 @@ export default function BranchSupportPage({
   const handleBack = () => setScreen("overview");
 
   const isDesktop = !isMobile;
+
+  const branchCity = branchData?.branchCity ||  "Branch";
+  const meetingLocation = branchData?.meetingLocation ||  "Branch Location";
+  const registeredUsersCount = branchData?.registeredUsersCount ||  0;
 
   return (
     <div>
@@ -72,14 +86,17 @@ export default function BranchSupportPage({
                 </button>
 
                 <div className="flex flex-col gap-2 px-2 md:px-4 items-center">
-                    <BranchInitials branchName="Lagos Branch" />
+                    <BranchInitials branchName={branchCity} />
                     <h2 className="text-xl font-coolvetica text-aciu-border-grey">
-                        ACIU Lagos Mainland Branch
+                        ACIU {branchCity}
                     </h2>
 
                     <div className="flex items-center gap-2">
                     {[
-                        { icon: People, stat: "172 registered members" },
+                        { 
+                          icon: People, 
+                          stat: `${registeredUsersCount} registered member${registeredUsersCount !== 1 ? 's' : ''}` 
+                        },
                         { icon: Verify, stat: "Verified and Active" },
                     ].map(({ icon, stat }, i) => (
                         <StatTag key={i} icon={icon} stat={stat} />
@@ -89,7 +106,7 @@ export default function BranchSupportPage({
                     <div className="flex flex-col gap-2 text-center">
                         <p className="text-aciu-abriba">Meeting Location</p>
                         <p className="font-medium text-aciu-border-grey">
-                            Community Hall, Bode Thomas Street, Surulere, Lagos State
+                            {meetingLocation}
                         </p>
                     </div>
 
@@ -164,18 +181,21 @@ export default function BranchSupportPage({
                             <ArrowLeft2 size={18} color="#898483" />
                         </button>
                         <div className="flex flex-col gap-2 items-center bg-white rounded-[0.625rem] py-3 px-3">
-                            <BranchInitials branchName="Lagos Branch" />
+                            <BranchInitials branchName={branchCity} />
                             <h2 className="text-xl font-coolvetica text-aciu-border-grey">
-                                ACIU Lagos Mainland Branch
+                                ACIU {branchCity}
                             </h2>
                             <div className="flex flex-col gap-2">
-                                <StatTag icon={People} stat="172 registered members" />
+                                <StatTag 
+                                  icon={People} 
+                                  stat={`${registeredUsersCount} registered member${registeredUsersCount !== 1 ? 's' : ''}`} 
+                                />
                                 <StatTag icon={Verify} stat="Verified and Active" />
                             </div>
                             <div className="flex flex-col gap-2 text-center">
                                 <p className="text-aciu-abriba">Meeting Location</p>
                                 <p className="font-medium text-aciu-border-grey">
-                                    Community Hall, Bode Thomas Street, Surulere, Lagos State
+                                    {meetingLocation}
                                 </p>
                             </div>
                         </div>
@@ -225,5 +245,5 @@ export default function BranchSupportPage({
             </MotionBox>
         )}
     </div>
-    )
+  )
 }

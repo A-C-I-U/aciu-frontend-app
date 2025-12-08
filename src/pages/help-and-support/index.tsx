@@ -6,12 +6,21 @@ import ContactUsForm from "./components/ContactUsForm";
 import ContactInfo from "./components/ContactInfo";
 import FAQSection from "./components/FaqSection";
 import LocateBranch from "./components/LocateBranch";
+import type { BranchSearchResponse } from "@/services/types/helpandsupport";
 import BranchSupportPage from "./components/BranchSupportPage";
 import MotionBox from "@/components/MotionBox";
 
 export default function HelpAndSupportPage() {
     const [showBranchPopup, setShowBranchPopup] = useState(false);
     const [page, setPage] = useState<"index" | "branch-support">("index");
+    const [branchData, setBranchData] = useState<BranchSearchResponse | null>(null);
+
+    const handleBranchLocation = (data?: BranchSearchResponse) => {
+        if (data) {
+            setBranchData(data);
+        }
+        setPage("branch-support");
+    }
 
     return (
         <AnimatePresence>
@@ -95,7 +104,7 @@ export default function HelpAndSupportPage() {
                         <LocateBranch 
                             open={showBranchPopup} 
                             onClose={() => setShowBranchPopup(false)}
-                            onBranchLocation={() => setPage("branch-support")}
+                            onBranchLocation={handleBranchLocation}
                         />
                     </>
                 }
@@ -105,7 +114,9 @@ export default function HelpAndSupportPage() {
                         onBackToSupport={() => {
                             setPage("index");
                             setShowBranchPopup(false);
+                            setBranchData(null);
                         }}
+                        branchData={branchData || undefined}
                     />
                 }
             </div>
