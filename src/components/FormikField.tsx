@@ -75,7 +75,7 @@ export default function FormikField({
             ),
             IconComponent: () => null,
             MenuProps: {
-              hideBackdrop: true, 
+              hideBackdrop: select ? false : true, 
               disableScrollLock: true,
               sx: {
                 fontFamily: "'Montserrat', sans-serif",
@@ -106,16 +106,38 @@ export default function FormikField({
               }
             },
             renderValue: (selected) => {
-              if (!selected) {
+              // Handle empty selection
+              if (!selected || (Array.isArray(selected) && selected.length === 0)) {
                 return (
-                  <span className='text-aciu-abriba opacity-50 text-sm font-medium'>
+                  <span className="text-aciu-abriba opacity-50 text-sm font-medium">
                     {placeholder}
                   </span>
                 );
               }
-              const opt = options?.find(o => o.value === selected);
+
+              // Handle multiple selections
+              if (Array.isArray(selected)) {
+                return (
+                  <div className="flex flex-wrap gap-1">
+                    {selected.map((val) => {
+                      const opt = options?.find((o) => o.value === val);
+                      return (
+                        <span
+                          key={val}
+                          className="px-2 py-1 bg-aciu-light-grey text-sm text-aciu-abriba font-medium rounded-[3.125rem]"
+                        >
+                          {opt?.label ?? val}
+                        </span>
+                      );
+                    })}
+                  </div>
+                );
+              }
+
+              // Handle single selection
+              const opt = options?.find((o) => o.value === selected);
               return (
-                <span className='text-aciu-abriba text-sm font-medium'>
+                <span className="text-aciu-abriba text-sm font-medium">
                   {opt?.label ?? selected.toString()}
                 </span>
               );
