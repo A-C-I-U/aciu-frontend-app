@@ -64,10 +64,11 @@ export default function WithdrawalTab() {
             <div className="flex flex-col gap-6 px-4">
                 <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                     <SectionHeader
-                        title="Withdrawals"
+                        title={!isMedium ? "Withdrawals" : ""}
                         onSearch={handleSearch}
                         showSearch={isMedium ? false : true}
                         actions={sectionActions}
+                        noTitle={!isMedium ? false : true}
                     />
                     <button 
                         className="btn btn-primary max-w-fit"

@@ -46,10 +46,11 @@ export default function BranchEventsTab() {
         <div className="flex flex-col gap-6 px-4">
             <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                 <SectionHeader
-                    title="Branch Events"
+                    title={!isMedium ? "Branch Events" : ""}
                     onSearch={handleSearch}
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
+                    noTitle={!isMedium ? false : true}
                 />
                 <Link
                     className="btn btn-primary max-w-fit"

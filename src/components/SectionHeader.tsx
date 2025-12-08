@@ -5,6 +5,7 @@ interface SectionHeaderProps {
   title: string;
   onSearch: (query: string) => void;
   showSearch?: boolean;
+  noTitle?: boolean;
   actions?: React.ReactNode[];
 }
 
@@ -13,10 +14,11 @@ const SectionHeader = ({
   onSearch,
   showSearch = false,
   actions = [],
+  noTitle = false
 }: SectionHeaderProps) => {
   return (
     <div className="flex justify-between items-center w-full">
-      <div className="flex flex-col gap-6 lg:gap-4 lg:flex-row lg:justify-between lg:items-center w-full">
+      <div className={!noTitle ? "flex flex-col gap-6 lg:gap-4 lg:flex-row lg:justify-between lg:items-center w-full" : ""}>
         <h1 className="whitespace-nowrap text-lg lg:text-xl font-bold text-aciu-border-grey">
           {title}
         </h1>

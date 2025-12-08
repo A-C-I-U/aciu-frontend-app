@@ -54,10 +54,11 @@ export default function BranchMembersTab() {
         <div className="flex flex-col gap-6 px-4">
             <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                 <SectionHeader
-                    title="Branch Member Management"
+                    title={!isMedium ? "Branch Member Management" : ""}
                     onSearch={handleSearch}
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
+                    noTitle={!isMedium ? false : true}
                 />
             </div>
 

@@ -43,8 +43,8 @@ export default function BranchDuesTab() {
     return (
         <>
         <div className="flex flex-col gap-6 px-4">
-            <div className="flex flex-col lg:flex-row items-center lg:justify-between">
-                <h2 className="text-xl text-aciu-border-grey">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                <h2 className="hidden lg:block text-xl text-aciu-border-grey">
                     Branch Dues
                 </h2>
                 <div className="flex gap-4 items-center">
@@ -54,7 +54,7 @@ export default function BranchDuesTab() {
                     </button>
                     <button 
                         onClick={() => {setShowAddDues(true)}}
-                        className="btn btn-primary">
+                        className="btn btn-primary max-w-fit">
                         Add new dues
                     </button>
                 </div>

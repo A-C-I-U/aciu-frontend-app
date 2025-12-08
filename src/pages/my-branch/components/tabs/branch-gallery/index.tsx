@@ -43,10 +43,11 @@ export default function BranchGalleryTab() {
             <div className="flex flex-col gap-6 px-4">
                 <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                     <SectionHeader
-                        title="Branch Gallery"
+                        title={!isMedium ? "Branch Gallery" : ""}
                         onSearch={handleSearch}
                         showSearch={false}
                         actions={sectionActions}
+                        noTitle={!isMedium ? false : true}
                     />
                     <button 
                         className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
