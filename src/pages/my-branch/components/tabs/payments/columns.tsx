@@ -1,5 +1,5 @@
 import { StatusBadge } from "@/components/StatusBadge";
-import { paymentStatusMap } from "@/utils/helpers";
+import { branchPaymentStatusMap } from "@/utils/helpers";
 import type { BranchPaymentsDataType } from "@/utils/types";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 import { formatDate } from "date-fns";
@@ -36,7 +36,7 @@ export const columns = (setSelected: (p: BranchPaymentsDataType) => void): Colum
                     labelColor, 
                     dotColor, 
                     bgColor 
-                } = paymentStatusMap[status as BranchPaymentsDataType["status"]];
+                } = branchPaymentStatusMap[status as BranchPaymentsDataType["status"]];
     
                 return (
                     <StatusBadge
