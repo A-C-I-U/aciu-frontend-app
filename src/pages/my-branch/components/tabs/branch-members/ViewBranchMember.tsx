@@ -13,9 +13,11 @@ import MemberActivityTab from "./MemberActivityTab";
 const defaultDialogSx = {
     "& .MuiDialog-paper": {
         overflow: "hidden",
-        width: { xs: "92% !important", md: "900px !important" },
+        width: { xs: "92%", md: "90dvh" },
         margin: "0 auto",
+        maxWidth: "none",
         borderRadius: "1.25rem",
+        height: "none",
         maxHeight: "90dvh",
         display: "flex",
         flexDirection: "column",
@@ -60,7 +62,7 @@ export default function ViewBranchMember({
         <>
             <ScrollLock open={open} />
             <Dialog open={open} onClose={onClose} sx={defaultDialogSx}>
-                <div className="pt-15 px-7 flex flex-col gap-8">
+                <div className="pt-15 px-7 flex flex-col gap-4">
                     <div className="flex flex-col gap-4">
                         <Avatar src={DummyProfile} className="rounded-[4.8rem] !w-21.25 !h-21.25"/>
                         <div className="flex flex-col gap-5">
@@ -82,19 +84,19 @@ export default function ViewBranchMember({
                     <div className="flex gap-4 items-center">
                         {activeTab.key === "payments" ?
                             <>
-                                <button className="btn btn-primary">
+                                <button className="btn btn-primary max-w-fit">
                                     Download Member Record
                                 </button>
-                                <button className="btn btn-danger">
+                                <button className="btn btn-danger max-w-fit">
                                     Withdraw Verification
                                 </button>
                             </>
                             :
                             <>
-                                <button className="btn btn-primary">
+                                <button className="btn btn-primary max-w-fit">
                                     Verify & Approve
                                 </button>
-                                <button className="btn btn-danger">
+                                <button className="btn btn-danger max-w-fit">
                                     Reject Member
                                 </button>
                             </>
@@ -102,8 +104,8 @@ export default function ViewBranchMember({
                         
                     </div>
 
-                    <div className="flex flex-col">
-                        <div className="flex gap-4 md:gap-8 justify-start w-full mx-auto px-4">
+                    <div className="flex flex-col mb-7.5">
+                        <div className="flex gap-4 md:gap-8 justify-start w-full mx-auto">
                             {branchMemberTabs.map((tab) => (
                                 <button
                                     key={tab.key}
@@ -112,7 +114,7 @@ export default function ViewBranchMember({
                                         activeTab?.key === tab.key
                                         ? "text-aciu-red font-semibold"
                                         : "text-aciu-abriba font-medium pb-4"
-                                    } text-xs md:text-sm font-montserrat flex flex-col gap-4`}
+                                    } text-xs md:text-sm font-montserrat flex flex-col gap-2`}
                                 >
                                     {tab.label}
                                     {activeTab?.key === tab.key && (
@@ -122,7 +124,9 @@ export default function ViewBranchMember({
                             ))}
                         </div>
                         <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
-                        <ActiveTabComponent branchMember={branchMember} />
+                        <div className="mt-6">
+                            <ActiveTabComponent branchMember={branchMember} />
+                        </div>
                     </div>
                 </div>
             </Dialog>
@@ -132,7 +136,7 @@ export default function ViewBranchMember({
 
 export const MemberField = ({ title, content }: {
     title: string,
-    content: string
+    content: React.ReactNode
 }) => {
     return (
         <div className="flex flex-col gap-2 text-sm">

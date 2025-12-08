@@ -13,7 +13,6 @@ import AddBranchDues from "./AddBranchDues";
 import SuccessfulDueCreation from "./SuccessfulDueCreation";
 
 export default function BranchDuesTab() {
-
     const isMedium = useMediaQuery('(max-width:1250px)');
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
@@ -28,9 +27,14 @@ export default function BranchDuesTab() {
     const end = start + itemsPerPage;
     const currentItems = mockData.slice(start, end);
 
+    const handleViewClick = (due: BranchDueDataType) => {
+        setSelected(due);
+        setIsViewOpen(true);
+    }
+
     const table = useReactTable<BranchDueDataType>({
         data: mockData,
-        columns: columns(setSelected),
+        columns: columns(handleViewClick),
         pageCount: Math.ceil(mockData.length / 10),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
@@ -88,13 +92,7 @@ export default function BranchDuesTab() {
             </>  
         </div>
 
-        <DuesPreview
-            open={isViewOpen}
-            onClose={() => setIsViewOpen(false)}
-            due={selected}
-        />
-
-        {/* This uses the somewhat the same logic as `SuccessfulEventCreation`
+        {/* This has the same intention as the function in `SuccessfulEventCreation`
           * Another approach might be needed to pass `duesTitle` to 
           * `SuccessfulDuesCreation`.
          */}
@@ -105,6 +103,12 @@ export default function BranchDuesTab() {
                 setDueTitle(values.dueTitle)
                 setIsSuccessOpen(true)
             }}
+        />
+
+        <DuesPreview
+            open={isViewOpen}
+            onClose={() => setIsViewOpen(false)}
+            due={selected}
         />
 
         <SuccessfulDueCreation

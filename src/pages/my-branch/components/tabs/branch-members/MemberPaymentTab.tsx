@@ -4,11 +4,15 @@
  * will appear here
  */
 
+import type { BranchMemberDataType } from "@/utils/types";
 import { EmptyPaymentsState } from "../../EmptyStates";
 
-export default function MemberPaymentTab() {
+export default function MemberPaymentTab({ branchMember }: { branchMember: BranchMemberDataType}) {
+    
     return (
-        <EmptyPaymentsState />
+       branchMember ? (
+          <EmptyPaymentsState />)  :
+          (<span>State</span>)
     )
 }
 

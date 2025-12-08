@@ -9,7 +9,7 @@ export default function MemberActivityTab({ branchMember }: {
     branchMember: BranchMemberDataType
 }) {
     return (
-        <>
+        <div className="flex flex-col gap-7.5">
             {activities.length > 0  ?
                 <div className="flex flex-col gap-4">
                     <div className="flex gap-2 items-center">
@@ -22,7 +22,7 @@ export default function MemberActivityTab({ branchMember }: {
                 :
                 <EmptyMemberActivity />
             }
-        </>
+        </div>
        
     )
 }

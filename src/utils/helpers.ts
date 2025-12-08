@@ -1,5 +1,5 @@
 
-import { ageGradeOptions, publicationStatuses } from "./data";
+import { ageGradeOptions, logs, publicationStatuses } from "./data";
 import type { BranchDueDataType, BranchEventDataType, BranchMemberDataType, BranchPaymentsDataType, PaymentDataType, PublicationDataType, WithdrawalDataType } from "./types";
 import { format } from "date-fns";
 
@@ -46,6 +46,18 @@ export function generateMockBranchDues(count: number): BranchDueDataType[] {
     return {
       id: `${i + 1}`,
       creationDate: creation.toISOString(),
+      createdBy: `Current User`,
+      startDate: creation.toISOString(),
+      endDate: "",
+      dueRules: {
+        ageGrades: ["All Age Grades"],
+        currency: "Dollar",
+        gender: "All Genders",
+        location: "Nigeria",
+        memberRoles: "All Members",
+        notifications: ["Every 7 days", "3 days before deadline"]
+      },
+      activityLogs: logs,
       dueType: `Due Type ${i + 1}`,
       intervals: ["quarterly", "monthly", "anually", "one time"][Math.floor(Math.random() * 3)],
       amountPaid: `${Math.floor(Math.random() * 100000)}`,

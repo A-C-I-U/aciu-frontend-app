@@ -33,9 +33,14 @@ export default function BranchMembersTab() {
     const end = start + itemsPerPage;
     const currentItems = mockData.slice(start, end);
 
+    const handleViewClick = (member: BranchMemberDataType) => {
+        setSelected(member);
+        setIsViewOpen(true)
+    }
+
     const table = useReactTable<BranchMemberDataType>({
         data: mockData,
-        columns: columns(setSelected),
+        columns: columns(handleViewClick),
         pageCount: Math.ceil(mockData.length / 10),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()

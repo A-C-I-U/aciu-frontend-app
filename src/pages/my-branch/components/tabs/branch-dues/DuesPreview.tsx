@@ -54,48 +54,50 @@ export default function DuesPreview({
                             </p>
                             <table>
                                 <tbody>
-                                    <DetailRow 
-                                        icon={<Clock size={20} color="#737373" />} 
-                                        label="Created on"
-                                    >
-                                        {formatDate(creationDate, "dd MMMMMM yyyy h:mm aaaa'm'")}
-                                    </DetailRow>
-                                    <DetailRow 
-                                        icon={<StatusLoader width={20} height={20} />}
-                                        label="Status"
-                                    >
-                                        <StatusBadge label={label} dotColor={dotColor} bgColor={bgColor} labelColor={labelColor} />
-                                    </DetailRow>
-                                    <DetailRow 
-                                        icon={<User size={20} color="#737373" />}
-                                        label="Created By"
-                                    >
-                                        {createdBy}
-                                    </DetailRow>
-                                    <DetailRow 
-                                        icon={<DollarSquare size={20} color="#737373" />}
-                                        label="Amount"
-                                    >
-                                        {amountPaid}
-                                    </DetailRow>
-                                    <DetailRow
-                                        icon={<ReloadIcon width={20} height={20} />}
-                                        label="Intervals"
-                                    >
-                                        {intervals}
-                                    </DetailRow>
-                                    <DetailRow
-                                        icon={<MoreTimeIcon width={20} height={20} />}
-                                        label="Start Date"
-                                    >
-                                        {startDate}
-                                    </DetailRow>
-                                    <DetailRow
-                                        icon={<TimeOutIcon width={20} height={20} />}
-                                        label="End Date"
-                                    >
-                                        {endDate}
-                                    </DetailRow>
+                                    <div className="flex flex-col gap-4">
+                                        <DetailRow 
+                                            icon={<Clock size={20} color="#737373" />} 
+                                            label="Created on"
+                                        >
+                                            {formatDate(creationDate, "dd MMMMMM, yyyy h:mm aaaa")}
+                                        </DetailRow>
+                                        <DetailRow 
+                                            icon={<StatusLoader width={20} height={20} />}
+                                            label="Status"
+                                        >
+                                            <StatusBadge label={label} dotColor={dotColor} bgColor={bgColor} labelColor={labelColor} />
+                                        </DetailRow>
+                                        <DetailRow 
+                                            icon={<User size={20} color="#737373" />}
+                                            label="Created By"
+                                        >
+                                            {createdBy}
+                                        </DetailRow>
+                                        <DetailRow 
+                                            icon={<DollarSquare size={20} color="#737373" />}
+                                            label="Amount"
+                                        >
+                                            {`N${(+amountPaid).toLocaleString()}`}
+                                        </DetailRow>
+                                        <DetailRow
+                                            icon={<ReloadIcon width={20} height={20} />}
+                                            label="Intervals"
+                                        >
+                                            <span className="capitalize">{intervals}</span>
+                                        </DetailRow>
+                                        <DetailRow
+                                            icon={<MoreTimeIcon width={24} height={24} />}
+                                            label="Start Date"
+                                        >
+                                            {formatDate(startDate, "dd MMMMMM, yyyy h:mm aaaa")}
+                                        </DetailRow>
+                                        <DetailRow
+                                            icon={<TimeOutIcon width={18} height={18} />}
+                                            label="End Date"
+                                        >
+                                            {endDate ?? "Ongoing"}
+                                        </DetailRow>
+                                    </div>
                                 </tbody>
                             </table>
                         </div>
@@ -109,7 +111,7 @@ export default function DuesPreview({
                                             activeTab?.key === tab.key
                                             ? "text-aciu-red font-semibold"
                                             : "text-aciu-abriba font-medium pb-4"
-                                        } text-xs md:text-sm font-montserrat flex flex-col gap-4`}
+                                        } text-xs md:text-sm font-montserrat flex flex-col gap-2`}
                                     >
                                         {tab.label}
                                         {activeTab?.key === tab.key && (
@@ -119,9 +121,20 @@ export default function DuesPreview({
                                 ))}
                             </div>
                             <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
-                            {activeTab.content}
+                            <div className="mt-6">
+                                {activeTab.content}
+                            </div>
                         </div>
                     </div>
+                    {/* Should Trigger Edit Dues */}
+                    <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
+                        <button className="btn btn-primary" onClick={() => {}}>
+                            Edit Dues
+                        </button>
+                        <button className="btn btn-secondary">
+                            Deactivate
+                        </button>
+                    </div> 
                 </div>
             </div>
         </ShellModal>
@@ -131,12 +144,12 @@ export default function DuesPreview({
 
 export const DetailRow = ({ label, icon, children }: { label: string, icon: React.ReactNode, children: React.ReactNode}) => {
     return (
-        <tr>
+        <tr className="grid grid-cols-[.8fr_1.5fr]">
             <td className="flex items-center gap-2">
                 {icon}
                 {label}
             </td>
-            <td>{children}</td>
+            <td className="items-start">{children}</td>
         </tr>
     )
 }
