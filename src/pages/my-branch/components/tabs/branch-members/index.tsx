@@ -23,6 +23,8 @@ const sectionActions = [
 export default function BranchMembersTab() {
     const [_query, setQuery] = useState("");
     const [selected, setSelected] = useState<BranchMemberDataType | null>(null);
+    const [isViewOpen, setIsViewOpen] = useState(false);
+
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
@@ -83,9 +85,13 @@ export default function BranchMembersTab() {
                     />
                 }
             </>
-            {selected && (
-                <ViewBranchMember open={!!selected} onClose={() => setSelected(null)} branchMember={selected}/>
-            )}
+            
+            <ViewBranchMember 
+                open={isViewOpen} 
+                onClose={() => setIsViewOpen(false)} 
+                branchMember={selected}
+            />
+            
         </div>
     )
     

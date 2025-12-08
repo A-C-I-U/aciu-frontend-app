@@ -8,6 +8,9 @@ import { columns } from "./columns";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 import type { BranchDueDataType, FieldConfig } from "@/utils/types";
 import MobileItemCard from "@/components/MobileItem";
+import DuesPreview from "./DuesPreview";
+import AddBranchDues from "./AddBranchDues";
+import SuccessfulDueCreation from "./SuccessfulDueCreation";
 
 export default function BranchDuesTab() {
 
@@ -15,19 +18,26 @@ export default function BranchDuesTab() {
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
+    const [isViewOpen, setIsViewOpen] = useState(false);
+    const [selected, setSelected] = useState<BranchDueDataType | null>(null);
+    const [showAddDues, setShowAddDues] = useState(false);
+    const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+    const [dueTitle, setDueTitle] = useState("");
+
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const currentItems = mockData.slice(start, end);
 
     const table = useReactTable<BranchDueDataType>({
         data: mockData,
-        columns,
+        columns: columns(setSelected),
         pageCount: Math.ceil(mockData.length / 10),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
-    })
+    });
 
     return (
+        <>
         <div className="flex flex-col gap-6 px-4">
             <div className="flex flex-col lg:flex-row items-center lg:justify-between">
                 <h2 className="text-xl text-aciu-border-grey">
@@ -38,7 +48,9 @@ export default function BranchDuesTab() {
                         Filter
                         <Sort variant="Outline" color="#A4ACB9" size={20} />
                     </button>
-                    <button className="section-primary-action lg:py-4 lg:px-4 pointer-events-none">
+                    <button 
+                        onClick={() => {setShowAddDues(true)}}
+                        className="btn btn-primary">
                         Add new dues
                     </button>
                 </div>
@@ -73,9 +85,39 @@ export default function BranchDuesTab() {
                         itemsPerPage={itemsPerPage}
                     />
                 }
-            </>
-                
+            </>  
         </div>
+
+        <DuesPreview
+            open={isViewOpen}
+            onClose={() => setIsViewOpen(false)}
+            due={selected}
+        />
+
+        {/* This uses the somewhat the same logic as `SuccessfulEventCreation`
+          * Another approach might be needed to pass `duesTitle` to 
+          * `SuccessfulDuesCreation`.
+         */}
+        <AddBranchDues
+            open={showAddDues}
+            onClose={() => setShowAddDues(false)}
+            onSuccess={(values: any) => {
+                setDueTitle(values.dueTitle)
+                setIsSuccessOpen(true)
+            }}
+        />
+
+        <SuccessfulDueCreation
+            dueTitle={dueTitle}
+            open={isSuccessOpen}
+            onClose={() => setIsSuccessOpen(false)}
+            addBranchDues={() => {
+                setShowAddDues(false);
+                setIsSuccessOpen(false);
+            }}
+        />
+
+        </>
     )
 }
 

@@ -1,13 +1,14 @@
 import type { ColumnDef, Row } from "@tanstack/react-table";
-import { branchStatusMap, formatDate } from "@/utils/helpers";
+import { branchStatusMap } from "@/utils/helpers";
 import { StatusBadge } from "@/components/StatusBadge";
 import type { BranchDueDataType } from "@/utils/types";
+import { formatDate } from "date-fns";
 
-export const columns: ColumnDef<BranchDueDataType>[] = [
+export const columns = (setSelected: (p: BranchDueDataType) => void): ColumnDef<BranchDueDataType>[] => [
     {
         accessorKey: "creationDate",
         header: "Date",
-        cell: ({ row }: { row: Row<BranchDueDataType> }) => <span>{formatDate(row.original.creationDate)}</span>
+        cell: ({ row }: { row: Row<BranchDueDataType> }) => <span>{formatDate(row.original.creationDate, "dd MM yyyy h:mm  aaaaa'm'")}</span>
     },
     {
         accessorKey: "dueType",
@@ -51,8 +52,11 @@ export const columns: ColumnDef<BranchDueDataType>[] = [
         id: "actions",
         header: "Actions",
         size: 150,
-        cell: () => (
+        cell: ({ row }: { row: Row<BranchDueDataType>}) => (
             <button
+                onClick={() => {
+                    setSelected(row.original)
+                }}
                 className="p-2 text-sm font-coolvetica 
                 text-aciu-green-normal rounded-[5px]
                 border border-aciu-green-normal min-w-fit whitespace-nowrap"

@@ -47,8 +47,10 @@ export default function ViewBranchMember({
 }: { 
     open: boolean,
     onClose: () => void,
-    branchMember: BranchMemberDataType
+    branchMember: BranchMemberDataType | null
 }) {
+    if (!branchMember) return null;
+
     const { fullName, verificationStatus, joinedOn } = branchMember;
     const { label, bgColor, dotColor, labelColor } = branchMemberStatusMap[verificationStatus];
     const [activeTab, setActiveTab] = useState(branchMemberTabs[0])

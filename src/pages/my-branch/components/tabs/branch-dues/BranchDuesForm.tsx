@@ -12,60 +12,63 @@ const initialValues = {
     amount: "",
     startDate: "",
     endDate: "",
-    ageGrades: [""],
+    ageGrades: [],
     gender: "",
-    location: "",
+    // Location is based on the current branch
+    location: "Nigeria",
     memberRoles: "",
-    notifications: [""]
+    notifications: []
 }
 
 
-export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => void, onSuccess: () => void }) {
-    const handleSubmit = (_values: any, _actions: any) => {
-        onSuccess();
-    }
+export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => void, onSuccess: (values: any) => void }) {
 
     return (
         <Formik
             initialValues={initialValues}
-            onSubmit={handleSubmit}
+            onSubmit={(values) => {
+                onSuccess(values);
+            }}
             validationSchema={duesValidationSchema}
+            validateOnBlur
         >
             {() => {
                 return (
                     <Form className="flex flex-col h-4/5 md:h-full overflow-hidden">
                         <div className="resources-modal-body flex-col gap-8">
-                            <div className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-4">
                                 <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
                                     Dues Information
                                 </h5>
                                 <FormikField
-                                    label="Dues title is required"
+                                    label="Dues title"
                                     name="duesTitle"
                                     placeholder="Type in the dues title"
                                     fullWidth
                                 />
-                                <div className="flex gap-2 items-start">
+                                <div className="flex gap-2 items-start w-full">
                                     <FormikField
                                         label="Created by"
                                         name="createdBy"
                                         disabled
                                         placeholder="Name of the creator"
+                                        fullWidth
                                     />
                                     <FormikField
                                         label="Created on"
                                         name="createdOn"
                                         disabled
                                         placeholder="Date of creation"
+                                        fullWidth
                                     />
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-4">
                                 <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
                                     Payment Details
                                 </h5>
-                                <div className="flex gap-2 items-start">
+                                <div className="flex gap-2 items-start w-full">
                                     <FormikField
                                         label="Currency"
                                         name="currency"
@@ -80,27 +83,29 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                                     <FormikField
                                         label="Amount"
                                         name="amount"
-                                        disabled
-                                        placeholder="Date of creation"
+                                        placeholder="Type in the amount"
+                                        fullWidth
                                     />
                                 </div>
-                                <div className="flex gap-2 items-start">
+                                <div className="flex gap-2 items-start w-full">
                                     <FormikField
                                         label="Start Date"
                                         name="startDate"
                                         disabled
                                         placeholder="Select start date"
+                                        fullWidth
                                     />
                                     <FormikField
                                         label="End Date"
                                         name="endDate"
                                         disabled
                                         placeholder="Select end date"
+                                        fullWidth
                                     />
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-6">
+                            <div className="flex flex-col gap-6 mb-10">
                                 <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
                                     Dues Rules
                                 </h5>
@@ -114,8 +119,8 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                                     multiple
                                 />
                                 <FormikField
-                                    name="Gender"
-                                    label="gender"
+                                    name="gender"
+                                    label="Gender"
                                     placeholder="Select gender"
                                     select
                                     options={[
@@ -143,6 +148,7 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                                         { value: "branch-executives", label: "Branch Executives" },
                                         { value: "regular-members", label: "Regular Members" }
                                     ]}
+                                    fullWidth
                                 />
 
                                 <FormikField
@@ -156,6 +162,7 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                                         { value: "days-3", label: "Yes - 3 days before deadline" },
                                         { value: "manual", label: "No - Manual reminders only"}
                                     ]}
+                                    fullWidth
                                 />
                             </div>
                            
@@ -171,6 +178,7 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                             <button 
                                 className="btn btn-danger"
                                 onClick={onClose}
+                                type="button"
                             >
                                 Cancel
                             </button>

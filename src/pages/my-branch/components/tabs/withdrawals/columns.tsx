@@ -55,7 +55,6 @@ export const columns = (setSelected: (p: WithdrawalDataType) => void): ColumnDef
             cell: ({ row }: { row: Row<WithdrawalDataType>}) => (
                 <button
                     onClick={() => {
-                        console.log("Open")
                         setSelected(row.original)
                     }}
                     className="p-2 text-sm font-coolvetica 

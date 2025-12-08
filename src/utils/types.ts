@@ -408,13 +408,36 @@ export interface ExtendedTabItem extends TabItem {
   contentDescription?: string
 }
 
+export interface DueRulesType {
+    ageGrades: string[],
+    gender: string,
+    location: string,
+    memberRoles: string,
+    currency: string,
+    notifications: string[]
+}
+
+export interface ActivityLog {
+    id: string,
+    action: string,
+    timestamp: string,
+    actor: string,
+    details?: string,
+    metadata?: Record<string, any>
+}
+
 export interface BranchDueDataType {
     id: string,
     creationDate: string,
+    createdBy: string,
+    startDate: string,
+    endDate: string,
     dueType: string,
     intervals: string,
     amountPaid: string,
-    status: "inactive" | "active"
+    status: "inactive" | "active",
+    dueRules: DueRulesType,
+    activityLogs: ActivityLog[]
 }
 
 export interface FieldConfig<T> {

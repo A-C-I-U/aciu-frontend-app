@@ -1,5 +1,6 @@
 import { Calendar2, DollarSquare, FolderOpen, Routing } from "iconsax-react";
 import type { 
+  ActivityLog,
   BlogSubmissionDetails,
   BranchExecCardProps,
   EventDetailsProps, 
@@ -973,3 +974,20 @@ export const galleryImages: Img[] = [
     category: "Branch Events"
   },
 ]
+
+export const logs: ActivityLog[] = [
+  {
+    id: "1",
+    action: "Created Due",
+    timestamp: "2025-12-08T09:30:00Z",
+    actor: "ACIU Leadership",
+    details: "Initial due created with amount ₦5000",
+  },
+  {
+    id: "2",
+    action: "Updated Status",
+    timestamp: "2025-12-08T10:15:00Z",
+    actor: "Treasurer",
+    metadata: { status: "Paid" },
+  },
+];

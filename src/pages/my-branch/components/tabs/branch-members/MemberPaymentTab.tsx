@@ -1,8 +1,7 @@
 /**
  * Not recreating dummy data for this table
- * but a new coumns array and the table instance 
+ * but a new columns array and the table instance 
  * will appear here
- * @returns 
  */
 
 import { EmptyPaymentsState } from "../../EmptyStates";
