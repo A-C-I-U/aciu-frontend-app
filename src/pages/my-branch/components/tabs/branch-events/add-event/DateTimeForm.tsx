@@ -11,11 +11,12 @@ export default function DateTimeForm() {
                     Date & Time
                 </p>
 
-                <div className="flex gap-2 items-start w-full">
+                <div className="flex flex-col gap-4 lg:gap-2 justify-between items-start w-full">
                     <FormikField
                         name="eventDate"
                         label="Event Date"
                         placeholder="Select the date of the event"
+                        disabled
                         fullWidth
                     />
                     <FormikField

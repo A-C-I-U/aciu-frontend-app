@@ -2,6 +2,7 @@ import type { BranchExecCardProps } from "@/utils/types"
 import DummyProfile from "/images/avatar.png"
 import { Avatar, Divider } from "@mui/material"
 import { Copy } from "iconsax-react"
+import { copyTextToClipboard } from "@/utils/helpers"
 
 export const BranchExecCard = ({
     branchExec
@@ -39,7 +40,11 @@ export const BranchExecCard = ({
                         <p className="text-xs text-aciu-abriba">Email Address</p>
                         <p className="text-sm font-medium text-aciu-border-grey">{email}</p>
                     </div>
-                    <Copy variant="Bulk" size={20} color="#00B686" />
+                    <button 
+                        onClick={() => copyTextToClipboard(email)}
+                    >
+                        <Copy variant="Bulk" size={20} color="#00B686" />
+                    </button>
                 </div>
 
                 <div className="flex justify-between items-center w-full bg-white px-4 py-2.5 rounded-[0.625rem]">
@@ -47,7 +52,11 @@ export const BranchExecCard = ({
                         <p className="text-xs text-aciu-abriba">Phone Number</p>
                         <p className="text-sm font-medium">{phoneNumber}</p>
                     </div>
-                    <Copy variant="Bulk" size={20} color="#00B686" />
+                    <button 
+                        onClick={() => copyTextToClipboard(phoneNumber)}
+                    >
+                        <Copy variant="Bulk" size={20} color="#00B686" />
+                    </button>
                 </div>
             </div>
         </div>

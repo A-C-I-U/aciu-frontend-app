@@ -514,6 +514,11 @@ a, button {
     grid-column: 1 / -1;
     grid-row: auto;
   }
+
+  .payment-table-column.title,
+  .payment-table-column.desc {
+    font-size: .75rem;
+  }
 }
 
 @media screen and (max-width: 768px) {

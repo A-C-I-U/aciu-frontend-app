@@ -20,8 +20,8 @@ export default function MobileItemCard<T>({
   return (
     <div className="w-full py-4.5 flex flex-col gap-4 items-center rounded-[.625rem] border border-grayscale-200">
 
-        <div className="flex justify-between items-center w-full px-3">
-            <div className="flex flex-col gap-2 w-full">
+        <div className="flex justify-between items-center w-full">
+            <div className="flex flex-col gap-2 w-full px-3">
                 <p className="text-xs text-aciu-abriba font-medium">
                     {fields[0].label}
                 </p>
@@ -41,7 +41,7 @@ export default function MobileItemCard<T>({
         </div>
 
         {fields.slice(1).map((field, index) => (
-            <div key={index} className="w-full">
+            <div key={index} className="w-full flex flex-col gap-4">
                 <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey" />
 
                 <div className="flex justify-between w-full items-center px-3">
@@ -62,7 +62,7 @@ export default function MobileItemCard<T>({
                 className="p-2 text-sm font-coolvetica 
                 text-aciu-green-normal rounded-[5px]
                 border border-aciu-green-normal w-11/12 mx-auto 
-                text-center whitespace-nowrap"
+                text-center whitespace-nowrap px-3"
             >
                 {actionLabel}
             </button>

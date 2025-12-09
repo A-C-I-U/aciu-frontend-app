@@ -33,7 +33,7 @@ export default function DuesReminder({
                 sx={dialogSx}
             >
                 <div className="flex flex-col p-7.5 gap-5.5">
-                    <NotificationBell width={66} height="auto" />
+                    <NotificationBell width={66} className="h-auto" />
                     <div className="flex flex-col gap-6">
                         <div className="flex flex-col gap-1">
                             <h1 className="success-modal-title">Dues Reminder</h1>

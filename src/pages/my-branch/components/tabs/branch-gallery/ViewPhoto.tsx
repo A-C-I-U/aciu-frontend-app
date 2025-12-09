@@ -22,7 +22,7 @@ export default function ViewPhoto({
             <div className="resources-modal-section">
                 <ShellHeader title="View Image" onClose={onClose} />
                 <div className="flex flex-col h-full overflow-hidden">
-                    <img src={url} alt="" className="w-full object-cover h-auto px-5.5 max-h-75.75" />
+                    <img src={url} alt="Image Preview" className="w-full object-cover h-auto min-h-90 px-5.5 md:max-h-75.75" />
                     <div className="resources-modal-body">
                         <Divider className="flex shrink-0" />
                         <div className="flex flex-col gap-3.75">
@@ -57,6 +57,7 @@ export const DisabledInput = ({ label, value }: { label: string, value: string }
                 type="text" 
                 value={value} 
                 className="pointer-events-none text-sm font-medium text-aciu-abriba leading-[100%] py-4 px-3 border border-aciu-card-grey rounded-2xs w-full bg-aciu-bg-grey" 
+                readOnly
             />
         </div>
     )

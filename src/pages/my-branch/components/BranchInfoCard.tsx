@@ -38,7 +38,7 @@ export default function BranchInfoCard({
                         {branchName}
                     </h5>
                 </div>
-                <button className="text-aciu-abriba border border-aciu-abriba p-4 rounded-xl flex items-center gap-2 max-w-fit">
+                <button className="text-aciu-abriba border border-aciu-abriba rounded-xl flex items-center gap-2 max-w-fit text-sm p-3 lg:text-base lg:p-4 shadow-[0px_1px_3px_0px_#0D0D120D]">
                     <Edit size={24} color="#3E3E3E" />
                     Edit branch info
                 </button>

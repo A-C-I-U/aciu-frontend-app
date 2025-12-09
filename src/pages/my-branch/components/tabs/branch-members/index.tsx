@@ -9,6 +9,7 @@ import { branchMemberStatusMap, generateMockBranchMembers } from "@/utils/helper
 import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 import ViewBranchMember from "./ViewBranchMember";
+import { formatDate } from "date-fns";
 
 const sectionActions = [
     <button className="section-action-button">
@@ -117,7 +118,7 @@ const fields: FieldConfig<BranchMemberDataType>[] = [
     },
     {
         label: "Joined On",
-        value: (p) => p.joinedOn
+        value: (p) => formatDate(p.joinedOn, "dd-MM-yyyy h:mm  aaaaa'm'")
     },
     {
         label: "Occupation",

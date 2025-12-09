@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddEventPage() {
     const [currentStep, setCurrentStep] = useState(1);
+    const [isAdvancing, setIsAdvancing] = useState(false);
     const navigate = useNavigate();
 
     const handleGoBack = () => {
@@ -49,17 +50,18 @@ export default function AddEventPage() {
                                     <Step key={index} currentStep={currentStep} step={step} />
                                 ))}
                             </div>
-                            {currentStep < stepSchemas.length ? (
+                            {!isAdvancing && (currentStep !== stepSchemas.length ? (
                                 <button
                                     type="button"
                                     className="btn btn-primary max-w-fit"
                                     disabled={!isValid || isSubmitting}
                                     onClick={async () => {
+                                        setIsAdvancing(true);
                                         const errors = await validateForm();
                                         if (Object.keys(errors).length === 0) {
-                                            setCurrentStep((step) => Math.min(step + 1, 3));
+                                            setCurrentStep(step => step + 1);
                                         }
-                                        console.log(errors)
+                                        setIsAdvancing(false);
                                     }}
                                 >
                                     Next
@@ -69,11 +71,12 @@ export default function AddEventPage() {
                                     <button 
                                         type="submit" 
                                         className="max-w-fit btn btn-primary"
+                                        disabled={!isValid || isSubmitting}
                                     >
                                         Create Event
                                         <ArrowRight color="#fff" size={20} />
                                     </button>
-                                )}
+                                ))}
                         </div>
 
 

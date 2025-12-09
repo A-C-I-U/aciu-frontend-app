@@ -49,60 +49,58 @@ export default function DuesPreview({
                 <div className="flex flex-col h-full overflow-hidden">
                     <div className="resources-modal-body">
                         <div className="my-5.5 flex flex-col gap-8.5">
-                            <p className="leading-5 text-xl font-medium capitalize">
+                            <p className="leading-5 text-base lg:text-xl font-medium capitalize">
                                 {dueType}
                             </p>
                             <table>
-                                <tbody>
-                                    <div className="flex flex-col gap-4">
-                                        <DetailRow 
-                                            icon={<Clock size={20} color="#737373" />} 
-                                            label="Created on"
-                                        >
-                                            {formatDate(creationDate, "dd MMMMMM, yyyy h:mm aaaa")}
-                                        </DetailRow>
-                                        <DetailRow 
-                                            icon={<StatusLoader width={20} height={20} />}
-                                            label="Status"
-                                        >
-                                            <StatusBadge label={label} dotColor={dotColor} bgColor={bgColor} labelColor={labelColor} />
-                                        </DetailRow>
-                                        <DetailRow 
-                                            icon={<User size={20} color="#737373" />}
-                                            label="Created By"
-                                        >
-                                            {createdBy}
-                                        </DetailRow>
-                                        <DetailRow 
-                                            icon={<DollarSquare size={20} color="#737373" />}
-                                            label="Amount"
-                                        >
-                                            {`N${(+amountPaid).toLocaleString()}`}
-                                        </DetailRow>
-                                        <DetailRow
-                                            icon={<ReloadIcon width={20} height={20} />}
-                                            label="Intervals"
-                                        >
-                                            <span className="capitalize">{intervals}</span>
-                                        </DetailRow>
-                                        <DetailRow
-                                            icon={<MoreTimeIcon width={24} height={24} />}
-                                            label="Start Date"
-                                        >
-                                            {formatDate(startDate, "dd MMMMMM, yyyy h:mm aaaa")}
-                                        </DetailRow>
-                                        <DetailRow
-                                            icon={<TimeOutIcon width={18} height={18} />}
-                                            label="End Date"
-                                        >
-                                            {endDate ?? "Ongoing"}
-                                        </DetailRow>
-                                    </div>
+                                <tbody className="flex flex-col gap-4">
+                                    <DetailRow 
+                                        icon={<Clock size={20} color="#737373" />} 
+                                        label="Created on"
+                                    >
+                                        {formatDate(creationDate, "dd MMMMMM, yyyy h:mm aaaa")}
+                                    </DetailRow>
+                                    <DetailRow 
+                                        icon={<StatusLoader width={20} height={20} />}
+                                        label="Status"
+                                    >
+                                        <StatusBadge label={label} dotColor={dotColor} bgColor={bgColor} labelColor={labelColor} />
+                                    </DetailRow>
+                                    <DetailRow 
+                                        icon={<User size={20} color="#737373" />}
+                                        label="Created By"
+                                    >
+                                        {createdBy}
+                                    </DetailRow>
+                                    <DetailRow 
+                                        icon={<DollarSquare size={20} color="#737373" />}
+                                        label="Amount"
+                                    >
+                                        {`N${(+amountPaid).toLocaleString()}`}
+                                    </DetailRow>
+                                    <DetailRow
+                                        icon={<ReloadIcon width={20} height={20} />}
+                                        label="Intervals"
+                                    >
+                                        <span className="capitalize">{intervals}</span>
+                                    </DetailRow>
+                                    <DetailRow
+                                        icon={<MoreTimeIcon width={22} height={22} />}
+                                        label="Start Date"
+                                    >
+                                        {formatDate(startDate, "dd MMMMMM, yyyy h:mm aaaa")}
+                                    </DetailRow>
+                                    <DetailRow
+                                        icon={<TimeOutIcon width={16} height={16} />}
+                                        label="End Date"
+                                    >
+                                        {endDate || "Ongoing"}
+                                    </DetailRow>
                                 </tbody>
                             </table>
                         </div>
                         <div className="flex flex-col my-7.5">
-                            <div className="flex gap-4 justify-start w-full mx-auto px-4">
+                            <div className="flex gap-4 justify-start w-full mx-auto">
                                 {duesPreviewTabs.map((tab) => (
                                     <button
                                         key={tab.key}
@@ -144,12 +142,12 @@ export default function DuesPreview({
 
 export const DetailRow = ({ label, icon, children }: { label: string, icon: React.ReactNode, children: React.ReactNode}) => {
     return (
-        <tr className="grid grid-cols-[.8fr_1.5fr]">
-            <td className="flex items-center gap-2">
+        <tr className="grid grid-cols-[.8fr_1.5fr] items-center">
+            <td className="flex items-center gap-2 text-xs md:text-sm">
                 {icon}
                 {label}
             </td>
-            <td className="items-start">{children}</td>
+            <td className="items-start text-xs md:text-sm">{children}</td>
         </tr>
     )
 }
