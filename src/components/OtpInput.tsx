@@ -68,7 +68,7 @@ const OtpInput: React.FC<OtpProps> = ({ name }: OtpProps) => {
 
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row', gap: '1rem' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'row', gap: { xs: ".15rem", md: "1rem"} }}>
       {Array.from(Array(6).keys()).map((i) => (
         <OutlinedInput
             key={i}
@@ -89,24 +89,38 @@ const OtpInput: React.FC<OtpProps> = ({ name }: OtpProps) => {
             autoComplete={i === 0 ? 'one-time-code' : 'off'}
             sx={{
                 height: 56,
-                width: 60,
                 mr: 0.5,
                 ml: 0.5,
                 color: "#3E3E3E",
                 backgroundColor: "#F4F4F4",
                 borderRadius: ".75rem",
-                fontSize: "1.5rem",
+                padding: "0 !important",
+                fontSize: { xs: "1.1rem", md: "1.5rem" },
                 fontFamily: "Clash Grotesk, 'sans-serif'",
                 fontWeight: "600",
+                  "& .MuiOutlinedInput-input": {
+                        padding: 0,
+                        textAlign: "center",
+                        height: "100%",
+                        boxSizing: "border-box",
+                    },
+
+                    "& .MuiOutlinedInput-notchedOutline": {
+                        padding: 0,
+                    },
+
                     '&. fieldset': {
-                        border: "1px solid #E2E2E2"
+                        border: "1px solid #E2E2E2",
+                        padding: 0
                     },
                     '&:hover .MuiOutlinedInput-notchedOutline': {
                         borderColor: '#00CA71',
+                        padding: 0
                     },
                     '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         borderColor: '#00CA71',
                         borderWidth: '1px',
+                        padding: 0
                     },
                 }}
                 className='input-shadow'

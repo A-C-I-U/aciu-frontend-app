@@ -27,13 +27,13 @@ export default function EmailConfirmation() {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <OtpInput name="verificationCode" />
             <div className="flex justify-between items-center">
-                <p className="font-montserrat font-medium text-aciu-dark-gray">
+                <p className="text-xs md:text-base font-medium text-aciu-dark-gray">
                     Didn't receive any OTP?
                 </p>
                 <button 
                     className={`flex gap-2 items-center text-aciu-red font-coolvetica ${
                         resendTimer > 0 ? '!cursor-not-allowed' : ''
-                    }`}
+                    } text-xs md:text-base`}
                     onClick={handleResend}
                     disabled={resendTimer > 0}
                 >
