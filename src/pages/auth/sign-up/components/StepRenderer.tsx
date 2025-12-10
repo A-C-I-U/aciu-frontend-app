@@ -34,7 +34,7 @@ export const getSignUpContent = (
             },
             footer: () => {
                 return (
-                    <p className="w-full flex gap-2 justify-center items-center font-coolvetica text-sm text-aciu-grey">
+                    <p className="w-full flex gap-2 justify-center items-center font-coolvetica text-sm md:text-base text-aciu-grey">
                         Already have an account?
                         <Link to='/login' className="text-aciu-red">
                             Sign in
@@ -59,7 +59,7 @@ export const getSignUpContent = (
                 return (
                     <button 
                         onClick={handleGoBack} 
-                        className="text-aciu-red font-coolvetica"
+                        className="text-aciu-green-normal font-coolvetica"
                     >
                         Go back
                     </button>
@@ -82,7 +82,7 @@ export const getSignUpContent = (
                 return (
                     <button 
                         onClick={handleGoBack} 
-                        className="text-aciu-red font-coolvetica"
+                        className="text-aciu-green-normal font-coolvetica"
                     >
                         Go back
                     </button>

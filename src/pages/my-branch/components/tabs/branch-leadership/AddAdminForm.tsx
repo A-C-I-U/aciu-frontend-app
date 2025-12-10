@@ -57,7 +57,7 @@ export default function AddAdminForm({
                                 select
                                 fullWidth
                             />
-                            <div className="flex gap-2 items-center w-full">
+                            <div className="flex flex-col gap-4 lg:gap-2 items-center w-full">
                                 <FormikField
                                     label="Created By"
                                     name="createdBy"

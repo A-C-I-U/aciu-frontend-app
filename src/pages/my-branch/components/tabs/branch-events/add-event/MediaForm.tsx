@@ -1,5 +1,5 @@
 import CustomSwitch from "@/components/CustomSwitch";
-import { UploadFileImage } from "@/components/Icons";
+import { UploadFileImage, UploadImageShortMobile } from "@/components/Icons";
 import { FilePreviewCard } from "@/pages/resources/components/FilePreviewCard";
 import { useFormikContext } from "formik";
 import { useRef } from "react"
@@ -20,12 +20,18 @@ export default function MediaForm() {
                     onClick={() => inputRef.current?.click()}>
                     {!values.image ?
                         <div className="gap-2 flex flex-col">
-                            <UploadFileImage width="100%" height="auto"/>
+                            <div className="md:block hidden">
+                                <UploadFileImage width="100%" className="h-auto" />
+                            </div>
+
+                            <div className="md:hidden block">
+                                <UploadImageShortMobile width="100%" className="h-auto" />
+                            </div>
                             <div className="flex justify-between items-center">
-                                <p className="font-montserrat text-grayscale-100 text-sm">
+                                <p className="font-montserrat text-grayscale-100 text-xs md:text-sm">
                                     Supported formats: pdf,docx,xml
                                 </p>
-                                <p className="font-montserrat text-grayscale-100 text-sm">
+                                <p className="font-montserrat text-grayscale-100 text-xs md:text-sm">
                                     Max: 10mb
                                 </p>
                             </div>
@@ -49,7 +55,7 @@ export default function MediaForm() {
                 <input
                     ref={inputRef}
                     type="file"
-                    accept="image/*"
+                    accept="image/png, image/jpeg, image/jpg"
                     hidden
                     onChange={(e) => setFieldValue("image", e.target.files?.[0] || null)}
                 />

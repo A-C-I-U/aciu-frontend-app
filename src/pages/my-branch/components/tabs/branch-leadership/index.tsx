@@ -46,7 +46,6 @@ export default function BranchExecutivesTab() {
                         role: values.role || values.customRole,
                     });
                     setIsSuccessfulAdd(true)
-                    console.log("Submit")
                 }}
             />
 

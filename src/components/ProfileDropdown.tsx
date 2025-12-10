@@ -88,8 +88,9 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
                             </IconButton>
                         </div>
                         <div className="flex flex-col gap-2 items-center w-full">
-                            {links.map(({ label, icon, path }) => (
+                            {links.map(({ label, icon, path }, index) => (
                                 <NavLink
+                                    key={index}
                                     to={path}
                                     className="w-full py-5 px-3 bg-white rounded-lg"
                                     onClick={onClose}>

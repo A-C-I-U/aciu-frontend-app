@@ -199,17 +199,18 @@ a, button {
 @layer components {
   .go-to-homepage {
     max-width: 12.5rem;
-    height: 67px;
-    border: 1px solid #00CA71;
+    border: 1px solid var(--color-aciu-red);
     border-radius: .625rem;
-    color: #00CA71;
-    background: #E6FAF1;
+    color: var(--color-aciu-red);
+    background: var(--color-aciu-light-red);
     padding: 1.5rem;
+    line-height: 100%;
     font-family: 'Coolvetica', sans-serif;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
+    white-space: nowrap;
   }
 
   .card-shadow {
@@ -514,6 +515,11 @@ a, button {
     grid-column: 1 / -1;
     grid-row: auto;
   }
+
+  .payment-table-column.title,
+  .payment-table-column.desc {
+    font-size: .75rem;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -529,5 +535,9 @@ a, button {
   .resource-grid {
     column-gap: .5rem;
     row-gap: 1rem;
+  }
+
+  .go-to-homepage {
+    font-size: .875rem;
   }
 }

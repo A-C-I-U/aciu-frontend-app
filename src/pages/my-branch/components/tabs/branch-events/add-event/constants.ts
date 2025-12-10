@@ -11,6 +11,7 @@ export const initialValues = {
     eventTime: "",
     eventLocation: "",
     eventHighlights: [""],
+    entryFee: "",
     image: "",
     enableRsvp: false,
     enableDonations: false,

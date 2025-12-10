@@ -43,7 +43,7 @@ export default function BasicDetailsForm() {
                 select
                 fullWidth
             />
-            <div className="flex gap-2 items-start w-full">
+            <div className="flex flex-col gap-4 lg:gap-2 items-start w-full">
                 <FormikField
                     label="Guest Expectation"
                     name="guestExpectation"

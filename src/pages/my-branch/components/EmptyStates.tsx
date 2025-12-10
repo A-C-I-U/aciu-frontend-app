@@ -6,10 +6,10 @@ export const EmptyMemberActivity = () => {
             <div className="w-15 h-15 shadow-[0px_4px_50px_0px_#0000001A] flex items-center justify-center">
                 <Document size={32} color="#737373" variant="Linear"/>
             </div>
-            <p className="font-semibold text-aciu-border-grey">
+            <p className="text-sm md:text-base font-semibold text-aciu-border-grey">
                 No Member Activity Yet
             </p>
-            <p className="text-sm text-aciu-abriba max-w-70 text-center">
+            <p className="text-xs md:text-sm text-aciu-abriba max-w-70 text-center">
                 Member has not had activity on the platform.
             </p>
         </div>
@@ -23,10 +23,10 @@ export const EmptyPaymentsState = () => {
              <div className="w-15 h-15 shadow-[0px_4px_50px_0px_#0000001A] flex items-center justify-center">
                 <Document size={32} color="#737373" variant="Linear"/>
             </div>
-            <p className="font-semibold text-aciu-border-grey">
+            <p className="text-sm md:text-base font-semibold text-aciu-border-grey">
                 No Payments Found Yet
             </p>
-            <p className="text-sm text-aciu-abriba max-w-70 text-center">
+            <p className="text-xs md:text-sm text-aciu-abriba max-w-70 text-center">
                 Member has not made any payments on the platform.
             </p>
         </div>
@@ -39,10 +39,10 @@ export const EmptyRecords = () => {
             <div className="w-15 h-15 shadow-[0px_4px_50px_0px_#0000001A] flex items-center justify-center">
                 <Document size={32} color="#737373" variant="Linear"/>
             </div>
-            <p className="font-semibold text-aciu-border-grey">
+            <p className="text-sm md:text-base font-semibold text-aciu-border-grey">
                 No Payments Found Yet
             </p>
-            <p className="text-sm text-aciu-abriba  max-w-70 text-center">
+            <p className="text-xs md:text-sm text-aciu-abriba  max-w-70 text-center">
                 There are no records available at the moment. Once activities are logged, they will appear here.
             </p>
         </div>

@@ -1,3 +1,4 @@
+import { enqueueSnackbar } from "notistack";
 import { ageGradeOptions, logs, publicationStatuses } from "./data";
 import type { BranchDueDataType, BranchEventDataType, BranchMemberDataType, BranchPaymentsDataType, PaymentDataType, PublicationDataType, WithdrawalDataType } from "./types";
 import { format } from "date-fns";
@@ -401,3 +402,13 @@ export const getExtensionFromUrl = (url: string): string => {
   const match = url.match(/\.([^./?]+)(?:[?#]|$)/);
   return match ? match[1] : '';
 };
+
+
+export async function copyTextToClipboard(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+    enqueueSnackbar("Text copied to clipboard", { variant: "success" })
+  } catch (err) {
+    enqueueSnackbar(`Failed to copy text: ${err}`, { variant: "error" });
+  }
+}

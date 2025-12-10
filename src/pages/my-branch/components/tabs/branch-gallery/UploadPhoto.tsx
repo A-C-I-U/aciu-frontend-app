@@ -1,4 +1,4 @@
-import { UploadFileImage } from "@/components/Icons"
+import { UploadFileImage, UploadImageShortMobile } from "@/components/Icons"
 import { ScrollLock } from "@/components/ScrollLock"
 import ShellHeader from "@/components/ShellHeader"
 import type { DialogFuncProps } from "@/utils/types"
@@ -76,18 +76,24 @@ export default function UploadPhoto({
 
                             return (
                                 <Form className="flex flex-col h-4/5 md:h-full overflow-hidden">
-                                    <div className="resources-modal-body mb-10">
+                                    <div className="resources-modal-body mb-10 overflow-hidden">
                                         <div 
                                             className="cursor-pointer"
                                             onClick={() => inputRef.current?.click()}
                                         >
                                             <div className="gap-2 flex flex-col w-full">
-                                                <UploadFileImage width="100%" height="auto" />
+                                                <div className="md:block hidden">
+                                                    <UploadFileImage width="100%" className="h-auto" />
+                                                </div>
+
+                                                <div className="md:hidden block">
+                                                    <UploadImageShortMobile width="100%" className="h-auto" />
+                                                </div>
                                                 <div className="flex justify-between items-center">
-                                                    <p className="font-montserrat text-grayscale-100 text-sm">
+                                                    <p className="font-montserrat text-grayscale-100 text-xs md:text-sm">
                                                         Supported formats: png, jpg, jpeg
                                                     </p>
-                                                    <p className="font-montserrat text-grayscale-100 text-sm">
+                                                    <p className="font-montserrat text-grayscale-100 text-xs md:text-sm">
                                                         Max: 10mb
                                                     </p>
                                                 </div>

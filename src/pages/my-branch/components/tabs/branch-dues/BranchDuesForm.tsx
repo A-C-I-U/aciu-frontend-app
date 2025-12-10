@@ -38,7 +38,7 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                     <Form className="flex flex-col h-full overflow-hidden">
                         <div className="resources-modal-body flex-col gap-8 overflow-y-auto">
                             <div className="flex flex-col gap-4">
-                                <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
+                                <h5 className="text-base md:text-lg !font-montserrat font-medium text-aciu-border-grey">
                                     Dues Information
                                 </h5>
                                 <FormikField
@@ -47,7 +47,7 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                                     placeholder="Type in the dues title"
                                     fullWidth
                                 />
-                                <div className="flex gap-2 items-start w-full">
+                                <div className="flex flex-col gap-4 lg:gap-2 items-start w-full">
                                     <FormikField
                                         label="Created by"
                                         name="createdBy"
@@ -66,10 +66,10 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                             </div>
 
                             <div className="flex flex-col gap-4">
-                                <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
+                                <h5 className="text-base md:text-lg !font-montserrat font-medium text-aciu-border-grey">
                                     Payment Details
                                 </h5>
-                                <div className="flex gap-2 items-start w-full">
+                                <div className="flex flex-col gap-4 lg:gap-2 items-start w-full">
                                     <FormikField
                                         label="Currency"
                                         name="currency"
@@ -88,7 +88,7 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                                         fullWidth
                                     />
                                 </div>
-                                <div className="flex gap-2 items-start w-full">
+                                <div className="flex flex-col gap-4 lg:gap-2 items-start w-full">
                                     <FormikField
                                         label="Start Date"
                                         name="startDate"
@@ -107,7 +107,7 @@ export default function BranchDuesForm({ onClose, onSuccess }: { onClose: () => 
                             </div>
 
                             <div className="flex flex-col gap-6 mb-10">
-                                <h5 className="text-lg !font-montserrat font-medium text-aciu-border-grey">
+                                <h5 className="text-base md:text-lgext-lg !font-montserrat font-medium text-aciu-border-grey">
                                     Dues Rules
                                 </h5>
                                 <FormikField

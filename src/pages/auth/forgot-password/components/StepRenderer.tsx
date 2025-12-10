@@ -2,7 +2,7 @@ import type { ForgotPasswordValues } from "@/utils/types";
 import EmailConfirmation from "../../sign-up/components/EmailConfirmation";
 import CreatePassword from "./CreatePassword";
 import ForgotPassword from "./ForgotPassword";
-import KeyIcon from "/icons/key-icon.svg";
+import KeyIcon from "/public/icons/key.svg";
 import { type NavigateFunction } from "react-router-dom";
 
 export default function StepRenderer({ step }: { step: number }) {
@@ -34,13 +34,13 @@ export const getForgotPasswordContent = (
                 <div className="flex flex-col items-start gap-6">
                     <img 
                         src={KeyIcon}
-                        alt="White colored key behing green background" 
+                        alt="White colored key behind green background" 
                     />
                     <div className="flex flex-col gap-1">
-                        <h1 className="font-coolvetica text-aciu-border-grey font-bold text-[2rem]">
+                        <h1 className="text-aciu-border-grey font-bold text-2xl md:text-[2rem] leading-[120%]">
                             Forgot Password
                         </h1>
-                        <p className="font-montserrat text-aciu-neutral font-normal">
+                        <p className="text-aciu-neutral text-xs md:text-base leading-[160%]">
                             No worries, we'll send you reset instructions
                         </p>
                     </div>

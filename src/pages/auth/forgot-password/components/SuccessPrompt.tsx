@@ -1,8 +1,8 @@
 import AuthCard from "@/components/AuthCard";
+import { MarkIcon } from "@/components/Icons";
 import { Button, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MarkIcon from "/icons/mark-icon.svg";
 
 export default function SuccessPrompt() {
     const navigate = useNavigate();
@@ -21,15 +21,12 @@ export default function SuccessPrompt() {
             optionalHeader={true}
             optionalCardHeader={
                  <div className="flex flex-col items-center gap-6">
-                    <img 
-                        src={MarkIcon}
-                        alt="Green colored background behind a white checkmark"
-                    />
+                    <MarkIcon />
                     <div className="flex flex-col items-center gap-1.5">
-                        <h1 className="font-coolvetica text-aciu-border-grey font-bold text-[2rem]">
+                        <h1 className="font-coolvetica text-aciu-border-grey font-bold text-2xl md:text-[2rem] leading-[120%]">
                             Success!
                         </h1>
-                        <p className="font-montserrat text-aciu-neutral font-normal">
+                        <p className="text-aciu-neutral text-xs md:text-base leading-[160%]">
                             Password Changed Successfully!
                         </p>
                     </div>
@@ -40,7 +37,7 @@ export default function SuccessPrompt() {
                 sx={{
                     color: 'white',
                     fontSize: '.75rem',
-                    backgroundColor: '#00CA71',
+                    backgroundColor: '#00B686',
                     borderRadius: '.75rem',
                     padding: '1rem',
                     boxShadow: '0px 1px 2px 0px #0D0D120A',
