@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '..';
-import type { DashboardResponse, FinancesResponse } from '../types/dashboad';
+import type { DashboardResponse, FinancesResponse, NationalDashboardStats } from '../types/dashboad';
 
 
 export const useDashboardOverview = () => {
@@ -29,3 +29,15 @@ export const useFinances = () => {
     retry: 2,
   });
 };
+
+export const useNationalDashboardStats = () => {
+  return useQuery<NationalDashboardStats, Error>({
+    queryKey: ['dashboard', 'nationalAdmin'],
+    queryFn: async (): Promise<NationalDashboardStats> => {
+      const response = await apiClient.get<NationalDashboardStats>('/dashboard');
+      return response.data;
+    },
+    staleTime: 5 * 60 * 1000, 
+    retry: 2,
+  })
+}

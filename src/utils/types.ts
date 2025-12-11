@@ -59,7 +59,6 @@ export interface ForgotPasswordValues {
 type Role = "member" | "branch-admin" | "national-admin";
 
 export interface User {
-  id: string;
   name: string;
   occupation: string,
   phoneNumber: string,
@@ -402,6 +401,7 @@ export interface StatsCardProps {
     number: string;
     itemLabel?: string;
     currency?: string;
+    description?: string;
     rateOfChange: string
 }
 
