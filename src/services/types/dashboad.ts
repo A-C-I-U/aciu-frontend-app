@@ -35,3 +35,17 @@ export interface FinancesResponse {
   projectDonations: FinancialMetric;
   nextMonthlyDue: NextMonthlyDue;
 }
+
+
+export interface GrowthStat {
+  members: number,
+  donations: number,
+  branches: number
+}
+
+export interface NationalDashboardStats {
+  totalMembers: number,
+  totalDonations: number,
+  totalBranches: number,
+  growth: GrowthStat
+}
