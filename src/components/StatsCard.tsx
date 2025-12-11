@@ -6,6 +6,7 @@ export const StatsCard = ({
     number,
     itemLabel,
     currency,
+    description,
     rateOfChange 
 }: StatsCardProps) => {
     const sign = +rateOfChange === 0 ? '' : (+rateOfChange > 0 ? '+' : '-');
@@ -21,6 +22,9 @@ export const StatsCard = ({
                 </p>
             </div>
             <div className="w-full flex justify-end">
+                <span className="text-xs leading-[140%] uppercase text-copy-300">
+                    {description}
+                </span>
                 <span className="flex gap-2 justify-center items-center">
                     <ArrowTopRightIcon 
                         color={`${sign === '+' ? 

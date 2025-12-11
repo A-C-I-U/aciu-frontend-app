@@ -27,7 +27,7 @@ export default function Sidebar() {
                     loading="eager"
                 />
             </div>
-            <div className="flex flex-col gap-3 overflow-y-auto py-5 no-scrollbar">
+            <div className="flex-1 flex flex-col gap-3 overflow-y-auto py-5 no-scrollbar">
                 {links.map(({ label, icon, path}, index) => (
                     <NavLink
                         key={index}
