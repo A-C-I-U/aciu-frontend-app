@@ -8,7 +8,7 @@ export default function MainLayout() {
     const { user } = useUser();
 
     const activeRole = user?.role || "member";
-    const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
+    const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
 
     return (
         <div className="flex min-h-screen">

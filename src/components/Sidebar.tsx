@@ -9,7 +9,7 @@ import MemberAciuLogo from "/images/sidebar-aciu-logo.png"
 export default function Sidebar() {
     const { user } = useUser();
     const activeRole = user?.role || "member"
-    const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
+    const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
     const isMobile = useMediaQuery('max-width:768px')
 
 
@@ -17,7 +17,7 @@ export default function Sidebar() {
     
 
     return (
-        <div className="flex flex-col h-full pt-5 px-5 overflow-hidden">
+        <div className="flex flex-col pt-5 px-5 overflow-hidden h-screen">
             <div className="pb-3">
                 <img 
                     src={isAdmin ? AciuLogo : MemberAciuLogo } 

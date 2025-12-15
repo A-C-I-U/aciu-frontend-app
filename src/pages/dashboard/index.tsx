@@ -1,21 +1,14 @@
 import DashboardNationalAdmin from "./DashboardNationalAdmin";
 import DashboardMember from "./DashboardMember";
-import { useUserSettings } from "@/services/hooks/settings";
-import { Spinner } from "phosphor-react";
+import { useUser } from "@/context/UserContext";
 
 export default function Dashboard() {
-  const { isLoading } = useUserSettings();
-  const currentUserRole = "national-admin"
-
-  if (isLoading) return (
-    <div className="flex items-center justify-center h-screen">
-      <Spinner className="w-6 h-6 animate-spin"/>
-    </div>
-  )
+  const { user } = useUser();
+  const currentUserRole = user?.role;
 
   return (
     <>
-      {currentUserRole !== "national-admin" ?
+      {currentUserRole === "national_admin" ?
         <DashboardNationalAdmin /> :
         <DashboardMember />
       }

@@ -60,10 +60,10 @@ export type User = {
 };
 
 export interface LoginResponse {
-  user: User,
   token: {
     accessToken: string;
     refreshToken: string;
+    user: User;
   };
 }
 

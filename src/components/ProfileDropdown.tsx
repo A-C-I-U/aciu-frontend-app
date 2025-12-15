@@ -18,7 +18,7 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
     const isMobile = useMediaQuery('(max-width:768px)');
     const { user } = useUser();
     const activeRole = user?.role || "member";
-    const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
+    const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
     
     const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
 

@@ -21,7 +21,7 @@ export const StatsCard = ({
                     {currency}{number.padStart(2, '0')} {itemLabel}
                 </p>
             </div>
-            <div className="w-full flex justify-end">
+            <div className={`w-full flex ${description ? "justify-between" : "justify-end"}`}>
                 <span className="text-xs leading-[140%] uppercase text-copy-300">
                     {description}
                 </span>

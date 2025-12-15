@@ -7,7 +7,8 @@ import {
   Personalcard, 
   Setting, 
   I24Support, 
-  Stickynote 
+  Stickynote, 
+  Activity
 } from "iconsax-react";
 import Dashboard from "../pages/dashboard";
 import MyPaymentsPage from "@/pages/my-payment";
@@ -25,6 +26,9 @@ import ProjectDetailsPage from "@/pages/projects/components/ProjectDetailsPage";
 import SubmissionViewPage from "@/pages/blog/components/submissions/SubmissionViewPage";
 import PostViewPage from "@/pages/blog/components/blog-posts/PostViewPage";
 import AddEventPage from "@/pages/my-branch/components/tabs/branch-events/add-event";
+import Analytics from "@/pages/analytics";
+import Transactions from "@/pages/transactions";
+import Database from "@/pages/database";
 
 
 export const protectedRoutes = [
@@ -33,21 +37,42 @@ export const protectedRoutes = [
     element: <Dashboard />,
     label: "Dashboard",
     icon: Personalcard,
-    roles: ["member", "branch-admin", "national-admin"],
+    roles: ["member", "branch_admin", "national_admin"],
+  },
+  {
+    path: "/analytics",
+    element: <Analytics />,
+    label: "Analytics",
+    icon: Activity,
+    roles: ["national_admin"],
+  },
+  {
+    path: "/transactions",
+    element: <Transactions />,
+    label: "Transactions",
+    icon: DollarSquare,
+    roles: ["national_admin"]
+  },
+  {
+    path: "/database",
+    element: <Database />,
+    label: "ACIU Database",
+    icon: Hashtag,
+    roles: ["national_admin"]
   },
   {
     path: "/my-payments",
     element: <MyPaymentsPage />,
     label: "My Payments",
     icon: DollarSquare,
-    roles: ["member", "branch-admin", "national-admin"],
+    roles: ["member", "branch_admin"],
   },
   {
     path: "/events",
     element: <EventsPage />,
     label: "ACIU Events",
     icon: Calendar2,
-    roles: ["branch-admin", "national-admin"],
+    roles: ["branch_admin", "national_admin"],
     children: [
       {
         index: true,
@@ -63,7 +88,7 @@ export const protectedRoutes = [
     path: "/projects",
     label: "ACIU Projects",
     icon: Buildings2,
-    roles: ["branch-admin", "national-admin"],
+    roles: ["branch_admin", "national_admin"],
     children: [
       {
         index: true,
@@ -79,7 +104,7 @@ export const protectedRoutes = [
     path: "/my-branch",
     label: "My Branch",
     icon: Hashtag,
-    roles: ["member", "branch-admin", "national-admin"],
+    roles: ["member", "branch_admin"],
     children: [
       {
         index: true,
@@ -95,7 +120,7 @@ export const protectedRoutes = [
     path: "/blog",
     label: "ACIU Blog",
     icon: Stickynote,
-    roles: ["branch-admin", "national-admin"],
+    roles: ["branch_admin", "national_admin"],
     children: [
       {
         index: true,
@@ -124,21 +149,21 @@ export const protectedRoutes = [
     element: <ResourcesPage />,
     label: "ACIU Resources",
     icon: FolderOpen,
-    roles: ["branch-admin", "national-admin"],
+    roles: ["branch_admin", "national_admin"],
   },
   {
     path: "/support",
     element: <HelpAndSupportPage />,
     label: "Help and Support",
     icon: I24Support,
-    roles: ["member", "branch-admin", "national-admin"],
+    roles: ["member", "branch_admin", "national_admin"],
   },
   {
     path: "/settings",
     element: <SettingsPage />,
     label: "Settings",
     icon: Setting,
-    roles: ["member", "branch-admin", "national-admin"],
+    roles: ["member", "branch_admin", "national_admin"],
   },
   
 ];

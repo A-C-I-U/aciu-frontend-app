@@ -56,7 +56,7 @@ export interface ForgotPasswordValues {
 }
 
 
-type Role = "member" | "branch-admin" | "national-admin";
+type Role = "member" | "branch_admin" | "national_admin";
 
 export interface User {
   name: string;
@@ -66,7 +66,10 @@ export interface User {
   ageGrade: string,
   branch: string,
   role: Role;
-  verified: boolean
+  verified: boolean,
+  gender: string,
+  profilePhoto: string | null,
+  village: string
 };
 
 export interface UserContextType {
@@ -516,7 +519,9 @@ export interface BranchPaymentsDataType {
 
 export interface WithdrawalDataType {
     id: string,
+    transactionId: string,
     submittedBy: string,
+    branchName: string,
     reasons: string,
     type: string,
     title: string,

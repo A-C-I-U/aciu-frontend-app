@@ -12,7 +12,7 @@ const isMobile = window.innerWidth <= 768;
 export const MobileNav = ({ handleOpen }: NavProps) => {
     const { user } = useUser();
     const activeRole = user?.role || "member";
-    const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
+    const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
 
     return (
         <div>
