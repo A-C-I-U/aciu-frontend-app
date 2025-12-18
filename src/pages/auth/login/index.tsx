@@ -130,22 +130,21 @@ export default function LoginPage() {
                     padding: "1rem",
                     boxShadow: "0px 1px 2px 0px #0D0D120A",
                     textTransform: "none",
+                    display: "flex",
+                    gap: ".5rem",
+                    alignItems: "center",
                     "&.Mui-disabled": {
                       backgroundColor: "#e0e0e0",
                       color: "#9e9e9e",
                       opacity: 0.6,
                     },
                   }}
-                  className="flex gap-2 items-center"
                   disabled={isSubmitting || !isValid || loginMutation.isPending}
                   type="submit"
                 >
                   <span className="font-coolvetica text-base">Login</span>
-
                   {(isSubmitting || loading || loginMutation.isPending) && (
-                    <span className="mt-1.5">
                       <CircularProgress sx={{ color: "green" }} size={12} />
-                    </span>
                   )}
                 </Button>
               </Box>
