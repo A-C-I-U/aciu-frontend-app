@@ -41,3 +41,27 @@ export const useNationalDashboardStats = () => {
     retry: 2,
   })
 }
+
+export const useNationalDashboardWithdrawals = () => {
+  return useQuery<any, Error>({
+    queryKey: ['dashboard', 'nationalAdmin', 'withrawalRequests'],
+    queryFn: async (): Promise<any> => {
+      const response = await apiClient.get<any>('/dashboard/withdrawals');
+      return response.data;
+    },
+    staleTime: 5 * 60 * 1000, 
+    retry: 2,
+  })
+}
+
+export const useWithdrawalDetail = (id: string) => {
+  return useQuery<any, Error>({
+    queryKey: ['withdrawal', 'detail', id],
+    queryFn: async (): Promise<any> => {
+      const response = await apiClient.get<any>(`/withdrawal/${id}`);
+      return response.data;
+    },
+    staleTime: 5 * 60 * 1000,
+    retry: 2
+  })
+}

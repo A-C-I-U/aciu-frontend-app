@@ -519,16 +519,16 @@ export interface BranchPaymentsDataType {
 
 export interface WithdrawalDataType {
     id: string,
-    transactionId: string,
+    transactionId?: string,
     submittedBy: string,
-    branchName: string,
+    branchName?: string,
     reasons: string,
     type: string,
     title: string,
     date: string,
     amount: string,
     source: string,
-    status: "pending" | "approved"
+    status: "pending" | "approved" | "rejected"
 }
 
 export interface BranchMemberDataType {

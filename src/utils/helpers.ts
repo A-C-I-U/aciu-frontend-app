@@ -90,7 +90,7 @@ export function generateMockBranchPayments(
 export function generateMockWithdrawals(
   count: number
 ): WithdrawalDataType[] {
-  const statuses = ["pending", "approved"] as const;
+  const statuses = ["pending", "approved", "rejected"] as const;
 
   return Array.from({ length: count }, (_, i) => {
     const date = randomDate(new Date(2023, 0, 1), new Date());
@@ -259,7 +259,13 @@ export const withdrawalStatusMap: Record<WithdrawalDataType["status"], StatusMap
       labelColor: "#027A48", 
       dotColor: "#12B76A", 
       bgColor: "#ECFDF3" 
-    }
+    },
+    rejected: {
+        label: "Rejected",
+        labelColor: "#FF2E2E",
+        dotColor: "#FF2E2E",
+        bgColor: "#FFEAEA"
+    },
 }
 
 

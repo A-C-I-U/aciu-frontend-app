@@ -49,3 +49,15 @@ export interface NationalDashboardStats {
   totalBranches: number,
   growth: GrowthStat
 }
+
+
+export interface WithdrawalResponse {
+  id: string,
+  TransactionID: string,
+  "Payment Type": string,
+  Date: string | number | Date,
+  Amount: number,
+  Status: string,
+  "Submitted By": string,
+  "Branch Name": string
+}
