@@ -16,7 +16,7 @@ import {
     ArrowLeftIcon, 
     ArrowRightIcon, 
 } from "lucide-react";
-import { Pagination } from "@heroui/react";
+import { Pagination, PaginationItemType } from "@heroui/react";
 
 
 
@@ -117,17 +117,29 @@ export default function DataTable({
                     page={table.getState().pagination.pageIndex + 1}
                     onChange={(page) => table.setPageIndex(page - 1)}
                     size="md"
+                    siblings={1}
+                    boundaries={1}
                     classNames={{
                         cursor: "hidden"
                     }}
                     renderItem={(item) => {
+                        if (item.value === PaginationItemType.DOTS) {
+                        return (
+                            <span 
+                                key={item.key}
+                                className="w-10 h-10 flex items-center justify-center text-aciu-new-green-normal"
+                            >
+                                ...
+                            </span>
+                        );
+                    }
                         const isActive = item.page === table.getState().pagination.pageIndex + 1;
                         return (
                             <button 
                                 key={item.key}
                                 // onPress is not a prop on button but is required from hero ui
                                 onClick={item.onPress as unknown as React.MouseEventHandler<HTMLButtonElement>}
-                                className={`w-[2.5rem] h-[2.5rem] rounded-md
+                                className={`w-10 h-10 rounded-md
                                 ${isActive ? "bg-aciu-green-light " : ""}
                                 rounded-md text-aciu-new-green-normal hover:bg-aciu-green-light font-inter`}>
                                 {item.page || item.children}
