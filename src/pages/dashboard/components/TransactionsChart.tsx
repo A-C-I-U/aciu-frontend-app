@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -23,40 +24,44 @@ const data = [
 ];
 
 export default function TransactionsChart() {
+  const isMobile = useMediaQuery("(max-width: 767px)");
+
   return (
-    <ResponsiveContainer width="100%" height={400}>
-      <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }} barSize={30}>
-        <XAxis 
-            dataKey="month" 
-            tick={{ 
-                fill: "#727A8B", 
-                fontSize: 14, 
-                fontFamily: "'Montserrat', sans-serif",
-                dy: 15,
-            }} 
-            tickLine={false}
-            axisLine={false}
-        />
-        <YAxis 
-            tickFormatter={(value) => `${value / 1000}k`} 
-            tick={{ 
-                fill: "#727A8B", 
-                fontSize: 14, 
-                fontFamily: "'Montserrat', sans-serif",
-                dx: -15,
-            }} 
-            tickLine={false}
-            axisLine={false}
-        />
-        <Tooltip 
-            cursor={{ 
-                fill: "transparent"
-            }} 
-        />
-        <Bar dataKey="dues" name="Dues" stackId="transactions" fill="#00B686" radius={[10, 10, 10, 10]} activeBar={false}/>
-        <Bar dataKey="projects" name="Projects" stackId="transactions" fill="#B0E8D9" radius={[10, 10, 10, 10]} activeBar={false}/>
-        <Bar dataKey="events" name="Events" stackId="transactions" fill="#D9F4ED" radius={[10, 10, 10, 10]} activeBar={false}/>
-      </BarChart>
-    </ResponsiveContainer>
+    <div style={{ minWidth: "100%", overflowX: "auto" }}>
+      <ResponsiveContainer width="100%" height={400}>
+        <BarChart data={data} margin={{ top: 20, right: isMobile ? 10 : 30, left: isMobile ? 0 : 20, bottom: 5 }} barSize={isMobile ? 12 : 30} barCategoryGap={isMobile ? 100 : 12}>
+          <XAxis 
+              dataKey="month" 
+              tick={{ 
+                  fill: "#727A8B", 
+                  fontSize: 14, 
+                  fontFamily: "'Montserrat', sans-serif",
+                  dy: 15,
+              }} 
+              tickLine={false}
+              axisLine={false}
+          />
+          <YAxis 
+              tickFormatter={(value) => `${value / 1000}k`} 
+              tick={{ 
+                  fill: "#727A8B", 
+                  fontSize: 14, 
+                  fontFamily: "'Montserrat', sans-serif",
+                  dx: -15,
+              }} 
+              tickLine={false}
+              axisLine={false}
+          />
+          <Tooltip 
+              cursor={{ 
+                  fill: "transparent"
+              }} 
+          />
+          <Bar dataKey="dues" name="Dues" stackId="transactions" fill="#00B686" radius={[10, 10, 10, 10]} activeBar={false}/>
+          <Bar dataKey="projects" name="Projects" stackId="transactions" fill="#B0E8D9" radius={[10, 10, 10, 10]} activeBar={false}/>
+          <Bar dataKey="events" name="Events" stackId="transactions" fill="#D9F4ED" radius={[10, 10, 10, 10]} activeBar={false}/>
+        </BarChart>
+      </ResponsiveContainer>
+    </div>
   );
 }
