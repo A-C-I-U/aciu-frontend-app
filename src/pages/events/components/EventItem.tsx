@@ -1,58 +1,60 @@
 import type { EventItemProps } from "@/utils/types"
 import { Icon } from "@iconify/react/dist/iconify.js"
+import { format, formatDate, parse } from "date-fns"
 import { NavLink } from "react-router-dom"
 
 export const EventItem = ({
-    id,
-    title,
-    img,
-    host,
-    date,
-    time,
-    description,
-    location
-}: EventItemProps) => {
-    
+    event
+}: { event: EventItemProps }) => {
+    const {
+        id,
+        title,
+        img,
+        host,
+        date,
+        startTime,
+        endTime,
+        description,
+        location
+    } = event;
+
     return (
         <div
-            key={id}
             className={`flex flex-col gap-4 rounded-lg border border-aciu-dark-grey py-2.5 px-2 lg:px-3.5`}>
             <span className="flex flex-col gap-3.5">
                 <img 
                     src={img} 
-                    height={145}
-                    className="rounded-sm object-cover w-full" 
+                    className="rounded-sm object-cover w-full max-h-36.25" 
                     alt="Event image" 
                     onError={(e) => {
                         e.currentTarget.src = '/images/event-placeholder.jpg';
                     }}
                 />
-                <span className={[
-                    "bg-aciu-yellow rounded-md ",
-                    "flex items-center justify-center ",
-                    "font-semibold text-xs font-coolvetica text-aciu-border-grey",
-                    "py-1.5 px-2.5 max-w-fit h-7"
-                ].join("")}>
-                    {host}
+                <span className="event-tag py-1.75 px-2.5">
+                    {host.toLowerCase()}
                 </span>
             </span>
-            <span className="flex flex-col gap-7">
-                <span className="text-lg font-coolvetica font-semibold text-aciu-border-grey line-clamp-2">
-                    {title}
-                </span>
-                
+            <span className="flex flex-col gap-6.5">
+                <div className="flex flex-col gap-3.5">
+                    <div className="flex flex-col gap-1">
+                        <span className="text-lg font-coolvetica font-semibold text-aciu-border-grey line-clamp-2 capitalize">
+                            {title}
+                        </span>
+                        {description && (
+                            <p className="text-xs text-aciu-abriba line-clamp-3">
+                                {description}
+                            </p>
+                        )}
+                    </div>
+                    
+                </div>
+
                 {location && (
-                    <span className="flex items-center gap-2 text-sm text-aciu-darker-grey">
-                        <Icon icon="mdi:location" width="16" height="16" />
-                        {location}
-                    </span>
-                )}
-                
-                {description && (
-                    <p className="text-sm text-aciu-abriba line-clamp-3">
-                        {description}
-                    </p>
-                )}
+                        <span className="flex items-center gap-1.5 text-sm text-aciu-darker-grey leading-[100%] font-semibold">
+                            <Icon icon="mdi:location" width="16" height="16" />
+                            {location}
+                        </span>
+                    )}
                 
                 <span className="flex justify-between items-center">
                     <span className="flex flex-col gap-2.5">
@@ -60,18 +62,22 @@ export const EventItem = ({
                             Event Date
                         </span>
                         <span className="font-montserrat font-semibold text-sm md:text-xs lg:text-sm text-aciu-darker-grey whitespace-nowrap">
-                            {date}
+                            {formatDate(date, "do MMMM yyyy")}
                         </span>
                     </span>
-                    <span className="border-[1.69px] border-aciu-dark-grey h-4"></span>
-                    <span className="flex flex-col gap-2.5">
-                        <span className="text-xs font-montserrat text-aciu-dark-red">
-                            Event Time
-                        </span>
-                        <span className="font-montserrat font-semibold text-sm md:text-xs lg:text-sm text-aciu-darker-grey whitespace-nowrap">
-                            {time}
-                        </span>
-                    </span>
+                    {(startTime || endTime) && 
+                        <>
+                            <span className="border-[1.69px] border-aciu-dark-grey h-4"></span>
+                            <span className="flex flex-col gap-2.5">
+                                <span className="text-xs font-montserrat text-aciu-dark-red">
+                                    Event Time
+                                </span>
+                                <span className="font-montserrat font-semibold text-sm md:text-xs lg:text-sm text-aciu-darker-grey whitespace-nowrap">
+                                    {format(parse(startTime, "HH:mm", new Date()), "h:mm a")} - {format(parse(endTime, "HH:mm", new Date()), "h:mm a")}
+                                </span>
+                            </span>
+                        </>
+                    }
                 </span>
                 <NavLink
                     to={`/events/${id}`}
