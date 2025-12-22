@@ -88,7 +88,8 @@ export interface EventItemProps {
     img: string;
     host: string;
     date: string;
-    time: string;
+    startTime: string;
+    endTime: string;
     description?: string;
     location?: string;
     category?: string;
