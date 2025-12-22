@@ -58,10 +58,10 @@ export const EventItem = ({
                 
                 <span className="flex justify-between items-center">
                     <span className="flex flex-col gap-2.5">
-                        <span className="text-xs font-montserrat text-aciu-dark-red">
+                        <span className="text-xs font-montserrat text-aciu-dark-red leading-default">
                             Event Date
                         </span>
-                        <span className="font-montserrat font-semibold text-sm md:text-xs lg:text-sm text-aciu-darker-grey whitespace-nowrap">
+                        <span className="font-montserrat font-semibold text-xs text-aciu-darker-grey whitespace-nowrap leading-default">
                             {formatDate(date, "do MMMM yyyy")}
                         </span>
                     </span>
@@ -69,10 +69,10 @@ export const EventItem = ({
                         <>
                             <span className="border-[1.69px] border-aciu-dark-grey h-4"></span>
                             <span className="flex flex-col gap-2.5">
-                                <span className="text-xs font-montserrat text-aciu-dark-red">
+                                <span className="text-xs font-montserrat text-aciu-dark-red leading-default">
                                     Event Time
                                 </span>
-                                <span className="font-montserrat font-semibold text-sm md:text-xs lg:text-sm text-aciu-darker-grey whitespace-nowrap">
+                                <span className="font-montserrat font-semibold text-xs text-aciu-darker-grey whitespace-nowrap leading-default">
                                     {format(parse(startTime, "HH:mm", new Date()), "h:mm a")} - {format(parse(endTime, "HH:mm", new Date()), "h:mm a")}
                                 </span>
                             </span>
