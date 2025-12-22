@@ -1,6 +1,6 @@
 import { useUser } from "@/context/UserContext";
 import apiClient from "..";
-import type { EventDetailsResponse, EventsResponse } from "../types/events";
+import type { EventDetailsResponse, EventsResponse, EventsStatsResponse } from "../types/events";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchEvents = async (): Promise<EventsResponse> => {
@@ -79,3 +79,19 @@ export const useEventDetails = (eventId: string) => {
     gcTime: 10 * 60 * 1000,
   });
 };
+
+const fetchEventsStats = async (): Promise<EventsStatsResponse> => {
+  const response = await apiClient.get<EventsStatsResponse>("/events/stats");
+  return response.data
+}
+
+export const useEventsStats = () => {
+  const { user } = useUser();
+  return useQuery({
+    queryKey: ["events", "stats"],
+    queryFn: () => fetchEventsStats(),
+    enabled: user?.role === "national_admin",
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  })
+}

@@ -58,3 +58,20 @@ export interface EventDetailsResponse {
     registrations: any[];
   };
 }
+
+export interface EventsStatsResponse {
+  stats: {
+    totalEvents: number,
+    totalNationalEvents: number,
+    totalBranchEvents: number,
+    totalZonalEvents: number,
+    totalRSVPs: number,
+    monthlyGrowth: {
+      events: number,
+      nationalEvents: number,
+      branchEvents: number,
+      zonalEvents: number,
+      rsvps: number
+    }
+  }
+}
