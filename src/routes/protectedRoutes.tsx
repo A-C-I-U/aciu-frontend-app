@@ -78,11 +78,12 @@ export const protectedRoutes = [
         index: true,
         element: <EventsList />
       },
-      {
-        path: ":id",
-        element: <EventDetails />,
-      }
     ]
+  },
+  {
+    path: "/events/:id",
+    element: <EventDetails />,
+    roles: ["member", "branch-admin", "national-admin"]
   },
   {
     path: "/projects",
