@@ -42,11 +42,10 @@ export function PaginationControls({
                 page={page}
                 onChange={onPageChange}
                 showControls={false}
-                siblings={1}
+                siblings={0}
                 boundaries={1}
                 size="lg"
-                showShadow={false}
-                classNames={{ cursor: "hidden", item: "bg-transparent" }}
+                classNames={{ cursor: "hidden" }}
                 renderItem={({ key, page, onPress, children, value, isActive }) => {
                     
                     if (value === PaginationItemType.DOTS) {
