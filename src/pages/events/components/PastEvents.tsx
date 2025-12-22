@@ -1,15 +1,18 @@
-import { useEvents } from "@/services/hooks/events";
+import { usePastEvents } from "@/services/hooks/events";
 import { EventItem } from "./EventItem";
 import { CircularProgress, Alert } from "@mui/material";
+import { EmptyEvents } from "./EmptyEvents";
 
 export default function PastEvents() {
-    const { data, isLoading, error } = useEvents();
-
-    const pastEvents = data?.events.filter(event => {
-        const eventDate = new Date(event.eventDate);
-        const today = new Date();
-        return eventDate < today;
-    }) || [];
+    const { data, isLoading, error } = usePastEvents();
+    
+    const pastEvents = data?.events
+        ? data.events.map((event: any) => ({
+            ...event,
+            img: event.coverImage,
+            date: event.eventDate,
+            host: event.category?.replace(/_/g, ' ') || "Event"
+        })) : []
 
     if (isLoading) {
         return (
@@ -27,32 +30,14 @@ export default function PastEvents() {
         );
     }
 
-    if (pastEvents.length === 0) {
-        return (
-            <div className="text-center py-12">
-                <p className="text-aciu-abriba text-lg">No past events found.</p>
-            </div>
-        );
-    }
+    if (pastEvents.length === 0) return <EmptyEvents label="Past"/>;
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 mlg:grid-cols-3 gap-6">
             {pastEvents.map(event => (
                 <EventItem
                     key={event.id}
-                    id={event.id}
-                    title={event.title}
-                    img={event.coverImage}
-                    host={event.category?.replace(/_/g, ' ') || "Event"}
-                    date={event.eventDate}
-                    time={event.startTime}
-                    description={event.description}
-                    location={event.location}
-                    category={event.category}
-                    entryFee={event.entryFee}
-                    enableRSVP={event.enableRSVP}
-                    enableDonations={event.enableDonations}
-                    registeredCount={event.registeredCount}
+                    event={event}
                 />
             ))}
         </div>
