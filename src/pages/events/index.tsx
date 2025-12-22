@@ -9,6 +9,7 @@ import AllEvents from "./components/AllEvents";
 import RegisteredEvents from "./components/RegisteredEvents";
 import { StatsCard } from "@/components/StatsCard";
 import TabButton from "@/components/TabButton";
+import { useEventsStats } from "@/services/hooks/events";
 
 const baseTabs: TabItem[] = [
     { key: "upcoming-events", label: "Upcoming Events", content: <UpcomingEvents /> },
@@ -18,6 +19,8 @@ const baseTabs: TabItem[] = [
 
 export default function EventsPage() {
     const { user } = useUser();
+    const { data, isLoading: isEventsStatsLoading } = useEventsStats();
+    const eventStats = data?.stats;
 
     const tabs = useMemo(() => {
         if (user?.role === "national_admin") {
@@ -40,32 +43,55 @@ export default function EventsPage() {
             {user?.role === "national_admin" ?
                 <div className="flex flex-col gap-6">
                     <div className="flex flex-col lg:flex-row gap-4 mx-5 mt-6">
-                        <StatsCard
-                            title="Total Events Hosted"
-                            number="145"
-                            rateOfChange="0"
-                            description="All Time"
-                        />
-                        <StatsCard
-                            title="National Events"
-                            number="38"
-                            rateOfChange="0"
-                            description="All Time"
-                        />
-                        <StatsCard
-                            title="Branch Events"
-                            number="27"
-                            rateOfChange="0"
-                            description="All Time"
-                        />
-                        <StatsCard
-                            title="Total Rsvps"
-                            number="24,600"
-                            rateOfChange="0"
-                            description="All Time"
-                        />
+                        {isEventsStatsLoading ? 
+                        <>
+                            {[1, 2, 3].map((item) => (
+                                <div
+                                    key={item}
+                                    className="w-full py-4 px-6 flex flex-col gap-4 rounded-lg bg-white h-39 animate-pulse"
+                                >
+                                    <div className="flex flex-col justify-between h-full">
+                                        <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+                                        <div className="h-8 bg-gray-200 rounded w-3/4"></div>
+                                    </div>
+                                    <div className="w-full flex justify-end">
+                                        <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                                    </div>
+                                </div>
+                            ))}
+                        </> : 
+                        <>
+                            <StatsCard
+                                title="Total Events Hosted"
+                                number={eventStats?.totalEvents ? eventStats.totalEvents.toLocaleString() : "0"}
+                                rateOfChange={`${eventStats?.monthlyGrowth.events}`}
+                                description="All Time"
+                            />
+                            <StatsCard
+                                title="National Events"
+                                number={eventStats?.totalNationalEvents ? eventStats.totalNationalEvents.toLocaleString() : "0"}
+                                rateOfChange={`${eventStats?.monthlyGrowth.nationalEvents}`}
+                                description="All Time"
+                            />
+                            <StatsCard
+                                title="Branch Events"
+                                number={eventStats?.totalBranchEvents ? eventStats.totalBranchEvents.toLocaleString() : "0"}
+                                rateOfChange={`${eventStats?.monthlyGrowth.branchEvents}`}
+                                description="All Time"
+                            />
+                            <StatsCard
+                                title="Total Rsvps"
+                                number={eventStats?.totalRSVPs ? eventStats.totalRSVPs.toLocaleString() : "0"}
+                                rateOfChange={`${eventStats?.monthlyGrowth.rsvps}`}
+                                description="All Time"
+                            />
+                        </>
+                    }   
                     </div>
-                    <nav role="tablist" className="flex gap-4 md:gap-8 items-center bg-white mx-5 rounded-lg md:px-6 px-2.5 pt-14">
+                    <nav 
+                        role="tablist" 
+                        className="flex gap-4 md:gap-8 items-center bg-white mx-5 rounded-lg md:px-6 px-2.5 pt-14"
+                    >
                         {tabs.map((tab) => (
                             <TabButton 
                                 tab={tab} 
