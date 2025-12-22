@@ -102,6 +102,7 @@ apiClient.interceptors.response.use(
         // Refresh failed - clear tokens and redirect to login
         processQueue(refreshError, null);
         clearAuthTokens();
+        localStorage.removeItem("user");
         window.location.href = '/login';
         return Promise.reject(refreshError);
       } finally {
@@ -118,6 +119,7 @@ apiClient.interceptors.response.use(
           // Unauthorized - clear tokens and redirect to login
           console.error('Unauthorized - clearing tokens');
           clearAuthTokens();
+          localStorage.removeItem("user");
           window.location.href = '/login';
           break;    
         default:
