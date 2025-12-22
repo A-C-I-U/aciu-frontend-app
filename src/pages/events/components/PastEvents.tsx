@@ -1,7 +1,8 @@
 import { usePastEvents } from "@/services/hooks/events";
 import { EventItem } from "./EventItem";
-import { CircularProgress, Alert } from "@mui/material";
+import { Alert } from "@mui/material";
 import { EmptyEvents } from "./EmptyEvents";
+import { EventItemSkeleton } from "@/components/EventSkeleton";
 
 export default function PastEvents() {
     const { data, isLoading, error } = usePastEvents();
@@ -14,10 +15,12 @@ export default function PastEvents() {
             host: event.category?.replace(/_/g, ' ') || "Event"
         })) : []
 
-    if (isLoading) {
+     if (isLoading) {
         return (
-            <div className="flex justify-center items-center py-12">
-                <CircularProgress />
+            <div className="grid lg:grid-cols-2 ml:grid-cols-3 gap-6">
+                {Array.from({ length: 4 }).map((_, index) => (
+                    <EventItemSkeleton key={index} />
+                ))}
             </div>
         );
     }

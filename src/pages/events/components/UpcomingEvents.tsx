@@ -32,6 +32,7 @@ export default function UpcomingEvents() {
     }
 
     if (upcomingEvents.length === 0) return <EmptyEvents label="Upcoming" />;
+    
     return (
         <div className="grid lg:grid-cols-2 ml:grid-cols-3 gap-6">
             {upcomingEvents.map(event => (
