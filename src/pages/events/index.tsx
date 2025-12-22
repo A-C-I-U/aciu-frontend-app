@@ -6,14 +6,13 @@ import PastEvents from "./components/PastEvents";
 import { motion, AnimatePresence } from "motion/react";
 import { useUser } from "@/context/UserContext";
 import AllEvents from "./components/AllEvents";
-import RegisteredEvents from "./components/RegisteredEvents";
 import { StatsCard } from "@/components/StatsCard";
 import TabButton from "@/components/TabButton";
 import { useEventsStats } from "@/services/hooks/events";
 
 const baseTabs: TabItem[] = [
     { key: "upcoming-events", label: "Upcoming Events", content: <UpcomingEvents /> },
-    { key: "registered-events", label: "Registered Events", content: <RegisteredEvents /> },
+    { key: "registered-events", label: "Registered Events", content: <UpcomingEvents /> },
     { key: "past-events", label: "Past Events", content: <PastEvents /> }
 ];
 
