@@ -57,8 +57,11 @@
   --font-inter: 'Inter', sans-serif;
 
   --radius-2xs: .625rem;
-  --breakpoint-mlg: 1024px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-mlg: 1250px;
   --breakpoint-ml: 1350px;
+  --leading-default: 100%;
   
   --color-background: #ffffff;
   --color-foreground: #3E3E3E;
@@ -396,6 +399,39 @@ a, button {
     cursor: not-allowed;
   }
 
+  .btn-event {
+    width: fit-content;
+    padding: 1.5rem;
+    border-radius: 0.625rem;
+    font-family: var(--font-coolvetica);
+    line-height: 100%;
+  }
+
+  .btn-event-primary {
+    background-color: var(--color-aciu-green-normal);
+    color: white;
+  }
+
+  .btn-event-secondary {
+    border: 1px solid var(--color-aciu-green-normal);
+    color: var(--color-aciu-green-normal);
+  }
+
+  .event-tag {
+    border-radius: 0.375rem;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    max-width: fit-content;
+    font-family: var(--font-coolvetica);
+    font-size: 0.875rem;
+    color: var(--color-aciu-border-grey);
+    background-color: var(--color-aciu-yellow);
+    text-transform: capitalize;
+    line-height: 100%;
+  }
+
   .resources-modal-section {
     display: flex;
     flex-direction: column;
@@ -546,5 +582,9 @@ a, button {
 
   .go-to-homepage {
     font-size: .875rem;
+  }
+
+  .btn-event {
+    width: 100%;
   }
 }
