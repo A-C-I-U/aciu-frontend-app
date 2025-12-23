@@ -1,12 +1,14 @@
 import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
 import { StatusBadge } from "@/components/StatusBadge";
+import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
 import { useWithdrawalDetail } from "@/services/hooks/dashboard";
-import type { WithdrawalResponse } from "@/services/types/dashboad";
-import { withdrawalStatusMap } from "@/utils/helpers";
+import type { WithdrawalDetailResponse } from "@/services/types/dashboad";
+import { copyTextToClipboard, withdrawalStatusMap } from "@/utils/helpers";
 import type { WithdrawalDataType } from "@/utils/types";
 import { Divider } from "@mui/material";
 import { formatDate } from "date-fns";
+import { Copy } from "iconsax-react";
 import type React from "react";
 
 export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
@@ -16,7 +18,7 @@ export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
 ) {
     if (!withdrawalId) return null;
 
-    const { data, isLoading } = useWithdrawalDetail(withdrawalId)
+    const { data, isLoading } = useWithdrawalDetail(withdrawalId);
 
     return (
         <ShellModal
@@ -28,13 +30,19 @@ export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
                 <Divider className="flex shrink-0" />
                 <div className="flex flex-col h-full overflow-hidden">
                     <div className="resources-modal-body">
-                       {isLoading ?
-                            <DetailSkeleton /> :
-                            <WithdrawalDetailContent data={data.data} />
-                        }
+                    {isLoading && <DetailSkeleton />}
+                    {!isLoading && data && (
+                        <WithdrawalDetailContent data={data} />
+                    )}
+                    {!isLoading && !data && (
+                        <div className="text-aciu-abriba p-4">
+                            Unable to load withdrawal details.
+                            Please open the modal again.
+                        </div>
+                    )}
                     </div>
                     <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                        <button className="btn btn-primary">
+                        <button className="btn btn-primary" disabled={!data}>
                             Download Receipt
                         </button>
                     </div> 
@@ -48,13 +56,14 @@ export const ViewDetailRow = ({ label, content }: { label: string, content: Reac
     return (
         <tr>
             <td className="payment-table-column title whitespace-nowrap">{label}</td>
-            <td className="payment-table-column desc capitalize whitespace-nowrap max-w-60 truncate">{content}</td>
+            <td className="payment-table-column desc capitalize whitespace-nowrap max-w-92 truncate">{content}</td>
         </tr>
     )
 }
 
 
-const WithdrawalDetailContent = ({ data }: { data: WithdrawalResponse }) => {
+const WithdrawalDetailContent = ({ data }: { data: WithdrawalDetailResponse }) => {
+    if (!data) return <EmptyRecords />
     
     const withdrawalDetail = {
         id: data.id,
@@ -70,7 +79,7 @@ const WithdrawalDetailContent = ({ data }: { data: WithdrawalResponse }) => {
     const { label, labelColor, dotColor, bgColor } = withdrawalStatusMap[withdrawalDetail.status as WithdrawalDataType["status"]]
 
     return (
-        <table>
+        <table className="table-auto border-collapse">
             <thead>
                 <tr className="text-left">
                     <th className="payment-table-column title">Title</th>
@@ -78,8 +87,38 @@ const WithdrawalDetailContent = ({ data }: { data: WithdrawalResponse }) => {
                 </tr>
             </thead>
             <tbody>
-                <ViewDetailRow label="Transaction ID" content={withdrawalDetail.transactionId} />
-                <ViewDetailRow label="Submitted By" content={withdrawalDetail.submittedBy} />
+                <tr>
+                    <td className="payment-table-column title whitespace-nowrap">Transaction ID</td>
+                    <td className="payment-table-column">
+                        <span className=" flex items-center justify-between">
+                            <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-70 md:max-w-60 text-xs md:text-base">
+                                {withdrawalDetail.transactionId}
+                            </span>
+                            <button
+                                aria-label="Copy Transaction ID"
+                                onClick={() => copyTextToClipboard(withdrawalDetail.transactionId)}
+                            >
+                                <Copy variant="Bulk" size={20} color="#00B686" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td className="payment-table-column title whitespace-nowrap">Submitted By</td>
+                    <td className="payment-table-column">
+                        <span className=" flex items-center justify-between">
+                            <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-50 md:max-w-60 text-xs md:text-base">
+                                {withdrawalDetail.submittedBy}
+                            </span>
+                            <button
+                                aria-label="Copy Submitted By"
+                                onClick={() => copyTextToClipboard(withdrawalDetail.submittedBy)}
+                            >
+                                <Copy variant="Bulk" size={20} color="#00B686" />
+                            </button>
+                        </span>
+                    </td>
+                </tr>
                 <ViewDetailRow label="Payment Type" content={withdrawalDetail.paymentType} />
                 <ViewDetailRow label="Amount" content={`N${withdrawalDetail.amount.toLocaleString()}`} />
                 <ViewDetailRow label="Date Paid" content={formatDate(withdrawalDetail.date, "dd-MM-yyyy h:mm  aaaaa'm'")} />
@@ -95,8 +134,12 @@ const DetailSkeleton = () => {
         <table>
             <thead>
                 <tr className="payment-table-column title">
-                    <th className="h-4 bg-gray-200 rounded w-full mb-2">{""}</th>
-                    <th className="h-4 bg-gray-200 rounded w-full mb-2">{""}</th>
+                    <th>
+                        <span className="h-2 bg-gray-200 rounded mb-2">{""}</span>
+                    </th>
+                    <th>
+                        <span className="h-2 bg-gray-200 rounded mb-2">{""}</span>
+                    </th>
                 </tr>
             </thead>
             <tbody>
