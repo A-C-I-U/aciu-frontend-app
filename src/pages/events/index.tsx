@@ -19,7 +19,7 @@ const baseTabs: TabItem[] = [
 
 export default function EventsPage() {
     const { user } = useUser();
-    const { data, isLoading: isEventsStatsLoading } = useEventsStats();
+    const { data, isLoading: isEventsStatsLoading, isError: isEventsStatsError } = useEventsStats();
     const eventStats = data?.stats;
 
     const tabs = useMemo(() => {
@@ -43,7 +43,7 @@ export default function EventsPage() {
             {user?.role === "national_admin" ?
                 <div className="flex flex-col gap-6">
                     <div className="flex flex-col lg:flex-row gap-4 mx-5 mt-6">
-                        {isEventsStatsLoading ? 
+                        {isEventsStatsLoading || isEventsStatsError ? 
                         <>
                             {[1, 2, 3].map((item) => (
                                 <div
@@ -94,7 +94,8 @@ export default function EventsPage() {
                         className="flex gap-4 md:gap-8 items-center bg-white mx-5 rounded-lg md:px-6 px-2.5 pt-14"
                     >
                         {tabs.map((tab) => (
-                            <TabButton 
+                            <TabButton
+                                key={tab.key}
                                 tab={tab} 
                                 active={tab === activeTab} 
                                 onClick={() => handleTabChange(tab)} 
