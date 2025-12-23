@@ -9,10 +9,11 @@ import AllEvents from "./components/AllEvents";
 import { StatsCard } from "@/components/StatsCard";
 import TabButton from "@/components/TabButton";
 import { useEventsStats } from "@/services/hooks/events";
+import RegisteredEvents from "./components/RegisteredEvents";
 
 const baseTabs: TabItem[] = [
     { key: "upcoming-events", label: "Upcoming Events", content: <UpcomingEvents /> },
-    { key: "registered-events", label: "Registered Events", content: <UpcomingEvents /> },
+    { key: "registered-events", label: "Registered Events", content: <RegisteredEvents /> },
     { key: "past-events", label: "Past Events", content: <PastEvents /> }
 ];
 
@@ -60,6 +61,7 @@ export default function EventsPage() {
                             ))}
                         </> : 
                         <>
+
                             <StatsCard
                                 title="Total Events Hosted"
                                 number={eventStats?.totalEvents ? eventStats.totalEvents.toLocaleString() : "0"}

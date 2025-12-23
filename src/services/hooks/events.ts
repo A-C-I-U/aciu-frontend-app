@@ -61,6 +61,22 @@ export const usePastEvents = () => {
   })
 }
 
+const fetchMyRegisteredEvents = async (): Promise<EventsResponse> => {
+  const response = await apiClient.get<EventsResponse>("/events/my-registrations")
+  return response.data
+};
+
+export const useMyRegisteredEvents = () => {
+  const { user } = useUser();
+  return useQuery({
+    queryKey: ["events", "my-registered-events"],
+    queryFn: fetchMyRegisteredEvents,
+    enabled: user?.role !== "national_admin",
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  })
+}
+
 const fetchEventDetails = async (
   eventId: string
 ): Promise<EventDetailsResponse> => {
