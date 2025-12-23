@@ -23,7 +23,7 @@ export default function RegisteredEvents() {
 
     if (isLoading) {
         return (
-            <div className="grid lg:grid-cols-2 ml:grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-2 mlg:grid-cols-3 gap-6">
                 {Array.from({ length: 4 }).map((_, index) => (
                     <EventItemSkeleton key={index} />
                 ))}
@@ -34,7 +34,7 @@ export default function RegisteredEvents() {
     if (myRegisteredEvents.length === 0) return <EmptyEvents label="Upcoming" />;
     
     return (
-        <div className="grid lg:grid-cols-2 ml:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-2 mlg:grid-cols-3 gap-6">
             {myRegisteredEvents.map(event => (
                 <EventItem
                     key={event.id}

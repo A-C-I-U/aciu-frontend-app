@@ -23,7 +23,7 @@ export default function AllEvents() {
 
     if (isLoading) {
         return (
-            <div className="grid grid-cols-1 lg:grid-cols-2 mlg:grid-cols-3 gap-6">
+            <div className="grid lg:grid-cols-2 mlg:grid-cols-3 gap-6">
                 {Array.from({ length: 4 }).map((_, index) => (
                     <EventItemSkeleton key={index} />
                 ))}
@@ -35,7 +35,7 @@ export default function AllEvents() {
     if (allEvents?.length === 0) return <EmptyEvents />
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 mlg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-2 mlg:grid-cols-3 gap-6">
             {allEvents?.map(event => (
                 <EventItem
                     key={event.id}
