@@ -1,6 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import apiClient from '..';
-import type { DashboardResponse, FinancesResponse, NationalDashboardStats } from '../types/dashboad';
+import { 
+  type TransactionsResponse, 
+  type DashboardResponse, 
+  type FinancesResponse, 
+  type NationalDashboardStats, 
+  type WithdrawalDetailResponse 
+} from '../types/dashboad';
 import { useUser } from '@/context/UserContext';
 
 export const useDashboardOverview = () => {
@@ -59,14 +65,29 @@ export const useNationalDashboardWithdrawals = () => {
 }
 
 export const useWithdrawalDetail = (id: string) => {
-  return useQuery<any, Error>({
+  return useQuery<WithdrawalDetailResponse, Error>({
     queryKey: ['withdrawal', 'detail', id],
     enabled: !!id,
-    queryFn: async (): Promise<any> => {
-      const response = await apiClient.get<any>(`/withdrawal/${id}`);
-      return response.data;
+    queryFn: async (): Promise<WithdrawalDetailResponse> => {
+      const response = await apiClient.get<{ message: string; data: WithdrawalDetailResponse }>(`/withdrawal/${id}`);
+      return response.data.data;
     },
     staleTime: 5 * 60 * 1000,
     retry: 2
+  })
+}
+
+export const useNationalDashboardTransactions = (year: number) => {
+  return useQuery<TransactionsResponse, Error>({
+    queryKey: ["transactions", "dashboard", year],
+    queryFn: async (): Promise<TransactionsResponse> => {
+      const response = await apiClient.get<TransactionsResponse>(
+        `/dashboard/transactions?year=${year}`
+      );
+      return response.data
+    },
+    staleTime: 5 * 60 * 1000, 
+    retry: 2, 
+    enabled: !!year
   })
 }

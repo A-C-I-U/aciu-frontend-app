@@ -1,13 +1,16 @@
 import { StatsCard } from "@/components/StatsCard";
-import { useNationalDashboardStats, useNationalDashboardWithdrawals } from "@/services/hooks/dashboard"
-import { NavLink } from "react-router-dom";
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import { 
+    useNationalDashboardStats, 
+    useNationalDashboardTransactions, 
+    useNationalDashboardWithdrawals 
+} from "@/services/hooks/dashboard"
 import TransactionsChart from "./components/TransactionsChart";
 import { Divider } from "@mui/material";
 import { ArrowDown2 } from "iconsax-react";
 import WithdrawalRequestsTable from "./components/WithdrawalRequestTable";
 import NationalAdminSkeleton from "./components/NationalAdminSkeleton";
 import { columns } from "./components/columns";
+import { QuickActionsButtons } from "../../components/QuickActionsButton";
 
 const quickActions = [
     { label: "View Transactions", path: "/transactions" },
@@ -22,6 +25,7 @@ const quickActions = [
 export default function DashboardNationalAdmin() {
     const { data: stats, isLoading: isStatsLoading } = useNationalDashboardStats();
     const { data: withdrawalsData, isLoading: isWithdrawalRequestsLoading } = useNationalDashboardWithdrawals();
+    const { data: monthlyTransactions, isLoading: isMonthlyTransactionsLoading } = useNationalDashboardTransactions(2025);
 
 
     const withdrawalRequests = withdrawalsData
@@ -36,7 +40,7 @@ export default function DashboardNationalAdmin() {
     : [];
 
 
-    if (isStatsLoading || isWithdrawalRequestsLoading) return <NationalAdminSkeleton />
+    if (isStatsLoading || isWithdrawalRequestsLoading || isMonthlyTransactionsLoading) return <NationalAdminSkeleton />
 
     return (
         <div className="flex flex-col gap-6 p-6 w-full">
@@ -63,8 +67,8 @@ export default function DashboardNationalAdmin() {
                 </div>
             }
 
-            <div className="grid lg:grid-cols-[3fr_1fr] items-stretch gap-4 max-w-full">
-                <div className="bg-white rounded-lg py-5.5 flex flex-col gap-6 max-w-full">
+            <div className="grid lg:grid-cols-[3fr_1fr] lg:items-stretch gap-4">
+                <div className="bg-white rounded-lg py-5.5 flex flex-col gap-6 min-w-0">
                     <div className="flex flex-col lg:flex-row gap-6.75 lg:gap-7 justify-between lg:items-center px-4 lg:px-8">
                         <h3 className="text-xl leading-[120%] text-aciu-border-grey font-bold">
                             Transactions
@@ -75,61 +79,41 @@ export default function DashboardNationalAdmin() {
                             <LegendItem color="#D9F7EA" label="Events" />
                         </div>
                         <div className="hidden lg:flex gap-2 items-center">
-                            <button className="section-action-button">
+                            <button className="section-action-button admin">
                                 2022
-                                <ArrowDown2 color="#3E3E3E" size={12} />
+                                <ArrowDown2 color="#3E3E3E" size={14} />
                             </button>
-                            <button className="section-action-button">
+                            <button className="section-action-button admin">
                                 Monthly
-                                <ArrowDown2 color="#3E3E3E" size={12} />
+                                <ArrowDown2 color="#3E3E3E" size={14} />
                             </button>
                         </div>
                     </div>
-                    <Divider />
+                    <Divider sx={{ borderColor: "#EEECF6" }}/>
                     <div className="flex lg:hidden gap-2 items-center px-4 lg:px-8">
-                        <button className="section-action-button">
+                        <button className="section-action-button admin">
                             2022
-                            <ArrowDown2 color="#3E3E3E" size={24} />
+                            <ArrowDown2 color="#3E3E3E" size={14} />
                         </button>
-                        <button className="section-action-button">
+                        <button className="section-action-button admin">
                             Monthly
-                            <ArrowDown2 color="#3E3E3E" size={24} />
+                            <ArrowDown2 color="#3E3E3E" size={14} />
                         </button>
                     </div>
-                    <div className="px-4 lg:px-8 max-w-full">
-                        <TransactionsChart />
+
+                    <div className="px-4 lg:px-8 max-w-full"> 
+                        <div className="overflow-x-auto"> 
+                            <div className="min-w-125 md:min-w-0 mb-4"> 
+                                <TransactionsChart 
+                                    monthlyTransactions={monthlyTransactions?.monthlyTransactions ?? []} 
+                                /> 
+                            </div> 
+                        </div> 
                     </div>
+
                 </div>
-                <div className="bg-white rounded-lg px-6 py-4.5 flex flex-col gap-6">
-                    <p className="font-semibold leading-[120%] text-aciu-border-grey">
-                        Quick Actions
-                    </p>
-                    <div className="flex flex-col gap-4">
-                        {quickActions.map(({ label, path }, index) => (
-                            <NavLink
-                                key={index}
-                                to={path}
-                                    className={[
-                                        "flex justify-between items-center rounded-sm py-2.5 px-3.5 border transition-colors",
-                                        index % 2 === 0
-                                        ? "bg-accent-100 border-accent-300"
-                                        : "bg-primary-100 border-primary-300"
-                                    ].join(" ")}>
-                                    <>
-                                        <span className="font-montserrat text-xs text-aciu-border-grey">
-                                            {label}
-                                        </span>
-                                        <ArrowForwardIosRoundedIcon
-                                            sx={{
-                                                width: "1rem",
-                                                height: "1rem",
-                                                color: "#3E3E3E"
-                                            }}
-                                        />
-                                    </>
-                            </NavLink>
-                        ))}
-                    </div>
+                <div className="bg-white rounded-lg px-6 py-6 lg:py-4.5 flex flex-col gap-6 min-w-0">
+                    <QuickActionsButtons quickActions={quickActions}/>
                 </div>
             </div>
 
@@ -145,7 +129,7 @@ export default function DashboardNationalAdmin() {
 
 const LegendItem = ({ color, label }: { color: string, label: string }) => {
     return (
-        <div className="flex items-center gap-2 text-sm leading-[140%] text-aciu-border-grey">
+        <div className="flex items-center gap-2 text-xs md:text-sm leading-[160%] md:leading-[140%] text-aciu-border-grey">
             <span
                 className="w-3 h-3 inline-block rounded-sm"
                 style={{ backgroundColor: color }}
