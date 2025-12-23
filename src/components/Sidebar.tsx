@@ -34,8 +34,8 @@ export default function Sidebar() {
                         to={path}
                         className={({ isActive }) =>
                             [
-                            "flex items-center gap-2 py-3.5 px-2 rounded-md transition-colors group",
-                            "text-sm font-coolvetica font-semibold",
+                            "flex items-center gap-2 py-3.5 px-2 rounded-md transition-colors duration-300 ease-in-out group",
+                            "text-sm font-coolvetica leading-default transition-transform active:scale-95",
                             isAdmin
                                 ? "hover:bg-white hover:text-aciu-green-normal"
                                 : "hover:bg-aciu-green-light hover:text-aciu-green-normal",
