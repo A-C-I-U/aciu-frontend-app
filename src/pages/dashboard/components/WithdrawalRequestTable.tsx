@@ -37,7 +37,7 @@ export default function WithdrawalRequestsTable({
     const table = useReactTable<WithdrawalDataType>({
         data: data,
         columns: columns(handleViewClick),
-        pageCount: Math.ceil(data?.length / 10),
+        pageCount: 1,
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
     });
@@ -68,6 +68,7 @@ export default function WithdrawalRequestsTable({
                     {!isMedium ?
                         <DataTable
                             table={table}
+                            pagination={false}
                         />
                         :
                         

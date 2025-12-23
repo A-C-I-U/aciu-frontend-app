@@ -21,9 +21,11 @@ import { Pagination, PaginationItemType } from "@heroui/react";
 
 
 export default function DataTable({ 
-   table
+   table,
+   pagination = true
 }: { 
-    table: TableType<any>
+    table: TableType<any>,
+    pagination?: boolean
 }) {
 
     
@@ -98,6 +100,7 @@ export default function DataTable({
 
 
             {/* Pagination Component */}
+            {pagination && 
             <div className="w-full pt-3 pb-4 px-6 flex justify-between items-center">
                 <button
                     className="rounded-md py-2 px-[.875rem] 
@@ -160,7 +163,7 @@ export default function DataTable({
                     </span>
                     <ArrowRightIcon size={20} color="#00B686" />
                 </button>
-            </div>
+            </div>}
         </div>
     )
 }
