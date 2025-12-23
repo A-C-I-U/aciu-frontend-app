@@ -91,7 +91,7 @@ const WithdrawalDetailContent = ({ data }: { data: WithdrawalDetailResponse }) =
                     <td className="payment-table-column title whitespace-nowrap">Transaction ID</td>
                     <td className="payment-table-column">
                         <span className=" flex items-center justify-between">
-                            <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-70 md:max-w-60 text-xs md:text-base">
+                            <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-45 md:max-w-60 text-xs md:text-sm">
                                 {withdrawalDetail.transactionId}
                             </span>
                             <button
@@ -107,7 +107,7 @@ const WithdrawalDetailContent = ({ data }: { data: WithdrawalDetailResponse }) =
                     <td className="payment-table-column title whitespace-nowrap">Submitted By</td>
                     <td className="payment-table-column">
                         <span className=" flex items-center justify-between">
-                            <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-50 md:max-w-60 text-xs md:text-base">
+                            <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-50 md:max-w-60 text-xs md:text-sm">
                                 {withdrawalDetail.submittedBy}
                             </span>
                             <button
