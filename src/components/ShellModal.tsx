@@ -3,6 +3,7 @@ import Dialog from "@mui/material/Dialog";
 import Drawer from "@mui/material/Drawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ScrollLock } from "./ScrollLock";
+import { DialogTitle } from "@mui/material";
 
 interface ShellProps {
     open: boolean;
@@ -65,10 +66,12 @@ export default function ShellModal({
                 sx={defaultDrawerSx}
                 variant="temporary"
             >
+                <h2 tabIndex={-1} className="hidden">Title</h2>
                 {children}
             </Drawer>
         ) : (
             <Dialog open={open} onClose={onClose} disableScrollLock={false} sx={defaultDialogSx}>
+                <DialogTitle sx={{ display: "none" }}></DialogTitle>
                 {children}
             </Dialog>
         )}
