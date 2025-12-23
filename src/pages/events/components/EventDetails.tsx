@@ -7,13 +7,13 @@ import { EventItemSkeleton } from "@/components/EventSkeleton";
 import { enqueueSnackbar } from "notistack";
 import { format, formatDate, parse } from "date-fns";
 import { useUser } from "@/context/UserContext";
-
-const isMobile = window.innerWidth < 768;
+import { useMediaQuery } from "@mui/material";
 
 export default function EventDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { user } = useUser();
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
   const { data, isLoading, error } = useEventDetails(id!);
 
