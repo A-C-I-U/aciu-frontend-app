@@ -15,7 +15,7 @@ export const UpcomingEventCard = (
         >
             <div className="grid lg:grid-cols-[6.625rem_1fr] items-stretch gap-2 w-full">
                 <img 
-                    src={image} 
+                    src={image || '/images/event-placeholder.jpg'} 
                     className="rounded-[.313rem] w-full md:h-39 lg:h-27 min-w-27 sm:h-22.5 object-cover" 
                     alt=""
                     onError={(e) => {

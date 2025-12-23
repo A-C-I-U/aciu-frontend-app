@@ -23,7 +23,7 @@ export const EventItem = ({
             className={`flex flex-col gap-4 rounded-lg border border-aciu-dark-grey py-2.5 px-2 lg:px-3.5`}>
             <span className="flex flex-col gap-3.5">
                 <img 
-                    src={img} 
+                    src={img || "/images/event-placeholder.jpg"} 
                     className="rounded-sm object-cover w-full max-h-36.25" 
                     alt="Event image" 
                     onError={(e) => {
