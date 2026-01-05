@@ -1,5 +1,8 @@
 import FormikField from "@/components/FormikField";
 import { FieldArray, useFormikContext } from "formik";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { FormLabel } from "@mui/material";
+import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 
 export default function DateTimeForm() {
     const { values } = useFormikContext<any>();
@@ -12,28 +15,75 @@ export default function DateTimeForm() {
                 </p>
 
                 <div className="flex flex-col gap-4 lg:gap-2 justify-between items-start w-full">
-                    <FormikField
-                        name="eventDate"
-                        label="Event Date"
-                        placeholder="Select the date of the event"
-                        disabled
-                        fullWidth
-                    />
-                    <FormikField
-                        name="eventTime"
-                        label="Event Time"
-                        placeholder="Select the time of the event"
-                        options={[
-                            { label: "08:00am - 10:00am", value: "08:00-10:00" },
-                            { label: "10:30am - 12:00pm", value: "10:30-12:00" },
-                            { label: "12:30pm - 02:00pm", value: "12:30-14:00" },
-                            { label: "02:30pm - 05:00pm", value: "14:30-17:00" },
-                            { label: "05:30pm - 07:00pm", value: "17:30-19:00" },
-                        ]}
-                        select
-                        fullWidth
-                    />
-
+                    <div className="flex flex-col gap-2 items-start w-full">
+                        <FormLabel
+                            sx={{
+                              fontFamily: "'Montserrat', sans-serif",
+                              color: '#3E3E3E',
+                              fontWeight: 500,
+                              fontSize: '0.875rem'
+                            }}
+                        >
+                            Event Date
+                        </FormLabel>
+                        <DatePicker
+                            name="eventDate"
+                            className="w-full h-unset py-2"
+                            sx={{
+                                '& .MuiPickersOutlinedInput-root': {
+                                    borderRadius: ".5rem",
+                                    borderColor: "#DFE1E7",
+                                    fontSize: ".875rem"
+                                }
+                            }}
+                        />
+                    </div>
+                    <div className="flex flex-col gap-3.5 md:gap-2 items-start w-full">
+                        <FormLabel
+                            sx={{
+                                fontFamily: "'Montserrat', sans-serif",
+                                color: '#3E3E3E',
+                                fontWeight: 500,
+                                fontSize: '0.875rem',
+                            }}
+                        >
+                            Event Time
+                        </FormLabel>
+                        <div className="flex flex-col md:flex-row gap-3 md:gap-2 items-center w-full">
+                            <TimePicker
+                                name="startTime"
+                                label="Start"
+                                className="w-full"
+                                slotProps={{
+                                    textField: {
+                                        sx: {
+                                            flex: 1,
+                                            '& .MuiPickersOutlinedInput-root': {
+                                                borderRadius: '.5rem',
+                                                fontSize: ".875rem"
+                                            },
+                                        },
+                                    },
+                                }}
+                            />
+                            <TimePicker
+                                name="endTime"
+                                label="End"
+                                className="w-full"
+                                slotProps={{
+                                    textField: {
+                                        sx: {
+                                            flex: 1,
+                                            '& .MuiPickersOutlinedInput-root': {
+                                                borderRadius: '.5rem',
+                                                fontSize: ".875rem"
+                                            },
+                                        },
+                                    },
+                                }}
+                            />
+                        </div>
+                    </div>
                 </div>
 
                 <FormikField
