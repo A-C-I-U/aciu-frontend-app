@@ -7,7 +7,7 @@ import { Alert, Skeleton } from '@mui/material';
 
 export default function FeaturedPosts() {
     const { data: featuredData, isLoading, error } = useFeaturedBlogPosts();
-    const featuredPosts = featuredData?.posts || [];
+    const featuredPosts = featuredData?.posts?.slice(0,2) || [];
 
     if (error) {
         return (
@@ -44,7 +44,7 @@ export default function FeaturedPosts() {
     }
 
     if (featuredPosts.length === 0) {
-        return null; // Don't show anything if no featured posts
+        return null; 
     }
 
     return (
