@@ -31,19 +31,29 @@ export const stepSchemas = [
     object({
         eventDate: date().optional(),
         startTime: string().required("Start Time is required"),
-        endTime: string().required("End Time is required"),
+        endTime: string()
+            .required("End Time is required")
+            .test( "is-greater", "End time must be after start time", 
+                function (value) { 
+                    const { startTime } = this.parent; 
+                    return startTime && value && value > startTime; 
+                }),
         eventLocation: string().required("Event Location is required"),
         eventHighlights: array().of(string().required("Add an event highlight")).min(1, "At least one event highlight must be added")
     }),
     object({
         image: mixed()
             .required("An image is required")
-            .test("fileType", "Unsupported file format", (file: any) =>
-                file ? ["image/png", "image/jpeg", "image/jpg"].includes(file.type) : false
-            )
-            .test("fileSize", "File too large", (file: any) =>
-                file ? file?.size <= 10 * 1024 * 1024 : false
-            ),
+            .test("fileType", "Unsupported file format", (value: any) => {
+                if (!value) return false;
+                if (typeof value === "string") return true;
+                return ["image/png", "image/jpeg", "image/jpg"].includes(value.type);
+            })
+            .test("fileSize", "File too large", (value: any) => {
+                if (!value) return false;
+                if (typeof value === "string") return true;
+                return value.size <= 10 * 1024 * 1024;
+            }),
         enableRsvp: boolean().required("This permission must be selected"),
         enableDonations: boolean().required("This permission must be selected"),
         enableCountdown: boolean().required("This permission must be selected"),
