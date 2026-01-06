@@ -14,6 +14,7 @@ import { useSaveEvent } from "@/services/mutations/events";
 import { enqueueSnackbar } from "notistack";
 import dayjs from "dayjs";
 import { CircularProgress } from "@mui/material";
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function AddEventPage({
     returnRoute
@@ -23,6 +24,7 @@ export default function AddEventPage({
     const { eventId } = useParams<{ eventId?: string }>();
     const { data } = useEventDetails(eventId ?? "");
     const saveEventMutation = useSaveEvent();
+    const queryClient = useQueryClient();
 
     
     const navigate = useNavigate();
@@ -44,9 +46,9 @@ export default function AddEventPage({
             guestExpectation: values.guestExpectation,
             dressCode: values.dressCode as EventDressCode,
             entryFee: values.entryFee,
-            eventDate: dayjs(values.eventDate).format("YYYY-MM-DD").toString(),
-            startTime: dayjs(values.startTime).format("HH:mm").toString(),
-            endTime: dayjs(values.endTime).format("HH:mm").toString(),
+            eventDate: dayjs(values.eventDate).format("YYYY-MM-DD"),
+            startTime: typeof values.startTime === "string" ? values.startTime : dayjs(values.startTime).format('HH:mm'),
+            endTime: typeof values.endTime === "string" ? values.endTime : dayjs(values.endTime).format('HH:mm'),
             location: values.eventLocation,
             highlights: values.eventHighlights,
             coverImage: values.image instanceof File ? values.image : null,
@@ -57,6 +59,9 @@ export default function AddEventPage({
 
         try {
             const result = await saveEventMutation.mutateAsync({ eventId, payload }); 
+            if (eventId) {
+                queryClient.invalidateQueries({ queryKey: ["event", eventId] });
+            }
             enqueueSnackbar(result.message || (eventId ? "Event updated successfully" : "Event created successfully"), 
                 { variant: "success" } );
             actions.setSubmitting(false);
@@ -98,8 +103,7 @@ export default function AddEventPage({
             onSubmit={handleSubmit}
             enableReinitialize
         >
-            {({ isValid, isSubmitting, validateForm, errors }) => {
-                console.log(errors)
+            {({ isValid, isSubmitting, validateForm }) => {
                 return (
                     <Form className="py-4 mx-5 flex flex-col gap-5.5">
                         <div className="flex justify-between items-center">
