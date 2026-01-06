@@ -3,9 +3,10 @@ import { FieldArray, useFormikContext } from "formik";
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { FormLabel } from "@mui/material";
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
+import dayjs from "dayjs";
 
 export default function DateTimeForm() {
-    const { values } = useFormikContext<any>();
+    const { values, setFieldValue, touched, errors } = useFormikContext<any>();
 
     return (
         <div className="flex flex-col gap-8">
@@ -28,12 +29,19 @@ export default function DateTimeForm() {
                         </FormLabel>
                         <DatePicker
                             name="eventDate"
+                            value={values.eventDate ? dayjs(values.eventDate) : null}
+                            onChange={(newValue) => setFieldValue("eventDate", dayjs(newValue))}
                             className="w-full h-unset py-2"
                             sx={{
+                                '& .MuiInputLabel-root': {
+                                    fontSize: '.875rem'
+                                },
+                                '& .MuiPickersInputBase-root': {
+                                    fontSize: ".875rem"
+                                },
                                 '& .MuiPickersOutlinedInput-root': {
                                     borderRadius: ".5rem",
                                     borderColor: "#DFE1E7",
-                                    fontSize: ".875rem"
                                 }
                             }}
                         />
@@ -52,12 +60,20 @@ export default function DateTimeForm() {
                         <div className="flex flex-col md:flex-row gap-3 md:gap-2 items-center w-full">
                             <TimePicker
                                 name="startTime"
+                                value={values.startTime ? dayjs(values.startTime, "HH:mm") : null} 
+                                onChange={(newValue) => setFieldValue("startTime", newValue)}
                                 label="Start"
                                 className="w-full"
                                 slotProps={{
                                     textField: {
                                         sx: {
                                             flex: 1,
+                                            '& .MuiInputLabel-root': {
+                                                fontSize: '.875rem'
+                                            },
+                                            '& .MuiPickersInputBase-root': {
+                                                fontSize: ".875rem"
+                                            },
                                             '& .MuiPickersOutlinedInput-root': {
                                                 borderRadius: '.5rem',
                                                 fontSize: ".875rem"
@@ -69,11 +85,20 @@ export default function DateTimeForm() {
                             <TimePicker
                                 name="endTime"
                                 label="End"
+                                value={values.endTime ? dayjs(values.endTime, "HH:mm") : null} 
+                                onChange={(newValue) => setFieldValue("endTime", newValue)}
                                 className="w-full"
                                 slotProps={{
                                     textField: {
+                                        error: !!(touched.endTime && errors.endTime),
                                         sx: {
                                             flex: 1,
+                                            '& .MuiInputLabel-root': {
+                                                fontSize: '.875rem'
+                                            },
+                                            '& .MuiPickersInputBase-root': {
+                                                fontSize: ".875rem"
+                                            },
                                             '& .MuiPickersOutlinedInput-root': {
                                                 borderRadius: '.5rem',
                                                 fontSize: ".875rem"
@@ -82,7 +107,13 @@ export default function DateTimeForm() {
                                     },
                                 }}
                             />
+                            
                         </div>
+                        {touched.endTime && errors.endTime && (
+                            <span className="text-xs text-red-600 font-medium font-montserrat">
+                                {errors.endTime as string}
+                            </span>
+                        )}
                     </div>
                 </div>
 
