@@ -1,3 +1,5 @@
+import type dayjs from "dayjs";
+
 export interface Event {
   id: string;
   title: string;
@@ -74,4 +76,47 @@ export interface EventsStatsResponse {
       rsvps: number
     }
   }
+}
+
+export type EventCategory =  "NATIONAL_EVENT" | "LOCAL_EVENT" | "OTHER";
+export type EventType = "VIRTUAL" | "PHYSICAL" | "HYBRID";
+export type EventDressCode = "SMART_CASUAL" | "FORMAL" | "TRADITIONAL" | string;
+
+export interface CreateEventData {
+  title: string;
+  description: string;
+  category: EventCategory;
+  type: EventType;
+  guestExpectation: string;
+  dressCode: EventDressCode;
+  entryFee: string;
+  eventDate: string;
+  startTime: string;
+  endTime: string;
+  location: string;
+  highlights: string[];
+  coverImage: File | string | null;
+  enableRSVP: boolean;
+  enableDonations: boolean;
+  enableCountdown: boolean;
+}
+
+
+export interface EventFormValues {
+  eventTitle: string;
+  eventDescription: string;
+  eventCategory: string;
+  eventType: string;
+  guestExpectation: string;
+  dressCode: string;
+  eventDate: dayjs.Dayjs | null;
+  startTime: dayjs.Dayjs | null;
+  endTime: dayjs.Dayjs | null;
+  eventLocation: string;
+  eventHighlights: string[];
+  entryFee: string;
+  image: string | File | null;
+  enableRsvp: boolean;
+  enableDonations: boolean;
+  enableCountdown: boolean;
 }
