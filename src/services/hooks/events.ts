@@ -17,16 +17,16 @@ export const useEvents = () => {
   });
 };
 
-const fetchAllEvents = async (): Promise<EventsResponse> => {
-  const response = await apiClient.get<EventsResponse>("/events/public")
+const fetchAllEvents = async (page: number): Promise<EventsResponse> => {
+  const response = await apiClient.get<EventsResponse>(`/events/public?page=${page}&limit=9`)
   return response.data
 };
 
-export const useAllEvents = () => {
+export const useAllEvents = (page: number) => {
   const { user } = useUser();
   return useQuery({
-    queryKey: ["events", "all-events"],
-    queryFn: fetchAllEvents,
+    queryKey: ["events", "all-events", page],
+    queryFn: () => fetchAllEvents(page),
     enabled: user?.role === "national_admin",
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
