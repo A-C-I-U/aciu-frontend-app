@@ -61,7 +61,16 @@ export default function DateTimeForm() {
                             <TimePicker
                                 name="startTime"
                                 value={values.startTime ? dayjs(values.startTime, "HH:mm") : null} 
-                                onChange={(newValue) => setFieldValue("startTime", newValue)}
+                                onChange={(newValue) => {
+                                    setFieldValue("startTime", newValue)
+                                    if (
+                                        values.endTime &&
+                                        newValue &&
+                                        dayjs(values.endTime, "HH:mm").isBefore(newValue)
+                                    ) {
+                                        setFieldValue("endTime", newValue);
+                                    }
+                                }}
                                 label="Start"
                                 className="w-full"
                                 slotProps={{
@@ -86,7 +95,10 @@ export default function DateTimeForm() {
                                 name="endTime"
                                 label="End"
                                 value={values.endTime ? dayjs(values.endTime, "HH:mm") : null} 
-                                onChange={(newValue) => setFieldValue("endTime", newValue)}
+                                minTime={values.startTime ? dayjs(values.startTime, "HH:mm") : undefined}
+                                onChange={(newValue) => {
+                                    setFieldValue("endTime", newValue)
+                                }}
                                 className="w-full"
                                 slotProps={{
                                     textField: {
