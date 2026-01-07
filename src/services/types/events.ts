@@ -29,6 +29,9 @@ export interface Event {
 
 export interface EventsResponse {
   events: Event[];
+  totalPages?: number;
+  currentPage?: number,
+  total?: number
 }
 
 export interface EventDetailsResponse {
