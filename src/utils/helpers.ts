@@ -418,3 +418,8 @@ export async function copyTextToClipboard(text: string) {
     enqueueSnackbar(`Failed to copy text: ${err}`, { variant: "error" });
   }
 }
+
+export const scrollToPosition = (desktop: boolean) => { 
+  const el = desktop ? document.getElementById("nav-tabs") : document.getElementById("section-header");
+  el?.scrollIntoView({ behavior: "smooth", block: "start" });
+};
