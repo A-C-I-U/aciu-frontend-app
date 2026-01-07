@@ -90,6 +90,7 @@ export default function EventsPage() {
                     }   
                     </div>
                     <nav 
+                        id="nav-tabs"
                         role="tablist" 
                         className="flex gap-4 md:gap-8 items-center bg-white mx-5 rounded-lg md:px-6 px-2.5 pt-14"
                     >

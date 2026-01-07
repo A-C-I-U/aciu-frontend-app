@@ -17,6 +17,7 @@ import {
     ArrowRightIcon, 
 } from "lucide-react";
 import { Pagination, PaginationItemType } from "@heroui/react";
+import { scrollToPosition } from "@/utils/helpers";
 
 
 
@@ -105,9 +106,12 @@ export default function DataTable({
                 <button
                     className="rounded-md py-2 px-[.875rem] 
                     flex gap-2 justify-center items-center
-                    shadow-[0px_1px_2px_0px_#1018280D] border
-                    border-grayscale-300 "
-                    onClick={() => table.previousPage()}
+                    shadow-[0px_1px_2px_0px_#1018280D] border hover:bg-aciu-green-light
+                    border-aciu-green-normal text-aciu-green-normal"
+                    onClick={() => {
+                        table.previousPage();
+                        scrollToPosition(true);
+                    }}
                     disabled={!table.getCanPreviousPage()}
                 >
                     <ArrowLeftIcon size={20} color="#00B686" />
@@ -118,7 +122,10 @@ export default function DataTable({
                 <Pagination
                     total={table.getPageCount()}
                     page={table.getState().pagination.pageIndex + 1}
-                    onChange={(page) => table.setPageIndex(page - 1)}
+                    onChange={(page) => {
+                        scrollToPosition(!!page)
+                        table.setPageIndex(page - 1)
+                    }}
                     size="md"
                     siblings={1}
                     boundaries={1}
@@ -153,9 +160,12 @@ export default function DataTable({
                 <button
                     className="rounded-md py-2 px-[.875rem] 
                     flex gap-2 justify-center items-center
-                    shadow-[0px_1px_2px_0px_#1018280D] border
-                    border-grayscale-300 text-green-normal"
-                    onClick={() => table.nextPage()}
+                    shadow-[0px_1px_2px_0px_#1018280D] border hover:bg-aciu-green-light
+                    border-aciu-green-normal text-aciu-green-normal"
+                    onClick={() => {
+                        scrollToPosition(true)
+                        table.nextPage()
+                    }}
                     disabled={!table.getCanNextPage()}
                 >
                     <span className="font-medium text-sm text-aciu-green-normal font-inter">
