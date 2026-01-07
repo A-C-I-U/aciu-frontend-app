@@ -82,8 +82,8 @@ export const CustomCountdown = ({ targetDate, variant, className }: CountdownPro
                     { label: "Hours", value: hours },
                     { label: "Minutes", value: minutes },
                     { label: "Seconds", value: seconds },
-                ].map(({ label, value }) => (
-                    <div>
+                ].map(({ label, value }, key) => (
+                    <div key={key}>
                         <span className="text-[2rem]">{pad(value)}</span>
                         <p className="text-xs font-medium uppercase">{label}</p>
                     </div>
