@@ -91,7 +91,7 @@ export default function SettingsPage() {
                     className="bg-white relative mx-5 flex"
                 >
                     <div className="hidden md:flex py-8 px-6.5 flex-col gap-8 lg:min-w-105">
-                        {user?.verified ?
+                        {!user?.verified ?
                             <ProfileVerificationPopup /> : 
                         ""}
                         <div className="flex flex-col gap-4 w-full">
@@ -149,7 +149,7 @@ export default function SettingsPage() {
                 >
                     {screen === "overview" && (
                         <div className="flex flex-col gap-8">
-                            {user?.verified ?
+                            {!user?.verified ?
                                 <ProfileVerificationPopup /> : 
                             ""}
                             <div className="flex flex-col gap-2 mt-3 w-full">

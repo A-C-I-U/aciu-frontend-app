@@ -1,5 +1,5 @@
 import type { User, UserContextType } from "@/utils/types";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 
 
@@ -10,18 +10,15 @@ export const UserContext = createContext<UserContextType>({
 
 
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>({
-    id: "1",
-    name: "Jane Doe",
-    occupation: "Medical Doctor",
-    phoneNumber: "+2349038283447",
-    email: "janedoe@gmail.com",
-    ageGrade: "Obiogu Age grade",
-    branch: "Lagos Branch",
-    verified: true,
-    role: "branch-admin", 
-  });
-
+  const [user, setUser] = useState<User | null>(null);
+  
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+  
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}

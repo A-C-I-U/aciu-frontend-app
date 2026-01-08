@@ -40,7 +40,7 @@ export const EmptyRecords = () => {
                 <Document size={32} color="#737373" variant="Linear"/>
             </div>
             <p className="text-sm md:text-base font-semibold text-aciu-border-grey">
-                No Payments Found Yet
+                No Records Found
             </p>
             <p className="text-xs md:text-sm text-aciu-abriba  max-w-70 text-center">
                 There are no records available at the moment. Once activities are logged, they will appear here.

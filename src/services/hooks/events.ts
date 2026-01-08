@@ -1,5 +1,6 @@
+import { useUser } from "@/context/UserContext";
 import apiClient from "..";
-import type { EventDetailsResponse, EventsResponse } from "../types/events";
+import type { EventDetailsResponse, EventsResponse, EventsStatsResponse } from "../types/events";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchEvents = async (): Promise<EventsResponse> => {
@@ -15,6 +16,66 @@ export const useEvents = () => {
     gcTime: 10 * 60 * 1000,
   });
 };
+
+const fetchAllEvents = async (page: number): Promise<EventsResponse> => {
+  const response = await apiClient.get<EventsResponse>(`/events/public?page=${page}&limit=9`)
+  return response.data
+};
+
+export const useAllEvents = (page: number) => {
+  const { user } = useUser();
+  return useQuery({
+    queryKey: ["events", "all-events", page],
+    queryFn: () => fetchAllEvents(page),
+    enabled: user?.role === "national_admin",
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  })
+}
+
+const fetchUpcomingEvents = async (): Promise<EventsResponse> => {
+  const response = await apiClient.get<EventsResponse>("/events/upcoming")
+  return response.data
+};
+
+export const useUpcomingEvents = () => {
+  return useQuery({
+    queryKey: ["events", "upcoming-events"],
+    queryFn: fetchUpcomingEvents,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  })
+}
+
+const fetchPastEvents = async (): Promise<EventsResponse> => {
+  const response = await apiClient.get<EventsResponse>("/events/past")
+  return response.data
+};
+
+export const usePastEvents = () => {
+  return useQuery({
+    queryKey: ["events", "past-events"],
+    queryFn: fetchPastEvents,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  })
+}
+
+const fetchMyRegisteredEvents = async (): Promise<EventsResponse> => {
+  const response = await apiClient.get<EventsResponse>("/events/my-registrations")
+  return response.data
+};
+
+export const useMyRegisteredEvents = () => {
+  const { user } = useUser();
+  return useQuery({
+    queryKey: ["events", "my-registered-events"],
+    queryFn: fetchMyRegisteredEvents,
+    enabled: user?.role !== "national_admin",
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  })
+}
 
 const fetchEventDetails = async (
   eventId: string
@@ -34,3 +95,19 @@ export const useEventDetails = (eventId: string) => {
     gcTime: 10 * 60 * 1000,
   });
 };
+
+const fetchEventsStats = async (): Promise<EventsStatsResponse> => {
+  const response = await apiClient.get<EventsStatsResponse>("/events/stats");
+  return response.data
+}
+
+export const useEventsStats = () => {
+  const { user } = useUser();
+  return useQuery({
+    queryKey: ["events", "stats"],
+    queryFn: () => fetchEventsStats(),
+    enabled: user?.role === "national_admin",
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  })
+}

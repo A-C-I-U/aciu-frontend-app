@@ -7,6 +7,7 @@ export const StatsCard = ({
     number,
     itemLabel,
     currency,
+    description,
     rateOfChange 
 }: StatsCardProps) => {
     const sign = +rateOfChange === 0 ? '' : (+rateOfChange > 0 ? '+' : '-');
@@ -21,7 +22,10 @@ export const StatsCard = ({
                     {currency}{String(number).padStart(2, '0')} {itemLabel}
                 </p>
             </div>
-            <div className="w-full flex justify-end">
+            <div className={`w-full flex ${description ? "justify-between" : "justify-end"}`}>
+                <span className="text-xs leading-[140%] uppercase text-copy-300">
+                    {description}
+                </span>
                 <span className="flex gap-2 justify-center items-center">
                     <ArrowTopRightIcon 
                         color={`${sign === '+' ? 

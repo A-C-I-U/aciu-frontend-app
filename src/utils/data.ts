@@ -4,7 +4,6 @@ import type {
   BlogSubmissionDetails,
   BranchExecCardProps,
   EventDetailsProps, 
-  EventItemProps, 
   FeaturedPostCardType, 
   MenuCardProps, 
   OptionLabelProps, 
@@ -76,73 +75,6 @@ export const villageOptions: OptionLabelProps[] = [
   { label: "Amogudu", value: "amogudu" },
   { label: "Agboji", value: "agboji" },
 ];
-
-export const upcomingEvents: EventItemProps[] = [
-    {
-        id: "1",
-        title: "Women's Empowerment Workshop",
-        img: "/images/abriba-event.jpg",
-        host: "ACIU Lagos Branch",
-        date: "21st January 2026",
-        time: "12:00pm - 5:00pm"
-    },
-    {
-        id: "2",
-        title: "Women's Empowerment Workshop",
-        img: "/images/abriba-event.jpg",
-        host: "ACIU Lagos Branch",
-        date: "21st January 2026",
-        time: "12:00pm - 5:00pm"
-    },
-    {
-        id: "3",
-        title: "Women's Empowerment Workshop",
-        img: "/images/abriba-event.jpg",
-        host: "ACIU Lagos Branch",
-        date: "21st January 2026",
-        time: "12:00pm - 5:00pm"
-    },
-    {
-        id: "4",
-        title: "Women's Empowerment Workshop",
-        img: "/images/abriba-event.jpg",
-        host: "ACIU Lagos Branch",
-        date: "21st January 2026",
-        time: "12:00pm - 5:00pm"
-    },
-    {
-        id: "5",
-        title: "Women's Empowerment Workshop",
-        img: "/images/abriba-event.jpg",
-        host: "ACIU Lagos Branch",
-        date: "21st January 2026",
-        time: "12:00pm - 5:00pm"
-    },
-    {
-        id: "6",
-        title: "Women's Empowerment Workshop",
-        img: "/images/abriba-event.jpg",
-        host: "ACIU Lagos Branch",
-        date: "21st January 2026",
-        time: "12:00pm - 5:00pm"
-    },
-    {
-        id: "7",
-        title: "Women's Empowerment Workshop",
-        img: "/images/abriba-event.jpg",
-        host: "ACIU Lagos Branch",
-        date: "21st January 2026",
-        time: "12:00pm - 5:00pm"
-    },
-    {
-        id: "8",
-        title: "Women's Empowerment Workshop",
-        img: "/images/abriba-event.jpg",
-        host: "ACIU Lagos Branch",
-        date: "21st January 2026",
-        time: "12:00pm - 5:00pm"
-    },
-]
 
 export const eventDetails: EventDetailsProps = {
   id: "5",

@@ -8,7 +8,7 @@ export default function Header() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const { user } = useUser();
     const activeRole = user?.role || "member";
-    const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
+    const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
     
     const handleOpen = () => {
         setDropdownOpen(true);

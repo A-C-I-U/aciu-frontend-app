@@ -25,7 +25,7 @@ export default function MyBranchDesktopOverview({
         >
             <div className="relative flex flex-col gap-6">
                 <BranchInfoCard branchInfo={branchInfo}/>
-                <div className="grid mlg:grid-cols-3 ml:grid-cols-5 gap-6">
+                <div className="grid lg:grid-cols-3 ml:grid-cols-5 gap-6">
                     {branchStats.map((stat, index) => (
                         <StatsCard
                             key={index}

@@ -34,10 +34,36 @@ export interface LoginPayload {
   password: string;
 }
 
+
+export type User = {
+  id: string;
+  branchId: string;
+  profilePhoto: string | null;
+  fullName: string;
+  email: string;
+  phone: string;
+  role: "branch_admin" | "national_admin" | "member";
+  isVerified: boolean;
+  branch: string;
+  branchLocation: string;
+  nin: string;
+  gender: string;
+  village: string;
+  ageGrade: string;
+  occupation: string;
+  status: "active" | "inactive" | string;
+  verifiedOn: string | null;
+  verifiedBy: string | null;
+  verificationNote: string | null;
+  createdAt: string;
+  updatedAt: string;
+};
+
 export interface LoginResponse {
   token: {
     accessToken: string;
     refreshToken: string;
+    user: User;
   };
 }
 

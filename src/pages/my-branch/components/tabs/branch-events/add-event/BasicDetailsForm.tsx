@@ -26,8 +26,8 @@ export default function BasicDetailsForm() {
                 label="Event Category"
                 placeholder="Select the category of the event"
                 options={[
-                    { label: "Branch Events", value: "branch-events" },
-                    { label: "National Meetings", value: "national-meetings" }
+                    { label: "Branch Event", value: "BRANCH_EVENT" },
+                    { label: "National Meeting", value: "NATIONAL_EVENT" },
                 ]}
                 select
                 fullWidth
@@ -37,8 +37,9 @@ export default function BasicDetailsForm() {
                 label="Event Type"
                 placeholder="Select the event type"
                 options={[
-                    { label: "Physical Events", value: "physical-events" },
-                    { label: "Online Event", value: "online-event" }
+                    { label: "Physical Event", value: "PHYSICAL" },
+                    { label: "Online Event", value: "VIRTUAL" },
+                    { label: "Hybrid Event", value: "HYBRID" }
                 ]}
                 select
                 fullWidth
@@ -47,20 +48,27 @@ export default function BasicDetailsForm() {
                 <FormikField
                     label="Guest Expectation"
                     name="guestExpectation"
-                    placeholder="Input the guest number in this format: '200 members'"
+                    placeholder="Input the number of guests"
                     fullWidth
                 />
                 <FormikField
-                    label="Dress Code"
                     name="dressCode"
-                    placeholder="Input the event dress code"
+                    label="Dress Code"
+                    placeholder="Select the event dress code"
+                    options={[
+                        { label: "Traditional Wear", value: "TRADITIONAL_WEAR" },
+                        { label: "Smart Casual", value: "SMART_CASUAL" },
+                        { label: "Formal Wear", value: "FORMAL_WEAR" },
+                        { label: "Casual Wear", value: "CASUAL_WEAR" }
+                    ]}
+                    select
                     fullWidth
                 />
             </div>
             <FormikField
                 label="Entry Fee"
                 name="entryFee"
-                placeholder="Type the amount or Free if its a free event"
+                placeholder="Type the amount or 0 if it's a free event"
                 fullWidth
             />
         </div>

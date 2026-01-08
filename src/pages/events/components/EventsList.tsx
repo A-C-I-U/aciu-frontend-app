@@ -13,32 +13,19 @@ export default function EventsList({ events = [] }: EventsListProps) {
         
     const handleSearch = (q: string) => {
         setQuery(q);
-        console.log(query);
     }
 
-    const filteredEvents = events.filter(event => 
+    const allEvents = events.map((event: any) => ({
+        ...event,
+        img: event.image,
+        host: "Branch Event"
+    }))
+
+    const filteredEvents = allEvents.filter(event => 
         event.title.toLowerCase().includes(query.toLowerCase()) ||
         event.description.toLowerCase().includes(query.toLowerCase()) ||
         event.location.toLowerCase().includes(query.toLowerCase())
     );
-
-    const formatEventDate = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-    };
-
-    const formatEventTime = (dateString: string) => {
-        const date = new Date(dateString);
-        return date.toLocaleTimeString('en-US', {
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
-        });
-    };
 
     return (
         <>
@@ -100,14 +87,7 @@ export default function EventsList({ events = [] }: EventsListProps) {
                     {filteredEvents.map((event) => (
                         <EventItem
                             key={event.id}
-                            id={event.id}
-                            title={event.title}
-                            img={event.image}
-                            host="Branch Event" 
-                            date={formatEventDate(event.date)}
-                            time={formatEventTime(event.date)}
-                            description={event.description}
-                            location={event.location}
+                            event={event}
                         />
                     ))}
                 </div>

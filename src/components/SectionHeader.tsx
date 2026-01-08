@@ -17,7 +17,7 @@ const SectionHeader = ({
   noTitle = false
 }: SectionHeaderProps) => {
   return (
-    <div className="flex justify-between items-center w-full">
+    <div id="section-header" className="flex justify-between items-center w-full">
       <div className={!noTitle ? "flex flex-col gap-6 lg:gap-4 lg:flex-row lg:justify-between lg:items-center w-full" : ""}>
         <h1 className="whitespace-nowrap text-lg lg:text-xl font-bold text-aciu-border-grey">
           {title}

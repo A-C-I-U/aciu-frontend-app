@@ -9,7 +9,7 @@ import MemberAciuLogo from "/images/sidebar-aciu-logo.png"
 export default function Sidebar() {
     const { user } = useUser();
     const activeRole = user?.role || "member"
-    const isAdmin = activeRole === "branch-admin" || activeRole === "national-admin";
+    const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
     const isMobile = useMediaQuery('max-width:768px')
 
 
@@ -17,7 +17,7 @@ export default function Sidebar() {
     
 
     return (
-        <div className="flex flex-col h-full pt-5 px-5 overflow-hidden">
+        <div className="flex flex-col pt-5 px-5 overflow-hidden h-screen">
             <div className="pb-3">
                 <img 
                     src={isAdmin ? AciuLogo : MemberAciuLogo } 
@@ -27,15 +27,15 @@ export default function Sidebar() {
                     loading="eager"
                 />
             </div>
-            <div className="flex flex-col gap-3 overflow-y-auto py-5 no-scrollbar">
+            <div className="flex-1 flex flex-col gap-3 overflow-y-auto py-5 no-scrollbar">
                 {links.map(({ label, icon, path}, index) => (
                     <NavLink
                         key={index}
                         to={path}
                         className={({ isActive }) =>
                             [
-                            "flex items-center gap-2 py-3.5 px-2 rounded-md transition-colors group",
-                            "text-sm font-coolvetica font-semibold",
+                            "flex items-center gap-2 py-3.5 px-2 rounded-md transition-colors duration-300 ease-in-out group",
+                            "text-sm font-coolvetica leading-default transition-transform active:scale-95",
                             isAdmin
                                 ? "hover:bg-white hover:text-aciu-green-normal"
                                 : "hover:bg-aciu-green-light hover:text-aciu-green-normal",

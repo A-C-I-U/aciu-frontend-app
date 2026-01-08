@@ -35,3 +35,51 @@ export interface FinancesResponse {
   projectDonations: FinancialMetric;
   nextMonthlyDue: NextMonthlyDue;
 }
+
+
+export interface GrowthStat {
+  members: number,
+  donations: number,
+  branches: number
+}
+
+export interface NationalDashboardStats {
+  totalMembers: number,
+  totalDonations: number,
+  totalBranches: number,
+  growth: GrowthStat
+}
+
+
+export interface WithdrawalDetailResponse {
+  id: string;
+  TransactionID: string;
+  "Payment Type": string;
+  Date: string | number | Date;
+  Amount: number;
+  Status: string;
+  "Submitted By": string;
+  "Branch Name": string;
+}
+
+
+export interface WithdrawalRequestResponse {
+  id: string,
+  TransactionID: string,
+  "Branch Name": string,
+  Date: string,
+  Amount: number,
+  Status: string
+}
+
+export interface MonthlyTransaction {
+  month: string;
+  dues: number;
+  projects: number;
+  events: number;
+}
+
+export interface TransactionsResponse {
+  year: number;
+  monthlyTransactions: MonthlyTransaction[];
+}

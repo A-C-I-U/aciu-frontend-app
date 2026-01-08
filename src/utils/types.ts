@@ -55,10 +55,9 @@ export interface ForgotPasswordValues {
   confirmPassword?: string;
 }
 
-type Role = "member" | "branch-admin" | "national-admin";
+type Role = "member" | "branch_admin" | "national_admin";
 
 export interface User {
-  id: string;
   name: string;
   occupation: string;
   phoneNumber: string;
@@ -66,8 +65,11 @@ export interface User {
   ageGrade: string;
   branch: string;
   role: Role;
-  verified: boolean;
-}
+  verified: boolean,
+  gender: string,
+  profilePhoto: string | null,
+  village: string
+};
 
 export interface UserContextType {
   user: User | null;
@@ -80,19 +82,20 @@ export interface NavProps {
   handleClose?: () => void;
 }
 export interface EventItemProps {
-  id: string;
-  title: string;
-  img: string;
-  host: string;
-  date: string;
-  time: string;
-  description?: string;
-  location?: string;
-  category?: string;
-  entryFee?: string;
-  enableRSVP?: boolean;
-  enableDonations?: boolean;
-  registeredCount?: number;
+    id: string;
+    title: string;
+    img: string;
+    host: string;
+    date: string;
+    startTime: string;
+    endTime: string;
+    description?: string;
+    location?: string;
+    category?: string;
+    entryFee?: string;
+    enableRSVP?: boolean;
+    enableDonations?: boolean;
+    registeredCount?: number;
 }
 export interface EventItemProps {
   id: string;
@@ -393,11 +396,12 @@ export interface NotificationSectionProps {
 }
 
 export interface StatsCardProps {
-  title: string;
-  number: string;
-  itemLabel?: string;
-  currency?: string;
-  rateOfChange: string;
+    title: string;
+    number: string;
+    itemLabel?: string;
+    currency?: string;
+    description?: string;
+    rateOfChange: string
 }
 
 export interface PaymentDataType {
@@ -509,14 +513,16 @@ export interface BranchPaymentsDataType {
 
 export interface WithdrawalDataType {
     id: string,
+    transactionId?: string,
     submittedBy: string,
+    branchName?: string,
     reasons: string,
     type: string,
     title: string,
     date: string,
     amount: string,
     source: string,
-    status: "pending" | "approved"
+    status: "pending" | "approved" | "rejected"
 }
 
 export interface BranchMemberDataType {

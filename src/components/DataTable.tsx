@@ -16,14 +16,17 @@ import {
     ArrowLeftIcon, 
     ArrowRightIcon, 
 } from "lucide-react";
-import { Pagination } from "@heroui/react";
+import { Pagination, PaginationItemType } from "@heroui/react";
+import { scrollToPosition } from "@/utils/helpers";
 
 
 
 export default function DataTable({ 
-   table
+   table,
+   pagination = true
 }: { 
-    table: TableType<any>
+    table: TableType<any>,
+    pagination?: boolean
 }) {
 
     
@@ -98,13 +101,17 @@ export default function DataTable({
 
 
             {/* Pagination Component */}
+            {pagination && 
             <div className="w-full pt-3 pb-4 px-6 flex justify-between items-center">
                 <button
                     className="rounded-md py-2 px-[.875rem] 
                     flex gap-2 justify-center items-center
-                    shadow-[0px_1px_2px_0px_#1018280D] border
-                    border-grayscale-300 "
-                    onClick={() => table.previousPage()}
+                    shadow-[0px_1px_2px_0px_#1018280D] border hover:bg-aciu-green-light
+                    border-aciu-green-normal text-aciu-green-normal"
+                    onClick={() => {
+                        table.previousPage();
+                        scrollToPosition(true);
+                    }}
                     disabled={!table.getCanPreviousPage()}
                 >
                     <ArrowLeftIcon size={20} color="#00B686" />
@@ -115,19 +122,34 @@ export default function DataTable({
                 <Pagination
                     total={table.getPageCount()}
                     page={table.getState().pagination.pageIndex + 1}
-                    onChange={(page) => table.setPageIndex(page - 1)}
+                    onChange={(page) => {
+                        scrollToPosition(!!page)
+                        table.setPageIndex(page - 1)
+                    }}
                     size="md"
+                    siblings={1}
+                    boundaries={1}
                     classNames={{
                         cursor: "hidden"
                     }}
                     renderItem={(item) => {
+                        if (item.value === PaginationItemType.DOTS) {
+                        return (
+                            <span 
+                                key={item.key}
+                                className="w-10 h-10 flex items-center justify-center text-aciu-new-green-normal"
+                            >
+                                ...
+                            </span>
+                        );
+                    }
                         const isActive = item.page === table.getState().pagination.pageIndex + 1;
                         return (
                             <button 
                                 key={item.key}
                                 // onPress is not a prop on button but is required from hero ui
                                 onClick={item.onPress as unknown as React.MouseEventHandler<HTMLButtonElement>}
-                                className={`w-[2.5rem] h-[2.5rem] rounded-md
+                                className={`w-10 h-10 rounded-md
                                 ${isActive ? "bg-aciu-green-light " : ""}
                                 rounded-md text-aciu-new-green-normal hover:bg-aciu-green-light font-inter`}>
                                 {item.page || item.children}
@@ -138,9 +160,12 @@ export default function DataTable({
                 <button
                     className="rounded-md py-2 px-[.875rem] 
                     flex gap-2 justify-center items-center
-                    shadow-[0px_1px_2px_0px_#1018280D] border
-                    border-grayscale-300 text-green-normal"
-                    onClick={() => table.nextPage()}
+                    shadow-[0px_1px_2px_0px_#1018280D] border hover:bg-aciu-green-light
+                    border-aciu-green-normal text-aciu-green-normal"
+                    onClick={() => {
+                        scrollToPosition(true)
+                        table.nextPage()
+                    }}
                     disabled={!table.getCanNextPage()}
                 >
                     <span className="font-medium text-sm text-aciu-green-normal font-inter">
@@ -148,7 +173,7 @@ export default function DataTable({
                     </span>
                     <ArrowRightIcon size={20} color="#00B686" />
                 </button>
-            </div>
+            </div>}
         </div>
     )
 }

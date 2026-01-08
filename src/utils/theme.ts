@@ -1,6 +1,9 @@
 import { createTheme } from "@mui/material/styles"
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: "'Montserrat', sans-serif"
+  },
   palette: {
     primary: {
       main: '#00B686',
@@ -21,6 +24,13 @@ export const theme = createTheme({
     divider: '#B0E8D9',
   },
   components: {
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontFamily: "'Montserrat', sans-serif",
+        }
+      }
+    },
     MuiButton: {
       variants: [
         {

@@ -57,8 +57,11 @@
   --font-inter: 'Inter', sans-serif;
 
   --radius-2xs: .625rem;
-  --breakpoint-mlg: 1024px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-mlg: 1250px;
   --breakpoint-ml: 1350px;
+  --leading-default: 100%;
   
   --color-background: #ffffff;
   --color-foreground: #3E3E3E;
@@ -185,14 +188,36 @@ a, button {
     border-radius: 10px;
   }
 
-  .resource-buttons-container {
-    box-shadow: 0px 4px 50px 0px #0000001A;
-    display: flex;
-    align-items: center;
-    gap: 1.375rem;
-    width: 100%;
+  
+  .border-dashed {
+    border-style: dashed;
+    border-color: #00B686
   }
 
+  .overflow-x-auto::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .overflow-x-auto::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 3px;
+  }
+
+  .overflow-x-auto::-webkit-scrollbar-track {
+    background-color: #f1f5f9;
+  }
+
+  .recharts-wrapper:focus,
+  .recharts-layer:focus,
+  .recharts-tooltip-wrapper:focus,
+  .recharts-bar-rectangle:focus,
+  .recharts-surface:focus,
+  .recharts-wrapper svg g[tabindex="-1"]:focus,
+  .recharts-wrapper svg g[tabindex="-1"]:focus-visible {
+    outline: none;
+    border-radius: .5rem;
+    border: 1px solid var(--color-aciu-green-normal);
+  }
 
 }
 
@@ -289,9 +314,13 @@ a, button {
     color: var(--color-aciu-border-grey)
   }
 
-  .border-dashed {
-    border-style: dashed;
-    border-color: #00B686
+  
+  .resource-buttons-container {
+    box-shadow: 0px 4px 50px 0px #0000001A;
+    display: flex;
+    align-items: center;
+    gap: 1.375rem;
+    width: 100%;
   }
 
   .project-gallery {
@@ -396,6 +425,39 @@ a, button {
     cursor: not-allowed;
   }
 
+  .btn-event {
+    width: fit-content;
+    padding: 1.5rem;
+    border-radius: 0.625rem;
+    font-family: var(--font-coolvetica);
+    line-height: 100%;
+  }
+
+  .btn-event-primary {
+    background-color: var(--color-aciu-green-normal);
+    color: white;
+  }
+
+  .btn-event-secondary {
+    border: 1px solid var(--color-aciu-green-normal);
+    color: var(--color-aciu-green-normal);
+  }
+
+  .event-tag {
+    border-radius: 0.375rem;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    padding-left: 0.8125rem;
+    padding-right: 0.8125rem;
+    max-width: fit-content;
+    font-family: var(--font-coolvetica);
+    font-size: 0.875rem;
+    color: var(--color-aciu-border-grey);
+    background-color: var(--color-aciu-yellow);
+    text-transform: capitalize;
+    line-height: 100%;
+  }
+
   .resources-modal-section {
     display: flex;
     flex-direction: column;
@@ -462,6 +524,18 @@ a, button {
     border: 1px solid var(--color-aciu-card-grey);
   }
 
+  .section-action-button.admin {
+    display: flex;
+    gap: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    min-height: 0;
+    border: 1px solid var(--color-aciu-dark-grey);
+  }
+
+
   .resource-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -483,10 +557,11 @@ a, button {
 
   .payment-table-column {
     border: 1px solid var(--color-aciu-dark-grey);
-    padding: .875rem 1.25rem;
+    padding: .938rem 1.25rem;
     font-size: .875rem;
     font-family: var(--font-montserrat);
-    color: var(--color-aciu-border-grey)
+    color: var(--color-aciu-border-grey);
+    line-height: 100%;
   }
 
   .payment-table-column.title {
@@ -495,7 +570,13 @@ a, button {
 
   .payment-table-column.desc {
     background-color: #FCFCFC;
+    line-height: 1.25rem;
   }
+
+  [data-slot="cursor"] {
+    display: none !important;
+  }
+
 }
 
 @media screen and (max-width: 1024px) {
@@ -539,5 +620,9 @@ a, button {
 
   .go-to-homepage {
     font-size: .875rem;
+  }
+
+  .btn-event {
+    width: 100%;
   }
 }

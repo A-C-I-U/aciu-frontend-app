@@ -1,3 +1,4 @@
+import { scrollToPosition } from "@/utils/helpers";
 import { Pagination, PaginationItemType } from "@heroui/react";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 
@@ -6,6 +7,7 @@ type PaginationControlsProps = {
     page: number;
     onPageChange: (page: number) => void;
     itemsPerPage: number;
+    desktop?: boolean
 };
 
 export function PaginationControls({
@@ -13,28 +15,30 @@ export function PaginationControls({
     page,
     onPageChange,
     itemsPerPage,
+    desktop
 }: PaginationControlsProps) {
     const totalPages = Math.ceil(total / itemsPerPage);
 
     const handlePress = (onPress: any) => (e: any) => {
         onPress(e);
-        window.scrollTo({ top: 675, behavior: "smooth" });
+        scrollToPosition(!!desktop);
     };
 
     return (
         <div className="w-full pt-3 mx-auto pb-4 flex justify-center relative items-center">
             <button
                 className="rounded-md py-1.5 px-2.5 
-                flex gap-2 justify-center items-center
-                shadow-[0px_1px_2px_0px_#1018280D] border
-                border-grayscale-300 absolute left-2"
+                flex gap-2 justify-center items-center hover:bg-aciu-green-light
+                shadow-[0px_1px_2px_0px_#1018280D] border text-sm
+                border-aciu-green-normal absolute left-2 text-aciu-green-normal"
                 onClick={() => {
                     onPageChange(page - 1);
-                    window.scrollTo({ top: 675, behavior: "smooth" });
+                    scrollToPosition(!!desktop);
                 }}
                 disabled={page === 1}
             >
                 <ArrowLeftIcon size={20} color="#00B686" />
+                {desktop && "Previous"}
             </button>
 
             <Pagination
@@ -75,15 +79,16 @@ export function PaginationControls({
 
             <button
                 className="rounded-md py-1.5 px-2.5 absolute right-2
-                flex gap-2 justify-center items-center
-                shadow-[0px_1px_2px_0px_#1018280D] border
-                border-grayscale-300 text-green-normal"
+                flex gap-2 justify-center items-center hover:bg-aciu-green-light
+                shadow-[0px_1px_2px_0px_#1018280D] border text-sm
+                border-aciu-green-normal text-aciu-green-normal"
                 onClick={() => {
                     onPageChange(page + 1);
-                    window.scrollTo({ top: 675, behavior: "smooth" });
+                    scrollToPosition(!!desktop);
                 }}
                 disabled={page >= totalPages}
             >
+                {desktop && "Next"}
                 <ArrowRightIcon size={20} color="#00B686" />
             </button>
         </div>

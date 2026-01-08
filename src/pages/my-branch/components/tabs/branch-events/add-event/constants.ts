@@ -1,18 +1,19 @@
-import { array, boolean, date, mixed, object, string } from "yup"
+import { array, boolean, date, mixed, number, object, string } from "yup"
 
 export const initialValues = {
     eventTitle: "",
     eventDescription: "",
-    eventCategory: "",
-    eventType: "",
+    eventCategory: "BRANCH_EVENT",
+    eventType: "VIRTUAL",
     guestExpectation: "",
-    dressCode: "",
+    dressCode: "SMART_CASUAL",
     eventDate: "",
-    eventTime: "",
+    startTime: "",
+    endTime: "",
     eventLocation: "",
-    eventHighlights: [""],
+    eventHighlights: [] as string[],
     entryFee: "",
-    image: "",
+    image: null as string | File | null,
     enableRsvp: false,
     enableDonations: false,
     enableCountdown: false
@@ -23,25 +24,36 @@ export const stepSchemas = [
         eventTitle: string().required("Event title is required"),
         eventDescription: string().required("Event description is required"),
         eventType: string().required("Event type is required"),
-        guestExpectation: string().required("Guest expectation is required"),
+        guestExpectation: number().typeError("Guest expectation must be a number").required("Guest expectation is required"),
         dressCode: string().required("Dress code is required"),
-        entryFee: string().required("Entry fee is required")
+        entryFee: number().typeError("Entry Fee must be a number").required("Entry fee is required")
     }),
     object({
         eventDate: date().optional(),
-        eventTime: string().required("Event Time is required"),
+        startTime: string().required("Start Time is required"),
+        endTime: string()
+            .required("End Time is required")
+            .test( "is-greater", "End time must be after start time", 
+                function (value) { 
+                    const { startTime } = this.parent; 
+                    return startTime && value && value > startTime; 
+                }),
         eventLocation: string().required("Event Location is required"),
         eventHighlights: array().of(string().required("Add an event highlight")).min(1, "At least one event highlight must be added")
     }),
     object({
         image: mixed()
             .required("An image is required")
-            .test("fileType", "Unsupported file format", (file: any) =>
-                file ? ["image/png", "image/jpeg", "image/jpg"].includes(file.type) : false
-            )
-            .test("fileSize", "File too large", (file: any) =>
-                file ? file?.size <= 10 * 1024 * 1024 : false
-            ),
+            .test("fileType", "Unsupported file format", (value: any) => {
+                if (!value) return false;
+                if (typeof value === "string") return true;
+                return ["image/png", "image/jpeg", "image/jpg"].includes(value.type);
+            })
+            .test("fileSize", "File too large", (value: any) => {
+                if (!value) return false;
+                if (typeof value === "string") return true;
+                return value.size <= 10 * 1024 * 1024;
+            }),
         enableRsvp: boolean().required("This permission must be selected"),
         enableDonations: boolean().required("This permission must be selected"),
         enableCountdown: boolean().required("This permission must be selected"),
