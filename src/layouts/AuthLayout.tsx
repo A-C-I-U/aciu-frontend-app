@@ -18,7 +18,7 @@ export default function AuthLayout() {
                     />
                     <a href="https://aciu-frontend-web.onrender.com/" 
                         className="go-to-homepage"
-                    >Go back to homepage</a>
+                    >Go back to Homepage</a>
                 </div>
             </header>
             <main className="flex-1 w-full flex items-center justify-center">
