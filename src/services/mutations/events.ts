@@ -34,7 +34,14 @@ const saveEvent = async (
     const url = eventId ? `/events/${eventId}` : `/events`;
     const method = eventId ? "put" : "post";
 
-    const response = await apiClient[method]<{ message: string }>(url, formData);
+    const response = await apiClient[method]<{ message: string }>(
+        url, 
+        formData, {
+            headers: eventId
+                ? undefined
+                : { "Content-Type": "multipart/form-data" }
+            }
+        );
 
   return response.data;
 };
