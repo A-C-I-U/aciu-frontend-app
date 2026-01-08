@@ -11,14 +11,18 @@ export const columns: ColumnDef<PublicationDataType>[] = [
     accessorKey: "title",
     header: "Title",
     cell: ({ row }: { row: Row<PublicationDataType> }) => (
-      <span className="font-medium text-aciu-border-grey">{row.original.title}</span>
+      <span className="font-medium text-aciu-border-grey">
+        {row.original.title}
+      </span>
     ),
   },
   {
     accessorKey: "creationDate",
     header: "Creation Date",
     cell: ({ row }: { row: Row<PublicationDataType> }) => (
-      <span className="text-aciu-abriba">{formatDate(row.original.creationDate)}</span>
+      <span className="text-aciu-abriba">
+        {formatDate(row.original.creationDate)}
+      </span>
     ),
   },
   {
@@ -44,7 +48,9 @@ export const columns: ColumnDef<PublicationDataType>[] = [
     accessorKey: "lastModified",
     header: "Last Modified",
     cell: ({ row }: { row: Row<PublicationDataType> }) => (
-      <span className="text-aciu-abriba">{formatDate(row.original.lastModified)}</span>
+      <span className="text-aciu-abriba">
+        {formatDate(row.original.lastModified)}
+      </span>
     ),
   },
   {

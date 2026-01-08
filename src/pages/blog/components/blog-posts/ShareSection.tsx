@@ -2,7 +2,7 @@ import { regularPosts } from "@/utils/data";
 import { Divider } from "@mui/material";
 import { Copy } from "iconsax-react";
 import { useState } from "react";
-import { BlogPostCard } from "./BlogPostCard";
+import { RegularPostCard } from "./RegularPostTypeCard"; 
 import { enqueueSnackbar } from "notistack";
 import { CheckCircleIcon } from "lucide-react";
 
@@ -31,7 +31,6 @@ export default function ShareSection({ title, url }: {
 
     return (
         <div className="w-full h-fit bg-white rounded-[.625rem] py-5 px-4 flex flex-col gap-6">
-
             <div className="flex flex-col gap-4">
                 <h1 className="text-2xl">Share post</h1>
 
@@ -78,7 +77,6 @@ export default function ShareSection({ title, url }: {
                         disabled
                     />
                     <button onClick={handleCopy} className="relative flex items-center">
-                        
                         {copied ? (
                             <CheckCircleIcon color="#00B686" size={24} />
                         ) : (
@@ -97,9 +95,9 @@ export default function ShareSection({ title, url }: {
                 </h1>
 
                 <div className="flex flex-col gap-8">
-                    {regularPosts?.slice(0, 3).map((post) => (
-                        <BlogPostCard key={post.id} post={post} />
-                    ))}
+                    {regularPosts?.slice(0, 3).map((post) => {
+                        return <RegularPostCard key={post.id} post={post} />;
+                    })}
                 </div>
             </>
             }
