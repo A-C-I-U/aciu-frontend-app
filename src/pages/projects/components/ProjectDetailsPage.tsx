@@ -21,20 +21,28 @@ export default function ProjectDetailsPage() {
   const [showDonateProject, setShowDonateProject] = useState(false);
   const [showShareProject, setShowShareProject] = useState(false);
 
-  const { data: allProjects, isLoading, error } = useProjects("ongoing");
+  const { data: ongoingProjects, isLoading: isLoadingOngoing, error: errorOngoing } = useProjects("ongoing");
+  const { data: completedProjects, isLoading: isLoadingCompleted, error: errorCompleted } = useProjects("completed");
   const { data: donations } = useProjectDonations(id!);
-  // Find the current project from the fetched data
-  const project = allProjects?.find((p) => p.id === id);
+  
+  const ongoingProject = ongoingProjects?.find((p) => p.id === id);
+  const completedProject = completedProjects?.find((p) => p.id === id);
+  
+  const project = ongoingProject || completedProject;
+  const isCompletedProject = !!completedProject; 
 
-  // Get related projects (excluding current project)
-  const relatedProjects =
-    allProjects
+  const relatedProjects = !isCompletedProject ? 
+    ongoingProjects
       ?.filter((p) => p.id !== id)
       .sort(() => 0.5 - Math.random())
-      .slice(0, 3) || [];
+      .slice(0, 3) || [] 
+    : []; 
+
+  const isLoading = isLoadingOngoing || isLoadingCompleted;
+  const error = errorOngoing || errorCompleted;
 
   if (error) {
-    enqueueSnackbar(`Error loading projects: ${error.message}`, {
+    enqueueSnackbar(`Error loading project data: ${error.message}`, {
       variant: "error",
     });
   }
@@ -163,10 +171,19 @@ export default function ProjectDetailsPage() {
             </div>
           </div>
 
-          <div className="bg-aciu-yellow py-1.5 px-2.5 rounded-[5px] max-w-fit max-h-fit">
-            <span className="font-coolvetica text-xs text-aciu-border-grey font-bold">
-              {category}
-            </span>
+          <div className="flex items-center gap-2">
+            <div className="bg-aciu-yellow py-1.5 px-2.5 rounded-[5px] max-w-fit max-h-fit">
+              <span className="font-coolvetica text-xs text-aciu-border-grey font-bold">
+                {category}
+              </span>
+            </div>
+            {isCompletedProject && (
+              <div className="bg-green-100 py-1.5 px-2.5 rounded-[5px] max-w-fit max-h-fit">
+                <span className="font-coolvetica text-xs text-green-700 font-bold">
+                  Completed
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
@@ -224,29 +241,28 @@ export default function ProjectDetailsPage() {
             collectedFunds={donationStats.totalDonated}
             targetFunds={donationStats.targetAmount}
             projectManager={fundStatus.managedBy}
-            onDonateClick={() => setShowDonateProject(true)}
+            onDonateClick={() => !isCompletedProject && setShowDonateProject(true)}
             onShareClick={() => setShowShareProject(true)}
+            isCompleted={isCompletedProject}
           />
         </div>
 
-        <hr className="w-full border-t-[.5px] text-aciu-dark-grey" />
+        {!isCompletedProject && relatedProjects.length > 0 && (
+          <>
+            <hr className="w-full border-t-[.5px] text-aciu-dark-grey" />
 
-        <div className="flex flex-col gap-4 px-3.5 lg:px-6.5">
-          <h2 className="text-2xl line-height-120">
-            You may also want to donate to
-          </h2>
-          <div className="grid lg:grid-cols-3 items-stretch gap-4">
-            {relatedProjects.length > 0 ? (
-              relatedProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
-              ))
-            ) : (
-              <div className="col-span-3 text-center py-8 text-gray-500">
-                No related projects found.
+            <div className="flex flex-col gap-4 px-3.5 lg:px-6.5">
+              <h2 className="text-2xl line-height-120">
+                You may also want to donate to
+              </h2>
+              <div className="grid lg:grid-cols-3 items-stretch gap-4">
+                {relatedProjects.map((project) => (
+                  <ProjectCard key={project.id} project={project} />
+                ))}
               </div>
-            )}
-          </div>
-        </div>
+            </div>
+          </>
+        )}
 
         <ShareProject
           link={`https://aciu-abriba.org/projects/${id}`}
@@ -254,10 +270,12 @@ export default function ProjectDetailsPage() {
           onClose={() => setShowShareProject(false)}
         />
 
-        <DonateToProject
-          open={showDonateProject}
-          onClose={() => setShowDonateProject(false)}
-        />
+        {!isCompletedProject && (
+          <DonateToProject
+            open={showDonateProject}
+            onClose={() => setShowDonateProject(false)}
+          />
+        )}
       </MotionBox>
     </AnimatePresence>
   );

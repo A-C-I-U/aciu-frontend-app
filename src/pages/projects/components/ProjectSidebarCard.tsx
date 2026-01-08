@@ -8,6 +8,7 @@ export default function ProjectSidebarCard({
     projectManager,
     onDonateClick,
     onShareClick,
+    isCompleted = false, 
 }: ProjectSidebarCardProps) {
     
   return (
@@ -36,21 +37,34 @@ export default function ProjectSidebarCard({
 
             <div className="flex flex-col gap-2 pb-10">
                 <div className="flex flex-col lg:flex-row gap-3.5 items-center">
-                    <button
-                        onClick={onDonateClick}
-                        className="py-5 px-4 bg-white rounded-[.625rem] lg:max-w-fit
-                        flex gap-3 items-center w-full justify-center lg:justify-normal"
-                        aria-label="Open Donate to Project Modal"
-                    >
-                    <span className="text-aciu-green-normal text-sm font-coolvetica whitespace-nowrap">
-                        Donate to Project
-                    </span>
-                    <ArrowRightIcon
-                        color="#00B686"
-                        size="1.25rem"
-                        className="rotate-[-45deg]"
-                    />
-                    </button>
+                    {/* Conditionally render donate button based on isCompleted */}
+                    {!isCompleted && (
+                      <button
+                          onClick={onDonateClick}
+                          className="py-5 px-4 bg-white rounded-[.625rem] lg:max-w-fit
+                          flex gap-3 items-center w-full justify-center lg:justify-normal"
+                          aria-label="Open Donate to Project Modal"
+                      >
+                      <span className="text-aciu-green-normal text-sm font-coolvetica whitespace-nowrap">
+                          Donate to Project
+                      </span>
+                      <ArrowRightIcon
+                          color="#00B686"
+                          size="1.25rem"
+                          className="rotate-[-45deg]"
+                      />
+                      </button>
+                    )}
+                    
+                    {/* If project is completed, you might want to show a different message or button */}
+                    {isCompleted && (
+                      <div className="py-5 px-4 bg-aciu-green-dark rounded-[.625rem] lg:max-w-fit
+                          flex gap-3 items-center w-full justify-center lg:justify-normal">
+                        <span className="text-white text-sm font-coolvetica whitespace-nowrap">
+                          Project Completed
+                        </span>
+                      </div>
+                    )}
 
                     <button
                         onClick={onShareClick}

@@ -5,6 +5,7 @@ import type {
   ProjectDetails,
   ProjectDonation,
   ProjectRecommendationsResponse,
+  RecommendedProject,
 } from "../types/projects";
 
 export type ProjectStatus = "ongoing" | "completed";
@@ -25,16 +26,16 @@ export const useProjects = (status: ProjectStatus) => {
 
 const fetchProjectRecommendations = async (
   projectId: string
-): Promise<ProjectRecommendationsResponse> => {
+): Promise<RecommendedProject[]> => {
   const response = await apiClient.get<ProjectRecommendationsResponse>(
     `/projects/${projectId}/recommendations`
   );
-  return response.data;
+  return response.data.recommendedProjects;
 };
 
 export const useProjectRecommendations = (projectId: string) => {
   return useQuery({
-    queryKey: ["projectRecommendations", projectId],
+    queryKey: ["project-recommendations", projectId],
     queryFn: () => fetchProjectRecommendations(projectId),
     enabled: !!projectId,
     staleTime: 5 * 60 * 1000,

@@ -49,8 +49,8 @@ export default function MobilePaymentItem({
                     <p className="text-xs text-aciu-abriba font-medium">
                         Amount Paid
                     </p>
-                    <p className="text-sm text-aciu-border-grey overflow-hidden ellipsis">
-                        {`N${(+amountPaid).toLocaleString()}`}
+                        <p className="text-sm text-aciu-border-grey overflow-hidden ellipsis">
+                        {`N${Number(amountPaid ?? 0).toLocaleString()}`}
                     </p>
                 </div>
                 <StatusBadge

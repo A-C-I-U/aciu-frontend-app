@@ -16,7 +16,7 @@ const createProject = async (payload: CreateProjectPayload): Promise<CreateProje
     formData.append('image', payload.image);
   }
 
-  const response = await apiClient.post<CreateProjectResponse>('/projects', formData, {
+  const response = await apiClient.post<CreateProjectResponse>('/projects/nominate', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },

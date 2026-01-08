@@ -34,7 +34,6 @@ export default function CompletedProjects() {
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const [showNominate, setShowNominate] = useState(false);
     
-   
     const { data: projects, isLoading, error } = useProjects('completed');
 
     const handleSearch = (q: string) => {
@@ -109,6 +108,7 @@ export default function CompletedProjects() {
                         <ProjectCard
                             key={project.id}
                             project={project}
+                            isCompleted={true} 
                         />
                     ))}
                     {projects?.length === 0 && (
