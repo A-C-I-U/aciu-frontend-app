@@ -38,13 +38,27 @@ export interface DonationsDashboardResponse {
 }
 
 export interface Payment {
-  type: 'DUE' | 'DONATION';
+  id?: string; 
+  dueId?: string;
+  type?: 'DUE' | 'DONATION'; 
   date: string;
-  amountPaid: number;
+  amountPaid: number | null;
   status: string;
   dueType?: string;
-  period?: string; 
-  category?: string | null; 
-  description?: string | null; 
-  targetType?: string; 
+  period?: string;
+  category?: string | null;
+  description?: string | null;
+  targetType?: string | null;
+  paymentId?: string | null; 
+}
+
+export interface PaymentIntentResponse {
+  clientSecret: string;
+  paymentIntentId: string;
+  amount: number;
+  currency: string;
+}
+
+export interface PaymentIntentError {
+  error: string;
 }

@@ -1,23 +1,26 @@
-import type { FeaturedPostCardType } from '@/utils/types';
+import type { BlogPost } from '@/services/types/blogs';
 import { CommentOutlined } from '@ant-design/icons';
-import { Eye } from "@solar-icons/react"
+import { Eye } from "@solar-icons/react";
+import { formatDistanceToNow } from 'date-fns';
 
-export const FeaturedPostCard = ({ post }:
-    { post: FeaturedPostCardType }) => {
+export const FeaturedPostCard = ({ post }: { post: BlogPost }) => {
     const { 
-        img, 
+        displayImage, 
+        displayImageAlt,
         title, 
         author, 
-        date, 
+        createdAt, 
         views, 
-        comments 
+        commentsCount 
     } = post;
+    
+    const formattedDate = formatDistanceToNow(new Date(createdAt), { addSuffix: true });
     
     return (
        <div className="relative w-full min-h-108 overflow-hidden rounded-[.625rem]">
             <img 
-                src={img}
-                alt="Blog post thumbnail"
+                src={displayImage}
+                alt={displayImageAlt || title}
                 loading="lazy"
                 className="w-full h-full min-h-108 object-cover"
             />
@@ -39,7 +42,7 @@ export const FeaturedPostCard = ({ post }:
                         </h3>
                         <div className="flex flex-col gap-2 lg:flex-row lg:justify-between font-semibold text-sm font-montserrat">
                             <p className="text-aciu-dashboard-background">
-                                {author} • {date}
+                                {author.fullName} • {formattedDate}
                             </p>
                             <div className="flex gap-4 items-center">
                                 <p className="flex gap-2 items-center text-white">
@@ -48,7 +51,7 @@ export const FeaturedPostCard = ({ post }:
                                 </p>
                                 <p className="flex gap-2 items-center text-white">
                                     <CommentOutlined size={16} color="white" />
-                                    {comments}
+                                    {commentsCount}
                                 </p>
                             </div>
                         </div>

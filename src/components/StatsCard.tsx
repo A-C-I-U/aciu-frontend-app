@@ -1,3 +1,4 @@
+
 import type { StatsCardProps } from "@/utils/types";
 import { ArrowTopRightIcon } from "@/components/Icons";
 
@@ -18,7 +19,7 @@ export const StatsCard = ({
                     {title}
                 </p>
                 <p className="font-montserrat font-semibold text-[1.75rem] text-copy-500">
-                    {currency}{number.padStart(2, '0')} {itemLabel}
+                    {currency}{String(number).padStart(2, '0')} {itemLabel}
                 </p>
             </div>
             <div className={`w-full flex ${description ? "justify-between" : "justify-end"}`}>

@@ -1,24 +1,25 @@
-import type { BlogPost } from "@/services/types/blogs";
 import { Badge } from "@mui/material";
 import { ArrowUpRight } from "lucide-react";
-import { formatDistanceToNow, parseISO, isValid } from "date-fns";
 
-export const BlogPostCard = ({ post }: { post: BlogPost }) => {
+export interface RegularPostCardType {
+  id: string;
+  img: string;
+  title: string;
+  subtitle: string;
+  author: string;
+  date: string;
+  tags: string[];
+}
+
+export const RegularPostCard = ({ post }: { post: RegularPostCardType }) => {
   const {
-    displayImage,
-    displayImageAlt,
+    img,
     title,
+    subtitle,
     author,
-    createdAt,
-    description,
+    date,
     tags,
   } = post;
-
-  const parsedDate = createdAt ? parseISO(createdAt) : null;
-  const formattedDate =
-    parsedDate && isValid(parsedDate)
-      ? formatDistanceToNow(parsedDate, { addSuffix: true })
-      : "some time ago";
 
   return (
     <div
@@ -30,8 +31,8 @@ export const BlogPostCard = ({ post }: { post: BlogPost }) => {
       "
     >
       <img
-        src={displayImage}
-        alt={displayImageAlt || title}
+        src={img}
+        alt={title}
         loading="lazy"
         className="w-full h-60 object-cover rounded-[.625rem]"
       />
@@ -39,7 +40,7 @@ export const BlogPostCard = ({ post }: { post: BlogPost }) => {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-3">
           <p className="text-aciu-green-normal font-semibold text-sm font-montserrat">
-            {author.fullName} • {formattedDate}
+            {author} • {date}
           </p>
 
           <div className="flex justify-between">
@@ -50,7 +51,7 @@ export const BlogPostCard = ({ post }: { post: BlogPost }) => {
           </div>
 
           <p className="text-sm font-montserrat text-grayscale-500 line-clamp-2">
-            {description}
+            {subtitle}
           </p>
         </div>
 

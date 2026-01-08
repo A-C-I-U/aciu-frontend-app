@@ -30,16 +30,12 @@ export const useDonationsDashboard = () => {
 export interface PaymentsResponse extends Array<Payment> {}
 
 export const getDuesPayments = async (): Promise<PaymentsResponse> => {
-  const response = await apiClient.get<PaymentsResponse>('/payments', {
-    params: { paymentType: 'DUE' }
-  });
+  const response = await apiClient.get<PaymentsResponse>('/payments/dues');
   return response.data;
 };
 
 export const getDonationsPayments = async (): Promise<PaymentsResponse> => {
-  const response = await apiClient.get<PaymentsResponse>('/payments', {
-    params: { paymentType: 'DONATION' }
-  });
+  const response = await apiClient.get<PaymentsResponse>('/payments/donations');
   return response.data;
 };
 

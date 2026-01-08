@@ -173,44 +173,85 @@ export const publicationStatusMap: Record<PublicationDataType["status"], StatusM
     },
 }
 
+export const PaymentStatus = {
+  COMPLETED: "completed",
+  OVERDUE: "overdue",
+  FAILED: "failed",
+  CANCELED: "cancelled", 
+  UNPAID: "unpaid",
+} as const;
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus];
 
 // utils/helpers.ts
 export const paymentStatusMap = {
-    completed: { 
-        label: "Completed", 
-        labelColor: "#027A48", 
-        dotColor: "#12B76A", 
-        bgColor: "#ECFDF3" 
-    },
-    failed: {
-        label: "Failed",
-        labelColor: "#FF2E2E",
-        dotColor: "#FF2E2E",
-        bgColor: "#FFEAEA"
-    },
-    overdue: {
-        label: "Overdue",
-        labelColor: "#B54708",
-        dotColor: "#F79009",
-        bgColor: "#FFFAEB"
-    },
-    pending: {
-        label: "Pending",
-        labelColor: "#6941C6",
-        dotColor: "#9E77ED",
-        bgColor: "#F9F5FF"
-    }
-} as const;
+  completed: { 
+    label: "Completed", 
+    labelColor: "#027A48", 
+    dotColor: "#12B76A", 
+    bgColor: "#ECFDF3",
+    action: "download" as const
+  },
+  failed: {
+    label: "Failed",
+    labelColor: "#FF2E2E",
+    dotColor: "#FF2E2E",
+    bgColor: "#FFEAEA",
+    action: "retry" as const
+  },
+  overdue: {
+    label: "Overdue",
+    labelColor: "#B54708",
+    dotColor: "#F79009",
+    bgColor: "#FFFAEB",
+    action: "pay" as const
+  },
+  unpaid: {
+    label: "Unpaid",
+    labelColor: "#6941C6",
+    dotColor: "#9E77ED",
+    bgColor: "#F9F5FF",
+    action: "pay" as const
+  },
+  cancelled: {
+    label: "Cancelled",
+    labelColor: "#667085",
+    dotColor: "#667085",
+    bgColor: "#F2F4F7",
+    action: "retry" as const
+  },
+  pending: {
+    label: "Pending",
+    labelColor: "#B54708",
+    dotColor: "#F79009",
+    bgColor: "#FFFAEB",
+    action: null
+  }
+} as const
 
-export const getPaymentStatusConfig = (status: string) => {
-    return paymentStatusMap[status as keyof typeof paymentStatusMap] || {
-        label: status.charAt(0).toUpperCase() + status.slice(1),
-        labelColor: "#667085",
-        dotColor: "#667085",
-        bgColor: "#F2F4F7"
-    };
+export type PaymentAction = "download" | "pay" | "retry" | null;
+
+export interface PaymentStatusConfig {
+  label: string;
+  labelColor: string;
+  dotColor: string;
+  bgColor: string;
+  action: PaymentAction;
+}
+export const getPaymentStatusConfig = (status: string): PaymentStatusConfig => {
+  const normalizedStatus = status.toLowerCase();
+  return paymentStatusMap[normalizedStatus as keyof typeof paymentStatusMap] || {
+    label: status.charAt(0).toUpperCase() + status.slice(1),
+    labelColor: "#667085",
+    dotColor: "#667085",
+    bgColor: "#F2F4F7",
+    action: null
+  };
 };
 
+export const getPaymentAction = (status: string): PaymentAction => {
+  return getPaymentStatusConfig(status).action;
+};
 export const branchPaymentStatusMap: Record<PaymentDataType["status"], StatusMap> = {
      completed: { 
         label: "Completed", 
@@ -300,11 +341,6 @@ export const branchEventStatusMap: Record<BranchEventDataType["verificationStatu
 }
 
 
-// export const getExtension = (file: File) => {
-//   const name = file.name;
-//   const parts = name.split(".");
-//   return parts.length > 1 ? parts.pop()!.toLowerCase() : "";
-// };
 
 export const getExtension = (file: File | string): string => {
   if (typeof file === 'string') {
