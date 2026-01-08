@@ -1,5 +1,6 @@
-import { publicationStatuses } from "./data";
-import type { PaymentDataType, PublicationDataType } from "./types";
+import { enqueueSnackbar } from "notistack";
+import { ageGradeOptions, logs, publicationStatuses } from "./data";
+import type { BranchDueDataType, BranchEventDataType, BranchMemberDataType, BranchPaymentsDataType, PaymentDataType, PublicationDataType, WithdrawalDataType } from "./types";
 import { format } from "date-fns";
 
 export const capitalizeFirstLetters = (str: string) => {
@@ -36,11 +37,116 @@ export function generateMockPublications(count: number): PublicationDataType[] {
   });
 }
 
-export const publicationStatusMap: Record<PublicationDataType["status"], { 
-    label: string, 
-    labelColor: string, 
-    dotColor: string, 
-    bgColor: string }> = {
+export function generateMockBranchDues(count: number): BranchDueDataType[] {
+  const statuses: BranchDueDataType["status"][] = ["active", "inactive"];
+
+  return Array.from({ length: count }, (_, i) => {
+    const creation = randomDate(new Date(2023, 0, 1), new Date());
+
+    return {
+      id: `${i + 1}`,
+      creationDate: creation.toISOString(),
+      createdBy: `Current User`,
+      startDate: creation.toISOString(),
+      endDate: "",
+      dueRules: {
+        ageGrades: ["All Age Grades"],
+        currency: "Dollar",
+        gender: "All Genders",
+        location: "Nigeria",
+        memberRoles: "All Members",
+        notifications: ["Every 7 days", "3 days before deadline"]
+      },
+      activityLogs: logs,
+      dueType: `Due Type ${i + 1}`,
+      intervals: ["quarterly", "monthly", "anually", "one time"][Math.floor(Math.random() * 3)],
+      amountPaid: `${Math.floor(Math.random() * 100000)}`,
+      status: statuses[Math.floor(Math.random() * statuses.length)],
+    };
+  });
+}
+
+export function generateMockBranchPayments(
+  count: number
+): BranchPaymentsDataType[] {
+  const statuses = ["completed", "failed"] as const;
+
+  return Array.from({ length: count }, (_, i) => {
+    const date = randomDate(new Date(2023, 0, 1), new Date());
+    const categories = ["Monthly Dues", "Event Fee", "Donation", "Fine", "Registration Fee", "Levy"];
+
+    return {
+      id: `${i + 1}`,
+      memberName: `Member ${i + 1}`,
+      type: "Dues",
+      title: categories[Math.floor(Math.random() * categories.length)],
+      date: date.toISOString(),
+      amountPaid: `${Math.floor(Math.random() * 100000)}`,
+      status: statuses[Math.floor(Math.random() * statuses.length)],
+    };
+  });
+}
+
+export function generateMockWithdrawals(
+  count: number
+): WithdrawalDataType[] {
+  const statuses = ["pending", "approved"] as const;
+
+  return Array.from({ length: count }, (_, i) => {
+    const date = randomDate(new Date(2023, 0, 1), new Date());
+
+    return {
+      id: `${i + 1}`,
+      submittedBy: `Person ${i + 1}`,
+      reasons: `Narration ${i + 1}`,
+      title: `Branch Dues`,
+      type: `Branch Dues`,
+      source: "Branch Dues",
+      date: date.toISOString(),
+      amount: `${Math.floor(Math.random() * 100000)}`,
+      status: statuses[Math.floor(Math.random() * statuses.length)],
+    }
+  })
+}
+
+export function generateMockBranchMembers(
+  count: number
+): BranchMemberDataType[] {
+  const statuses = ["pending", "verified"] as const;
+
+  return Array.from({ length: count }, (_, i) => {
+    const date = randomDate(new Date(2023, 0, 1), new Date());
+
+    return {
+      id: `${i + 1}`,
+      fullName: `Person ${i + 1}`,
+      ageGrade: ageGradeOptions[Math.floor(Math.random() * ageGradeOptions.length)].label,
+      joinedOn: date.toISOString(),
+      occupation: ageGradeOptions[Math.floor(Math.random() * ageGradeOptions.length)].label,
+      verificationStatus: statuses[Math.floor(Math.random() * statuses.length)],
+    }
+  })
+}
+
+
+export function generateMockBranchEvents(count: number): BranchEventDataType[] {
+  const statuses = ["ongoing", "completed"] as const;
+
+  return Array.from({ length: count }, (_, i) => {
+    const date = randomDate(new Date(2023, 0, 1), new Date());
+
+    return {
+      id: `${i + 1}`,
+      eventTitle: `Event ${i + 1}`,
+      createdBy: date.toDateString(),
+      createdOn: date.toDateString(),
+      registered: `${Math.floor(Math.random() * 100)}`,
+      verificationStatus: statuses[Math.floor(Math.random() * statuses.length)],
+    }
+  })
+}
+
+export const publicationStatusMap: Record<PublicationDataType["status"], StatusMap> = {
     published: { 
         label: "Published", 
         labelColor: "#027A48", 
@@ -146,6 +252,88 @@ export const getPaymentStatusConfig = (status: string): PaymentStatusConfig => {
 export const getPaymentAction = (status: string): PaymentAction => {
   return getPaymentStatusConfig(status).action;
 };
+export const branchPaymentStatusMap: Record<PaymentDataType["status"], StatusMap> = {
+     completed: { 
+        label: "Completed", 
+        labelColor: "#027A48", 
+        dotColor: "#12B76A", 
+        bgColor: "#ECFDF3" 
+    },
+    failed: {
+        label: "Failed",
+        labelColor: "#FF2E2E",
+        dotColor: "#FF2E2E",
+        bgColor: "#FFEAEA"
+    }
+}
+
+export const branchStatusMap: Record<BranchDueDataType["status"], StatusMap> = {
+    active: { 
+        label: "Active", 
+        labelColor: "#027A48", 
+        dotColor: "#12B76A", 
+        bgColor: "#ECFDF3" 
+    },
+    inactive: {
+        label: "Inactive",
+        labelColor: "#3E3E3E",
+        dotColor: "#3E3E3E",
+        bgColor: "#E5E5E5"
+    },
+}
+export interface StatusMap {
+  label: string, 
+  labelColor: string, 
+  dotColor: string, 
+  bgColor: string
+}
+
+export const withdrawalStatusMap: Record<WithdrawalDataType["status"], StatusMap> = {
+    pending: {
+      label: "Pending",
+      labelColor: "#FE961F",
+      dotColor: "#FE961F",
+      bgColor: "#FAF5EF"
+    },
+    approved: { 
+      label: "Approved", 
+      labelColor: "#027A48", 
+      dotColor: "#12B76A", 
+      bgColor: "#ECFDF3" 
+    }
+}
+
+
+export const branchMemberStatusMap: Record<BranchMemberDataType["verificationStatus"], StatusMap> = {
+  pending: {
+      label: "Pending",
+      labelColor: "#FE961F",
+      dotColor: "#FE961F",
+      bgColor: "#FAF5EF"
+    },
+    verified: { 
+      label: "Verified", 
+      labelColor: "#027A48", 
+      dotColor: "#12B76A", 
+      bgColor: "#ECFDF3" 
+    }
+  }
+
+export const branchEventStatusMap: Record<BranchEventDataType["verificationStatus"], StatusMap> = {
+  ongoing: {
+      label: "Ongoing",
+      labelColor: "#FE961F",
+      dotColor: "#FE961F",
+      bgColor: "#FAF5EF"
+    },
+    completed: { 
+      label: "Completed", 
+      labelColor: "#027A48", 
+      dotColor: "#12B76A", 
+      bgColor: "#ECFDF3" 
+    }
+}
+
 
 
 export const getExtension = (file: File | string): string => {
@@ -250,3 +438,13 @@ export const getExtensionFromUrl = (url: string): string => {
   const match = url.match(/\.([^./?]+)(?:[?#]|$)/);
   return match ? match[1] : '';
 };
+
+
+export async function copyTextToClipboard(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+    enqueueSnackbar("Text copied to clipboard", { variant: "success" })
+  } catch (err) {
+    enqueueSnackbar(`Failed to copy text: ${err}`, { variant: "error" });
+  }
+}

@@ -8,12 +8,14 @@ export default function CreatePassword() {
                 label="Create Password"
                 name="password"
                 type="password"
+                placeholder="********"
                 fullWidth
             />
             <FormikField
                 label="Confirm Password"
                 name="confirmPassword"
                 type="password"
+                placeholder="********"
                 fullWidth
             />
         </Box>

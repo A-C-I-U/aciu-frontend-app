@@ -30,14 +30,12 @@ export default function DataTable({
 
     return (
         <div className="w-full">
-            <TableContainer component={Paper} sx={{ maxWidth: "100%", overflowX: "auto" }}>   
+            <TableContainer component={Paper} sx={{ maxWidth: "100%", overflowX: "auto", border: "1px solid #EAECF0" }}>   
                 <Table stickyHeader>
                     <TableHead>
                         {table.getHeaderGroups().map(headerGroup => (
                             <TableRow key={headerGroup.id}
-                                sx={{ 
-                                    backgroundColor: "#F9FAFB", 
-                                    borderBottom: "1px solid #EAECF0",
+                                sx={{
                                     height: "2.5rem"
                                 }}>
                                 {headerGroup.headers.map(header => (
@@ -50,7 +48,10 @@ export default function DataTable({
                                             fontFamily: 'Montserrat, sans-serif',
                                             color: "#667085",
                                             fontWeight: 500,
-                                            whiteSpace: "nowrap"
+                                            whiteSpace: "nowrap",
+                                            backgroundColor: "#F9FAFB", 
+                                            borderBottom: "1px solid #EAECF0",
+                                            lineHeight: "1.125rem",
 
                                         }}
                                     >
@@ -76,7 +77,9 @@ export default function DataTable({
                                             color: "#3E3E3E",
                                             fontWeight: 400,
                                             whiteSpace: "nowrap",
-                                            textOverflow: "ellipsis"
+                                            textOverflow: "ellipsis",
+                                            borderBottom: "1px solid #EAECF0",
+                                            lineHeight: "1.25rem"
                                             
                                         }}
                                         >

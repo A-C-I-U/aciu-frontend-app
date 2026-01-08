@@ -1,5 +1,5 @@
+import { BranchExecCard } from "@/components/BranchExecCard"
 import type { Leadership } from "@/services/types/helpandsupport"
-import { BranchExecCard } from "./BranchExecCard"
 
 interface BranchLeadershipTabProps {
   leadership: Leadership[]

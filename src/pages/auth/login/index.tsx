@@ -60,7 +60,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-full">
       <AuthCard
         header="Login to your account"
         subheader="Enter your details to login"
@@ -110,12 +110,12 @@ export default function LoginPage() {
                         }}
                       />
                     </span>
-                    <span className="mt-[.1rem]">Keep me logged in</span>
+                    <span className="mt-[.1rem] text-xs md:text-sm">Keep me logged in</span>
                   </p>
 
                   <Link
                     to="/forgot-password"
-                    className="text-aciu-red text-sm font-coolvetica"
+                    className="text-aciu-red text-xs md:text-sm font-coolvetica"
                   >
                     Forgot Password?
                   </Link>
@@ -125,7 +125,7 @@ export default function LoginPage() {
                   sx={{
                     color: "white",
                     fontSize: ".75rem",
-                    backgroundColor: !isValid ? "#ccc" : "#00CA71",
+                    backgroundColor: !isValid ? '#ccc' : '#00B686',
                     borderRadius: ".75rem",
                     padding: "1rem",
                     boxShadow: "0px 1px 2px 0px #0D0D120A",
@@ -155,9 +155,9 @@ export default function LoginPage() {
       </AuthCard>
 
       <div className="mx-auto w-full">
-        <p className="w-full flex justify-center items-center gap-1 font-coolvetica text-base text-aciu-grey">
+        <p className="w-full flex justify-center items-center gap-1 font-coolvetica text-xs md:text-base text-aciu-grey">
           Don't have an account?
-          <Link to="/signup" className="text-aciu-red">
+          <Link to="/signup" className="text-aciu-green-normal text-xs md:text-base">
             Create an account
           </Link>
         </p>

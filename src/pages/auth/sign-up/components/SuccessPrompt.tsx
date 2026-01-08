@@ -41,7 +41,7 @@ export default function SuccessPrompt() {
                 sx={{
                     color: 'white',
                     fontSize: '.75rem',
-                    backgroundColor: '#00CA71',
+                    backgroundColor: '#00B686',
                     borderRadius: '.75rem',
                     padding: '1rem',
                     boxShadow: '0px 1px 2px 0px #0D0D120A',

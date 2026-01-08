@@ -44,7 +44,7 @@ export default function SignUpPage() {
             {success ? 
                 <SuccessPrompt />
             :   
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full">
                 <AuthCard
                     header={stepContent[step].header}
                     subheader={stepContent[step].subheader}
@@ -70,7 +70,7 @@ export default function SignUpPage() {
                                             sx={{
                                                 color: 'white',
                                                 fontSize: '.75rem',
-                                                backgroundColor: !isValid ? '#ccc' : '#00CA71',
+                                                backgroundColor: !isValid ? '#ccc' : '#00B686',
                                                 borderRadius: '.75rem',
                                                 padding: '1rem',
                                                 boxShadow: '0px 1px 2px 0px #0D0D120A',
