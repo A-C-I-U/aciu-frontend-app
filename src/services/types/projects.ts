@@ -117,3 +117,45 @@ export interface PaymentIntentResponse {
   amount: number
   currency: string
 }
+
+
+export interface ProjectStat {
+  count: number,
+  growth: number
+}
+
+export interface ProjectStatsResponse {
+  approvedProjects: ProjectStat,
+  completedProjects: ProjectStat,
+  ongoingProjects: ProjectStat,
+  totalProjectDonations: {
+    amount: number,
+    growth: number
+  }
+}
+
+export interface NominatedProject {
+  id: string;
+  projectId: string;
+  submittedBy: string;
+  date: string;
+  estimatedCost: number;
+  status: "pending" | "approved" | "rejected";
+}
+
+
+export interface ProjectNominationDetail {
+  id: string;
+  title: string;
+  submittedBy: string;
+  emailAddress: string;
+  phoneNumber: string;
+  branch: string;
+  location: string;
+  estimatedCostUSD: number;
+  category: string;
+  briefDescription: string;
+  expectedImpact: string;
+  date: string;
+  status: "pending" | "ongoing" | "completed" | "rejected";
+}

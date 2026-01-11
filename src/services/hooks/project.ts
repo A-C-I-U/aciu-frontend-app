@@ -1,12 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "..";
 import type {
+  NominatedProject,
   Project,
   ProjectDetails,
   ProjectDonation,
+  ProjectNominationDetail,
   ProjectRecommendationsResponse,
+  ProjectStatsResponse,
   RecommendedProject,
 } from "../types/projects";
+import { useUser } from "@/context/UserContext";
 
 export type ProjectStatus = "ongoing" | "completed";
 
@@ -81,3 +85,49 @@ export const useProjectDonations = (projectId: string) => {
     gcTime: 5 * 60 * 1000,
   });
 };
+
+
+const fetchProjectStats = async (): Promise<ProjectStatsResponse> => {
+  const response = await apiClient.get<ProjectStatsResponse>("/member-dashboard/projects-dashboard");
+  return response.data;
+}
+
+export const useProjectStats = () => {
+  const { user } = useUser();
+  return useQuery({
+    queryKey: ["projects", "stats"],
+    queryFn: () => fetchProjectStats(),
+    enabled: user?.role === "national_admin",
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
+  })
+}
+
+const fetchNominatedProjects = async (): Promise<NominatedProject[]> => {
+  const response = await apiClient.get<NominatedProject[]>("/projects/nominated");
+  return response.data;
+}
+
+export const useNominatedProjects = () => {
+  const { user } = useUser();
+  return useQuery({
+    queryKey: ["projects", "nominated-projects"],
+    queryFn: () => fetchNominatedProjects(),
+    enabled: user?.role === "national_admin",
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000
+  })
+}
+
+export const useProjectNominationDetail = (id: string) => {
+  return useQuery<ProjectNominationDetail, Error>({
+    queryKey: ['withdrawal', 'detail', id],
+    enabled: !!id,
+    queryFn: async (): Promise<ProjectNominationDetail> => {
+      const response = await apiClient.get<{ message: string; data: ProjectNominationDetail }>(`/projects/${id}`);
+      return response.data.data;
+    },
+    staleTime: 5 * 60 * 1000,
+    retry: 2
+  })
+}
