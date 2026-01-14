@@ -1,25 +1,24 @@
 import { DetailSkeleton } from "@/components/DetailSkeleton";
 import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
-import { StatusBadge } from "@/components/StatusBadge";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
 import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
 import { useProjectNominationDetail } from "@/services/hooks/project";
 import type { ProjectNominationDetail } from "@/services/types/projects";
-import { copyTextToClipboard, withdrawalStatusMap } from "@/utils/helpers";
-import type { WithdrawalDataType } from "@/utils/types";
+import { copyTextToClipboard } from "@/utils/helpers";
 import { Divider } from "@mui/material";
 import { Copy } from "iconsax-react";
 
-export default function ProjectNomDetail({ open, onClose, projectId }: {
+export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     open: boolean,
     onClose: () => void,
+    id: string | null,
     projectId: string | null
 }) {
 
-    if (!projectId) return null;
+    if (!id || !projectId) return null;
 
-    const { data, isLoading, isError } = useProjectNominationDetail(projectId)
+    const { data, isLoading, isError } = useProjectNominationDetail(id)
 
     return (
         <ShellModal open={open} onClose={onClose}>
@@ -27,12 +26,12 @@ export default function ProjectNomDetail({ open, onClose, projectId }: {
                 <ShellHeader title="View Nomination" onClose={onClose} />
                 <Divider className="flex shrink-0" />
                 <div className="flex flex-col h-full overflow-hidden">
-                    <div className="resources-modal-body">
+                    <div className="resources-modal-body overflow-x-auto">
                         {isLoading && <DetailSkeleton />}
-                        {data && <ProjectNomDetailContent data={data} />}
-                        {isError && (
+                        {data && <ProjectNomDetailContent data={data} projectId={projectId}/>}
+                        {(isError && !data && !isLoading) && (
                             <div className="text-aciu-abriba p-4">
-                                Unable to load withdrawal details.
+                                Unable to load nominated project's details.
                                 Please open the modal again.
                             </div>
                         )}
@@ -51,11 +50,16 @@ export default function ProjectNomDetail({ open, onClose, projectId }: {
     )
 }
 
-const ProjectNomDetailContent = ({ data }: { data: ProjectNominationDetail}) => {
+const ProjectNomDetailContent = ({ data, projectId }: { data: ProjectNominationDetail, projectId: string}) => {
     if (!data) return <EmptyRecords />;
 
-    const { id, title, submittedBy, emailAddress, phoneNumber, branch, location, estimatedCostUSD, category, briefDescription, expectedImpact, date, status } = data;
-    const { label, labelColor, dotColor, bgColor } = withdrawalStatusMap[status as WithdrawalDataType["status"]];
+    const { title, submittedBy, emailAddress, phoneNumber, branch, location, estimatedCostUSD, category, briefDescription, expectedImpact, date } = data;
+    // const { 
+    //     label, 
+    //     labelColor, 
+    //     dotColor, 
+    //     bgColor 
+    // } = withdrawalStatusMap[status.toLocaleLowerCase() as WithdrawalDataType["status"]];
 
     return (
         <table className="table-auto border-collapse">
@@ -72,11 +76,11 @@ const ProjectNomDetailContent = ({ data }: { data: ProjectNominationDetail}) => 
                     <td className="payment-table-column">
                          <span className=" flex items-center justify-between">
                             <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-45 md:max-w-60 text-xs md:text-sm">
-                                {id}
+                                {projectId}
                             </span>
                             <button
                                 aria-label="Copy Transaction ID"
-                                onClick={() => copyTextToClipboard(id)}
+                                onClick={() => copyTextToClipboard(projectId)}
                             >
                                 <Copy variant="Bulk" size={20} color="#00B686" />
                             </button>
@@ -100,7 +104,7 @@ const ProjectNomDetailContent = ({ data }: { data: ProjectNominationDetail}) => 
                         </span>
                     </td>
                 </tr>
-                <ViewDetailRow label="Email Address" content={<a href={`mailto:${emailAddress}`}>{emailAddress}</a>} />
+                <ViewDetailRow label="Email Address" content={<a href={`mailto:${emailAddress}`} className="lowercase">{emailAddress}</a>} />
                 <ViewDetailRow label="Phone Number" content={phoneNumber} />
                 <ViewDetailRow label="Branch" content={branch} />
                 <ViewDetailRow label="Location" content={location} />
@@ -109,7 +113,7 @@ const ProjectNomDetailContent = ({ data }: { data: ProjectNominationDetail}) => 
                 <ViewDetailRow label="Brief Description" content={briefDescription} />
                 <ViewDetailRow label="Expected Impact" content={expectedImpact} />
                 <ViewDetailRow label="Date" content={date} />
-                <ViewDetailRow label="Status" content={<StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />} />
+                {/* <ViewDetailRow label="Status" content={<StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />} /> */}
             </tbody>
         </table>
     )
