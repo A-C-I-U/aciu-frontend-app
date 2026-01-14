@@ -6,8 +6,8 @@ import { useState } from "react";
 import ProjectCard from "./ProjectCard";
 import { ProjectOverviewTab } from "./ProjectOverviewTab";
 import { DonationsTab } from "./DonationsTab";
-import ShareProject from "./ShareProject";
-import DonateToProject from "./DonateToProject";
+import ShareProject from "./actions/ShareProject";
+import DonateToProject from "./actions/DonateToProject";
 import ProjectSidebarCard from "./ProjectSidebarCard";
 import MotionBox from "@/components/MotionBox";
 import { useProjects, useProjectDonations } from "@/services/hooks/project";
@@ -172,7 +172,7 @@ export default function ProjectDetailsPage() {
           </div>
 
           <div className="flex items-center gap-2">
-            <div className="bg-aciu-yellow py-1.5 px-2.5 rounded-[5px] max-w-fit max-h-fit">
+            <div className="bg-aciu-yellow py-1.5 px-2.5 rounded-md max-w-fit max-h-fit flex items-center">
               <span className="font-coolvetica text-xs text-aciu-border-grey font-bold">
                 {category}
               </span>

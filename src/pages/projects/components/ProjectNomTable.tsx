@@ -3,7 +3,7 @@ import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 import type { NominatedProject } from "@/services/types/projects";
 import { withdrawalStatusMap } from "@/utils/helpers";
-import type { FieldConfig } from "@/utils/types";
+import type { FieldConfig, WithdrawalDataType } from "@/utils/types";
 import { useMediaQuery } from "@mui/material";
 import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
@@ -52,7 +52,7 @@ export default function ProjectNominationsTable({
                             key={project.id}
                             item={project}
                             fields={fields}
-                            status={withdrawalStatusMap[project.status]}
+                            status={withdrawalStatusMap[project.status.toLowerCase() as WithdrawalDataType["status"]]}
                             actionLabel="View Details"
                             onActionClick={() => handleViewClick(project)}
                         />
@@ -71,14 +71,16 @@ export default function ProjectNominationsTable({
             <ProjectNomDetail
                 open={isViewOpen}
                 onClose={handleViewClose}
-                projectId={selected && selected.id}
+                id={selected && selected.id}
+                projectId={selected && selected.projectId}
+
             />
         </>
     )
 }
 
 const fields: FieldConfig<NominatedProject>[] = [
-    { label: 'Estimated Cost', value: (p) => `N${(+p.estimatedCostUSD).toLocaleString()}`},
+    // { label: 'Estimated Cost', value: (p) => `N${(+p.estimatedCost).toLocaleString()}`},
     { label: "Project ID", value: (p) => p.projectId},
     { label: "Date", value: (p) => p.date},
     { label: "Submitted By", value: (p) => p.submittedBy},

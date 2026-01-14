@@ -18,8 +18,6 @@ export default function ProjectNominations() {
         setQuery(q);
     }
 
-    console.log(nominatedProjects)
-
     return (
         <div className="flex flex-col gap-4 lg:gap-8">
             <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
