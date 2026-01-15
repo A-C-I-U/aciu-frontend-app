@@ -1,9 +1,8 @@
 import SectionHeader from "@/components/SectionHeader";
 import { ArrowDown2, Sort } from "iconsax-react";
 import { useState } from "react";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "../ProjectCard";
 import { useMediaQuery, Skeleton } from "@mui/material";
-import NominateProject from "./NominateProject";
 import { useProjects } from "@/services/hooks/project";
 
 const sectionActions = [
@@ -32,7 +31,6 @@ const sectionActions = [
 export default function CompletedProjects() {
     const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
-    const [showNominate, setShowNominate] = useState(false);
     
     const { data: projects, isLoading, error } = useProjects('completed');
 
@@ -65,12 +63,6 @@ export default function CompletedProjects() {
                         showSearch={isMedium ? false : true}
                         actions={sectionActions}
                     />
-                    <button 
-                        className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                        onClick={() => setShowNominate(true)}
-                    >
-                        Nominate a Project
-                    </button>
                 </div>
                 <div className="text-center py-8 text-red-500">
                     Failed to load completed projects. Please try again.
@@ -88,12 +80,6 @@ export default function CompletedProjects() {
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
                 />
-                <button 
-                    className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                    onClick={() => setShowNominate(true)}
-                >
-                    Nominate a Project
-                </button>
             </div>
 
             {isLoading ? (
@@ -118,11 +104,6 @@ export default function CompletedProjects() {
                     )}
                 </div>
             )}
-
-            <NominateProject 
-                open={showNominate}
-                onClose={() => setShowNominate(false)}
-            />
         </div>
     );
 }
