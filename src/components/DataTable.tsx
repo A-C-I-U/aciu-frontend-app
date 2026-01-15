@@ -101,7 +101,7 @@ export default function DataTable({
 
 
             {/* Pagination Component */}
-            {pagination && 
+            {(pagination && table.getPageCount() > 1) && 
             <div className="w-full pt-3 pb-4 px-6 flex justify-between items-center">
                 <button
                     className="rounded-md py-2 px-[.875rem] 
