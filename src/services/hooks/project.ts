@@ -121,11 +121,11 @@ export const useNominatedProjects = () => {
 
 export const useProjectNominationDetail = (id: string) => {
   return useQuery<ProjectNominationDetail, Error>({
-    queryKey: ['withdrawal', 'detail', id],
+    queryKey: ['project-nomination', 'detail', id],
     enabled: !!id,
     queryFn: async (): Promise<ProjectNominationDetail> => {
-      const response = await apiClient.get<{ message: string; data: ProjectNominationDetail }>(`/projects/${id}`);
-      return response.data.data;
+      const response = await apiClient.get(`/projects/${id}`);
+      return response.data;
     },
     staleTime: 5 * 60 * 1000,
     retry: 2
