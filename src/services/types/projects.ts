@@ -1,3 +1,11 @@
+import { array, mixed, object, string } from "yup";
+
+export type ProjectStatus = "approved" | "rejected";
+
+export type UpdateProjectStatusPayload =
+  | { approve: true }
+  | { approve: false; reason: string };
+
 export interface Project {
   id: string;
   branchId: string | null;
@@ -54,7 +62,7 @@ export interface ProjectDetails {
 }
 
 
-export interface CreateProjectPayload {
+export interface NominateProjectPayload {
   title: string;
   category: string;
   location: string;
@@ -64,8 +72,20 @@ export interface CreateProjectPayload {
   image: File | null;
 }
 
-export interface CreateProjectResponse {
+export interface NominateProjectResponse {
   message: string;
+}
+
+export interface CreateProjectPayload {
+  title: string;
+  managedBy: string;
+  briefDescription: string;
+  whyItMatters: string;
+  projectScope: string;
+  category: string;
+  projectImpact: string;
+  estimatedCostUSD: string;
+  images: File[] | string[] | null[];
 }
 
 export interface RecommendedProject {
@@ -146,6 +166,7 @@ export interface NominatedProject {
 
 export interface ProjectNominationDetail {
   id: string;
+  projectId: string;
   title: string;
   submittedBy: string;
   emailAddress: string;
@@ -157,5 +178,36 @@ export interface ProjectNominationDetail {
   briefDescription: string;
   expectedImpact: string;
   date: string;
-  status: "pending" | "ongoing" | "completed" | "rejected";
+  status: "pending" | "completed" | "rejected";
 }
+
+export const createProjectSchemas = [
+  object({
+    title: string().required("Project title is required"),
+    managedBy: string().required("Project Assignee is required"),
+    briefDescription: string().required("Project description is required"),
+    whyItMatters: string().required("This field is required"),
+    projectScope: string().required("Project scope is required")
+  }),
+  object({
+    category: string().required("Project category is required"),
+    projectImpact: string().required("Project impact is required"),
+    estimatedCostUSD: string().required("Estimated Cost is required"),
+    images: array()
+      .of(
+        mixed()
+          .test("fileType", "Unsupported file format", (value: any) => {
+            if (!value) return true;
+            if (typeof value === "string") return true;
+            return ["image/png", "image/jpeg", "image/jpg"].includes(value.type);
+          })
+          .test("fileSize", "File too large", (value: any) => {
+            if (!value) return true;
+            if (typeof value === "string") return true;
+            return value.size <= 10 * 1024 * 1024;
+          })
+      )
+      .min(1, "At least one image is required")
+      .max(5, "You can upload up to 5 images")
+  })
+]
