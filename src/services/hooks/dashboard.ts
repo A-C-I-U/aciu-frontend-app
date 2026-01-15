@@ -53,12 +53,16 @@ export const useNationalDashboardStats = () => {
 export const useNationalDashboardWithdrawals = () => {
   const { user } = useUser();
   return useQuery<any, Error>({
-    queryKey: ['dashboard', 'nationalAdmin', 'withrawalRequests'],
+    queryKey: ['dashboard', 'nationalAdmin', 'withdrawalRequests'],
     enabled: user?.role === "national_admin",
     queryFn: async (): Promise<any> => {
-      const response = await apiClient.get<any>('/dashboard/withdrawals');
+      const response = await apiClient.get<any>('/dashboard/withdrawals?page=1&limit=10');
       return response.data;
     },
+    select: (data) => ({
+      ...data,
+      data: data.data.slice(0, 10),
+    }),
     staleTime: 5 * 60 * 1000, 
     retry: 2,
   })
