@@ -1,16 +1,16 @@
 import { PageTitle } from "@/components/PageTitle";
 import type { TabItem } from "@/utils/types"
 import { AnimatePresence } from "motion/react";
-import { useMemo, useState } from "react"
-import OngoingProjects from "./components/OngoingProjects";
-import CompletedProjects from "./components/CompletedProjects";
+import { useMemo } from "react"
+import OngoingProjects from "./components/tabs/OngoingProjects";
+import CompletedProjects from "./components/tabs/CompletedProjects";
 import MotionBox from "@/components/MotionBox";
 import { useUser } from "@/context/UserContext";
-import ProjectNominations from "./components/ProjectNominations";
+import ProjectNominations from "./components/tabs/ProjectNominations";
 import TabButton from "@/components/TabButton";
 import { useProjectStats } from "@/services/hooks/project";
 import { StatsCard } from "@/components/StatsCard";
-import { data } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 const baseTabs: TabItem[] = [
     { key: "ongoing-projects", label: "Ongoing Projects", content: <OngoingProjects />},
@@ -20,6 +20,8 @@ const baseTabs: TabItem[] = [
 export default function ProjectsPage() {
     const { user } = useUser();
     const { data: projectStats, isLoading: isProjectStatsLoading, isError: isProjectStatsError } = useProjectStats()
+    const [searchParams, setSearchParams] = useSearchParams();
+
 
     const projectTabs = useMemo(() => {
         if (user?.role === "national_admin") {
@@ -31,10 +33,15 @@ export default function ProjectsPage() {
         return baseTabs;
     }, [user?.role]);
 
-    const [activeTab, setActiveTab] = useState<TabItem>(projectTabs[0]);
+    
+    const activeTab = searchParams.get("tab") ?? projectTabs[0].key;
+    const currentTab: TabItem = projectTabs.find(tab => tab.key === activeTab) ?? projectTabs[0];
     const handleTabChange = (tab: TabItem) => {
-        setActiveTab(tab);
+        setSearchParams({ tab: tab.key });
     }
+
+
+    const totalProjectDonations = projectStats?.totalProjectDonations?.amount ?? 0;
 
     return (
         <div className="flex flex-col gap-6">
@@ -80,38 +87,39 @@ export default function ProjectsPage() {
                             />
                             <StatsCard
                                 title="Total Project Donations"
-                                number={`N${projectStats?.totalProjectDonations.amount.toLocaleString() ?? 0}`}
+                                number={`N${totalProjectDonations.toLocaleString() ?? 0}`}
                                 rateOfChange={`${projectStats?.totalProjectDonations.growth}`}
                                 description="All Time"
                             />
                         </>
                     }   
                     </div>
-                    <nav 
-                        id="nav-tabs"
-                        role="tablist" 
-                        className="flex gap-4 md:gap-8 items-center bg-white mx-5 rounded-lg md:px-6 px-2.5 pt-14"
-                    >
-                        {projectTabs.map((tab) => (
+                    <div className="relative">
+                        <nav
+                            id="nav-tabs"
+                            role="tablist"
+                            className="flex gap-4 md:gap-8 items-center bg-white mx-5 rounded-lg md:px-6 px-2.5 pt-14 overflow-x-auto no-scrollbar"
+                        >
+                            {projectTabs.map((tab) => (
                             <TabButton
                                 key={tab.key}
-                                tab={tab} 
-                                active={tab === activeTab} 
-                                onClick={() => handleTabChange(tab)} 
+                                tab={tab}
+                                active={tab === currentTab}
+                                onClick={() => handleTabChange(tab)}
                             />
-                        ))}
-                    </nav>
-                    
+                            ))}
+                        </nav>
+                    </div>
                 </div> :
             <PageTitle
                 title="ACIU Projects"
                 tabs={projectTabs}
-                activeTab={activeTab}
+                activeTab={currentTab}
                 onTabChange={handleTabChange}
             /> }
             <AnimatePresence>
                 <MotionBox
-                    key={activeTab?.key + "-content"}
+                    key={currentTab?.key + "-content"}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
@@ -124,7 +132,7 @@ export default function ProjectsPage() {
                     }}
                     py="1.25rem"
                 >
-                    {activeTab?.content}
+                    {currentTab?.content}
                 </MotionBox>
             </AnimatePresence>
         </div>
