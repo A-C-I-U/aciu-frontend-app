@@ -7,7 +7,7 @@ import type { FieldConfig, WithdrawalDataType } from "@/utils/types";
 import { useMediaQuery } from "@mui/material";
 import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
-import ProjectNomDetail from "../ProjectNomDetail";
+import ProjectNomDetail from "./ProjectNomDetail";
 
 export default function ProjectNominationsTable({
     data, columns

@@ -27,7 +27,7 @@ export const columns = (setSelected: (p: NominatedProject) => void): ColumnDef<N
     {
         accessorKey: "date",
         header: "Date",
-        cell: ({ row }: { row: Row<NominatedProject> }) => <span>{formatDate(row.original.date, "dd-MM-yyyy h:mm  aaaaa'm'")}</span>
+        cell: ({ row }: { row: Row<NominatedProject> }) => <span>{formatDate(row.original.date, "dd-MM-yyyy h:mm a")}</span>
     },
     // Commenting out because backend is not returning estimated cost on this endpoint for now
     // {
