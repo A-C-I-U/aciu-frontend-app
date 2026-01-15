@@ -4,10 +4,14 @@ import ShellModal from "@/components/ShellModal";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
 import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
 import { useProjectNominationDetail } from "@/services/hooks/project";
+import { useUpdateProjectStatus } from "@/services/mutations/projects";
 import type { ProjectNominationDetail } from "@/services/types/projects";
 import { copyTextToClipboard } from "@/utils/helpers";
-import { Divider } from "@mui/material";
+import { CircularProgress, Divider } from "@mui/material";
 import { Copy } from "iconsax-react";
+import { enqueueSnackbar } from "notistack";
+import { useState } from "react";
+import RejectProject from "../actions/RejectProject";
 
 export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     open: boolean,
@@ -19,34 +23,54 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     if (!id || !projectId) return null;
 
     const { data, isLoading, isError } = useProjectNominationDetail(id)
+    const { mutate: updateStatus, isPending } = useUpdateProjectStatus();
+    const [openReject, setOpenReject] = useState(false);
+
+    const handleApprove = (id: string) => {
+        updateStatus({
+            id,
+            payload: { approve: true },
+        });
+        enqueueSnackbar("Nomination approved")
+    };
+
 
     return (
-        <ShellModal open={open} onClose={onClose}>
-            <div className="resources-modal-section flex flex-col h-full overflow-hidden">
-                <ShellHeader title="View Nomination" onClose={onClose} />
-                <Divider className="flex shrink-0" />
-                <div className="flex flex-col h-full overflow-hidden">
-                    <div className="resources-modal-body overflow-x-auto">
-                        {isLoading && <DetailSkeleton />}
-                        {data && <ProjectNomDetailContent data={data} projectId={projectId}/>}
-                        {(isError && !data && !isLoading) && (
-                            <div className="text-aciu-abriba p-4">
-                                Unable to load nominated project's details.
-                                Please open the modal again.
-                            </div>
-                        )}
-                    </div>
-                    <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                        <button className="btn btn-primary" disabled={!data}>
-                            Mark as Approved
-                        </button>
-                        <button className="btn btn-danger" disabled={!data}>
-                            Reject Nomination
-                        </button>
+        <>
+            <ShellModal open={open} onClose={onClose}>
+                <div className="resources-modal-section flex flex-col h-full overflow-hidden">
+                    <ShellHeader title="View Nomination" onClose={onClose} />
+                    <Divider className="flex shrink-0" />
+                    <div className="flex flex-col h-full overflow-hidden">
+                        <div className="resources-modal-body overflow-x-auto">
+                            {isLoading && <DetailSkeleton />}
+                            {data && <ProjectNomDetailContent data={data} projectId={projectId}/>}
+                            {(isError && !data && !isLoading) && (
+                                <div className="text-aciu-abriba p-4">
+                                    Unable to load nominated project's details.
+                                    Please open the modal again.
+                                </div>
+                            )}
+                        </div>
+                        <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
+                            <button className="btn btn-primary" disabled={!data}
+                                onClick={() => handleApprove(id)}>
+                                    {isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
+                                Mark as Approved
+                            </button>
+                            <button className="btn btn-danger tracking-[5%]" disabled={!data} onClick={() => { setOpenReject(true); onClose()}}>
+                                Reject Nomination
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ShellModal>
+            </ShellModal>
+            <RejectProject
+                open={openReject}
+                onClose={() => setOpenReject(false)}
+                id={id}
+            />
+        </>
     )
 }
 
