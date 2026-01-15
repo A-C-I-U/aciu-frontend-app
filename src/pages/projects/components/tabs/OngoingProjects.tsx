@@ -1,29 +1,25 @@
 import SectionHeader from "@/components/SectionHeader";
 import { ArrowDown2, Sort } from "iconsax-react";
 import { useState } from "react";
-import ProjectCard from "./ProjectCard";
+import ProjectCard from "../ProjectCard";
 import { useMediaQuery } from "@mui/material";
-import NominateProject from "./NominateProject";
+import NominateProject from "../actions/NominateProject";
 import { useProjects } from "@/services/hooks/project";
-import { ProjectSkeleton } from "./ProjectSkeleton";
+import { ProjectSkeleton } from "../ProjectSkeleton";
+import { useUser } from "@/context/UserContext";
+import CreateProject from "../actions/CreateProject";
 
 const sectionActions = [
     <button
         key="filter"
-        className="flex gap-2.5 items-center p-2.5 
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
+        className="section-action-button"
     >
         Filter
         <Sort variant="Outline" color="#A4ACB9" size={20} />
     </button>,
     <button
         key="year"
-        className="flex gap-2.5 items-center p-2.5
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
+        className="section-action-button"
     >
         2022
         <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
@@ -34,8 +30,10 @@ export default function OngoingProjects() {
     const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const [showNominate, setShowNominate] = useState(false);
+    const [showCreate, setShowCreate] = useState(false);
     
     const { data: projects, isLoading, error } = useProjects('ongoing');
+    const { user } = useUser();
 
     const handleSearch = (q: string) => {
         setQuery(q);
@@ -52,7 +50,7 @@ export default function OngoingProjects() {
                         actions={sectionActions}
                     />
                     <button 
-                        className="py-3 px-1 text-sm md:text-base md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
+                        className="btn btn-primary max-w-fit"
                         onClick={() => setShowNominate(true)}
                     >
                         Nominate a Project
@@ -74,12 +72,22 @@ export default function OngoingProjects() {
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
                 />
-                <button 
-                    className="py-3 px-1 text-sm md:text-base md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                    onClick={() => setShowNominate(true)}
-                >
-                    Nominate a Project
-                </button>
+                {user?.role === "national_admin" ?
+                        <button 
+                            className="btn btn-primary max-w-fit !text-sm md:!text-base"
+                            onClick={() => setShowCreate(true)}
+                        >
+                            Create Project
+                        </button>
+                    :
+                        <button 
+                            className="btn btn-primary max-w-fit !text-sm md:!text-base"
+                            onClick={() => setShowNominate(true)}
+                        >
+                            Nominate a Project
+                        </button>
+                    }
+                    
             </div>
 
             {isLoading ? (
@@ -107,6 +115,10 @@ export default function OngoingProjects() {
             <NominateProject 
                 open={showNominate}
                 onClose={() => setShowNominate(false)}
+            />
+            <CreateProject
+                open={showCreate}
+                onClose={() => setShowCreate(false)}
             />
         </div>
     );
