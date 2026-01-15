@@ -1,3 +1,4 @@
+import TableSkeleton from "@/components/TableSkeleton";
 import { Skeleton } from "@mui/material";
 
 export default function NationalAdminSkeleton() {
@@ -48,13 +49,17 @@ export default function NationalAdminSkeleton() {
                     </div>
                 </div>
             </div>
-            <div className="flex flex-col gap-6 lg:px-4">
-                <Skeleton 
-                    variant="rectangular" 
-                    width="100%" 
-                    height={450}
-                    sx={{ borderRadius: '12px' }}
-                />
+            <div className="bg-white flex flex-col gap-6 py-4 lg:px-4">
+                <div className="flex flex-col gap-6 lg:gap-0 lg:flex-row justify-between lg:items-center">
+                    <h5 className="text-lg lg:text-xl line-height-120 text-aciu-border-grey">
+                        Withdrawal Requests
+                    </h5>
+                    <div className="flex items-center gap-4">
+                        <div className="h-4 bg-gray-200 rounded w-13 mb-2"></div>
+                        <div className="h-4 bg-gray-200 rounded w-13 mb-2"></div>
+                    </div>
+                </div>
+                <TableSkeleton />
             </div>
         </div>
     )
