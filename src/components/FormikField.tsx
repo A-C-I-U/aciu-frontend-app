@@ -49,7 +49,8 @@ export default function FormikField({
           fontFamily: "'Montserrat', sans-serif",
           color: '#3E3E3E',
           fontWeight: 500,
-          fontSize: '0.875rem'
+          fontSize: '0.875rem',
+          lineHeight: '100%'
         }}
       >
         {label}{required && "*"}
