@@ -2,17 +2,18 @@ import { RejectIcon } from "@/components/Icons";
 import { useUpdateProjectStatus } from "@/services/mutations/projects";
 import type { DialogFuncProps } from "@/utils/types";
 import { CircularProgress, Dialog } from "@mui/material";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import { enqueueSnackbar } from "notistack";
+import { object, string } from "yup";
 
 export default function RejectProject({
     open,
     onClose, id
 }: DialogFuncProps & { id: string }) {
 
-    const { mutate: updateStatus, isPending } = useUpdateProjectStatus();
-    const handleReject = (id: string, reason: string) => {
-        updateStatus({
+    const { mutateAsync: updateStatus, isPending } = useUpdateProjectStatus();
+    const handleReject = async (id: string, reason: string) => {
+        await updateStatus({
             id,
             payload: { approve: false, reason },
         });
@@ -20,15 +21,15 @@ export default function RejectProject({
 
     const handleSubmit = async (values: { reason: string }) => {
         try {
-            handleReject(id, values.reason);
+            await handleReject(id, values.reason);
             enqueueSnackbar('Nomination has been rejected', {
                 variant: 'info',
                 autoHideDuration: 2000
             });
+            onClose()
         } catch (err) {
             enqueueSnackbar('Failed to reject Nomination', { variant: 'error'});
-        }
-        onClose();
+        } 
     };
 
 
@@ -54,6 +55,9 @@ export default function RejectProject({
             <Formik
                 onSubmit={handleSubmit}
                 initialValues={{ reason: "" }}
+                validationSchema={object({
+                    reason: string().required("Reason for rejection is required")
+                })}
                 validateOnMount
             >
                 
@@ -76,9 +80,10 @@ export default function RejectProject({
                                         <label
                                             htmlFor="reason"
                                             className="font-medium text-sm text-aciu-border-grey">
-                                                Rejection Reasons
+                                                Rejection Reason
                                         </label>
-                                        <textarea
+                                        <Field
+                                            as="textarea"
                                             name="reason"
                                             className="border-aciu-card-grey border text-sm 
                                             font-montserrat leading-5 focus:outline-0

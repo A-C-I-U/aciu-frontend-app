@@ -23,16 +23,27 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     if (!id || !projectId) return null;
 
     const { data, isLoading, isError } = useProjectNominationDetail(id)
-    const { mutate: updateStatus, isPending } = useUpdateProjectStatus();
+    const { mutateAsync: updateStatus, isPending } = useUpdateProjectStatus();
     const [openReject, setOpenReject] = useState(false);
 
-    const handleApprove = (id: string) => {
-        updateStatus({
+    const handleApprove = async (id: string) => {
+        await updateStatus({
             id,
             payload: { approve: true },
         });
-        enqueueSnackbar("Nomination approved")
     };
+
+    const handleSubmit = async (id: string) => {
+        try {
+            await handleApprove(id)
+            enqueueSnackbar('Nomination has been approved', {
+                variant: 'success',
+                autoHideDuration: 2000
+            })
+        } catch (err) {
+            enqueueSnackbar('Failed to approve Nomination', { variant: 'error' })
+        }
+    }
 
 
     return (
@@ -54,7 +65,7 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
                         </div>
                         <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
                             <button className="btn btn-primary" disabled={!data}
-                                onClick={() => handleApprove(id)}>
+                                onClick={() => handleSubmit(id)}>
                                     {isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
                                 Mark as Approved
                             </button>
