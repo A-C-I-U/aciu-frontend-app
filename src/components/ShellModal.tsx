@@ -12,6 +12,7 @@ interface ShellProps {
     paperSx?: object;
     drawerSx?: object;
     forceDrawer?: boolean;
+    forceDialog?: boolean;
 };
 
 export default function ShellModal({
@@ -21,6 +22,7 @@ export default function ShellModal({
     paperSx = {},
     drawerSx = {},
     forceDrawer = false,
+    forceDialog = false
 }: ShellProps) {
     const isMobile = useMediaQuery("(max-width:768px)");
 
@@ -51,7 +53,7 @@ export default function ShellModal({
         ...drawerSx,
     };
 
-    const useDrawer = !isMobile && !forceDrawer;
+    const useDrawer = !isMobile && !forceDrawer && !forceDialog;
 
     return (
         <>

@@ -24,13 +24,13 @@ export default function ProjectCard({ project, isCompleted = false }: ProjectCar
             <img
               src={displayImage}
               alt={title}
-              className="rounded-[.313rem] w-full md:h-38.5 min-w-27 sm:h-23 object-cover"
+              className="rounded-md w-full h-36.25 min-w-27 object-cover"
               loading="lazy"
             />
           )}
 
-          <div className="bg-aciu-yellow py-2 px-2.5 rounded-[5px] max-w-fit">
-            <span className="font-coolvetica text-xs text-aciu-border-grey font-bold">
+          <div className="bg-aciu-yellow py-1.5 px-2.5 rounded-md max-w-fit max-h-fit flex items-center">
+            <span className="font-coolvetica text-xs text-aciu-border-grey font-bold leading-default">
               {category}
             </span>
           </div>
@@ -56,7 +56,7 @@ export default function ProjectCard({ project, isCompleted = false }: ProjectCar
 
       <Link
         to={`/projects/${id}`}
-        className="rounded-[.5rem] border border-aciu-green-normal p-5 max-w-46
+        className="rounded-lg border border-aciu-green-normal p-5 max-w-46
                 font-coolvetica text-sm text-aciu-green-normal flex gap-2 items-center hover:bg-aciu-green-normal hover:text-white transition-colors"
       >
         <span>{isCompleted ? "View Project" : "Donate To Project"}</span>

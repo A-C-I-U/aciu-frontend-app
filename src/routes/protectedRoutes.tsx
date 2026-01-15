@@ -22,7 +22,7 @@ import SettingsPage from "@/pages/settings";
 import EventDetails from "@/pages/events/components/EventDetails";
 import EventsList from "@/pages/events/components/EventsList";
 import BlogPostForm from "@/pages/blog/components/blog-posts/BlogPostForm";
-import ProjectDetailsPage from "@/pages/projects/components/ProjectDetailsPage";
+import ProjectDetailsPage from "@/pages/projects/components/details/ProjectDetailsPage";
 import SubmissionViewPage from "@/pages/blog/components/submissions/SubmissionViewPage";
 import PostViewPage from "@/pages/blog/components/blog-posts/PostViewPage";
 import AddEventPage from "@/pages/my-branch/components/tabs/branch-events/add-event";

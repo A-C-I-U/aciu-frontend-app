@@ -14,6 +14,7 @@ interface SuccessDialogProps extends DialogFuncProps {
     message: React.ReactNode,
     primaryAction: ActionButton,
     secondaryAction?: ActionButton
+    fitActionButton?: boolean
 }
 
 export function SuccessDialog({
@@ -22,6 +23,7 @@ export function SuccessDialog({
     icon,
     title,
     message,
+    fitActionButton=false,
     primaryAction,
     secondaryAction
 }: SuccessDialogProps) {
@@ -49,7 +51,7 @@ export function SuccessDialog({
                     </div>
                     
                     <div className="flex items-center gap-5.5">
-                        <button className="btn btn-primary" onClick={primaryAction.onClick}>
+                        <button className={`btn btn-primary ${fitActionButton && "max-w-fit"}`} onClick={primaryAction.onClick}>
                             {primaryAction.label}
                         </button>
 

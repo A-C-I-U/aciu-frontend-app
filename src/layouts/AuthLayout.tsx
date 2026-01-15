@@ -18,6 +18,8 @@ export default function AuthLayout() {
                     />
                     <a href="https://aciu-frontend-web.onrender.com/" 
                         className="go-to-homepage"
+                        target="_blank"
+                        rel="noopener noreferrer"
                     >Go back to Homepage</a>
                 </div>
             </header>

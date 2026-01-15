@@ -1,6 +1,8 @@
+import { DetailSkeleton } from "@/components/DetailSkeleton";
 import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
 import { StatusBadge } from "@/components/StatusBadge";
+import { ViewDetailRow } from "@/components/ViewDetailRow";
 import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
 import { useWithdrawalDetail } from "@/services/hooks/dashboard";
 import type { WithdrawalDetailResponse } from "@/services/types/dashboad";
@@ -9,7 +11,6 @@ import type { WithdrawalDataType } from "@/utils/types";
 import { Divider } from "@mui/material";
 import { formatDate } from "date-fns";
 import { Copy } from "iconsax-react";
-import type React from "react";
 
 export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
     open: boolean,
@@ -51,16 +52,6 @@ export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
         </ShellModal>
     )
 }
-
-export const ViewDetailRow = ({ label, content }: { label: string, content: React.ReactNode }) => {
-    return (
-        <tr>
-            <td className="payment-table-column title whitespace-nowrap">{label}</td>
-            <td className="payment-table-column desc capitalize whitespace-nowrap max-w-92 truncate">{content}</td>
-        </tr>
-    )
-}
-
 
 const WithdrawalDetailContent = ({ data }: { data: WithdrawalDetailResponse }) => {
     if (!data) return <EmptyRecords />
@@ -126,34 +117,5 @@ const WithdrawalDetailContent = ({ data }: { data: WithdrawalDetailResponse }) =
                 <ViewDetailRow label="Payment Status" content={<StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />} />
             </tbody>
     </table>
-    )
-}
-
-const DetailSkeleton = () => {
-    return (
-        <table>
-            <thead>
-                <tr className="payment-table-column title">
-                    <th>
-                        <span className="h-2 bg-gray-200 rounded mb-2">{""}</span>
-                    </th>
-                    <th>
-                        <span className="h-2 bg-gray-200 rounded mb-2">{""}</span>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {[1, 2, 3, 4, 5, 6, 7].map((item) => (
-                    <tr key={item}>
-                        <td className="payment-table-column title">
-                            <span className="inline-block h-2 bg-gray-200 rounded w-full mb-2"></span>
-                        </td>
-                        <td className="payment-table-column desc capitalize">
-                            <span className="inline-block h-2 bg-gray-200 rounded w-full mb-2"></span>
-                        </td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
     )
 }

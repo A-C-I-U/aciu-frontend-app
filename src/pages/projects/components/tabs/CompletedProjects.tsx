@@ -1,10 +1,8 @@
 import SectionHeader from "@/components/SectionHeader";
 import { ArrowDown2, Sort } from "iconsax-react";
 import { useState } from "react";
-import ProjectCard from "./ProjectCard";
-import { useMediaQuery } from "@mui/material";
-import NominateProject from "./NominateProject";
-import { Skeleton } from "@mui/material";
+import ProjectCard from "../ProjectCard";
+import { useMediaQuery, Skeleton } from "@mui/material";
 import { useProjects } from "@/services/hooks/project";
 
 const sectionActions = [
@@ -30,12 +28,11 @@ const sectionActions = [
     </button>,
 ];
 
-export default function OngoingProjects() {
+export default function CompletedProjects() {
     const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
-    const [showNominate, setShowNominate] = useState(false);
     
-    const { data: projects, isLoading, error } = useProjects('ongoing');
+    const { data: projects, isLoading, error } = useProjects('completed');
 
     const handleSearch = (q: string) => {
         setQuery(q);
@@ -61,20 +58,14 @@ export default function OngoingProjects() {
             <div className="flex flex-col gap-4 lg:gap-8">
                 <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                     <SectionHeader
-                        title="Ongoing Projects"
+                        title="Completed Projects"
                         onSearch={handleSearch}
                         showSearch={isMedium ? false : true}
                         actions={sectionActions}
                     />
-                    <button 
-                        className="py-3 px-1 text-sm md:text-base md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                        onClick={() => setShowNominate(true)}
-                    >
-                        Nominate a Project
-                    </button>
                 </div>
                 <div className="text-center py-8 text-red-500">
-                    Failed to load ongoing projects. Please try again.
+                    Failed to load completed projects. Please try again.
                 </div>
             </div>
         );
@@ -84,17 +75,11 @@ export default function OngoingProjects() {
         <div className="flex flex-col gap-4 lg:gap-8">
             <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                 <SectionHeader
-                    title="Ongoing Projects"
+                    title="Completed Projects"
                     onSearch={handleSearch}
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
                 />
-                <button 
-                    className="py-3 px-1 text-sm md:text-base md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                    onClick={() => setShowNominate(true)}
-                >
-                    Nominate a Project
-                </button>
             </div>
 
             {isLoading ? (
@@ -109,20 +94,16 @@ export default function OngoingProjects() {
                         <ProjectCard
                             key={project.id}
                             project={project}
+                            isCompleted={true} 
                         />
                     ))}
                     {projects?.length === 0 && (
                         <div className="col-span-full text-center py-8 text-gray-500">
-                            No ongoing projects found.
+                            No completed projects found.
                         </div>
                     )}
                 </div>
             )}
-
-            <NominateProject 
-                open={showNominate}
-                onClose={() => setShowNominate(false)}
-            />
         </div>
     );
 }

@@ -47,7 +47,7 @@ export default function DonationProgressBar({
             className={`absolute -top-3 lg:-top-4 transform -translate-1/2 bg-aciu-green-normal text-white text-xs px-2 py-0.5 rounded transition-all duration-300`}
             style={{ left: `${Math.min(Math.max(displayPercentage, 5), 95)}%` }}
           >
-            {displayPercentage}%
+            {Math.round(displayPercentage)}%
           </span>
         </div>
 

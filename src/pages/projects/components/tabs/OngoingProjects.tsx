@@ -1,79 +1,63 @@
 import SectionHeader from "@/components/SectionHeader";
 import { ArrowDown2, Sort } from "iconsax-react";
 import { useState } from "react";
-import ProjectCard from "./ProjectCard";
-import { useMediaQuery, Skeleton } from "@mui/material";
-import NominateProject from "./NominateProject";
+import ProjectCard from "../ProjectCard";
+import { useMediaQuery } from "@mui/material";
+import NominateProject from "../actions/NominateProject";
 import { useProjects } from "@/services/hooks/project";
+import { ProjectSkeleton } from "../ProjectSkeleton";
+import { useUser } from "@/context/UserContext";
+import CreateProject from "../actions/CreateProject";
 
 const sectionActions = [
     <button
         key="filter"
-        className="flex gap-2.5 items-center p-2.5 
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
+        className="section-action-button"
     >
         Filter
         <Sort variant="Outline" color="#A4ACB9" size={20} />
     </button>,
     <button
         key="year"
-        className="flex gap-2.5 items-center p-2.5
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
+        className="section-action-button"
     >
         2022
         <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
     </button>,
 ];
 
-export default function CompletedProjects() {
+export default function OngoingProjects() {
     const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const [showNominate, setShowNominate] = useState(false);
+    const [showCreate, setShowCreate] = useState(false);
     
-    const { data: projects, isLoading, error } = useProjects('completed');
+    const { data: projects, isLoading, error } = useProjects('ongoing');
+    const { user } = useUser();
 
     const handleSearch = (q: string) => {
         setQuery(q);
-    }
-
-    const ProjectSkeleton = () => (
-        <div className="rounded-[1.25rem] py-3.5 px-2 bg-card-200 flex flex-col gap-6">
-            <div className="flex flex-col gap-4 lg:gap-6">
-                <div className="flex flex-col gap-3.5">
-                    <Skeleton variant="rounded" width="100%" height={154} />
-                    <Skeleton variant="rounded" width={100} height={32} />
-                </div>
-                <Skeleton variant="text" width="80%" height={32} />
-                <Skeleton variant="rounded" width="100%" height={8} />
-                <Skeleton variant="text" width="100%" height={60} />
-            </div>
-            <Skeleton variant="rounded" width={184} height={56} />
-        </div>
-    );
+    } 
 
     if (error) {
         return (
             <div className="flex flex-col gap-4 lg:gap-8">
                 <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                     <SectionHeader
-                        title="Completed Projects"
+                        title="Ongoing Projects"
                         onSearch={handleSearch}
                         showSearch={isMedium ? false : true}
                         actions={sectionActions}
                     />
                     <button 
-                        className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
+                        className="btn btn-primary max-w-fit"
                         onClick={() => setShowNominate(true)}
                     >
                         Nominate a Project
                     </button>
                 </div>
                 <div className="text-center py-8 text-red-500">
-                    Failed to load completed projects. Please try again.
+                    Failed to load ongoing projects. Please try again.
                 </div>
             </div>
         );
@@ -83,17 +67,27 @@ export default function CompletedProjects() {
         <div className="flex flex-col gap-4 lg:gap-8">
             <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
                 <SectionHeader
-                    title="Completed Projects"
+                    title="Ongoing Projects"
                     onSearch={handleSearch}
                     showSearch={isMedium ? false : true}
                     actions={sectionActions}
                 />
-                <button 
-                    className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                    onClick={() => setShowNominate(true)}
-                >
-                    Nominate a Project
-                </button>
+                {user?.role === "national_admin" ?
+                        <button 
+                            className="btn btn-primary max-w-fit !text-sm md:!text-base"
+                            onClick={() => setShowCreate(true)}
+                        >
+                            Create Project
+                        </button>
+                    :
+                        <button 
+                            className="btn btn-primary max-w-fit !text-sm md:!text-base"
+                            onClick={() => setShowNominate(true)}
+                        >
+                            Nominate a Project
+                        </button>
+                    }
+                    
             </div>
 
             {isLoading ? (
@@ -108,12 +102,11 @@ export default function CompletedProjects() {
                         <ProjectCard
                             key={project.id}
                             project={project}
-                            isCompleted={true} 
                         />
                     ))}
                     {projects?.length === 0 && (
                         <div className="col-span-full text-center py-8 text-gray-500">
-                            No completed projects found.
+                            No ongoing projects found.
                         </div>
                     )}
                 </div>
@@ -122,6 +115,10 @@ export default function CompletedProjects() {
             <NominateProject 
                 open={showNominate}
                 onClose={() => setShowNominate(false)}
+            />
+            <CreateProject
+                open={showCreate}
+                onClose={() => setShowCreate(false)}
             />
         </div>
     );

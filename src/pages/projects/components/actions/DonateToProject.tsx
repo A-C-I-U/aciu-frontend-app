@@ -13,7 +13,7 @@ import apiClient from "@/services"
 import type { DonationPayload } from "@/services/types/projects"
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import PaymentForm from './PaymentForm'
+import PaymentForm from '../PaymentForm'
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY as string)
 

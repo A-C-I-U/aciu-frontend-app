@@ -54,7 +54,7 @@ export default function DashboardNationalAdmin() {
                     />
                     <StatsCard
                         title="Total Donations"
-                        number={`N${stats.totalDonations.toLocaleString() ?? 0}`}
+                        number={`N${Math.round(stats.totalDonations).toLocaleString() ?? 0}`}
                         rateOfChange={`${stats.growth.donations}`}
                         description="All Time"
                     />
