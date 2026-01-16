@@ -84,13 +84,16 @@ export default function AllEvents() {
                     />
                 ))}
             </div>
-            <PaginationControls
-                total={data?.total ?? 0}
-                page={page}
-                onPageChange={setPage}
-                itemsPerPage={9}
-                desktop={!isMobile}
-            />
+            {data?.total && Math.ceil(data?.total / 9) > 1 && (
+                <PaginationControls
+                    total={data?.total ?? 0}
+                    page={page}
+                    onPageChange={setPage}
+                    itemsPerPage={9}
+                    desktop={!isMobile}
+                />
+            )}
+           
         </div>
     )
 }

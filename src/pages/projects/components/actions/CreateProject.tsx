@@ -9,6 +9,7 @@ import { CircularProgress, Divider } from "@mui/material"
 import { Form, Formik, useFormikContext } from "formik"
 import { enqueueSnackbar } from "notistack"
 import { useState } from "react"
+import ProjectCreated from "../ProjectCreated"
 
 const initialValues = {
     title: "",
@@ -28,6 +29,7 @@ export default function CreateProject({ open, onClose }: {
 }) {
     const [currentStep, setCurrentStep] = useState(1);
     const [isAdvancing, setIsAdvancing] = useState(false);
+    const [projectCreated, setIsProjectCreated] = useState(false);
     const createProjectMutation = useCreateProject();
 
     const handleGoBack = () => {
@@ -55,7 +57,8 @@ export default function CreateProject({ open, onClose }: {
             const result = await createProjectMutation.mutateAsync({ payload });
             enqueueSnackbar(result.message || "Project created successfully", { variant: "success" });
             actions.setSubmitting(false);
-            setCurrentStep(3);
+            setIsProjectCreated(true);
+            onClose();
         } catch (error: any) {
             console.error("Project creation error: ", error);
             enqueueSnackbar(error, { variant: "error" })
@@ -63,60 +66,75 @@ export default function CreateProject({ open, onClose }: {
     }
 
     return (
-        <ShellModal open={open} onClose={onClose}>
-            <div className="resources-modal-section flex flex-col h-full overflow-hidden">
-                <ShellHeader title="Create Project" onClose={onClose} />
-                <Divider className="flex shrink-0" />
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={createProjectSchemas[currentStep - 1]}
-                    onSubmit={handleSubmit}
-                    enableReinitialize
-                >
-                    {({ isValid, isSubmitting, validateForm }) => {
-                        return (
-                            <Form className="flex flex-col h-full overflow-hidden">
-                                <div className="resources-modal-body mb-6">
-                                    {currentStep === 1 && <CreateProjectOne />}
-                                    {currentStep === 2 && <CreateProjectTwo />}
-                                </div>
-                                <div className="px-5.5 py-4 flex items-center gap-2 shadow-[0px_4px_50px_0px_#0000001A] flex-shrink-0">
-                                    {!isAdvancing && (currentStep !== createProjectSchemas.length ? (
-                                        <button 
-                                            className="btn btn-primary"
-                                            disabled={!isValid || isSubmitting}
-                                            type={currentStep === 2 ? "submit" : "button"}
-                                            onClick={async () => {
-                                                setIsAdvancing(true);
-                                                const errors = await validateForm();
-                                                if (Object.keys(errors).length === 0) {
-                                                    setCurrentStep(step => step + 1);
-                                                }
-                                                setIsAdvancing(false);
-                                            }}
-                                        >
-                                            Next
+        <>
+            <ShellModal open={open} onClose={onClose}>
+                <div className="resources-modal-section flex flex-col h-full overflow-hidden">
+                    <ShellHeader 
+                        title="Create Project" 
+                        onClose={() => {
+                            onClose();
+                            setCurrentStep(1);
+                        }}
+                    />
+                    <Divider className="flex shrink-0" />
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={createProjectSchemas[currentStep - 1]}
+                        onSubmit={handleSubmit}
+                        enableReinitialize
+                    >
+                        {({ isValid, isSubmitting, validateForm }) => {
+                            return (
+                                <Form className="flex flex-col h-full overflow-hidden">
+                                    <div className="resources-modal-body pb-6">
+                                        {currentStep === 1 && <CreateProjectOne />}
+                                        {currentStep === 2 && <CreateProjectTwo />}
+                                    </div>
+                                    <div className="px-5.5 py-4 flex items-center gap-2 shadow-[0px_4px_50px_0px_#0000001A] flex-shrink-0">
+                                        {!isAdvancing && (currentStep !== createProjectSchemas.length ? (
+                                            <button 
+                                                className="btn btn-primary"
+                                                disabled={!isValid || isSubmitting}
+                                                type={currentStep === 2 ? "submit" : "button"}
+                                                onClick={async () => {
+                                                    setIsAdvancing(true);
+                                                    const errors = await validateForm();
+                                                    if (Object.keys(errors).length === 0) {
+                                                        setCurrentStep(step => step + 1);
+                                                    }
+                                                    setIsAdvancing(false);
+                                                }}
+                                            >
+                                                Next
+                                            </button>
+                                        ) : (
+                                            <button 
+                                                type="submit" 
+                                                className="btn btn-primary"
+                                                disabled={!isValid || isSubmitting}
+                                            >
+                                                Create Project
+                                                {createProjectMutation.isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
+                                            </button>
+                                        ))}
+                                        <button type="button" className={`btn ${currentStep === 2 ? "btn-secondary border-aciu-abriba text-aciu-abriba" : "btn-danger"} leading-[155%]`} onClick={handleGoBack}>
+                                            {currentStep === 2 ? "Back" : "Cancel"}
                                         </button>
-                                    ) : (
-                                        <button 
-                                            type="submit" 
-                                            className="btn btn-primary"
-                                            disabled={!isValid || isSubmitting}
-                                        >
-                                            Create Project
-                                            {createProjectMutation.isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
-                                        </button>
-                                    ))}
-                                    <button type="button" className={`btn ${currentStep === 2 ? "btn-secondary border-aciu-abriba text-aciu-abriba" : "btn-danger"} leading-[155%]`} onClick={handleGoBack}>
-                                        {currentStep === 2 ? "Back" : "Cancel"}
-                                    </button>
-                                </div>
-                            </Form>
-                        )
-                    }}
-                </Formik>
-            </div>
-        </ShellModal>
+                                    </div>
+                                </Form>
+                            )
+                        }}
+                    </Formik>
+                </div>
+            </ShellModal>
+            <ProjectCreated
+                open={projectCreated}
+                onClose={() => {
+                    setIsProjectCreated(false);
+                    onClose();
+                }}
+            />
+        </>
     )
 }
 
@@ -231,7 +249,7 @@ export const CreateProjectTwo = () => {
                                     <img
                                         src={URL.createObjectURL(file)}
                                         alt=""
-                                        className={`w-full h-full object-cover rounded-2xs`}
+                                        className={`w-full ${index === 0 ? "h-60" : "min-h-20 max-h-45"}  object-cover rounded-2xs`}
                                     />
                                 </div>
                             )}

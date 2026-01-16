@@ -75,13 +75,15 @@ export default function UpcomingEvents() {
                     />
                 ))}
             </div>
-            <PaginationControls
-                total={upcomingEvents.length ?? 0}
-                page={page}
-                onPageChange={setPage}
-                itemsPerPage={9}
-                desktop={!isMobile}
-            />
+           {Math.ceil(upcomingEvents.length / 9) > 1 && (
+                <PaginationControls
+                    total={upcomingEvents.length ?? 0}
+                    page={page}
+                    onPageChange={setPage}
+                    itemsPerPage={9}
+                    desktop={!isMobile}
+                />
+            )}  
         </div>
     );
 }

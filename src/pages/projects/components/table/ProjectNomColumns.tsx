@@ -29,12 +29,11 @@ export const columns = (setSelected: (p: NominatedProject) => void): ColumnDef<N
         header: "Date",
         cell: ({ row }: { row: Row<NominatedProject> }) => <span>{formatDate(row.original.date, "dd-MM-yyyy h:mm a")}</span>
     },
-    // Commenting out because backend is not returning estimated cost on this endpoint for now
-    // {
-    //     accessorKey: "estimatedCostUSD",
-    //     header: "Estimated Cost",
-    //     cell: ({ row }: { row: Row<NominatedProject> }) => <span>{row.original.estimatedCost}</span>
-    // },
+    {
+        accessorKey: "estimatedCost",
+        header: "Estimated Cost",
+        cell: ({ row }: { row: Row<NominatedProject> }) => <span>{`₦${Math.round(row.original.estimatedCost).toLocaleString()}`}</span>
+    },
     {
         accessorKey: "status",
         header: "Status",

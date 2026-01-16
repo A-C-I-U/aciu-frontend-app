@@ -78,13 +78,16 @@ export default function PastEvents() {
                     />
                 ))}
             </div>
-            <PaginationControls
-                total={pastEvents.length ?? 0}
-                page={page}
-                onPageChange={setPage}
-                itemsPerPage={9}
-                desktop={!isMobile}
-            />
+            
+            {Math.ceil(pastEvents.length) > 1 &&
+                <PaginationControls
+                    total={pastEvents.length ?? 0}
+                    page={page}
+                    onPageChange={setPage}
+                    itemsPerPage={9}
+                    desktop={!isMobile}
+                />
+            }
         </div>
     );
 }

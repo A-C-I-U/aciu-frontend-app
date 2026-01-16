@@ -17,7 +17,7 @@ export default function ProjectCard({ project, isCompleted = false }: ProjectCar
   const displayImage = images && images.length > 0 ? images[0] : "";
 
   return (
-    <div className="rounded-[1.25rem] py-3.5 px-2 bg-card-200 flex flex-col gap-6">
+    <div className="rounded-[1.25rem] py-3.5 px-2 bg-card-200 flex flex-col gap-6 h-full">
       <div className="flex flex-col gap-4 lg:gap-6">
         <div className="flex flex-col gap-3.5">
           {displayImage && (
@@ -29,7 +29,7 @@ export default function ProjectCard({ project, isCompleted = false }: ProjectCar
             />
           )}
 
-          <div className="bg-aciu-yellow py-1.5 px-2.5 rounded-md max-w-fit max-h-fit flex items-center">
+          <div className="event-tag py-1.5 px-2.5 rounded-md">
             <span className="font-coolvetica text-xs text-aciu-border-grey font-bold leading-default">
               {category}
             </span>
@@ -56,8 +56,8 @@ export default function ProjectCard({ project, isCompleted = false }: ProjectCar
 
       <Link
         to={`/projects/${id}`}
-        className="rounded-lg border border-aciu-green-normal p-5 max-w-46
-                font-coolvetica text-sm text-aciu-green-normal flex gap-2 items-center hover:bg-aciu-green-normal hover:text-white transition-colors"
+        className="rounded-lg border border-aciu-green-normal p-3 max-w-46 leading-none mt-auto
+        font-coolvetica text-sm text-aciu-green-normal flex gap-2 items-center justify-center hover:bg-aciu-green-normal hover:text-white transition-colors"
       >
         <span>{isCompleted ? "View Project" : "Donate To Project"}</span>
         <ArrowRightIcon

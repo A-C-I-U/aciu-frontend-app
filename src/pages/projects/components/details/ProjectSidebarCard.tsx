@@ -13,24 +13,24 @@ export default function ProjectSidebarCard({
     
   return (
     <div className="mx-3.5 lg:mr-3.5 lg:mx-0 order-1 lg:order-2">
-      <div className="w-full md:max-w-96 rounded-[.625rem] border border-aciu-border-green h-fit">
-        <div className="px-5 pt-10 rounded-t-[.625rem] flex flex-col gap-8 bg-aciu-green-normal">
+      <div className="w-full md:max-w-96 rounded-2xs border border-aciu-border-green h-fit">
+        <div className="px-5 pt-10 rounded-t-2xs flex flex-col gap-8 bg-aciu-green-normal">
 
             <div className="flex lg:gap-10 items-center justify-between lg:justify-normal">
             <div className="flex flex-col gap-2.5 text-white">
                 <p className="text-xs text-aciu-green-light">Total Raised</p>
-                <p className="font-semibold text-sm">{collectedFunds}</p>
+                <p className="font-semibold text-sm">{`₦${Math.round(+collectedFunds).toLocaleString()}`}</p>
             </div>
 
             <div
                 role="separator"
                 aria-orientation="vertical"
-                className="w-[1px] h-8 bg-gray-300"
+                className="w-.5 h-8 bg-gray-300"
             ></div>
 
             <div className="flex flex-col gap-2.5 text-white">
                 <p className="text-xs text-aciu-green-light">Our Target</p>
-                <p className="font-semibold text-sm">{targetFunds}</p>
+                <p className="font-semibold text-sm">{`₦${Math.round(+targetFunds).toLocaleString()}`}</p>
             </div>
             </div>
 
@@ -41,7 +41,7 @@ export default function ProjectSidebarCard({
                     {!isCompleted && (
                       <button
                           onClick={onDonateClick}
-                          className="py-5 px-4 bg-white rounded-[.625rem] lg:max-w-fit
+                          className="py-3 px-4 bg-white rounded-lg
                           flex gap-3 items-center w-full justify-center lg:justify-normal"
                           aria-label="Open Donate to Project Modal"
                       >
@@ -58,7 +58,7 @@ export default function ProjectSidebarCard({
                     
                     {/* If project is completed, you might want to show a different message or button */}
                     {isCompleted && (
-                      <div className="py-5 px-4 bg-aciu-green-dark rounded-[.625rem] lg:max-w-fit
+                      <div className="py-3 px-4 bg-aciu-dark-green rounded-lg leading-default
                           flex gap-3 items-center w-full justify-center lg:justify-normal">
                         <span className="text-white text-sm font-coolvetica whitespace-nowrap">
                           Project Completed
@@ -68,17 +68,16 @@ export default function ProjectSidebarCard({
 
                     <button
                         onClick={onShareClick}
-                        className="py-5 px-4 bg-inherit rounded-[.625rem] w-full lg:max-w-fit
-                        flex gap-3 items-center justify-center lg:justify-normal border border-white whitespace-nowrap"
+                        className="py-3 px-4 bg-inherit rounded-lg w-full leading-none
+                        flex gap-2 items-center justify-center lg:justify-normal border border-white hover:bg-white hover:border-aciu-green-normal group whitespace-nowrap"
                         aria-label="Open Share Link Modal"
                     >
-                    <span className="text-white text-sm font-coolvetica">
+                    <span className="text-white group-hover:text-aciu-green-normal text-sm font-coolvetica">
                         Share Project
                     </span>
                     <ArrowRightIcon
-                        color="#fff"
                         size="1.25rem"
-                        className="rotate-[-45deg]"
+                        className="rotate-[-45deg] text-white group-hover:text-aciu-green-normal"
                     />
                     </button>
                 </div>

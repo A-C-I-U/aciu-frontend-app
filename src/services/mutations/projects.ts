@@ -26,7 +26,11 @@ const createProject = async ({ payload }: {
 
 
   const response = await apiClient.post<{ message: string }>(
-    "/projects", formData,
+    "/projects", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    }
   )
 
   return response.data;

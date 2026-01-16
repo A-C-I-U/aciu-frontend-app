@@ -163,3 +163,10 @@ export const clearAuthTokens = (): void => {
 };
 
 export default apiClient;
+
+// Add `rejection success` variant to notistack
+declare module 'notistack' {
+  interface VariantOverrides {
+    rejectionSuccess: true; 
+  }
+}

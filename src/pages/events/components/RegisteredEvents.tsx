@@ -7,6 +7,7 @@ import SectionHeader from "@/components/SectionHeader";
 import { useMediaQuery } from "@mui/material";
 import { useState } from "react";
 import { ArrowDown2, Sort } from "iconsax-react";
+import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 
 const sectionActions = [
     <button className="section-action-button admin">
@@ -25,6 +26,7 @@ export default function RegisteredEvents() {
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const isMobile = useMediaQuery("(max-width: 768px)");
     const [_query, setQuery] = useState("");
+    const [page, setPage] = useState(1);
 
      const handleSearch = (q: string) => {
         setQuery(q);
@@ -74,6 +76,15 @@ export default function RegisteredEvents() {
                     />
                 ))}
             </div>
+            {Math.ceil(myRegisteredEvents.length) > 1 &&
+                <PaginationControls
+                    total={myRegisteredEvents.length ?? 0}
+                    page={page}
+                    onPageChange={setPage}
+                    itemsPerPage={9}
+                    desktop={!isMobile}
+                />
+            }
         </div>
     );
 }

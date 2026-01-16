@@ -178,7 +178,8 @@ export interface ProjectNominationDetail {
   briefDescription: string;
   expectedImpact: string;
   date: string;
-  status: "pending" | "completed" | "rejected";
+  status: "pending" | "approved" | "rejected";
+  image: string;
 }
 
 export const createProjectSchemas = [
