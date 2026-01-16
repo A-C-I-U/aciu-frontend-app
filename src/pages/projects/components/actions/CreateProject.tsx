@@ -69,7 +69,13 @@ export default function CreateProject({ open, onClose }: {
         <>
             <ShellModal open={open} onClose={onClose}>
                 <div className="resources-modal-section flex flex-col h-full overflow-hidden">
-                    <ShellHeader title="Create Project" onClose={onClose} />
+                    <ShellHeader 
+                        title="Create Project" 
+                        onClose={() => {
+                            onClose();
+                            setCurrentStep(1);
+                        }}
+                    />
                     <Divider className="flex shrink-0" />
                     <Formik
                         initialValues={initialValues}
@@ -243,7 +249,7 @@ export const CreateProjectTwo = () => {
                                     <img
                                         src={URL.createObjectURL(file)}
                                         alt=""
-                                        className={`w-full h-full object-cover rounded-2xs`}
+                                        className={`w-full ${index === 0 ? "h-60" : "min-h-20 max-h-45"}  object-cover rounded-2xs`}
                                     />
                                 </div>
                             )}
