@@ -2,7 +2,7 @@ import { MarkIcon } from "@/components/Icons";
 import { SuccessDialog } from "@/components/SuccessDialog";
 import type { DialogFuncProps } from "@/utils/types";
 
-export default function NominationApproved({
+export default function ProjectCreated({
     open,
     onClose
 }: DialogFuncProps) {

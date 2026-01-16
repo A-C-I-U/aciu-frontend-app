@@ -13,7 +13,6 @@ import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
 import RejectProject from "../actions/RejectProject";
 import { StatusBadge } from "@/components/StatusBadge";
-import NominationApproved from "../NominationApproved";
 
 export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     open: boolean,
@@ -27,7 +26,6 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     const { data, isLoading, isError } = useProjectNominationDetail(id)
     const { mutateAsync: updateStatus, isPending } = useUpdateProjectStatus();
     const [openReject, setOpenReject] = useState(false);
-    const [openApproved, setOpenApproved] = useState(false);
 
     const handleApprove = async (id: string) => {
         await updateStatus({
@@ -39,7 +37,10 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     const handleSubmit = async (id: string) => {
         try {
             await handleApprove(id)
-            setOpenApproved(true);
+            enqueueSnackbar('Nomination Approved', {
+                variant: 'success',
+                autoHideDuration: 2000
+            })
             onClose();
         } catch (err) {
             enqueueSnackbar('Failed to approve Nomination', { variant: 'error' })
@@ -81,13 +82,6 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
                 open={openReject}
                 onClose={() => setOpenReject(false)}
                 id={id}
-            />
-            <NominationApproved
-                open={openApproved}
-                onClose={() => {
-                    setOpenApproved(false);
-                    onClose();
-                }}
             />
         </>
     )
