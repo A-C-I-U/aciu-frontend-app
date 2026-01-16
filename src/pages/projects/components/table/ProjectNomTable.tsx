@@ -80,7 +80,7 @@ export default function ProjectNominationsTable({
 }
 
 const fields: FieldConfig<NominatedProject>[] = [
-    // { label: 'Estimated Cost', value: (p) => `N${(+p.estimatedCost).toLocaleString()}`},
+    { label: 'Estimated Cost', value: (p) => `₦${Math.round(+p.estimatedCost).toLocaleString()}`},
     { label: "Project ID", value: (p) => p.projectId},
     { label: "Date", value: (p) => p.date},
     { label: "Submitted By", value: (p) => p.submittedBy},
