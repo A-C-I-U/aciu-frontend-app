@@ -23,8 +23,8 @@ export default function RejectProject({
         try {
             await handleReject(id, values.reason);
             enqueueSnackbar('Nomination has been rejected', {
-                variant: 'info',
-                autoHideDuration: 2000
+                variant: 'rejectionSuccess',
+                autoHideDuration: 2000,
             });
             onClose()
         } catch (err) {

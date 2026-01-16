@@ -207,6 +207,10 @@ a, button {
     background-color: #f1f5f9;
   }
 
+  .scroll-unset::-webkit-scrollbar-thumb {
+    background-color: var(--color-aciu-border-100);
+  }
+
   .recharts-wrapper:focus,
   .recharts-layer:focus,
   .recharts-tooltip-wrapper:focus,

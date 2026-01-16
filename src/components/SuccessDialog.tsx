@@ -13,8 +13,8 @@ interface SuccessDialogProps extends DialogFuncProps {
     title: string,
     message: React.ReactNode,
     primaryAction: ActionButton,
-    secondaryAction?: ActionButton
-    fitActionButton?: boolean
+    secondaryAction?: ActionButton,
+    className?: string,
 }
 
 export function SuccessDialog({
@@ -23,7 +23,7 @@ export function SuccessDialog({
     icon,
     title,
     message,
-    fitActionButton=false,
+    className="",
     primaryAction,
     secondaryAction
 }: SuccessDialogProps) {
@@ -46,18 +46,18 @@ export function SuccessDialog({
                 <div className="flex flex-col p-7.5 gap-5.5">
                     {icon}
                     <div className="flex flex-col gap-1">
-                        <h1 className="success-modal-title">{title}</h1>
-                        <p className="text-aciu-neutral">{message}</p>
+                        <h1 className="success-modal-title leading-[130%] tracking-[5%]">{title}</h1>
+                        <p className="text-aciu-neutral leading-[160%]">{message}</p>
                     </div>
                     
                     <div className="flex items-center gap-5.5">
-                        <button className={`btn btn-primary ${fitActionButton && "max-w-fit"}`} onClick={primaryAction.onClick}>
+                        <button className={`btn btn-primary ${className}`} onClick={primaryAction.onClick}>
                             {primaryAction.label}
                         </button>
 
                         {secondaryAction && (
                             <button
-                                className="btn btn-secondary"
+                                className={`btn btn-secondary ${className}`}
                                 onClick={secondaryAction.onClick}
                             >
                                 {secondaryAction.label}

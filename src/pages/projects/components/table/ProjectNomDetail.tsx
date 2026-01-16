@@ -13,6 +13,7 @@ import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
 import RejectProject from "../actions/RejectProject";
 import { StatusBadge } from "@/components/StatusBadge";
+import NominationApproved from "../NominationApproved";
 
 export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     open: boolean,
@@ -26,6 +27,7 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     const { data, isLoading, isError } = useProjectNominationDetail(id)
     const { mutateAsync: updateStatus, isPending } = useUpdateProjectStatus();
     const [openReject, setOpenReject] = useState(false);
+    const [openApproved, setOpenApproved] = useState(false);
 
     const handleApprove = async (id: string) => {
         await updateStatus({
@@ -37,10 +39,8 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     const handleSubmit = async (id: string) => {
         try {
             await handleApprove(id)
-            enqueueSnackbar('Nomination has been approved', {
-                variant: 'success',
-                autoHideDuration: 2000
-            })
+            setOpenApproved(true);
+            onClose();
         } catch (err) {
             enqueueSnackbar('Failed to approve Nomination', { variant: 'error' })
         }
@@ -82,6 +82,13 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
                 onClose={() => setOpenReject(false)}
                 id={id}
             />
+            <NominationApproved
+                open={openApproved}
+                onClose={() => {
+                    setOpenApproved(false);
+                    onClose();
+                }}
+            />
         </>
     )
 }
@@ -97,7 +104,7 @@ const ProjectNomDetailContent = ({ data, projectId }: { data: ProjectNominationD
     return (
         <div className="flex flex-col gap-4">
             <div className="overflow-x-auto scroll-unset pb-2 w-full">
-                <table className="table-auto border-collapse min-w-2xs">
+                <table className="table-auto border-collapse min-w-2xs w-full">
                     <thead>
                         <tr className="text-left">
                             <th className="payment-table-column title">Title</th>
@@ -169,7 +176,7 @@ const ImageCard = ({ imageUrl }: { imageUrl: string }) => {
     return (
         <div className="bg-card-200 border border-aciu-dashboard-background py-6 px-4 rounded-2xs w-full">
             <div className="flex gap-2 items-center">
-                <div className="border-[.7px] border-aciu-dashboard-background rounded-2xs bg-white py-3.25 px-2.75 align-middle">
+                <div className="border-[.7px] border-aciu-dashboard-background rounded-2xs bg-white size-12 flex items-center justify-center align-middle">
                     <span className="text-xs leading-[120%] text-aciu-abriba">
                         IMG
                     </span>
