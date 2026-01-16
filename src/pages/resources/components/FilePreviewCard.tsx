@@ -45,7 +45,7 @@ export const FilePreviewCard = ({
       className={`mt-16 py-12.5 px-9 ${width} ${height} rounded-xl bg-card-200 flex flex-col items-center justify-center gap-4 ${className}`}
     >
       <div className="flex items-center justify-center w-22 h-22 rounded-lg border border-aciu-dashboard-background bg-white">
-        <p className="text-sm capitalize">{extension}</p>
+        <p className="text-sm uppercase">{extension}</p>
       </div>
       {name && <p className="text-sm text-center line-clamp-2">{name}</p>}
       {size && (

@@ -281,6 +281,8 @@ export const branchStatusMap: Record<BranchDueDataType["status"], StatusMap> = {
         bgColor: "#E5E5E5"
     },
 }
+
+
 export interface StatusMap {
   label: string, 
   labelColor: string, 
