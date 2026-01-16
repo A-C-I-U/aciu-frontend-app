@@ -1,8 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import type { TabItem } from "@/utils/types";
-import { Location } from "iconsax-react";
+import { ArrowLeft, Location } from "iconsax-react";
 import { AnimatePresence } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectCard from "../ProjectCard";
 import { ProjectOverviewTab } from "../ProjectOverviewTab";
 import { DonationsTab } from "./DonationsTab";
@@ -20,6 +20,7 @@ export default function ProjectDetailsPage() {
   const navigate = useNavigate();
   const [showDonateProject, setShowDonateProject] = useState(false);
   const [showShareProject, setShowShareProject] = useState(false);
+  const [activeTab, setActiveTab] = useState<TabItem | null>(null);
 
   const { data: ongoingProjects, isLoading: isLoadingOngoing, error: errorOngoing } = useProjects("ongoing");
   const { data: completedProjects, isLoading: isLoadingCompleted, error: errorCompleted } = useProjects("completed");
@@ -41,11 +42,6 @@ export default function ProjectDetailsPage() {
   const isLoading = isLoadingOngoing || isLoadingCompleted;
   const error = errorOngoing || errorCompleted;
 
-  if (error) {
-    enqueueSnackbar(`Error loading project data: ${error.message}`, {
-      variant: "error",
-    });
-  }
 
   if (isLoading) {
     return (
@@ -127,9 +123,31 @@ export default function ProjectDetailsPage() {
     },
   ];
 
-  const [activeTab, setActiveTab] = useState<TabItem>(projectDetailTabs[0]);
+  
+   useEffect(() => {
+    if (!activeTab) {
+      setActiveTab(projectDetailTabs[0]);
+    }
+  }, [activeTab, projectDetailTabs]);
+
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(`Error loading project data: ${error.message}`, {
+        variant: "error",
+      });
+    }
+  }, [error, enqueueSnackbar]);
 
   return (
+    <>
+    <button
+        type="button"
+        onClick={() => navigate("/projects")}
+        className="cancel-btn"
+      >
+        <ArrowLeft size={20} color="#898483" />
+        <span className="ml-3">Cancel</span>
+      </button>
     <AnimatePresence>
       <MotionBox
         initial={{ y: -20 }}
@@ -144,15 +162,7 @@ export default function ProjectDetailsPage() {
         flexDirection="column"
         gap="2rem"
       >
-        <div className="px-3.5 lg:px-6.5">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-aciu-red font-coolvetica font-semibold mb-4"
-          >
-            <Icon icon="mdi:arrow-left" width="20" height="20" />
-            Back
-          </button>
-        </div>
+         
 
         <div
           className="border-b border-b-aciu-dark-grey 
@@ -278,5 +288,6 @@ export default function ProjectDetailsPage() {
         )}
       </MotionBox>
     </AnimatePresence>
+    </>
   );
 }
