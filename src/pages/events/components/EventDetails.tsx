@@ -3,13 +3,13 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import DetailCard from "./DetailCard";
 import { CustomCountdown } from "@/components/MonthlyCountdown";
 import { useEventDetails } from "@/services/hooks/events";
-import { EventItemSkeleton } from "@/components/EventSkeleton";
 import { enqueueSnackbar } from "notistack";
 import { format, formatDate, parse } from "date-fns";
 import { useUser } from "@/context/UserContext";
 import { useMediaQuery } from "@mui/material";
 import ShareEvent from "./ShareEvent";
 import { useState } from "react";
+import PageDetailSkeleton from "@/components/PageDetailSkeleton";
 
 export default function EventDetails() {
   const { id } = useParams();
@@ -29,7 +29,7 @@ export default function EventDetails() {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-8 p-4">
-        <EventItemSkeleton />
+        <PageDetailSkeleton />
       </div>
     );
   }
@@ -89,8 +89,7 @@ export default function EventDetails() {
         <button
           type="button"
           onClick={() => navigate("/events")}
-          className="flex items-center text-aciu-abriba font-montserrat text-sm max-w-fit leading-[155%] font-semibold
-            border border-aciu-dark-grey rounded-xl px-4 py-4 bg-white hover:bg-neutrals-50 transition-colors mx-5 mt-9 "
+          className="cancel-btn"
         >
           <ArrowLeft size={20} color="#898483" />
           <span className="ml-3">Cancel</span>
