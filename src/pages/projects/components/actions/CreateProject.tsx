@@ -9,7 +9,7 @@ import { CircularProgress, Divider } from "@mui/material"
 import { Form, Formik, useFormikContext } from "formik"
 import { enqueueSnackbar } from "notistack"
 import { useState } from "react"
-import ProjectCreated from "../ProjectedCreated"
+import ProjectCreated from "../ProjectCreated"
 
 const initialValues = {
     title: "",
