@@ -17,7 +17,7 @@ const quickActions = [
     { label: "View Projects", path: "/projects" },
     { label: "Create National Dues", path: "/transactions" },
     { label: "Create New Branch", path: "/database" },
-    { label: "Review Blog Posts", path: "/blog-posts" },
+    { label: "Review Blog Posts", path: "/blog" },
     { label: "Upload Resources", path: "/resources" }
 ]
 
