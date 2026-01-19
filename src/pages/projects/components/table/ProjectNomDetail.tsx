@@ -8,11 +8,12 @@ import { useUpdateProjectStatus } from "@/services/mutations/projects";
 import type { ProjectNominationDetail } from "@/services/types/projects";
 import { copyTextToClipboard, withdrawalStatusMap } from "@/utils/helpers";
 import { CircularProgress, Divider } from "@mui/material";
-import { Copy, DocumentDownload } from "iconsax-react";
+import { Copy } from "iconsax-react";
 import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
 import RejectProject from "../actions/RejectProject";
 import { StatusBadge } from "@/components/StatusBadge";
+import { ImageCard } from "@/components/ImageCard";
 
 export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     open: boolean,
@@ -154,40 +155,6 @@ const ProjectNomDetailContent = ({ data, projectId }: { data: ProjectNominationD
                 </table>
             </div>
             <ImageCard imageUrl={image} />
-        </div>
-    )
-}
-
-
-
-const ImageCard = ({ imageUrl }: { imageUrl: string }) => {
-
-    const handleDownload = () => {
-        window.open(imageUrl, "_blank", "noopener,noreferrer");
-    };
-
-
-    return (
-        <div className="bg-card-200 border border-aciu-dashboard-background py-6 px-4 rounded-2xs w-full">
-            <div className="flex gap-2 items-center">
-                <div className="border-[.7px] border-aciu-dashboard-background rounded-2xs bg-white size-12 flex items-center justify-center align-middle">
-                    <span className="text-xs leading-[120%] text-aciu-abriba">
-                        IMG
-                    </span>
-                </div>
-                <div className="flex-1 w-full">
-                    <p className="font-semibold leading-[120%] text-sm">
-                        Project Image
-                    </p>
-                </div>
-                <button
-                    onClick={handleDownload}
-                    title="Download image"
-                    type="button"
-                >
-                    <DocumentDownload size={24} color="#00B686" />
-                </button>
-            </div>
         </div>
     )
 }
