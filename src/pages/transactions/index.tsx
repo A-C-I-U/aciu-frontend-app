@@ -98,13 +98,7 @@ export default function Transactions() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="bg-white"
                     mx="1.25rem"
-                    px={{
-                        xs: ".5rem",
-                        md: "1.625rem"
-                    }}
-                    py="1.25rem"
                 >
                     {currentTab?.content}
                 </MotionBox>
