@@ -76,7 +76,7 @@ export interface DonationsResponse {
     "Donor Name": string,
     Date: string,
     "Amount Paid": number,
-    Status: string
+    Status: "completed" | "failed" | "unpaid" | "cancelled" | "overdue"
 }
 
 export interface DuesPaymentResponse {
