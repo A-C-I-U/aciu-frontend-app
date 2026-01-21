@@ -69,5 +69,5 @@ const fields: FieldConfig<DuesPaymentResponse>[] = [
     { label: "Amount", value: (p) => `N${(+p.amountPaid).toLocaleString()}`}, 
     { label: "Transaction ID", value: (p) => p.transactionId }, 
     { label: "Date", value: (p) => formatDate(p.date, "dd-MM-yyyy h:mm  aaaaa'm'") }, 
-    { label: "Branch Name", value: (p) => p.paidBy } 
+    { label: "Paid By", value: (p) => p.paidBy } 
 ]
