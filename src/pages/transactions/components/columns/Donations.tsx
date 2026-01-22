@@ -38,13 +38,13 @@ export const donationsColumns = (setSelected: (p: DonationsResponse) => void): C
         header: "Status",
         maxSize: 300,
         cell: ({ getValue }) => {
-            const status = getValue() as string;
+            const status = getValue<DonationsResponse["Status"]>();
             const { 
                 label, 
                 labelColor, 
                 dotColor, 
                 bgColor 
-            } = paymentStatusMap[status as DonationsResponse["Status"]];
+            } = paymentStatusMap[status];
 
             return (
                 <StatusBadge

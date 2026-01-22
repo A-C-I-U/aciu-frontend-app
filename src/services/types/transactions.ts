@@ -47,11 +47,12 @@ export interface WithdrawalVisualResponse {
 }
 
 export interface WithdrawalResponse {
-    "Transaction ID": string;
+    id: string;
+    transactionId: string;
     "Branch Name": string;
     Date: string;
     "Amount Paid": number;
-    Status: string;
+    Status: "pending" | "approved" | "rejected";
 }
 
 
@@ -66,8 +67,8 @@ export interface WithdrawalDetailResponse {
     AccountNumber: string,
     AccountName: string,
     Date: string,
-    PaymentStatus: string,
-    withdrawalAgreementForm: File | string | null
+    PaymentStatus: "pending" | "rejected" | "approved",
+    withdrawalAgreementForm: string | null
 }
 
 export interface DonationsResponse {

@@ -38,13 +38,13 @@ export const duesPaymentcolumns = (setSelected: (p: DuesPaymentResponse) => void
         header: "Status",
         maxSize: 300,
         cell: ({ getValue }) => {
-            const status = getValue() as string;
+            const status = getValue<DuesPaymentResponse["status"]>();
             const { 
                 label, 
                 labelColor, 
                 dotColor, 
                 bgColor 
-            } = duePaymentStatusMap[status.toLowerCase() as DuesPaymentResponse["status"]];
+            } = duePaymentStatusMap[status];
 
             return (
                 <StatusBadge
