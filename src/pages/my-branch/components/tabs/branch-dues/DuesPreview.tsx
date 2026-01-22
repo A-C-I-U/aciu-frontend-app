@@ -10,19 +10,13 @@ import { Clock, DollarSquare, User } from "iconsax-react";
 import { useState } from "react";
 import DueRules from "./DueRules";
 import ActivityLogs from "./ActivityLogs";
-import { useNationalDuesDetails } from "@/services/hooks/transactions";
 
 export default function DuesPreview({
-    open, onClose, id
-}: { open: boolean, onClose: () => void, id: string | null}) {
+    open, onClose, due
+}: { open: boolean, onClose: () => void, due: BranchDueDataType | null}) {
     
-    if (!id) return null;
+    if (!due) return null;
 
-    // fetch based on user role here
-    const { data: nationalDue } = useNationalDuesDetails(id);
-    const due = {
-        dueType: nationalDue.
-    }
     const { dueType, status, creationDate, createdBy, intervals, dueRules, startDate, endDate, amountPaid, activityLogs } = due;
     const { label, labelColor, bgColor, dotColor } = branchStatusMap[status];
 
