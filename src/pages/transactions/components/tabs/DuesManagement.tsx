@@ -5,11 +5,13 @@ import NationalDuesTable from "../tables/NationalDuesTable";
 import { BaseBarChart } from "@/components/BaseBarChart";
 import { Bar } from "recharts";
 import { LegendItem } from "@/components/ChartLegendItem";
+import TableChartSkeleton from "../skeletons/TableChartSkeleton";
 
 export default function DuesManagement() {
-    const { data: nationalDuesVisual } = useDuesStatusVisuals(2026);
-    const { data: nationalDues } = useNationalDues();
+    const { data: nationalDuesVisual, isLoading: isVisualLoading } = useDuesStatusVisuals(2026);
+    const { data: nationalDues, isLoading: isRequestsLoading } = useNationalDues();
 
+    if (isVisualLoading || isRequestsLoading) return <TableChartSkeleton />;
     return (
         <div className="flex flex-col gap-6 w-full">
             <div className="bg-white rounded-lg flex flex-col gap-6 min-w-0">

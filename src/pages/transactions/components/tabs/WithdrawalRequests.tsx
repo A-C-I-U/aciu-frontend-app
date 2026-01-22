@@ -3,11 +3,14 @@ import { useWithdrawals, useWithdrawalVisuals } from "@/services/hooks/transacti
 import { Divider } from "@mui/material";
 import { ArrowDown2 } from "iconsax-react";
 import TransactionsWithdrawalTable from "../tables/TransactionsWithdrawalTable";
+import TableChartSkeleton from "../skeletons/TableChartSkeleton";
 
 export default function WithdrawalRequests() {
-    const { data: transactionsWithdrawalsVisual } = useWithdrawalVisuals(2026);
-    const { data: transactionsWithdrawalRequests  } = useWithdrawals();
+    const { data: transactionsWithdrawalsVisual, isLoading: isVisualLoading } = useWithdrawalVisuals(2026);
+    const { data: transactionsWithdrawalRequests, isLoading: isRequestsLoading  } = useWithdrawals();
 
+    if (isVisualLoading || isRequestsLoading) return <TableChartSkeleton />;
+    
     return (
         <div className="flex flex-col gap-6 w-full">
             <div className="bg-white rounded-lg flex flex-col gap-6 min-w-0">

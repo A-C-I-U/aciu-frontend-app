@@ -3,11 +3,14 @@ import { useProjectDonations, useProjectDonationsVisuals } from "@/services/hook
 import { Divider } from "@mui/material";
 import { ArrowDown2 } from "iconsax-react";
 import DonationsTable from "../tables/DonationsTable";
+import TableChartSkeleton from "../skeletons/TableChartSkeleton";
 
 export default function ProjectDonations() {
-    const { data: projectDonationsVisuals } = useProjectDonationsVisuals(2026)
-    const { data: projectDonations } = useProjectDonations();
+    const { data: projectDonationsVisuals, isLoading: isVisualLoading } = useProjectDonationsVisuals(2026)
+    const { data: projectDonations, isLoading: isRequestsLoading } = useProjectDonations();
 
+    if (isVisualLoading || isRequestsLoading) return <TableChartSkeleton />;
+    
     return (
         <div className="flex flex-col gap-6 w-full">
             <div className="bg-white rounded-lg flex flex-col gap-6 min-w-0">

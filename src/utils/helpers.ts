@@ -2,7 +2,7 @@ import { enqueueSnackbar } from "notistack";
 import { ageGradeOptions, logs, publicationStatuses } from "./data";
 import type { BranchDueDataType, BranchEventDataType, BranchMemberDataType, BranchPaymentsDataType, PaymentDataType, PublicationDataType, WithdrawalDataType } from "./types";
 import { format } from "date-fns";
-import type { DuesPaymentResponse } from "@/services/types/transactions";
+import type { DuesPaymentResponse, NationalDuesResponse } from "@/services/types/transactions";
 
 export const capitalizeFirstLetters = (str: string) => {
     return str
@@ -287,6 +287,22 @@ export interface StatusMap {
   labelColor: string, 
   dotColor: string, 
   bgColor: string
+}
+
+
+export const nationalDuesMap: Record<NationalDuesResponse["Status"], StatusMap> = {
+    active: { 
+        label: "Active", 
+        labelColor: "#027A48", 
+        dotColor: "#12B76A", 
+        bgColor: "#ECFDF3" 
+    },
+    inactive: {
+        label: "Inactive",
+        labelColor: "#3E3E3E",
+        dotColor: "#3E3E3E",
+        bgColor: "#E5E5E5"
+    },
 }
 
 export const withdrawalStatusMap: Record<WithdrawalDataType["status"], StatusMap> = {

@@ -3,10 +3,13 @@ import { useDuesPayments, useDuesPaymentsVisuals } from "@/services/hooks/transa
 import { Divider } from "@mui/material";
 import { ArrowDown2 } from "iconsax-react";
 import DuePaymentsTable from "../tables/DuePaymentsTable";
+import TableChartSkeleton from "../skeletons/TableChartSkeleton";
 
 export default function DuesPayment() {
-    const { data: duesPaymentVisual } = useDuesPaymentsVisuals(2026);
-    const { data: duesPayments } = useDuesPayments();
+    const { data: duesPaymentVisual, isLoading: isVisualLoading } = useDuesPaymentsVisuals(2026);
+    const { data: duesPayments, isLoading: isRequestsLoading } = useDuesPayments();
+
+    if (isVisualLoading || isRequestsLoading) return <TableChartSkeleton />;
 
     return (
         <div className="flex flex-col gap-6 w-full">

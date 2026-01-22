@@ -3,10 +3,13 @@ import { useEventDonations, useEventDonationsVisuals } from "@/services/hooks/tr
 import { Divider } from "@mui/material";
 import { ArrowDown2 } from "iconsax-react";
 import DonationsTable from "../tables/DonationsTable";
+import TableChartSkeleton from "../skeletons/TableChartSkeleton";
 
 export default function EventDonations() {
-    const { data: eventDonationsVisuals } = useEventDonationsVisuals(2026)
-    const { data: eventDonations } = useEventDonations();
+    const { data: eventDonationsVisuals, isLoading: isVisualLoading } = useEventDonationsVisuals(2026)
+    const { data: eventDonations, isLoading: isRequestsLoading} = useEventDonations();
+
+    if (isVisualLoading || isRequestsLoading) return <TableChartSkeleton />;
 
     return (
         <div className="flex flex-col gap-6 w-full">
