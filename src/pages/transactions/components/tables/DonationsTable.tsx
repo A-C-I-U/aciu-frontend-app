@@ -78,5 +78,5 @@ const fields: FieldConfig<DonationsResponse>[] = [
     { label: "Amount", value: (p) => `N${(+p["Amount Paid"]).toLocaleString()}`}, 
     { label: "Transaction ID", value: (p) => p.transactionId }, 
     { label: "Date", value: (p) => formatDate(p.Date, "dd-MM-yyyy h:mm  aaaaa'm'") }, 
-    { label: "Branch Name", value: (p) => p["Donor Name"] } 
+    { label: "Donor Name", value: (p) => p["Donor Name"] } 
    ]
