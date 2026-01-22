@@ -6,14 +6,14 @@ import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
 import { useProjectNominationDetail } from "@/services/hooks/project";
 import { useUpdateProjectStatus } from "@/services/mutations/projects";
 import type { ProjectNominationDetail } from "@/services/types/projects";
-import { copyTextToClipboard, withdrawalStatusMap } from "@/utils/helpers";
+import { withdrawalStatusMap } from "@/utils/helpers";
 import { CircularProgress, Divider } from "@mui/material";
-import { Copy } from "iconsax-react";
 import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
 import RejectProject from "../actions/RejectProject";
 import { StatusBadge } from "@/components/StatusBadge";
-import { ImageCard } from "@/components/ImageCard";
+import { FileCard } from "@/components/FileCard";
+import ViewCopyDetailRow from "@/components/ViewCopyDetailRow";
 
 export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     open: boolean,
@@ -108,39 +108,9 @@ const ProjectNomDetailContent = ({ data, projectId }: { data: ProjectNominationD
                     </thead>
 
                     <tbody>
-                        <tr>
-                            <td className="payment-table-column title whitespace-nowrap">Project ID</td>
-                            <td className="payment-table-column">
-                                <span className=" flex items-center justify-between">
-                                    <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-45 md:max-w-60 text-xs md:text-sm">
-                                        {projectId}
-                                    </span>
-                                    <button
-                                        aria-label="Copy Transaction ID"
-                                        onClick={() => copyTextToClipboard(projectId)}
-                                    >
-                                        <Copy variant="Bulk" size={20} color="#00B686" />
-                                    </button>
-                                </span>
-                            </td>
-                        </tr>
+                        <ViewCopyDetailRow label="Transaction ID" content={projectId} ariaLabel="Copy Transaction ID" />
                         <ViewDetailRow label="Project Title" content={title} />
-                        <tr>
-                            <td className="payment-table-column title whitespace-nowrap">Submitted By</td>
-                            <td className="payment-table-column">
-                                <span className=" flex items-center justify-between">
-                                    <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-45 md:max-w-60 text-xs md:text-sm">
-                                        {submittedBy}
-                                    </span>
-                                    <button
-                                        aria-label="Copy Submitter's Name"
-                                        onClick={() => copyTextToClipboard(submittedBy)}
-                                    >
-                                        <Copy variant="Bulk" size={20} color="#00B686" />
-                                    </button>
-                                </span>
-                            </td>
-                        </tr>
+                        <ViewCopyDetailRow label="Submitted By" content={submittedBy} ariaLabel="Copy Submitter's Name" />
                         <ViewDetailRow label="Email Address" content={<a href={`mailto:${emailAddress}`} className="lowercase">{emailAddress}</a>} />
                         <ViewDetailRow label="Phone Number" content={phoneNumber} />
                         <ViewDetailRow label="Branch" content={branch} />
@@ -154,7 +124,11 @@ const ProjectNomDetailContent = ({ data, projectId }: { data: ProjectNominationD
                     </tbody>
                 </table>
             </div>
-            <ImageCard imageUrl={image} />
+            <FileCard 
+                fileType="img" 
+                fileUrl={image} 
+                fileLabel="Project Image"
+            />
         </div>
     )
 }
