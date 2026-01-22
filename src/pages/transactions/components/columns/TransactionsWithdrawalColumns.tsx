@@ -39,13 +39,13 @@ export const transactionsWithdrawalColumns = (setSelected: (p: WithdrawalRespons
         maxSize: 300,
         cell: ({ getValue }) => {
             const rawStatus = getValue<string>();
-            const normalized = rawStatus.toLowerCase() as WithdrawalResponse["Status"];
+            const normalised = rawStatus.toLowerCase() as WithdrawalResponse["Status"];
             const { 
                 label, 
                 labelColor, 
                 dotColor, 
                 bgColor 
-            } = withdrawalStatusMap[normalized];
+            } = withdrawalStatusMap[normalised];
 
             return (
                 <StatusBadge

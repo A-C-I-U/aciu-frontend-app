@@ -43,6 +43,12 @@ export interface DuesStatusResponse {
     monthlyData: MonthlyDuesStatus[]
 }
 
+export interface DuesStatusApiResponse<DuesStatusResponse> {
+    success: boolean,
+    message: string,
+    data: DuesStatusResponse
+}
+
 export interface MonthlyWithdrawal {
     month: string;
     totalWithdrawal: number;
@@ -132,9 +138,38 @@ export interface ProjectDonationDetails {
 }
 
 export interface NationalDuesResponse {
+    id: string,
     Date: string,
     "Due Type": string,
     Intervals: string,
     "Amount Paid": string,
-    Status: string
+    Status: "active" | "inactive"
+}
+
+export interface NationalDuesDetail {
+    id: string;
+    branchId: string;
+    title: string;
+    createdBy: string;
+    createdOn: string;
+    currency: "USD";
+    amount: string;
+    amountUsd: number;
+    amountNaira: number;
+    startDate: string;
+    endDate: string;
+    interval: "Monthly" | "Quaterly" | "One Month" | "Yearly";
+    ageGrades: string[];
+    gender: "All Genders" | "Male" | "Female";
+    location: "Abroad" | "Local";
+    memberRoles: string[];
+    notifications: string[];
+    status: "Active" | "Inactive";
+    createdAt: string;
+    updatedAt: string
+    User: {
+        id: string;
+        fullName: string;
+        email: string;
+    };
 }

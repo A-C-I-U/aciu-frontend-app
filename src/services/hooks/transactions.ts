@@ -13,7 +13,9 @@ import {
     type EventDonationDetails, 
     type ProjectDonationDetails, 
     type WithdrawalDetailResponse, 
-    type NationalDuesResponse 
+    type NationalDuesResponse, 
+    type DuesStatusApiResponse,
+    type NationalDuesDetail
 } from "../types/transactions";
 
 const fetchTransactionsOverview = async (): Promise<TransactionOverview> => {
@@ -39,59 +41,59 @@ export const useDuesPaymentsVisuals = (year: number) => {
         },
         staleTime: 5 * 60 * 1000,
         retry: 2,
-        enabled: !!year
+        enabled: year > 0
     })
 }
 
 export const useDuesStatusVisuals = (year: number) => {
     return useQuery<DuesStatusResponse>({
-        queryKey: ["dues-status", "visuals", year],
-        queryFn: async (): Promise<DuesStatusResponse> => {
-            const response = await apiClient.get<DuesStatusResponse>(`/transactions/dues-status-visuals??year=${year}`)
-            return response.data
+        queryKey: ["dues-status-visual", year],
+        queryFn: async () => {
+            const response = await apiClient.get<DuesStatusApiResponse<DuesStatusResponse>>(`/transactions/dues-status-visuals?year=${year}`)
+            return response.data.data
         },
         staleTime: 5 * 60 * 1000,
         retry: 2,
-        enabled: !!year
+        enabled: year > 0
     })
 }
 
 export const useEventDonationsVisuals = (year: number) => {
     return useQuery<DonationVisualsResponse>({
-        queryKey: ["event-donations", "visuals", year],
+        queryKey: ["event-donations-visuals", year],
         queryFn: async (): Promise<DonationVisualsResponse> => {
             const response = await apiClient.get<DonationVisualsResponse>(`/transactions/event-donations-visuals?year=${year}`)
             return response.data
         },
         staleTime: 5 * 60 * 1000,
         retry: 2,
-        enabled: !!year
+        enabled: year > 0
     })
 }
 
 export const useProjectDonationsVisuals = (year: number) => {
     return useQuery<DonationVisualsResponse>({
-        queryKey: ["project-donations", "visuals", year],
+        queryKey: ["project-donations-visuals", year],
         queryFn: async (): Promise<DonationVisualsResponse> => {
             const response = await apiClient.get<DonationVisualsResponse>(`/transactions/project-donations-visuals?year=${year}`)
             return response.data
         },
         staleTime: 5 * 60 * 1000,
         retry: 2,
-        enabled: !!year
+        enabled: year > 0
     })
 }
 
 export const useWithdrawalVisuals = (year: number) => {
     return useQuery<WithdrawalVisualResponse>({
-        queryKey: ["withdrawals", "visuals", year],
+        queryKey: ["withdrawals-visuals", year],
         queryFn: async (): Promise<WithdrawalVisualResponse> => {
             const response = await apiClient.get<WithdrawalVisualResponse>(`/transactions/withdrawals-visuals?year=${year}`)
             return response.data
         },
         staleTime: 5 * 60 * 1000,
         retry: 2,
-        enabled: !!year
+        enabled: year > 0
     })
 }
 
@@ -200,6 +202,19 @@ export const useWithdrawalDetails = (id: string) => {
     })
 }
 
+export const useNationalDuesDetails = (id: string) => {
+    return useQuery<NationalDuesDetail>({
+        queryKey: ["national-dues-detail", id],
+        queryFn: async (): Promise<NationalDuesDetail> => {
+            const response = await apiClient.get<NationalDuesDetail>(`dues/${id}`)
+            return response.data
+        },
+        staleTime: 5 * 60 * 1000,
+        retry: 2,
+        enabled: !!id
+    })
+}
+
 export const useNationalDues = () => {
     return useQuery<NationalDuesResponse[]>({
         queryKey: ["national-dues"],
@@ -211,3 +226,4 @@ export const useNationalDues = () => {
         retry: 2,
     })
 }
+

@@ -18,6 +18,7 @@ export const useUpdateWithdrawalRequestStatus = () => {
     return useMutation({
         mutationFn: updateWithdrawalRequestStatus,
         onSuccess: (_, { id }) => {
+            queryClient.invalidateQueries({ queryKey: ["withdrawals-visual"]});
             queryClient.invalidateQueries({ queryKey: ["transaction-withdrawals"]});
             queryClient.invalidateQueries({ queryKey: ["transaction-withdrawal-detail", id]})
         }
