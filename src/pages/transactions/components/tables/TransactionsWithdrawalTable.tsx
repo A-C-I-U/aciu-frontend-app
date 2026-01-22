@@ -39,16 +39,19 @@ export default function TransactionsWithdrawalTable({ data }: { data: Withdrawal
                 <ResponsiveDataTable
                     data={data}
                     columns={transactionsWithdrawalColumns(handleViewClick)}
-                    renderMobileItem={(withdrawal: WithdrawalResponse) => (
-                        <MobileItemCard
-                            key={withdrawal.id}
-                            item={withdrawal}
-                            fields={fields}
-                            status={withdrawalStatusMap[withdrawal.Status]}
-                            actionLabel="View Details"
-                            onActionClick={() => handleViewClick(withdrawal)}
-                         />
-                    )}
+                    renderMobileItem={(withdrawal: WithdrawalResponse) => {
+                        const normalized = withdrawal.Status.toLowerCase() as WithdrawalResponse["Status"]
+                        return (
+                            <MobileItemCard
+                                key={withdrawal.id}
+                                item={withdrawal}
+                                fields={fields}
+                                status={withdrawalStatusMap[normalized]}
+                                actionLabel="View Details"
+                                onActionClick={() => handleViewClick(withdrawal)}
+                            />
+                        )
+                    }}
                 />
             </div>
             <TransactionsWithdrawalDetail

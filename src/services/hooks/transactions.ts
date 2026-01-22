@@ -98,7 +98,7 @@ export const useWithdrawalVisuals = (year: number) => {
 
 export const useWithdrawals = () => {
     return useQuery<WithdrawalResponse[]>({
-        queryKey: ["withdrawals", "transaction-withdrawals"],
+        queryKey: ["transaction-withdrawals"],
         queryFn: async (): Promise<WithdrawalResponse[]> => {
             const response = await apiClient.get<WithdrawalResponse[]>(`/transactions/withdrawals`);
             return response.data;
@@ -163,7 +163,7 @@ export const useDuesPaymentDetails = (id: string) => {
 
 export const useEventDonationDetails = (id: string) => {
     return useQuery<EventDonationDetails>({
-        queryKey: ["event-donations-detail"],
+        queryKey: ["event-donations-detail", id],
         queryFn: async (): Promise<EventDonationDetails> => {
             const response = await apiClient.get<EventDonationDetails>(`/transactions/event-donations/${id}`)
             return response.data
@@ -189,7 +189,7 @@ export const useProjectDonationDetails = (id: string) => {
 
 export const useWithdrawalDetails = (id: string) => {
     return useQuery<WithdrawalDetailResponse>({
-        queryKey: ["withdrawal-detail", id],
+        queryKey: ["transaction-withdrawal-detail", id],
         queryFn: async (): Promise<WithdrawalDetailResponse> => {
             const response = await apiClient.get<WithdrawalDetailResponse>(`/transactions/withdrawals/${id}`)
             return response.data
