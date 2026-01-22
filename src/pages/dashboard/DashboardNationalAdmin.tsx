@@ -11,6 +11,7 @@ import WithdrawalRequestsTable from "./components/WithdrawalRequestTable";
 import NationalAdminSkeleton from "./components/NationalAdminSkeleton";
 import { columns } from "./components/columns";
 import { QuickActionsButtons } from "../../components/QuickActionsButton";
+import { LegendItem } from "@/components/ChartLegendItem";
 
 const quickActions = [
     { label: "View Transactions", path: "/transactions" },
@@ -123,18 +124,6 @@ export default function DashboardNationalAdmin() {
                     columns={columns}
                 />
             </div>
-        </div>
-    )
-}
-
-const LegendItem = ({ color, label }: { color: string, label: string }) => {
-    return (
-        <div className="flex items-center gap-2 text-xs md:text-sm leading-[160%] md:leading-[140%] text-aciu-border-grey">
-            <span
-                className="w-3 h-3 inline-block rounded-sm"
-                style={{ backgroundColor: color }}
-            ></span>
-            {label}
         </div>
     )
 }
