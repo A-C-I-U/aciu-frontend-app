@@ -1,7 +1,9 @@
+import MobileItemSkeleton from "@/components/MobileItemSkeleton";
 import TableSkeleton from "@/components/TableSkeleton";
-import { Skeleton } from "@mui/material";
+import { Skeleton, useMediaQuery } from "@mui/material";
 
 export default function NationalAdminSkeleton() {
+    const isMedium = useMediaQuery("(max-width: 1250px)");
     return (
         <div className="flex flex-col gap-6 p-6">
             <div className="flex flex-col lg:flex-row gap-4 items-center">
@@ -59,7 +61,14 @@ export default function NationalAdminSkeleton() {
                         <div className="h-4 bg-gray-200 rounded w-13 mb-2"></div>
                     </div>
                 </div>
-                <TableSkeleton />
+                {isMedium ?
+                    <div className="grid gap-4 md:grid-cols-2">
+                        {[1, 2, 3, 4].map((index) => (
+                            <MobileItemSkeleton key={index}/>
+                        ))}
+                    </div> :
+                    <TableSkeleton />
+                }               
             </div>
         </div>
     )

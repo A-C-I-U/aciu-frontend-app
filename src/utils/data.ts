@@ -855,3 +855,19 @@ export const logs: ActivityLog[] = [
     metadata: { status: "Paid" },
   },
 ];
+
+
+export const fakeMonthlyPayments = [
+  { month: 'Jan', totalPayment: 12_500_000 },
+  { month: 'Feb', totalPayment: 18_200_000 },
+  { month: 'Mar', totalPayment: 9_800_000 },
+  { month: 'Apr', totalPayment: 22_000_000 },
+  { month: 'May', totalPayment: 16_400_000 },
+  { month: 'Jun', totalPayment: 28_600_000 },
+  { month: 'Jul', totalPayment: 21_300_000 },
+  { month: 'Aug', totalPayment: 25_900_000 },
+  { month: 'Sep', totalPayment: 19_700_000 },
+  { month: 'Oct', totalPayment: 31_200_000 },
+  { month: 'Nov', totalPayment: 27_800_000 },
+  { month: 'Dec', totalPayment: 34_500_000 },
+];

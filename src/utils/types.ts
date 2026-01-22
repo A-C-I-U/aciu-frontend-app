@@ -401,7 +401,7 @@ export interface StatsCardProps {
     itemLabel?: string;
     currency?: string;
     description?: string;
-    rateOfChange: string
+    rateOfChange?: string
 }
 
 export interface PaymentDataType {

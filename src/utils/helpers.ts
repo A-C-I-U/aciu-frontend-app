@@ -2,6 +2,7 @@ import { enqueueSnackbar } from "notistack";
 import { ageGradeOptions, logs, publicationStatuses } from "./data";
 import type { BranchDueDataType, BranchEventDataType, BranchMemberDataType, BranchPaymentsDataType, PaymentDataType, PublicationDataType, WithdrawalDataType } from "./types";
 import { format } from "date-fns";
+import type { DuesPaymentResponse, NationalDuesResponse } from "@/services/types/transactions";
 
 export const capitalizeFirstLetters = (str: string) => {
     return str
@@ -288,6 +289,22 @@ export interface StatusMap {
   bgColor: string
 }
 
+
+export const nationalDuesMap: Record<NationalDuesResponse["Status"], StatusMap> = {
+    active: { 
+        label: "Active", 
+        labelColor: "#027A48", 
+        dotColor: "#12B76A", 
+        bgColor: "#ECFDF3" 
+    },
+    inactive: {
+        label: "Inactive",
+        labelColor: "#3E3E3E",
+        dotColor: "#3E3E3E",
+        bgColor: "#E5E5E5"
+    },
+}
+
 export const withdrawalStatusMap: Record<WithdrawalDataType["status"], StatusMap> = {
     pending: {
       label: "Pending",
@@ -337,6 +354,39 @@ export const branchEventStatusMap: Record<BranchEventDataType["verificationStatu
       labelColor: "#027A48", 
       dotColor: "#12B76A", 
       bgColor: "#ECFDF3" 
+    }
+}
+
+export const duePaymentStatusMap: Record<DuesPaymentResponse["status"], StatusMap> = {
+     completed: { 
+      label: "Completed", 
+      labelColor: "#027A48", 
+      dotColor: "#12B76A", 
+      bgColor: "#ECFDF3" 
+    },
+    failed: {
+      label: "Failed",
+      labelColor: "#FF2E2E",
+      dotColor: "#FF2E2E",
+      bgColor: "#FFEAEA"
+    },
+    unpaid: {
+      label: "Unpaid",
+      labelColor: "#FE961F",
+      dotColor: "#FE961F",
+      bgColor: "#FAF5EF"
+    },
+    cancelled: {
+      label: "Cancelled",
+      labelColor: "#3E3E3E",
+      dotColor: "#3E3E3E",
+      bgColor: "#E5E5E5"
+    },
+    overdue: {
+      label: "Overdue",
+      labelColor: "#667085",
+      dotColor: "#667085",
+      bgColor: "#F2F4F7",
     }
 }
 
