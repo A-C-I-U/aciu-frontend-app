@@ -9,8 +9,12 @@ import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
 import { useWithdrawalDetails } from "@/services/hooks/transactions";
 import type { WithdrawalDetailResponse } from "@/services/types/transactions";
 import { withdrawalStatusMap } from "@/utils/helpers";
-import { Divider } from "@mui/material";
+import { CircularProgress, Divider } from "@mui/material";
 import { formatDate } from "date-fns";
+import RejectRequest from "../actions/RejectRequest";
+import { useUpdateWithdrawalRequestStatus } from "@/services/mutations/transactions";
+import { useState } from "react";
+import { enqueueSnackbar } from "notistack";
 
 
 export default function TransactionsWithdrawalDetail({ open, onClose, id }: {
@@ -21,31 +25,65 @@ export default function TransactionsWithdrawalDetail({ open, onClose, id }: {
     if (!id) return null;
 
     const { data, isLoading, isError } = useWithdrawalDetails(id);
+    const { mutateAsync: updateStatus, isPending } = useUpdateWithdrawalRequestStatus();
+    const [openReject, setOpenReject] = useState(false);
+
+    const handleApprove = async (id: string) => {
+        await updateStatus({
+            id,
+            payload: { status: "APPROVED" }
+        })
+    }
+
+    const handleSubmit = async (id: string) => {
+        try {
+            await handleApprove(id)
+            enqueueSnackbar('Withdrawal Request Approved', {
+                variant: 'success',
+                autoHideDuration: 2000
+            })
+            onClose();
+        } catch (err) {
+            enqueueSnackbar('Failed to approve Withdrawal Request', { variant: 'error' })
+        }
+    }
 
     return (
-        <ShellModal open={open} onClose={onClose}>
-            <div className="resources-modal-section flex flex-col h-full overflow-hidden">
-                <ShellHeader title="View Request" onClose={onClose} />
-                <Divider className="flex shrink-0" />
-                <div className="flex flex-col h-full overflow-hidden">
-                    <div className="resources-modal-body pb-6">
-                        {isLoading && <DetailSkeleton />}
-                        {data && <DetailContent data={data} />}
-                        {(isError && !data && !isLoading) && (
-                            <div className="text-aciu-abriba p-4">
-                                Unable to load nominated project's details.
-                                Please open the modal again.
-                            </div>
-                        )}
-                    </div>
-                    <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                        <button className="btn btn-primary" disabled={!data}>
-                                Download
-                        </button>
+        <>
+            <ShellModal open={open} onClose={onClose}>
+                <div className="resources-modal-section flex flex-col h-full overflow-hidden">
+                    <ShellHeader title="View Request" onClose={onClose} />
+                    <Divider className="flex shrink-0" />
+                    <div className="flex flex-col h-full overflow-hidden">
+                        <div className="resources-modal-body pb-6">
+                            {isLoading && <DetailSkeleton />}
+                            {data && <DetailContent data={data} />}
+                            {(isError && !data && !isLoading) && (
+                                <div className="text-aciu-abriba p-4">
+                                    Unable to load nominated project's details.
+                                    Please open the modal again.
+                                </div>
+                            )}
+                        </div>
+                        <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
+                            <button className="btn btn-primary" disabled={!data}
+                                onClick={() => handleSubmit(id)}>
+                                    {isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
+                                Mark as Completed
+                            </button>
+                            <button className="btn btn-danger tracking-[5%]" disabled={!data} onClick={() => { setOpenReject(true); onClose()}}>
+                                Reject Request
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ShellModal>
+            </ShellModal>
+            <RejectRequest
+                open={openReject}
+                onClose={() => setOpenReject(false)}
+                id={id}
+            />
+        </>
     )
 }
 const DetailContent = ({ data }: { data: WithdrawalDetailResponse }) => {
@@ -60,38 +98,40 @@ const DetailContent = ({ data }: { data: WithdrawalDetailResponse }) => {
         withdrawalStatusMap[normalized];
 
     return (
-        <div className="flex flex-col gap-4">
-            <div className="overflow-x-auto scroll-unset pb-2 w-full">
-                <table className="table-auto border-collapse min-w-2xs w-full">
-                    <thead>
-                        <tr className="text-left">
-                            <th className="payment-table-column title">Title</th>
-                            <th className="payment-table-column desc">Description</th>
-                        </tr>
-                    </thead>
+        <>
+            <div className="flex flex-col gap-4">
+                <div className="overflow-x-auto scroll-unset pb-2 w-full">
+                    <table className="table-auto border-collapse min-w-2xs w-full">
+                        <thead>
+                            <tr className="text-left">
+                                <th className="payment-table-column title">Title</th>
+                                <th className="payment-table-column desc">Description</th>
+                            </tr>
+                        </thead>
 
-                    <tbody>
-                        <ViewCopyDetailRow label="Transaction ID" content={TransactionId} ariaLabel="Copy Transaction ID"/>
-                        <ViewDetailRow label="Branch" content={Branch} />
-                        <ViewDetailRow label="Requested By" content={RequestedBy} />
-                        <ViewDetailRow label="Position" content={Position} />
-                        <ViewDetailRow label="Withdrawal Source" content={WithdrawalSource.toLocaleLowerCase()} />
-                        <ViewDetailRow label="Amount" content={`₦${Math.round(Amount).toLocaleString()}`} />
-                        <ViewCopyDetailRow label="Bank Name" content={BankName} ariaLabel="Copy Bank Name" />
-                        <ViewCopyDetailRow label="Account Number" content={AccountNumber} ariaLabel="Copy Account Number" />
-                        <ViewCopyDetailRow label="Account Name" content={AccountName} ariaLabel="Copy Account Name" />
-                        <ViewDetailRow label="Date" content={formatDate(Date, "dd-MM-yyyy h:mm  aaaaa'm'")} />
-                        <ViewDetailRow label="Status" content={<StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />} />
-                    </tbody>
-                </table>
+                        <tbody>
+                            <ViewCopyDetailRow label="Transaction ID" content={TransactionId} ariaLabel="Copy Transaction ID"/>
+                            <ViewDetailRow label="Branch" content={Branch} />
+                            <ViewDetailRow label="Requested By" content={RequestedBy} />
+                            <ViewDetailRow label="Position" content={Position} />
+                            <ViewDetailRow label="Withdrawal Source" content={WithdrawalSource.toLocaleLowerCase()} />
+                            <ViewDetailRow label="Amount" content={`₦${Math.round(Amount).toLocaleString()}`} />
+                            <ViewCopyDetailRow label="Bank Name" content={BankName} ariaLabel="Copy Bank Name" />
+                            <ViewCopyDetailRow label="Account Number" content={AccountNumber} ariaLabel="Copy Account Number" />
+                            <ViewCopyDetailRow label="Account Name" content={AccountName} ariaLabel="Copy Account Name" />
+                            <ViewDetailRow label="Date" content={formatDate(Date, "dd-MM-yyyy h:mm  aaaaa'm'")} />
+                            <ViewDetailRow label="Status" content={<StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />} />
+                        </tbody>
+                    </table>
+                </div>
+                {withdrawalAgreementForm &&
+                    <FileCard
+                        fileLabel="Withdrawal Agreement Form"
+                        fileType="pdf"
+                        fileUrl={withdrawalAgreementForm}
+                    />
+                } 
             </div>
-            {withdrawalAgreementForm &&
-                <FileCard
-                    fileLabel="Withdrawal Agreement Form"
-                    fileType="pdf"
-                    fileUrl={withdrawalAgreementForm}
-                />
-            } 
-        </div>
+        </>
     )
 }

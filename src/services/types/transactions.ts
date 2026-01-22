@@ -1,3 +1,10 @@
+export type updateWithdrawalRequestPayload =
+ | { status: "APPROVED" }
+ | {
+    status: "REJECTED",
+    reason: string
+}
+
 export interface TransactionOverview {
     totalCashInflow: number,
     totalApprovedWithdrawals: number,
