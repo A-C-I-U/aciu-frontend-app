@@ -8,6 +8,7 @@ import ShellModal from "@/components/ShellModal";
 import { useProjectDonationDetails } from "@/services/hooks/transactions";
 import { Divider } from "@mui/material";
 import type { DonationsResponse } from "@/services/types/transactions";
+import { formatDate } from "date-fns";
 
 export default function ProjectDonationsDetail ({
     open, onClose, id
@@ -54,7 +55,7 @@ export default function ProjectDonationsDetail ({
                                                     <ViewDetailRow label="Donor's Branch" content={data["Donor Branch"]} />
                                                     <ViewDetailRow label="Amount" content={`N${Math.round(data.Amount).toLocaleString()}`} />
                                                     <ViewDetailRow label="Source" content={data.Source} />
-                                                    <ViewDetailRow label="Date Paid" content={data.Date} />
+                                                    <ViewDetailRow label="Date Paid" content={formatDate(data.Date, "dd-MM-yyyy h:mm  a")} />
                                                     <ViewDetailRow label="Payment Status" content={<StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />} />
                                                 </tbody>
                                             </table>

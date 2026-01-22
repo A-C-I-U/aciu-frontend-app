@@ -8,6 +8,7 @@ import { useEventDonationDetails } from "@/services/hooks/transactions";
 import type { DonationsResponse } from "@/services/types/transactions";
 import { paymentStatusMap } from "@/utils/helpers";
 import { Divider } from "@mui/material";
+import { formatDate } from "date-fns";
 
 export default function EventDonationsDetail ({
     open, onClose, id
@@ -49,13 +50,13 @@ export default function EventDonationsDetail ({
                                                 </thead>
                                                 <tbody>
                                                     <ViewDetailRow label="Transaction ID" content={data.transactionId} />
-                                                    <ViewDetailRow label="Event Name" content={data.eventName} />
-                                                    <ViewDetailRow label="Event Category" content={data.eventCategory} />
+                                                    <ViewDetailRow label="Event Name" content={data.eventName ?? "null"} />
+                                                    <ViewDetailRow label="Event Category" content={data.eventCategory ?? "null"} />
                                                     <ViewDetailRow label="Donor Name" content={data.donorName} />
                                                     <ViewDetailRow label="Donor's Branch" content={data.donorBranch} />
                                                     <ViewDetailRow label="Amount" content={`N${Math.round(data.amount).toLocaleString()}`} />
                                                     <ViewDetailRow label="Source" content={data.source} />
-                                                    <ViewDetailRow label="Date Paid" content={data.date} />
+                                                    <ViewDetailRow label="Date Paid" content={formatDate(data.date, "dd-MM-yyyy h:mm  a")} />
                                                     <ViewDetailRow label="Payment Status" content={<StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />} />
                                                 </tbody>
                                             </table>
