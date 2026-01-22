@@ -10,7 +10,7 @@ import {
 import { CustomTooltip } from "./CustomTooltip";
 import { useMediaQuery } from "@mui/material";
 
-export function TransactionsAreaChart({ data, dataKey }: { data: any[], dataKey: string }) {
+export function TransactionsAreaChart({ data,name, dataKey }: { data: any[], name: string, dataKey: string }) {
     const isMobile = useMediaQuery("(max-width: 767px)");
 
     return (
@@ -66,6 +66,7 @@ export function TransactionsAreaChart({ data, dataKey }: { data: any[], dataKey:
                 />
 
                 <Area
+                    name={name}
                     type="monotone"
                     dataKey={dataKey}
                     stroke="#00B686"

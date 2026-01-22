@@ -10,7 +10,7 @@ export default function ProjectDonations() {
     const { data: projectDonations, isLoading: isRequestsLoading } = useProjectDonations();
 
     if (isVisualLoading || isRequestsLoading) return <TableChartSkeleton />;
-    
+
     return (
         <div className="flex flex-col gap-6 w-full">
             <div className="bg-white rounded-lg flex flex-col gap-6 min-w-0">
@@ -47,6 +47,7 @@ export default function ProjectDonations() {
                             <TransactionsAreaChart
                                 data={projectDonationsVisuals?.monthlyDonations ?? []}
                                 dataKey="totalDonation"
+                                name="Donation Total"
                             /> 
                         </div> 
                     </div> 

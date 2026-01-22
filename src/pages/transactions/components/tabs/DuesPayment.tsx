@@ -47,6 +47,7 @@ export default function DuesPayment() {
                             <TransactionsAreaChart
                                 data={duesPaymentVisual?.monthlyPayments ?? []}
                                 dataKey="totalPayment"
+                                name="Total Payment"
                             /> 
                         </div> 
                     </div> 

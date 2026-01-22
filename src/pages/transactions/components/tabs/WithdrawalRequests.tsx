@@ -47,6 +47,7 @@ export default function WithdrawalRequests() {
                             <TransactionsAreaChart
                                 data={transactionsWithdrawalsVisual?.monthlyWithdrawals ?? []}
                                 dataKey="totalWithdrawal"
+                                name="Total Request"
                             /> 
                         </div> 
                     </div> 

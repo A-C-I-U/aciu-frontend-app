@@ -47,6 +47,7 @@ export default function EventDonations() {
                             <TransactionsAreaChart
                                 data={eventDonationsVisuals?.monthlyDonations ?? []}
                                 dataKey="totalDonation"
+                                name="Donation Total"
                             /> 
                         </div> 
                     </div> 
