@@ -14,6 +14,33 @@ export interface SignUpResponse {
   };
 }
 
+export interface VerifyOtpPayload {
+  email: string;
+  otp: string;
+}
+
+export interface VerifyOtpResponse {
+  message: string;
+}
+
+export interface ResendOtpPayload {
+  email: string;
+}
+
+export interface ResendOtpResponse {
+  message: string;
+}
+
+export interface SignUpCompletePayload {
+  userId: string;
+  gender: string;
+  branch: string;
+  branchLocation: string;
+  village: string;
+  ageGrade: string;
+  occupation: string;
+}
+
 export interface ErrorResponse {
   message?: string;
   error?: string;
@@ -44,5 +71,3 @@ export interface LoginResponse {
 export interface RefreshTokenPayload {
   refreshToken: string;
 }
-
-

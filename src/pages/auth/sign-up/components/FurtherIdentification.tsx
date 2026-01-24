@@ -55,7 +55,7 @@ export default function FurtherIdentification() {
                 label="Select Branch Location"
                 name="location"
                 type="text"
-                option={locationOptions}
+                options={locationOptions}
                 placeholder="Choose the location of your branch"
                 select={true}
                 fullWidth

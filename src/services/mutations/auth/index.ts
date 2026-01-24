@@ -1,5 +1,5 @@
 import apiClient, { setAuthTokens, clearAuthTokens, setAuthToken } from '@/services';
-import type { SignUpResponse, SignUpPayload, LoginResponse, LoginPayload, RefreshTokenPayload, RefreshTokenResponse } from '@/services/types/auth';
+import type { SignUpResponse, SignUpPayload, LoginResponse, LoginPayload, RefreshTokenPayload, RefreshTokenResponse, VerifyOtpPayload, VerifyOtpResponse, SignUpCompletePayload,} from '@/services/types/auth';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 
@@ -7,11 +7,30 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 export const useSignUp = () => {
   return useMutation<SignUpResponse, Error, SignUpPayload>({
     mutationFn: async (payload: SignUpPayload) => {
-      const response = await apiClient.post<SignUpResponse>('/signup', payload);
+      const response = await apiClient.post<SignUpResponse>('/auth/signup', payload);
       return response.data;
     },
   });
 };
+
+export const useVerifyOtp = () => {
+  return useMutation<VerifyOtpResponse, Error, VerifyOtpPayload>({
+    mutationFn: async (payload: VerifyOtpPayload) => {
+      const response = await apiClient.post<VerifyOtpResponse>('/auth/verify-otp', payload);
+      return response.data;
+    },
+  });
+};
+
+export const useSignUpComplete = () => {
+  return useMutation<any, Error, SignUpCompletePayload>({
+    mutationFn: async (payload: SignUpCompletePayload) => {
+      const response = await apiClient.post<any>('/auth/signupComplete', payload);
+      return response.data;
+    },
+  });
+};
+
 
 export const useLogin = () => {
   const queryClient = useQueryClient();

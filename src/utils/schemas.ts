@@ -3,6 +3,7 @@ import { AGEGRADES, BRANCHES } from "./data";
 import * as yup from 'yup';
 
 
+// utils/schemas.ts - Update the first schema
 export const signupValidationSchemas = [
     object({
         fullName: string().required('Full name is required'),
@@ -13,6 +14,9 @@ export const signupValidationSchemas = [
         password: string()
             .min(8, "Password must be at least 8 characters")
             .required("Password is required"),
+        confirmPassword: string()
+            .oneOf([ref('password')], 'Passwords must match') // Add this line
+            .required("Confirm password is required") // Add this line
     }),
     object({
         verificationCode: string()
@@ -40,7 +44,6 @@ export const signupValidationSchemas = [
             .required("Occupation is required"),
     })
 ]
-
 
 export const forgotPasswordSchemas = [
     object({
