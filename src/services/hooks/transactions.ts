@@ -15,7 +15,6 @@ import {
     type WithdrawalDetailResponse, 
     type NationalDuesResponse, 
     type DuesStatusApiResponse,
-    type NationalDuesDetail
 } from "../types/transactions";
 
 const fetchTransactionsOverview = async (): Promise<TransactionOverview> => {
@@ -194,19 +193,6 @@ export const useWithdrawalDetails = (id: string) => {
         queryKey: ["transaction-withdrawal-detail", id],
         queryFn: async (): Promise<WithdrawalDetailResponse> => {
             const response = await apiClient.get<WithdrawalDetailResponse>(`/transactions/withdrawals/${id}`)
-            return response.data
-        },
-        staleTime: 5 * 60 * 1000,
-        retry: 2,
-        enabled: !!id
-    })
-}
-
-export const useNationalDuesDetails = (id: string) => {
-    return useQuery<NationalDuesDetail>({
-        queryKey: ["national-dues-detail", id],
-        queryFn: async (): Promise<NationalDuesDetail> => {
-            const response = await apiClient.get<NationalDuesDetail>(`dues/${id}`)
             return response.data
         },
         staleTime: 5 * 60 * 1000,
