@@ -1,9 +1,11 @@
-import type { DueRulesType } from "@/utils/types"
+import { useDuesRules } from "@/services/hooks/dues";
+import { EmptyRecords } from "../../EmptyStates";
 
-export default function DueRules({
-    dueRules
-}: { dueRules: DueRulesType}) {
-    const { ageGrades, gender, location, memberRoles, currency, notifications } = dueRules;
+export default function DueRules({ id }: { id: string}) {
+    const { data: dueRules } = useDuesRules(id);
+
+    if (!dueRules) return <EmptyRecords />;
+
     return (
         <table>
             <thead>
@@ -15,27 +17,27 @@ export default function DueRules({
             <tbody>
                 <DetailRow
                     label="Age Grades"
-                    value={ageGrades}
+                    value={dueRules.rules.ageGrades}
                 />
                 <DetailRow
                     label="Gender"
-                    value={gender}
+                    value={dueRules.rules.gender}
                 />
                 <DetailRow
                     label="Location"
-                    value={location}
+                    value={dueRules.rules.location}
                 />
                 <DetailRow
                     label="Member Role"
-                    value={memberRoles}
+                    value={dueRules.rules.memberRoles}
                 />
                 <DetailRow
                     label="Currency"
-                    value={currency}
+                    value={dueRules.rules.currency}
                 />
                 <DetailRow
                     label="Notifications"
-                    value={notifications}
+                    value={dueRules.notifications}
                 />
             </tbody>
         </table>
