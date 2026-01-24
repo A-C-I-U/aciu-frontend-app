@@ -1,6 +1,6 @@
 import { PageTitle } from "@/components/PageTitle";
 import UpcomingEvents from "./components/UpcomingEvents";
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import type { TabItem } from "@/utils/types";
 import PastEvents from "./components/PastEvents";
 import { motion, AnimatePresence } from "motion/react";
@@ -10,6 +10,7 @@ import { StatsCard } from "@/components/StatsCard";
 import TabButton from "@/components/TabButton";
 import { useEventsStats } from "@/services/hooks/events";
 import RegisteredEvents from "./components/RegisteredEvents";
+import { useSearchParams } from "react-router-dom";
 
 const baseTabs: TabItem[] = [
     { key: "upcoming-events", label: "Upcoming Events", content: <UpcomingEvents /> },
@@ -32,10 +33,12 @@ export default function EventsPage() {
         return baseTabs;
     }, [user?.role]);
 
-    const [activeTab, setActiveTab] = useState(tabs[0]);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const activeTab = searchParams.get("tab") ?? tabs[0];
+    const currentTab: TabItem = tabs.find(tab => tab.key === activeTab) ?? tabs[0];
 
     const handleTabChange = (tab: TabItem) => {
-        setActiveTab(tab);
+        setSearchParams({ tab: tab.key });
     }
 
     return (
@@ -98,7 +101,7 @@ export default function EventsPage() {
                             <TabButton
                                 key={tab.key}
                                 tab={tab} 
-                                active={tab === activeTab} 
+                                active={tab === currentTab} 
                                 onClick={() => handleTabChange(tab)} 
                             />
                         ))}
@@ -109,7 +112,7 @@ export default function EventsPage() {
                 <PageTitle 
                     title="ACIU Events" 
                     tabs={tabs} 
-                    activeTab={activeTab}
+                    activeTab={currentTab}
                     onTabChange={handleTabChange} 
                 />
             }
@@ -117,14 +120,14 @@ export default function EventsPage() {
             
             <AnimatePresence>
                 <motion.div
-                    key={activeTab?.key + "-content"}
+                    key={currentTab?.key + "-content"}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="mx-5 px-4 py-5 bg-white min-h-[75dvh] mb-10"
                 >
-                    {activeTab?.content}
+                    {currentTab?.content}
                 </motion.div>
             </AnimatePresence>
         </div>

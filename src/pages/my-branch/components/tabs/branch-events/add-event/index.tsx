@@ -31,7 +31,7 @@ export default function AddEventPage({
 
     const handleGoBack = () => {
         if (currentStep === 1) {
-            navigate(`/${returnRoute}`)
+            navigate(-1);
         } else {
             setCurrentStep((step) => step - 1)
         }
