@@ -18,7 +18,7 @@ export const useDuesDetails = (id: string) => {
 
 export const useDuesRules = (id: string) => {
     return useQuery<DuesRulesResponse>({
-        queryKey: ["dues-detail", id],
+        queryKey: ["dues-rules", id],
         queryFn: async (): Promise<DuesRulesResponse> => {
             const response = await apiClient.get<DuesRulesResponse>(`dues/${id}/rules`)
             return response.data

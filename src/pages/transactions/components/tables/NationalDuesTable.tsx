@@ -7,9 +7,9 @@ import { useState } from "react"
 import MobileItemCard from "@/components/MobileItem";
 import type { FieldConfig } from "@/utils/types";
 import { formatDate } from "date-fns";
-import DuesPaymentDetail from "../details/DuesPaymentDetails";
 import { nationalDuesMap } from "@/utils/helpers";
 import { nationalDuesColumns } from "../columns/NationalDuesColumns";
+import DuesPreview from "@/pages/my-branch/components/tabs/branch-dues/DuesPreview";
 
 export default function NationalDuesTable({
     data,
@@ -19,7 +19,7 @@ export default function NationalDuesTable({
     const isMedium = useMediaQuery("(max-width: 1250px)");
 
     const [selected, setSelected] = useState<NationalDuesResponse | null>(null);
-    const [_isViewOpen, setViewOpen] = useState(false);
+    const [isViewOpen, setViewOpen] = useState(false);
     const [_query, setQuery] = useState("");
 
     const handleViewClick = (nationalDue: NationalDuesResponse) => {
@@ -55,8 +55,8 @@ export default function NationalDuesTable({
                     )}
                 />
             </div>
-            <DuesPaymentDetail
-                open={false}
+            <DuesPreview
+                open={isViewOpen}
                 onClose={() => setViewOpen(false)}
                 id={selected && selected.id}
             />
