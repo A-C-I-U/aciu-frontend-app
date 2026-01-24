@@ -45,7 +45,7 @@ export const EventItem = ({
                 </div>
 
                 {location && (
-                    <span className="flex items-center gap-1.5 text-sm text-aciu-darker-grey leading-[100%] font-semibold">
+                    <span className="flex items-center gap-1.5 text-sm text-aciu-darker-grey leading-default font-semibold">
                         <Icon icon="mdi:location" width="16" height="16" />
                         {location}
                     </span>
@@ -78,7 +78,7 @@ export const EventItem = ({
         </div>
             <NavLink
                 to={`/events/${id}`}
-                className="border border-aciu-red rounded-lg max-w-fit flex items-center gap-2 px-5 py-3 mt-auto"
+                className="border border-aciu-red hover:bg-aciu-green-light-hover transition-colors rounded-lg max-w-fit flex items-center gap-2 px-5 py-3 mt-auto"
             >
                 <span className="font-coolvetica text-sm text-aciu-red font-semibold">
                     Learn more

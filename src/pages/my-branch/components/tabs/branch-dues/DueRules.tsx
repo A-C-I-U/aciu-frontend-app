@@ -1,5 +1,7 @@
 import { useDuesRules } from "@/services/hooks/dues";
 import { EmptyRecords } from "../../EmptyStates";
+import { ViewDetailRow } from "@/components/ViewDetailRow";
+import { Information } from "iconsax-react";
 
 export default function DueRules({ id }: { id: string}) {
     const { data: dueRules } = useDuesRules(id);
@@ -7,55 +9,47 @@ export default function DueRules({ id }: { id: string}) {
     if (!dueRules) return <EmptyRecords />;
 
     return (
-        <table>
+        <div className="flex flex-col gap-5 h-full">
+        <table className="w-full">
             <thead>
                 <tr className="text-left">
-                    <th className="payment-table-column title">Rule Type</th>
+                    <th className="payment-table-column title w-51">Rule Type</th>
                     <th className="payment-table-column desc">Condition Applied</th>
                 </tr>
             </thead>
             <tbody>
-                <DetailRow
+                <ViewDetailRow
                     label="Age Grades"
-                    value={dueRules.rules.ageGrades}
+                    content={dueRules.rules.ageGrades.map((grade, index) => <span key={index}>{grade}</span>)}
                 />
-                <DetailRow
+                <ViewDetailRow
                     label="Gender"
-                    value={dueRules.rules.gender}
+                    content={dueRules.rules.gender}
                 />
-                <DetailRow
+                <ViewDetailRow
                     label="Location"
-                    value={dueRules.rules.location}
+                    content={dueRules.rules.location}
                 />
-                <DetailRow
-                    label="Member Role"
-                    value={dueRules.rules.memberRoles}
+                <ViewDetailRow
+                    label="Member Roles"
+                    content={dueRules.rules.memberRoles.map((role, index) => <span key={index}>{role}</span>)}
                 />
-                <DetailRow
+                <ViewDetailRow
                     label="Currency"
-                    value={dueRules.rules.currency}
+                    content={dueRules.rules.currency}
                 />
-                <DetailRow
+                <ViewDetailRow
                     label="Notifications"
-                    value={dueRules.notifications}
+                    content={dueRules.notifications.map((notification, index) => <span key={index}>{notification}</span>)}
                 />
             </tbody>
         </table>
-    )
-}
-
-
-const DetailRow = ({ label, value }: { label: string, value: React.ReactNode}) => {
-    if (Array.isArray(value)) {
-        value = value.join(", ")
-    } else {
-        value = value;
-    }
-    
-    return (
-        <tr>
-            <td className="payment-table-column title">{label}</td>
-            <td className="payment-table-column desc">{value}</td>
-        </tr>
+            <div className="mt-auto py-4 px-2.5 text-sm leading-default rounded-2xs flex gap-1 bg-[#F2FFFD] border border-aciu-green-normal">
+                <Information variant="Bold" size={24} color="#00B686"/>
+                <span>
+                    These rules automatically determine visibility and eligibility for payment on each member's dashboard.
+                </span>
+            </div>
+        </div>
     )
 }

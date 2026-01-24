@@ -40,7 +40,7 @@ export default function DuesPreview({
         status: due?.status,
         startDate: due?.startDate,
         endDate: due?.endDate,
-        createdBy: due?.createdBy,
+        createdBy: due?.User.fullName,
         createdAt: due?.createdAt,
         createdOn: due?.createdOn,
         intervals: due?.interval,
@@ -64,7 +64,7 @@ export default function DuesPreview({
                 <ShellHeader title="Dues Preview" onClose={onClose} />
                 <Divider className="flex shrink-0" />
                 <div className="flex flex-col h-full overflow-hidden">
-                    {isLoading && <DetailSkeleton />}
+                    {isLoading && <div className="mx-5"><DetailSkeleton /></div>}
                     {(isError && !dueOffset && !isLoading) && (
                         <div className="text-aciu-abriba p-4">
                             Unable to load due's details.
@@ -73,17 +73,17 @@ export default function DuesPreview({
                     )}
                     {dueOffset && 
                         <div className="resources-modal-body">
-                            <div className="my-5.5 flex flex-col gap-8.5">
+                            <div className="flex flex-col gap-8.5">
                                 <p className="leading-5 text-base lg:text-xl font-medium capitalize">
                                     {dueOffset.dueType}
                                 </p>
                                 <table>
-                                    <tbody className="flex flex-col gap-4">
+                                    <tbody className="flex flex-col gap-5">
                                         <DetailRow 
                                             icon={<Clock size={20} color="#737373" />} 
                                             label="Created on"
                                         >
-                                            {formatDate(dueOffset.createdOn, "dd MMMMMM, yyyy h:mm aaaa")}
+                                            {formatDate(dueOffset.createdOn, "dd MMMMMM, yyyy h:mm a")}
                                         </DetailRow>
                                         <DetailRow 
                                             icon={<StatusLoader width={20} height={20} />}
@@ -96,12 +96,14 @@ export default function DuesPreview({
                                                     branchStatusMap[dueOffset.status.toLowerCase() as BranchDueDataType["status"]];
 
                                                 return (
+                                                    <div className="max-h-fit">
                                                     <StatusBadge
                                                         label={label}
                                                         dotColor={dotColor}
                                                         bgColor={bgColor}
                                                         labelColor={labelColor}
                                                     />
+                                                    </div>
                                                 );
                                                 })()}
                                         </DetailRow>
@@ -115,7 +117,7 @@ export default function DuesPreview({
                                             icon={<DollarSquare size={20} color="#737373" />}
                                             label="Amount"
                                         >
-                                            {`N${(+dueOffset.amount).toLocaleString()}`}
+                                            {`₦${(+dueOffset.amount).toLocaleString()}`}
                                         </DetailRow>
                                         <DetailRow
                                             icon={<ReloadIcon width={20} height={20} />}
@@ -124,16 +126,16 @@ export default function DuesPreview({
                                             <span className="capitalize">{dueOffset.intervals}</span>
                                         </DetailRow>
                                         <DetailRow
-                                            icon={<MoreTimeIcon width={22} height={22} />}
+                                            icon={<MoreTimeIcon width={20} height={20} />}
                                             label="Start Date"
                                         >
-                                            {formatDate(dueOffset.startDate, "dd MMMMMM, yyyy h:mm aaaa")}
+                                            {formatDate(dueOffset.startDate, "dd MMMMMM, yyyy h:mm a")}
                                         </DetailRow>
                                         <DetailRow
                                             icon={<TimeOutIcon width={16} height={16} />}
                                             label="End Date"
                                         >
-                                            {dueOffset.endDate || "Ongoing"}
+                                            {formatDate(dueOffset.endDate, "dd MMMMMM, yyyy h:mm a") || "Ongoing"}
                                         </DetailRow>
                                     </tbody>
                                 </table>
@@ -165,15 +167,16 @@ export default function DuesPreview({
                         </div>
                     }
                     {/* Should Trigger Edit Dues */}
-                    <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                        <button className="btn btn-primary" disabled={!dueOffset} onClick={() => {}}>
-                            Edit Dues
-                        </button>
-                        <button className="btn btn-secondary" disabled={!dueOffset}>
-                            Deactivate
-                        </button>
-                    </div> 
+                    
                 </div>
+                <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
+                    <button className="btn btn-primary" disabled={!dueOffset} onClick={() => {}}>
+                        Edit Dues
+                    </button>
+                    <button className="btn btn-secondary" disabled={!dueOffset}>
+                        Deactivate
+                    </button>
+                </div> 
             </div>
         </ShellModal>
     )
