@@ -263,7 +263,7 @@ export const helpSupportMenu: MenuCardProps[] = [
     icon: Calendar2,
     title: "See Upcoming Events",
     description: "RSVP or register for national, branch or diaspora events.",
-    route: "/events"
+    route: "/events?tab=upcoming-events"
   },
   {
     icon: FolderOpen,
