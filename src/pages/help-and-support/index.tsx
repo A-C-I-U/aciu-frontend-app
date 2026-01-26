@@ -9,11 +9,13 @@ import LocateBranch from "./components/LocateBranch";
 import type { BranchSearchResponse } from "@/services/types/helpandsupport";
 import BranchSupportPage from "./components/BranchSupportPage";
 import MotionBox from "@/components/MotionBox";
+import { useUser } from "@/context/UserContext";
 
 export default function HelpAndSupportPage() {
     const [showBranchPopup, setShowBranchPopup] = useState(false);
     const [page, setPage] = useState<"index" | "branch-support">("index");
     const [branchData, setBranchData] = useState<BranchSearchResponse | null>(null);
+    const { user } = useUser();
 
     const handleBranchLocation = (data?: BranchSearchResponse) => {
         if (data) {
@@ -60,22 +62,23 @@ export default function HelpAndSupportPage() {
                                 </p>
                             </div>
 
-                            <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-stretch">
-                                {helpSupportMenu && helpSupportMenu.map(({ 
-                                    icon, 
-                                    title, 
-                                    description, 
-                                    route, 
-                                    action
-                                }, index) => (
-                                    <MenuCard
-                                        key={index}
-                                        icon={icon}
-                                        title={title}
-                                        description={description}
-                                        route={route}
-                                        onClick={action ? () => {setShowBranchPopup(true)} : undefined}
-                                    />
+                            <div className="grid gap-5 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] items-stretch">
+                                {helpSupportMenu &&
+                                    helpSupportMenu
+                                        .filter(
+                                        item =>
+                                            user?.role !== "national_admin" ||
+                                            item.route !== "/my-payments"
+                                        )
+                                        .map(({ icon, title, description, route, action }, index) => (
+                                            <MenuCard
+                                                key={index}
+                                                icon={icon}
+                                                title={title}
+                                                description={description}
+                                                route={route}
+                                                onClick={action ? () => setShowBranchPopup(true) : undefined}
+                                            />
                                 ))}
                             </div>
                         </MotionBox>
