@@ -63,16 +63,16 @@ export default function DuesPreview({
             <div className="resources-modal-section flex flex-col h-full overflow-hidden">
                 <ShellHeader title="Dues Preview" onClose={onClose} />
                 <Divider className="flex shrink-0" />
-                <div className="flex flex-col h-full overflow-hidden">
-                    {isLoading && <div className="mx-5"><DetailSkeleton /></div>}
-                    {(isError && !dueOffset && !isLoading) && (
-                        <div className="text-aciu-abriba p-4">
-                            Unable to load due's details.
-                            Please open the modal again.
-                        </div>
-                    )}
-                    {dueOffset && 
-                        <div className="resources-modal-body">
+                <div className="flex flex-col h-full overflow-hidden"> 
+                    <div className="resources-modal-body">
+                        {isLoading && <DetailSkeleton />}
+                        {(isError && !dueOffset && !isLoading) && (
+                            <div className="text-aciu-abriba p-4">
+                                Unable to load due's details.
+                                Please open the modal again.
+                            </div>
+                        )}
+                        {dueOffset && 
                             <div className="flex flex-col gap-8.5">
                                 <p className="leading-5 text-base lg:text-xl font-medium capitalize">
                                     {dueOffset.dueType}
@@ -140,32 +140,33 @@ export default function DuesPreview({
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="flex flex-col my-7.5">
-                                <div className="flex gap-4 justify-start w-full mx-auto">
-                                    {duesPreviewTabs.map((tab) => (
-                                        <button
-                                            key={tab.key}
-                                            onClick={() => setActiveTab(tab)}
-                                            className={`${
-                                                activeTab?.key === tab.key
-                                                ? "text-aciu-red font-semibold"
-                                                : "text-aciu-abriba font-medium pb-4"
-                                            } text-xs md:text-sm font-montserrat flex flex-col gap-2`}
-                                        >
-                                            {tab.label}
-                                            {activeTab?.key === tab.key && (
-                                                <span className="block w-full h-0.5 bg-aciu-red mt-2 rounded-full"></span>
-                                            )}
-                                        </button>
-                                    ))}
-                                </div>
-                                <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
-                                <div className="mt-6">
-                                    {activeTab.content}
-                                </div>
+                        }
+                        <div className="flex flex-col my-7.5">
+                            <div className="flex gap-4 justify-start w-full mx-auto">
+                                {duesPreviewTabs.map((tab) => (
+                                    <button
+                                        key={tab.key}
+                                        onClick={() => setActiveTab(tab)}
+                                        className={`${
+                                            activeTab?.key === tab.key
+                                            ? "text-aciu-red font-semibold"
+                                            : "text-aciu-abriba font-medium pb-4"
+                                        } text-xs md:text-sm font-montserrat flex flex-col gap-2`}
+                                    >
+                                        {tab.label}
+                                        {activeTab?.key === tab.key && (
+                                            <span className="block w-full h-0.5 bg-aciu-red mt-2 rounded-full"></span>
+                                        )}
+                                    </button>
+                                ))}
+                            </div>
+                            <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
+                            <div className="mt-6">
+                                {activeTab.content}
                             </div>
                         </div>
-                    }
+                    </div>
+
                     {/* Should Trigger Edit Dues */}
                     
                 </div>

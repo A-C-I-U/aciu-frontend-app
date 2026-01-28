@@ -6,10 +6,25 @@ import { useDuesActivityLog } from "@/services/hooks/dues";
 
 
 export default function ActivityLogs({ id }: { id: string }) {
-    const { data: logs } = useDuesActivityLog(id);
+    const { data: logs, isLoading } = useDuesActivityLog(id);
 
     return (
         <div className="flex flex-col gap-10">
+            {isLoading && 
+                <div className="flex flex-col gap-10">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                        <div className="flex flex-col gap-4 animate-pulse" key={index}>
+                                <div className="flex gap-2 items-center">
+                                    <div className="w-12 h-12 bg-gray-300 rounded-full" />
+                                    <div className="flex flex-col gap-1 flex-1">
+                                        <div className="h-4 bg-gray-300 rounded w-3/4" />
+                                        <div className="h-3 bg-gray-300 rounded w-1/2 mt-1" />
+                                    </div>
+                                </div>
+                            </div>
+                    ))}
+                </div>
+            }
             {logs?.details && logs?.details.length > 0 ? (
                 logs?.details.map((detail, index) => (
                 <div key={index} className="flex flex-col gap-4">
