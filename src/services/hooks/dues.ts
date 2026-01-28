@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
-import type { NationalDuesDetail } from "../types/transactions"
+import type { NationalDuesDetail, NationalDuesResponse } from "../types/transactions"
 import apiClient from ".."
-import type { ActivityLogResponse, DuesRulesResponse } from "../types/dues"
+import type { ActivityLogResponse, DuesRulesResponse } from "../types/national-dues"
 
 export const useDuesDetails = (id: string) => {
     return useQuery<NationalDuesDetail>({
@@ -40,5 +40,17 @@ export const useDuesActivityLog = (id: string) => {
         staleTime: 5 * 60 * 1000,
         retry: 2,
         enabled: !!id
+    })
+}
+
+export const useNationalDues = () => {
+    return useQuery<NationalDuesResponse[]>({
+        queryKey: ["national-dues"],
+        queryFn: async (): Promise<NationalDuesResponse[]> => {
+            const response = await apiClient.get<NationalDuesResponse[]>(`/transactions/national-dues`)
+            return response.data
+        },
+        staleTime: 5 * 60 * 1000,
+        retry: 2,
     })
 }

@@ -10,6 +10,7 @@ import { formatDate } from "date-fns";
 import { nationalDuesMap } from "@/utils/helpers";
 import { nationalDuesColumns } from "../columns/NationalDuesColumns";
 import DuesPreview from "@/pages/my-branch/components/tabs/branch-dues/DuesPreview";
+import AddNationalDues from "../actions/AddNationalDues";
 
 export default function NationalDuesTable({
     data,
@@ -20,6 +21,8 @@ export default function NationalDuesTable({
 
     const [selected, setSelected] = useState<NationalDuesResponse | null>(null);
     const [isViewOpen, setViewOpen] = useState(false);
+    const [addDues, showAddDues] = useState(false);
+
     const [_query, setQuery] = useState("");
 
     const handleViewClick = (nationalDue: NationalDuesResponse) => {
@@ -34,12 +37,17 @@ export default function NationalDuesTable({
     return (
         <>
             <div className="flex flex-col gap-6 lg:px-4">
-                <SectionHeader
-                    title="National Dues"
-                    onSearch={handleSearch}
-                    showSearch={isMedium ? false : true}
-                    actions={sectionActions}
-                />
+                 <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
+                    <SectionHeader
+                        title="National Dues"
+                        onSearch={handleSearch}
+                        showSearch={isMedium ? false : true}
+                        actions={sectionActions}
+                    />
+                    <button onClick={() => showAddDues(true)} className="max-w-fit btn btn-primary">
+                        Add new dues
+                    </button>
+                 </div>
                 <ResponsiveDataTable
                     data={data}
                     columns={nationalDuesColumns(handleViewClick)}
@@ -59,6 +67,10 @@ export default function NationalDuesTable({
                 open={isViewOpen}
                 onClose={() => setViewOpen(false)}
                 id={selected && selected.id}
+            />
+            <AddNationalDues
+                open={addDues}
+                onClose={() => showAddDues(false)}
             />
         </>
     )

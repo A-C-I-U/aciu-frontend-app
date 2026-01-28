@@ -22,3 +22,24 @@ export interface ActivityLogResponse {
   message: string;
   details: ActivityLog[];
 };
+
+export type Interval = "Yearly" | "Monthly" | "Quarterly" | "One-time"
+
+export type Gender =
+  | "All Genders"
+  | "Male"
+  | "Female"
+
+export interface CreateNationalDuesPayload {
+  title: string
+  currency: string
+  amount: string
+  startDate: string
+  endDate: string
+  interval: Interval
+  ageGrades: string[]
+  gender: Gender
+  location: string
+  memberRoles: string[]
+  notifications: string[]
+}

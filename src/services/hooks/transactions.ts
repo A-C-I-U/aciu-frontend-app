@@ -12,8 +12,7 @@ import {
     type DuesPaymentDetail, 
     type EventDonationDetails, 
     type ProjectDonationDetails, 
-    type WithdrawalDetailResponse, 
-    type NationalDuesResponse, 
+    type WithdrawalDetailResponse,
     type DuesStatusApiResponse,
 } from "../types/transactions";
 
@@ -200,16 +199,3 @@ export const useWithdrawalDetails = (id: string) => {
         enabled: !!id
     })
 }
-
-export const useNationalDues = () => {
-    return useQuery<NationalDuesResponse[]>({
-        queryKey: ["national-dues"],
-        queryFn: async (): Promise<NationalDuesResponse[]> => {
-            const response = await apiClient.get<NationalDuesResponse[]>(`/transactions/national-dues`)
-            return response.data
-        },
-        staleTime: 5 * 60 * 1000,
-        retry: 2,
-    })
-}
-

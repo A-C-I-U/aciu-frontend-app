@@ -1,6 +1,7 @@
 import { array, boolean, date, mixed, number, object, ref, string } from "yup";
 import { AGEGRADES, BRANCHES } from "./data";
 import * as yup from 'yup';
+import type { Gender, Interval } from "@/services/types/national-dues";
 
 
 export const signupValidationSchemas = [
@@ -284,5 +285,51 @@ export const duesValidationSchema = object({
 
     notifications: array()
         .of(string().required("Notification is required"))
+        .min(1, "At least one notification is required"),
+});
+
+
+export const createNationalDuesSchema = object({
+    title: string()
+        .required("Title is required")
+        .min(3, "Title must be at least 3 characters"),
+
+    currency: string()
+        .required("Currency is required")
+        .length(3, "Currency must be provided"),
+
+    amount: string()
+        .required("Amount is required")
+        .matches(/^\d+(\.\d{2})?$/, "Amount must be a valid number with 2 decimals"),
+
+    startDate: date()
+        .required("Start date is required")
+        .typeError("Start date must be a valid date"),
+
+    endDate: date()
+        .required("End date is required")
+        .typeError("End date must be a valid date")
+        .min(ref("startDate"), "End date cannot be before start date"),
+
+    interval: mixed<Interval>()
+        .oneOf(["Yearly", "Monthly", "Quarterly", "One-time"], "Interval must be one of Yearly, Monthly, Quarterly")
+        .required("Interval is required"),
+
+    ageGrades: array()
+        .of(string().required("Age grade cannot be empty"))
+        .min(1, "At least one age grade is required"),
+
+    gender: mixed<Gender>()
+        .oneOf(["All Genders", 'Female', 'Male'], "Gender must be one of All Genders, Male, Female")
+        .required("Gender is required"),
+
+    location: string().required("Location is required"),
+
+    memberRoles: mixed()
+        .oneOf(["All Members", "Branch Executives", "National Executives", "Regular Members"], "Member Roles must be selected")
+        .required("Member role is required"),
+
+    notifications: array()
+        .of(string().required("Notification cannot be empty"))
         .min(1, "At least one notification is required"),
 });
