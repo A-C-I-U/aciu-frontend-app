@@ -871,3 +871,35 @@ export const fakeMonthlyPayments = [
   { month: 'Nov', totalPayment: 27_800_000 },
   { month: 'Dec', totalPayment: 34_500_000 },
 ];
+
+
+export const datePickerSx = {
+  '& .MuiInputLabel-root': {
+      fontSize: '.875rem'
+  },
+  '& .MuiPickersInputBase-root': {
+      fontSize: ".875rem"
+  },
+  '& .MuiPickersOutlinedInput-root': {
+      borderRadius: ".5rem",
+      borderColor: "#DFE1E7",
+  }
+}
+
+export const formLabelSx = {
+  fontFamily: "'Montserrat', sans-serif",
+  color: '#3E3E3E',
+  fontWeight: 500,
+  fontSize: '0.875rem'
+}
+
+export const dueAgeGradeOptions = [
+  { label: "All Age Grades", value: "All Age Grades"},
+  { label: "Okpu Nnukwu", value: "Okpu Nnukwu" },
+  { label: "Ndi Udo", value: "Ndi Udo" },
+  { label: "Ndi Ijeoma", value: "Ndi Ijeoma" },
+  { label: "Uke Achara", value: "Uke Achara" },
+  { label: "Uke Ezinne", value: "Uke Ezinne" },
+  { label: "Uke Progressive", value: "Uke Progressive" },
+  { label: "Uke Unity", value: "Uke Unity" },
+]
