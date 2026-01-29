@@ -245,33 +245,43 @@ export const fields = [
   },
 ];
 
-export const helpSupportMenu: MenuCardProps[] = [
-  {
-    icon: Routing,
-    title: "Locate My Branch",
-    description: "Find meeting venues in your city, state, or country.",
-    route: "",
-    action: true,
-  },
-  {
-    icon: DollarSquare,
-    title: "Pay My Dues",
-    description: "Clear dues or support a project instantly.",
-    route: "/my-payments"
-  },
-  {
-    icon: Calendar2,
-    title: "See Upcoming Events",
-    description: "RSVP or register for national, branch or diaspora events.",
-    route: "/events?tab=upcoming-events"
-  },
-  {
-    icon: FolderOpen,
-    title: "Access Files & Resources",
-    description: "Download the ACIU Constitution, anthem, or documents.",
-    route: "/resources"
-  }
-]
+export const getHelpSupportMenu = (role: string): MenuCardProps[] => {
+  const menu: MenuCardProps[] = [
+    {
+      icon: Routing,
+      title: "Locate My Branch",
+      description: "Find meeting venues in your city, state, or country.",
+      route: "",
+      action: true,
+    },
+    {
+      // Replace “Pay My Dues” with “View Transactions” if national admin
+      icon: DollarSquare,
+      title: role === "national_admin" ? "View Transactions" : "Pay My Dues",
+      description:
+        role === "national_admin"
+          ? "Create, monitor and manage Dues and Payments."
+          : "Clear dues or support a project instantly.",
+      route: role === "national_admin" ? "/transactions" : "/my-payments",
+    },
+    {
+      icon: Calendar2,
+      title: "See Upcoming Events",
+      description:
+        "RSVP or register for national, branch or diaspora events.",
+      route: "/events?tab=upcoming-events",
+    },
+    {
+      icon: FolderOpen,
+      title: "Access Files & Resources",
+      description:
+        "Download the ACIU Constitution, anthem, or documents.",
+      route: "/resources",
+    },
+  ];
+
+  return menu;
+};
 
 export const helpAndSupportAccordion = [
     {
