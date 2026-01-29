@@ -325,9 +325,9 @@ export const createNationalDuesSchema = object({
 
     location: string().required("Location is required"),
 
-    memberRoles: mixed()
-        .oneOf(["All Members", "Branch Executives", "National Executives", "Regular Members"], "Member Roles must be selected")
-        .required("Member role is required"),
+    memberRoles: array()
+        .of(string().required("Member roles cannot be empty"))
+        .min(1, "At least one member role is required"),
 
     notifications: array()
         .of(string().required("Notification cannot be empty"))
