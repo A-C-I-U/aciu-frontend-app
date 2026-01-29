@@ -6,9 +6,9 @@ import { StatsCard } from "@/components/StatsCard";
 import { BlogTrafficChart } from "./BlogTrafficChart";
 import { DevicesChart } from "./DeviceChart";
 import { EventsRegistrationsChart } from "./EventsRegistrationChart";
-import { GenderChart } from "./Genderchart";
 import { MemberSignUpsChart } from "./MembersSignUpChart";
 import { TopBranchesChart } from "./TopBranchesChart";
+import { GenderChart } from "./Charts";
 
 export default function Analytics() {
   const { user } = useUser();
