@@ -8,7 +8,7 @@ import { DevicesChart } from "./DeviceChart";
 import { EventsRegistrationsChart } from "./EventsRegistrationChart";
 import { MemberSignUpsChart } from "./MembersSignUpChart";
 import { TopBranchesChart } from "./TopBranchesChart";
-import { GenderChart } from "./Charts";
+import { GenderChart } from "./Genderchart";
 
 export default function Analytics() {
   const { user } = useUser();
