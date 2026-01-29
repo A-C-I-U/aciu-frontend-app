@@ -614,7 +614,16 @@ a, button {
     background-color: "#F9FAFB";
     border-bottom: 1px solid #EAECF0;
     line-height: 1.125rem;
-}
+  }
+
+  .due-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 1.125rem;
+    color: var(--aciu-border-grey);
+    line-height: 1.25rem;
+    letter-spacing: -0.006rem;
+  }
 
 }
 
@@ -645,10 +654,19 @@ a, button {
 @media screen and (max-width: 768px) {
   .resources-modal-title {
     font-size: 1rem;
+    line-height: 125%;
   }
 
   .resources-modal-close {
     top: 1.125rem;
+  }
+
+  .resources-modal-section {
+    gap: 1.5rem;
+  }
+
+  .resources-modal-section .btn {
+    font-size: 1rem;
   }
 
   .btn {
@@ -667,5 +685,9 @@ a, button {
 
   .btn-event {
     width: 100%;
+  }
+
+  .due-label {
+    font-size: 1rem;
   }
 }
