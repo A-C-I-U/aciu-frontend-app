@@ -16,7 +16,7 @@ import { LegendItem } from "@/components/ChartLegendItem";
 const quickActions = [
     { label: "View Transactions", path: "/transactions" },
     { label: "View Projects", path: "/projects" },
-    { label: "Create National Dues", path: "/transactions" },
+    { label: "Create National Dues", path: "/transactions?tab=dues-management" },
     { label: "Create New Branch", path: "/database" },
     { label: "Review Blog Posts", path: "/blog" },
     { label: "Upload Resources", path: "/resources" }
