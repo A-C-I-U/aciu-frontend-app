@@ -90,18 +90,20 @@ export default function CompletedProjects() {
                     ))}
                 </div>
             ) : (
-                <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
-                    {projects?.map((project) => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                            isCompleted={true} 
-                        />
-                    ))}
+                <>
+                    <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
+                        {projects?.map((project) => (
+                            <ProjectCard
+                                key={project.id}
+                                project={project}
+                                isCompleted={true} 
+                            />
+                        ))}
+                    </div>
                     {projects?.length === 0 && (
                         <EmptyPage label="Completed Projects" />
                     )}
-                </div>
+                </>
             )}
         </div>
     );
