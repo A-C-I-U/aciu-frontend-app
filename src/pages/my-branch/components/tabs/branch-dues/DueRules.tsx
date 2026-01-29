@@ -5,13 +5,14 @@ import { Information } from "iconsax-react";
 import { DetailSkeleton } from "@/components/DetailSkeleton";
 
 export default function DueRules({ id }: { id: string}) {
-    const { data: dueRules, isLoading, isPending } = useDuesRules(id);
+    const { data: dueRules, isLoading } = useDuesRules(id);
 
-    if (!dueRules) return <EmptyRecords />;
+    if (isLoading && !dueRules) return <div className="w-full"><DetailSkeleton /></div>;
+
+    if (!dueRules && !isLoading) return <EmptyRecords />;
 
     return (
         <>
-        {(isLoading || isPending && !dueRules) && <DetailSkeleton />}
         {dueRules && !isLoading &&
             <div className="flex flex-col gap-5 h-full w-full">
                 <table className="w-full">
