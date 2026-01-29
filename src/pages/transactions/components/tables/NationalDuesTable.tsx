@@ -22,6 +22,7 @@ export default function NationalDuesTable({
     const [selected, setSelected] = useState<NationalDuesResponse | null>(null);
     const [isViewOpen, setViewOpen] = useState(false);
     const [addDues, showAddDues] = useState(false);
+    const [editingId, setEditingId] = useState("")
 
     const [_query, setQuery] = useState("");
 
@@ -32,6 +33,12 @@ export default function NationalDuesTable({
 
     const handleSearch = (q: string) => {
         setQuery(q);
+    }
+
+    const handleEdit = () => {
+        setEditingId(selected ? selected.id : "");
+        setViewOpen(false);
+        showAddDues(true);
     }
 
     return (
@@ -56,7 +63,7 @@ export default function NationalDuesTable({
                             key={nationalDue.id}
                             item={nationalDue}
                             fields={fields}
-                            status={nationalDuesMap[nationalDue.Status]}
+                            status={nationalDuesMap[nationalDue.Status.toLowerCase() as NationalDuesResponse["Status"]]}
                             actionLabel="View Details"
                             onActionClick={() => handleViewClick(nationalDue)}
                         />
@@ -66,10 +73,12 @@ export default function NationalDuesTable({
             <DuesPreview
                 open={isViewOpen}
                 onClose={() => setViewOpen(false)}
+                onEdit={handleEdit}
                 id={selected && selected.id}
             />
             <AddNationalDues
                 open={addDues}
+                id={editingId}
                 onClose={() => showAddDues(false)}
             />
         </>
