@@ -4,6 +4,7 @@ import { useState } from "react";
 import ProjectCard from "../ProjectCard";
 import { useMediaQuery, Skeleton } from "@mui/material";
 import { useProjects } from "@/services/hooks/project";
+import { EmptyPage } from "@/components/EmptyPage";
 
 const sectionActions = [
     <button
@@ -98,9 +99,7 @@ export default function CompletedProjects() {
                         />
                     ))}
                     {projects?.length === 0 && (
-                        <div className="col-span-full text-center py-8 text-gray-500">
-                            No completed projects found.
-                        </div>
+                        <EmptyPage label="Completed Projects" />
                     )}
                 </div>
             )}

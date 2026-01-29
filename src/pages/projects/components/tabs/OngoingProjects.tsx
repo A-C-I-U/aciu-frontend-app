@@ -8,6 +8,7 @@ import { useProjects } from "@/services/hooks/project";
 import { ProjectSkeleton } from "../ProjectSkeleton";
 import { useUser } from "@/context/UserContext";
 import CreateProject from "../actions/CreateProject";
+import { EmptyPage } from "@/components/EmptyPage";
 
 const sectionActions = [
     <button
@@ -105,9 +106,7 @@ export default function OngoingProjects() {
                         />
                     ))}
                     {projects?.length === 0 && (
-                        <div className="col-span-full text-center py-8 text-gray-500">
-                            No ongoing projects found.
-                        </div>
+                        <EmptyPage label="Ongoing projects" />
                     )}
                 </div>
             )}

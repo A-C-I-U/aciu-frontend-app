@@ -43,7 +43,7 @@ export default function ProjectNominations() {
                     <ErrorState label="project nominations"/>
                 )}
                 {(nominatedProjects && nominatedProjects?.length === 0) && (
-                    <EmptyPage label="No Project Nominations" />
+                    <EmptyPage label="Project Nominations" />
                 )}
                 {(nominatedProjects && nominatedProjects.length > 0) && (
                     <ProjectNominationsTable
