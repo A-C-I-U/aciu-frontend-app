@@ -108,7 +108,8 @@ export default function BranchDuesTab() {
         <DuesPreview
             open={isViewOpen}
             onClose={() => setIsViewOpen(false)}
-            due={selected}
+            id={selected && selected?.id}
+            onEdit={() => {}}
         />
 
         <SuccessfulDueCreation
