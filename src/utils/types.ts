@@ -116,9 +116,9 @@ export interface TabItem {
 
 export interface PageTitleProps {
   title: string;
-  tabs: TabItem[];
-  activeTab: TabItem;
-  onTabChange: (tab: TabItem) => void;
+  tabs?: TabItem[];
+  activeTab?: TabItem;
+  onTabChange?: (tab: TabItem) => void;
 }
 
 export interface BasePostCardType {
