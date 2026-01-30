@@ -1,8 +1,9 @@
 import { enqueueSnackbar } from "notistack";
 import { ageGradeOptions, logs, publicationStatuses } from "./data";
 import type { BranchDueDataType, BranchEventDataType, BranchMemberDataType, BranchPaymentsDataType, PaymentDataType, PublicationDataType, WithdrawalDataType } from "./types";
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import type { DuesPaymentResponse, NationalDuesResponse } from "@/services/types/transactions";
+import type { ActivityLog, FormattedActivityLog } from "@/services/types/nationaldues";
 
 export const capitalizeFirstLetters = (str: string) => {
     return str
@@ -509,3 +510,96 @@ export const scrollToPosition = (desktop: boolean) => {
   const el = desktop ? document.getElementById("nav-tabs") : document.getElementById("section-header");
   el?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
+
+
+const FIELD_DISPLAY_NAMES: Record<string, string> = {
+    amount: 'Amount',
+    startDate: 'Start Date',
+    endDate: 'End Date',
+    ageGrades: 'Age Grades',
+    memberRoles: 'Member Roles',
+    notifications: 'Notifications',
+    currency: 'Currency',
+    interval: 'Interval',
+    gender: 'Gender',
+    location: 'Location',
+    title: 'Title',
+};
+
+// Parse PostgreSQL array format {value1,value2} to array
+function parsePostgresArray(value: string): string[] {
+    if (!value || value === '{}') return [];
+    
+    const cleaned = value.replace(/^\{|\}$/g, '').replace(/"/g, '');
+    return cleaned ? cleaned.split(',').map(v => v.trim()) : [];
+}
+
+function formatArrayValue(value: string): string {
+    const array = parsePostgresArray(value);
+    if (array.length === 0) return 'None';
+    if (array.length === 1) return array[0];
+    return array.join(', ');
+}
+
+function normalizeDateString(dateStr: string): string {
+    try {
+        const date = new Date(dateStr);
+        return date.toISOString();
+    } catch {
+        return dateStr;
+    }
+}
+
+
+function hasActualChange(field: string, oldValue: string, newValue: string): boolean {
+    if (field.toLowerCase().includes('date')) {
+        return normalizeDateString(oldValue) !== normalizeDateString(newValue);
+    }
+    
+
+    if (oldValue.startsWith('{') && newValue.startsWith('{')) {
+        const oldArray = parsePostgresArray(oldValue);
+        const newArray = parsePostgresArray(newValue);
+        
+        return JSON.stringify(oldArray.sort()) !== JSON.stringify(newArray.sort());
+    }
+    
+    return oldValue !== newValue;
+}
+
+function formatValue(field: string, value: string): string {
+    if (field.toLowerCase().includes('date')) {
+        return format(value, "dd MMMM yyyy h:mm a");
+    }
+
+    if (value.startsWith('{')) {
+        return formatArrayValue(value);
+    }
+    
+    if (field === 'amount') {
+        return `${Number(value).toLocaleString()}`;
+    }
+    
+    return value;
+}
+
+export function formatActivityLogs(logs: ActivityLog[]): FormattedActivityLog[] {
+    return logs
+      .map(log => {
+          const hasChange = hasActualChange(log.field, log.oldValue, log.newValue);
+          
+          return {
+              userName: log.userName,
+              field: log.field,
+              displayField: FIELD_DISPLAY_NAMES[log.field] || log.field,
+              oldValue: log.oldValue,
+              newValue: log.newValue,
+              formattedOldValue: formatValue(log.field, log.oldValue),
+              formattedNewValue: formatValue(log.field, log.newValue),
+              createdAt: log.createdAt,
+              formattedDate: format(parseISO(log.createdAt), 'dd MMM yyyy h:mm a'),
+              hasActualChange: hasChange,
+          };
+      })
+      .filter(log => log.hasActualChange);
+}
