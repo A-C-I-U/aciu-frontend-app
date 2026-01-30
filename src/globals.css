@@ -61,7 +61,7 @@
   --breakpoint-lg: 1024px;
   --breakpoint-mlg: 1250px;
   --breakpoint-ml: 1350px;
-  --leading-default: 100%;
+  --leading-default: 1;
   
   --color-background: #ffffff;
   --color-foreground: #3E3E3E;
