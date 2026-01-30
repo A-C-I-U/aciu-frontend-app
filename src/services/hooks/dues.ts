@@ -3,7 +3,9 @@ import type { NationalDuesDetail, NationalDuesResponse } from "../types/transact
 import apiClient from ".."
 import type { ActivityLogResponse, DuesRulesResponse } from "../types/national-dues"
 
-export const useDuesDetails = (id: string) => {
+export const useDuesDetails = (
+  id: string
+) => {
     return useQuery<NationalDuesDetail>({
         queryKey: ["dues-detail", id],
         queryFn: async (): Promise<NationalDuesDetail> => {
@@ -12,7 +14,7 @@ export const useDuesDetails = (id: string) => {
         },
         staleTime: 5 * 60 * 1000,
         retry: 2,
-        enabled: !!id
+        enabled: Boolean(id),
     })
 }
 

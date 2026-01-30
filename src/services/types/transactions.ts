@@ -7,10 +7,15 @@ export type updateWithdrawalRequestPayload =
     reason: string
 }
 
+export interface TransactionStat {
+    amount: number,
+    growth: number
+}
+
 export interface TransactionOverview {
-    totalCashInflow: number,
-    totalApprovedWithdrawals: number,
-    netBalance: number,
+    totalCashInflow: TransactionStat,
+    totalApprovedWithdrawals: TransactionStat,
+    netBalance: TransactionStat,
     transactionsThisMonth: number,
 }
 

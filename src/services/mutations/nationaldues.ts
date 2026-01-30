@@ -12,8 +12,8 @@ const saveNationalDues = async ({
 }): Promise<{ message: string }> => {
 
 
-    const url = id ? `/dues/${id}` : "/dues";
-    const method = id ? "put" : "post";
+    const url = id ? `/dues/${id}?isNational=true` : "/dues?isNational=true";
+    const method = id ? "patch" : "post";
 
     const response = await apiClient.request<{ message: string }>({
         url,
