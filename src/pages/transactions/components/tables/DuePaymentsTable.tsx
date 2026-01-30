@@ -66,7 +66,7 @@ export default function DuePaymentsTable({
 
 
 const fields: FieldConfig<DuesPaymentResponse>[] = [ 
-    { label: "Amount", value: (p) => `N${(+p.amountPaid).toLocaleString()}`}, 
+    { label: "Amount", value: (p) => `N${Math.round(+p.amountPaid).toLocaleString()}`}, 
     { label: "Transaction ID", value: (p) => p.transactionId }, 
     { label: "Date", value: (p) => formatDate(p.date, "dd-MM-yyyy h:mm  aaaaa'm'") }, 
     { label: "Paid By", value: (p) => p.paidBy } 
