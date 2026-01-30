@@ -4,7 +4,7 @@ import ShellModal from "@/components/ShellModal";
 import { useUser } from "@/context/UserContext";
 import { useDuesDetails } from "@/services/hooks/dues";
 import { useSaveNationalDues } from "@/services/mutations/nationaldues";
-import type { CreateNationalDuesPayload } from "@/services/types/national-dues";
+import type { CreateNationalDuesPayload } from "@/services/types/nationaldues";
 import { datePickerSx, dueAgeGradeOptions, formLabelSx } from "@/utils/data";
 import { createNationalDuesSchema } from "@/utils/schemas";
 import type { DialogFuncProps } from "@/utils/types";
@@ -91,7 +91,11 @@ export default function NationalDuesForm({
             onClose();
             setShowSuccess(true);
         } catch (error: any) {
-            console.error("Create National Dues error:", error);
+            if (mode === "create") {
+                console.error("Create National Dues error:", error);
+            } else {
+                console.error("Update National Dues error:", error);
+            }
             enqueueSnackbar(error, { variant: 'error' })
         }
     }
@@ -310,8 +314,8 @@ export default function NationalDuesForm({
                 open={showSuccess}
                 onClose={() => setShowSuccess(false)}
                 icon={<MarkIcon />}
-                title={`Dues ${mode === "edit" ? "Updated" : "Created"} Successfuly`}
-                message={`Your dues item “${duesTitle}” has been ${mode === "edit" ? "updated" : "created" } and is now active.`}
+                title={`Dues ${successMode === "edit" ? "Updated" : "Created"} Successfuly`}
+                message={`Your dues item “${duesTitle}” has been ${successMode === "edit" ? "updated" : "created" } and is now active.`}
                 primaryAction={{
                     label: "Go back to dashboard",
                     onClick: () => {
