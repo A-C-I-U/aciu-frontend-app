@@ -25,7 +25,7 @@ export default function DueRules({ id }: { id: string}) {
                     <tbody>
                         <ViewDetailRow
                             label="Age Grades"
-                            content={dueRules.rules.ageGrades.map((grade, index) => <span key={index}>{grade}</span>)}
+                            content={dueRules.rules.ageGrades.join(", ")}
                         />
                         <ViewDetailRow
                             label="Gender"
@@ -37,7 +37,7 @@ export default function DueRules({ id }: { id: string}) {
                         />
                         <ViewDetailRow
                             label="Member Roles"
-                            content={dueRules.rules.memberRoles.map((role, index) => <span key={index}>{role}</span>)}
+                            content={dueRules.rules.memberRoles.join(", ")}
                         />
                         <ViewDetailRow
                             label="Currency"
@@ -45,7 +45,7 @@ export default function DueRules({ id }: { id: string}) {
                         />
                         <ViewDetailRow
                             label="Notifications"
-                            content={dueRules.notifications.map((notification, index) => <span key={index}>{notification}</span>)}
+                            content={dueRules.notifications.join(", ")}
                         />
                     </tbody>
                 </table>
