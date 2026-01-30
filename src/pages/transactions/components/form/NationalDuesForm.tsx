@@ -1,8 +1,6 @@
 import FormikField from "@/components/FormikField";
-import { MarkIcon } from "@/components/Icons";
 import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
-import { SuccessDialog } from "@/components/SuccessDialog";
 import { useUser } from "@/context/UserContext";
 import { useDuesDetails } from "@/services/hooks/dues";
 import { useSaveNationalDues } from "@/services/mutations/nationaldues";
@@ -18,6 +16,8 @@ import { Form, Formik } from "formik";
 import { enqueueSnackbar } from "notistack";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SuccessDialog } from "@/components/SuccessDialog";
+import { MarkIcon } from "@/components/Icons";
 
 const initialValues: CreateNationalDuesPayload = {
   title: "",
@@ -44,6 +44,7 @@ export default function NationalDuesForm({
 }) {
     const [showSuccess, setShowSuccess] = useState(false);
     const [duesTitle, setDuesTitle] = useState("");
+    const [successMode, setSuccessMode] = useState<"create" | "edit">("create");
 
     const navigate = useNavigate();
     const saveNationalDuesMutation = useSaveNationalDues();
@@ -79,7 +80,7 @@ export default function NationalDuesForm({
             notifications: values.notifications
         }
         setDuesTitle(values.title);
-
+        setSuccessMode(mode)
         try {
             const result =
                 mode === "edit"
@@ -304,26 +305,23 @@ export default function NationalDuesForm({
                     </Formik>
                 </div>
             </ShellModal>
-            <SuccessDialog
+             <SuccessDialog
+                key={duesTitle + successMode}
                 open={showSuccess}
                 onClose={() => setShowSuccess(false)}
                 icon={<MarkIcon />}
-                title="Dues Created Successfully"
-                message={(
-                    <>Your dues item <span className="font-medium capitalize">“{duesTitle}”</span> has been created and is now active.</>
-                )}
+                title={`Dues ${mode === "edit" ? "Updated" : "Created"} Successfuly`}
+                message={`Your dues item “${duesTitle}” has been ${mode === "edit" ? "updated" : "created" } and is now active.`}
                 primaryAction={{
                     label: "Go back to dashboard",
                     onClick: () => {
                         setShowSuccess(false);
-                        navigate("/dashboard")
-                    }
-                }}
+                        navigate("/dashboard");
+                    }}
+                }
                 secondaryAction={{
-                    label: "Create Another Dues",
-                    onClick: () => {
-                        setShowSuccess(false);
-                    }
+                    label: successMode === "edit" ? "Create Dues" : "Create Another Dues",
+                    onClick: () => setShowSuccess(false),
                 }}
             />
         </>
