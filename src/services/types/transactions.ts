@@ -1,4 +1,4 @@
-import type { Gender, Interval } from "./national-dues";
+import type { Gender, Interval } from "./nationaldues";
 
 export type updateWithdrawalRequestPayload =
  | { status: "APPROVED" }

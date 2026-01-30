@@ -1,7 +1,7 @@
 import { array, boolean, date, mixed, number, object, ref, string } from "yup";
 import { AGEGRADES, BRANCHES } from "./data";
 import * as yup from 'yup';
-import type { Gender, Interval } from "@/services/types/national-dues";
+import type { Gender, Interval } from "@/services/types/nationaldues";
 
 
 export const signupValidationSchemas = [

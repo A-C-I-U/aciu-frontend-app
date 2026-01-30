@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import type { NationalDuesDetail, NationalDuesResponse } from "../types/transactions"
 import apiClient from ".."
-import type { ActivityLogResponse, DuesRulesResponse } from "../types/national-dues"
+import type { ActivityLogResponse, DuesRulesResponse } from "../types/nationaldues"
 
 export const useDuesDetails = (
   id: string

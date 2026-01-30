@@ -43,3 +43,16 @@ export interface CreateNationalDuesPayload {
   memberRoles: string[]
   notifications: string[]
 }
+
+export interface FormattedActivityLog {
+  userName: string;
+  field: string;
+  displayField: string;
+  oldValue: string;
+  newValue: string;
+  formattedOldValue: string;
+  formattedNewValue: string;
+  createdAt: string;
+  formattedDate: string;
+  hasActualChange: boolean;
+}
