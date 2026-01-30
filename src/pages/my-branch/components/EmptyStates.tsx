@@ -35,7 +35,7 @@ export const EmptyPaymentsState = () => {
 
 export const EmptyRecords = () => {
     return (
-        <div className="flex flex-col gap-2 h-full min-h-80 w-full items-center">
+        <div className="flex flex-col gap-2 h-full min-h-80 w-full items-center justify-center">
             <div className="w-15 h-15 shadow-[0px_4px_50px_0px_#0000001A] flex items-center justify-center">
                 <Document size={32} color="#737373" variant="Linear"/>
             </div>

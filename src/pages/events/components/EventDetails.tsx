@@ -88,7 +88,7 @@ export default function EventDetails() {
       <div key={event.id} className="flex flex-col gap-6.25 mb-10">
         <button
           type="button"
-          onClick={() => navigate("/events")}
+          onClick={() => navigate(-1)}
           className="cancel-btn"
         >
           <ArrowLeft size={20} color="#898483" />

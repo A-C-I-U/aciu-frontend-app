@@ -23,7 +23,7 @@ export const nationalDuesColumns = (setSelected: (p: NationalDuesResponse) => vo
     {
         accessorKey: "Amount",
         header: "Amount Paid",
-        cell: ({ row }: { row: Row<NationalDuesResponse> }) => <span>{`₦${(+row.original["Amount Paid"]).toLocaleString()}`}</span>
+        cell: ({ row }: { row: Row<NationalDuesResponse> }) => <span>{`₦${Math.round(+row.original["Amount Paid"]).toLocaleString()}`}</span>
     },
     {
         accessorKey: "Status",

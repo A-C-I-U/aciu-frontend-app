@@ -245,33 +245,43 @@ export const fields = [
   },
 ];
 
-export const helpSupportMenu: MenuCardProps[] = [
-  {
-    icon: Routing,
-    title: "Locate My Branch",
-    description: "Find meeting venues in your city, state, or country.",
-    route: "",
-    action: true,
-  },
-  {
-    icon: DollarSquare,
-    title: "Pay My Dues",
-    description: "Clear dues or support a project instantly.",
-    route: "/my-payments"
-  },
-  {
-    icon: Calendar2,
-    title: "See Upcoming Events",
-    description: "RSVP or register for national, branch or diaspora events.",
-    route: "/events"
-  },
-  {
-    icon: FolderOpen,
-    title: "Access Files & Resources",
-    description: "Download the ACIU Constitution, anthem, or documents.",
-    route: "/resources"
-  }
-]
+export const getHelpSupportMenu = (role: string): MenuCardProps[] => {
+  const menu: MenuCardProps[] = [
+    {
+      icon: Routing,
+      title: "Locate My Branch",
+      description: "Find meeting venues in your city, state, or country.",
+      route: "",
+      action: true,
+    },
+    {
+      // Replace “Pay My Dues” with “View Transactions” if national admin
+      icon: DollarSquare,
+      title: role === "national_admin" ? "View Transactions" : "Pay My Dues",
+      description:
+        role === "national_admin"
+          ? "Create, monitor and manage Dues and Payments."
+          : "Clear dues or support a project instantly.",
+      route: role === "national_admin" ? "/transactions" : "/my-payments",
+    },
+    {
+      icon: Calendar2,
+      title: "See Upcoming Events",
+      description:
+        "RSVP or register for national, branch or diaspora events.",
+      route: "/events?tab=upcoming-events",
+    },
+    {
+      icon: FolderOpen,
+      title: "Access Files & Resources",
+      description:
+        "Download the ACIU Constitution, anthem, or documents.",
+      route: "/resources",
+    },
+  ];
+
+  return menu;
+};
 
 export const helpAndSupportAccordion = [
     {
@@ -871,3 +881,35 @@ export const fakeMonthlyPayments = [
   { month: 'Nov', totalPayment: 27_800_000 },
   { month: 'Dec', totalPayment: 34_500_000 },
 ];
+
+
+export const datePickerSx = {
+  '& .MuiInputLabel-root': {
+      fontSize: '.875rem'
+  },
+  '& .MuiPickersInputBase-root': {
+      fontSize: ".875rem"
+  },
+  '& .MuiPickersOutlinedInput-root': {
+      borderRadius: ".5rem",
+      borderColor: "#DFE1E7",
+  }
+}
+
+export const formLabelSx = {
+  fontFamily: "'Montserrat', sans-serif",
+  color: '#3E3E3E',
+  fontWeight: 500,
+  fontSize: '0.875rem'
+}
+
+export const dueAgeGradeOptions = [
+  { label: "All Age Grades", value: "All Age Grades"},
+  { label: "Okpu Nnukwu", value: "Okpu Nnukwu" },
+  { label: "Ndi Udo", value: "Ndi Udo" },
+  { label: "Ndi Ijeoma", value: "Ndi Ijeoma" },
+  { label: "Uke Achara", value: "Uke Achara" },
+  { label: "Uke Ezinne", value: "Uke Ezinne" },
+  { label: "Uke Progressive", value: "Uke Progressive" },
+  { label: "Uke Unity", value: "Uke Unity" },
+]

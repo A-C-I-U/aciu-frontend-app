@@ -11,7 +11,7 @@ export default function MenuCard({
 
     const content = (
        <div
-            className="flex flex-col gap-2 rounded-[0.625rem] border border-aciu-light-grey py-3.5 px-2.5 min-w-full lg:max-w-66 h-full"
+            className="flex flex-col gap-2 rounded-2xs border border-aciu-light-grey py-3.5 px-2.5 w-full h-full"
         >
             <div
                 className="w-fit h-fit px-2 py-2 bg-aciu-green-light rounded-[5.65px] border border-aciu-light-grey"
@@ -49,7 +49,7 @@ export default function MenuCard({
     return (
        <button
             onClick={() => onClick()}
-            className="text-left"
+            className="text-left w-full"
         >
             {content}
         </button>

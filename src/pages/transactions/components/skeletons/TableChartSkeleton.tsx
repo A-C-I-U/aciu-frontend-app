@@ -30,7 +30,7 @@ export default function TableChartSkeleton() {
                     </div>
                 </div>
             </div>
-            <div className="bg-white flex flex-col gap-6 py-4 lg:px-4">
+            <div className="bg-white flex flex-col gap-6 p-4">
                 <div className="flex flex-col gap-6 lg:gap-0 lg:flex-row justify-between lg:items-center">
                     <div className="h-8 bg-gray-200 rounded w-40 mb-2"></div>
                     <div className="flex items-center gap-4">

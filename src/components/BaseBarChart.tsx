@@ -64,7 +64,7 @@ export function BaseBarChart<T>({
         <Tooltip
           formatter={(value) => `${(Number(value) / 1_000_000).toFixed(2)}M`}
           cursor={{ fill: "transparent" }}
-          content={<CustomTooltip />}
+          content={<CustomTooltip chartType="bar"/>}
         />
 
         {children}

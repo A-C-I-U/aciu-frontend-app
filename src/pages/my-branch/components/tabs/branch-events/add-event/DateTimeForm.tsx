@@ -4,6 +4,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { FormLabel } from "@mui/material";
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import dayjs from "dayjs";
+import { datePickerSx, formLabelSx } from "@/utils/data";
 
 export default function DateTimeForm() {
     const { values, setFieldValue, touched, errors } = useFormikContext<any>();
@@ -32,28 +33,12 @@ export default function DateTimeForm() {
                             value={values.eventDate ? dayjs(values.eventDate) : null}
                             onChange={(newValue) => setFieldValue("eventDate", dayjs(newValue))}
                             className="w-full h-unset py-2"
-                            sx={{
-                                '& .MuiInputLabel-root': {
-                                    fontSize: '.875rem'
-                                },
-                                '& .MuiPickersInputBase-root': {
-                                    fontSize: ".875rem"
-                                },
-                                '& .MuiPickersOutlinedInput-root': {
-                                    borderRadius: ".5rem",
-                                    borderColor: "#DFE1E7",
-                                }
-                            }}
+                            sx={datePickerSx}
                         />
                     </div>
                     <div className="flex flex-col gap-3.5 md:gap-2 items-start w-full">
                         <FormLabel
-                            sx={{
-                                fontFamily: "'Montserrat', sans-serif",
-                                color: '#3E3E3E',
-                                fontWeight: 500,
-                                fontSize: '0.875rem',
-                            }}
+                            sx={formLabelSx}
                         >
                             Event Time
                         </FormLabel>

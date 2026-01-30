@@ -4,6 +4,7 @@ import { useState } from "react";
 import ProjectCard from "../ProjectCard";
 import { useMediaQuery, Skeleton } from "@mui/material";
 import { useProjects } from "@/services/hooks/project";
+import { EmptyPage } from "@/components/EmptyPage";
 
 const sectionActions = [
     <button
@@ -89,20 +90,20 @@ export default function CompletedProjects() {
                     ))}
                 </div>
             ) : (
-                <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
-                    {projects?.map((project) => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                            isCompleted={true} 
-                        />
-                    ))}
+                <>
+                    <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
+                        {projects?.map((project) => (
+                            <ProjectCard
+                                key={project.id}
+                                project={project}
+                                isCompleted={true} 
+                            />
+                        ))}
+                    </div>
                     {projects?.length === 0 && (
-                        <div className="col-span-full text-center py-8 text-gray-500">
-                            No completed projects found.
-                        </div>
+                        <EmptyPage label="Completed Projects" />
                     )}
-                </div>
+                </>
             )}
         </div>
     );

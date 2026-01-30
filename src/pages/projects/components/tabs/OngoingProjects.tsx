@@ -8,6 +8,7 @@ import { useProjects } from "@/services/hooks/project";
 import { ProjectSkeleton } from "../ProjectSkeleton";
 import { useUser } from "@/context/UserContext";
 import CreateProject from "../actions/CreateProject";
+import { EmptyPage } from "@/components/EmptyPage";
 
 const sectionActions = [
     <button
@@ -97,19 +98,20 @@ export default function OngoingProjects() {
                     ))}
                 </div>
             ) : (
-                <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
-                    {projects?.map((project) => (
-                        <ProjectCard
-                            key={project.id}
-                            project={project}
-                        />
-                    ))}
+                <>
+                    <div className={`grid ${isMedium ? "md:grid-cols-2" : "lg:grid-cols-3"} lg:gap-4`}>
+                        {projects?.map((project) => (
+                            <ProjectCard
+                                key={project.id}
+                                project={project}
+                            />
+                        ))}
+                        
+                    </div>
                     {projects?.length === 0 && (
-                        <div className="col-span-full text-center py-8 text-gray-500">
-                            No ongoing projects found.
-                        </div>
+                        <EmptyPage label="Ongoing projects" />
                     )}
-                </div>
+                </>
             )}
 
             <NominateProject 

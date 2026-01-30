@@ -62,7 +62,7 @@ export function TransactionsAreaChart({ data,name, dataKey }: { data: any[], nam
                 <Tooltip
                     formatter={(value) => `${(Number(value) / 1_000_000).toFixed(2)}M`}
                     cursor={{ fill: "transparent" }}
-                    content={<CustomTooltip />}
+                    content={<CustomTooltip chartType="area"/>}
                 />
 
                 <Area

@@ -1,6 +1,6 @@
 export const DetailSkeleton = () => {
     return (
-        <table>
+        <table className="w-full">
             <thead>
                 <tr className="payment-table-column title">
                     <th>

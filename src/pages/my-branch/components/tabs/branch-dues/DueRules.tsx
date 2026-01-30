@@ -1,59 +1,61 @@
-import type { DueRulesType } from "@/utils/types"
+import { useDuesRules } from "@/services/hooks/dues";
+import { EmptyRecords } from "../../EmptyStates";
+import { ViewDetailRow } from "@/components/ViewDetailRow";
+import { Information } from "iconsax-react";
+import { DetailSkeleton } from "@/components/DetailSkeleton";
 
-export default function DueRules({
-    dueRules
-}: { dueRules: DueRulesType}) {
-    const { ageGrades, gender, location, memberRoles, currency, notifications } = dueRules;
+export default function DueRules({ id }: { id: string}) {
+    const { data: dueRules, isLoading } = useDuesRules(id);
+
+    if (isLoading && !dueRules) return <div className="w-full"><DetailSkeleton /></div>;
+
+    if (!dueRules && !isLoading) return <EmptyRecords />;
+
     return (
-        <table>
-            <thead>
-                <tr className="text-left">
-                    <th className="payment-table-column title">Rule Type</th>
-                    <th className="payment-table-column desc">Condition Applied</th>
-                </tr>
-            </thead>
-            <tbody>
-                <DetailRow
-                    label="Age Grades"
-                    value={ageGrades}
-                />
-                <DetailRow
-                    label="Gender"
-                    value={gender}
-                />
-                <DetailRow
-                    label="Location"
-                    value={location}
-                />
-                <DetailRow
-                    label="Member Role"
-                    value={memberRoles}
-                />
-                <DetailRow
-                    label="Currency"
-                    value={currency}
-                />
-                <DetailRow
-                    label="Notifications"
-                    value={notifications}
-                />
-            </tbody>
-        </table>
-    )
-}
-
-
-const DetailRow = ({ label, value }: { label: string, value: React.ReactNode}) => {
-    if (Array.isArray(value)) {
-        value = value.join(", ")
-    } else {
-        value = value;
-    }
-    
-    return (
-        <tr>
-            <td className="payment-table-column title">{label}</td>
-            <td className="payment-table-column desc">{value}</td>
-        </tr>
+        <>
+        {dueRules && !isLoading &&
+            <div className="flex flex-col gap-5 h-full w-full">
+                <table className="w-full">
+                    <thead>
+                        <tr className="text-left">
+                            <th className="payment-table-column title lg:w-51">Rule Type</th>
+                            <th className="payment-table-column desc">Condition Applied</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ViewDetailRow
+                            label="Age Grades"
+                            content={dueRules.rules.ageGrades.join(", ")}
+                        />
+                        <ViewDetailRow
+                            label="Gender"
+                            content={dueRules.rules.gender}
+                        />
+                        <ViewDetailRow
+                            label="Location"
+                            content={dueRules.rules.location}
+                        />
+                        <ViewDetailRow
+                            label="Member Roles"
+                            content={dueRules.rules.memberRoles.join(", ")}
+                        />
+                        <ViewDetailRow
+                            label="Currency"
+                            content={dueRules.rules.currency}
+                        />
+                        <ViewDetailRow
+                            label="Notifications"
+                            content={dueRules.notifications.join(", ")}
+                        />
+                    </tbody>
+                </table>
+                <div className="mt-auto py-4 px-2.5 text-sm leading-default rounded-2xs flex gap-1 bg-[#F2FFFD] border border-aciu-green-normal">
+                    <Information variant="Bold" size={24} color="#00B686"/>
+                    <span>
+                        These rules automatically determine visibility and eligibility for payment on each member's dashboard.
+                    </span>
+                </div>
+            </div>}
+        </>
     )
 }

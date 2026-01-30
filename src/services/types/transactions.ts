@@ -1,3 +1,5 @@
+import type { Gender, Interval } from "./nationaldues";
+
 export type updateWithdrawalRequestPayload =
  | { status: "APPROVED" }
  | {
@@ -5,10 +7,15 @@ export type updateWithdrawalRequestPayload =
     reason: string
 }
 
+export interface TransactionStat {
+    amount: number,
+    growth: number
+}
+
 export interface TransactionOverview {
-    totalCashInflow: number,
-    totalApprovedWithdrawals: number,
-    netBalance: number,
+    totalCashInflow: TransactionStat,
+    totalApprovedWithdrawals: TransactionStat,
+    netBalance: TransactionStat,
     transactionsThisMonth: number,
 }
 
@@ -158,10 +165,10 @@ export interface NationalDuesDetail {
     amountNaira: number;
     startDate: string;
     endDate: string;
-    interval: "Monthly" | "Quaterly" | "One Month" | "Yearly";
+    interval: Interval;
     ageGrades: string[];
-    gender: "All Genders" | "Male" | "Female";
-    location: "Abroad" | "Local";
+    gender: Gender;
+    location: string;
     memberRoles: string[];
     notifications: string[];
     status: "Active" | "Inactive";

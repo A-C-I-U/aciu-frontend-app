@@ -40,12 +40,14 @@ export function ResponsiveDataTable<T>({
           <div className="grid gap-4 md:grid-cols-2">
             {currentItems.map(renderMobileItem)}
           </div>
-          <PaginationControls
-            total={data.length}
-            page={page}
-            onPageChange={setPage}
-            itemsPerPage={itemsPerPage}
-          />
+          {Math.ceil(data.length / itemsPerPage) > 1 && 
+            <PaginationControls
+              total={data.length}
+              page={page}
+              onPageChange={setPage}
+              itemsPerPage={itemsPerPage}
+            />
+          }
         </>
       )}
     </>
