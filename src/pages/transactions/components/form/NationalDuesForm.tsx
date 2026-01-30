@@ -33,14 +33,21 @@ const initialValues: CreateNationalDuesPayload = {
   notifications: [],
 }
 
-
-export default function AddNationalDues({ id, open, onClose }: DialogFuncProps & { id?: string }) {
+export default function NationalDuesForm({ 
+    id, 
+    open, 
+    onClose,
+    mode
+}: DialogFuncProps & { 
+    id?: string;
+    mode: "create" | "edit";
+}) {
     const [showSuccess, setShowSuccess] = useState(false);
     const [duesTitle, setDuesTitle] = useState("");
 
     const navigate = useNavigate();
     const saveNationalDuesMutation = useSaveNationalDues();
-    const { data: duesDetails } = useDuesDetails(id ?? "")
+    const { data: duesDetails } = useDuesDetails(mode === "edit" ? id! : "")
     const { user } = useUser();
 
     const initialFormikValues = duesDetails ? {
@@ -57,8 +64,7 @@ export default function AddNationalDues({ id, open, onClose }: DialogFuncProps &
         notifications: duesDetails.notifications
     } : initialValues;
 
-    const handleSubmit = async (values: CreateNationalDuesPayload, actions: any) => {
-        
+    const handleSubmit = async (values: CreateNationalDuesPayload, actions: any) => {     
         const payload = {
             title: values.title,
             currency: values.currency,
@@ -75,7 +81,10 @@ export default function AddNationalDues({ id, open, onClose }: DialogFuncProps &
         setDuesTitle(values.title);
 
         try {
-            const result = await saveNationalDuesMutation.mutateAsync({ id, payload });
+            const result =
+                mode === "edit"
+                    ? await saveNationalDuesMutation.mutateAsync({ id, payload })
+                    : await saveNationalDuesMutation.mutateAsync({ payload });
             enqueueSnackbar(result.message, { variant: "success" });
             actions.setSubmitting(false);
             onClose();
@@ -94,13 +103,17 @@ export default function AddNationalDues({ id, open, onClose }: DialogFuncProps &
                 onClose={onClose}
             >
                 <div className="resources-modal-section flex flex-col h-full overflow-hidden">
-                    <ShellHeader title="Add National Dues" onClose={onClose} />
+                    <ShellHeader 
+                        title={`${mode === "create" ? "Add National Dues" : "Edit National Dues" }`} 
+                        onClose={onClose} 
+                    />
                     <Divider className="flex shrink-0" />
                     <Formik
                         initialValues={initialFormikValues}
                         validationSchema={createNationalDuesSchema}
                         onSubmit={handleSubmit}
                         validateOnBlur
+                        enableReinitialize
                     >
                         {({ isValid, isSubmitting, setFieldValue, values }) => {
                             return (
@@ -261,7 +274,7 @@ export default function AddNationalDues({ id, open, onClose }: DialogFuncProps &
                                                 options={[
                                                     { value: "Yes - Every 7 days", label: "Yes - Every 7 days" },
                                                     { value: "Yes - 3 days before deadline", label: "Yes - 3 days before deadline" },
-                                                    { value: "No – Manual reminders only", label: "No – Manual reminders only" }
+                                                    { value: "No - Manual reminders only", label: "No - Manual reminders only" }
                                                 ]}
                                                 select
                                                 fullWidth
@@ -274,11 +287,12 @@ export default function AddNationalDues({ id, open, onClose }: DialogFuncProps &
                                         <button disabled={!isValid || isSubmitting} className="btn btn-primary">
                                             {saveNationalDuesMutation.isPending ? (
                                                 <>
-                                                    <CircularProgress sx={{ color: "white "}} size={12} />
-                                                    "Creating..."
+                                                    <CircularProgress sx={{ color: "white" }} size={12} />
+                                                    {mode === "edit" ? "Updating..." : "Creating..."}
                                                 </>
-                                            ) : "Create Dues"
-                                            }
+                                            ) : (
+                                                mode === "edit" ? "Update Dues" : "Create Dues"
+                                            )}
                                         </button>
                                         <button className="btn btn-secondary" type="button" onClick={onClose}>
                                             Cancel

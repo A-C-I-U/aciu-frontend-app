@@ -10,7 +10,7 @@ import { formatDate } from "date-fns";
 import { nationalDuesMap } from "@/utils/helpers";
 import { nationalDuesColumns } from "../columns/NationalDuesColumns";
 import DuesPreview from "@/pages/my-branch/components/tabs/branch-dues/DuesPreview";
-import AddNationalDues from "../actions/AddNationalDues";
+import NationalDuesForm from "../form/NationalDuesForm";
 
 export default function NationalDuesTable({
     data,
@@ -76,10 +76,14 @@ export default function NationalDuesTable({
                 onEdit={handleEdit}
                 id={selected && selected.id}
             />
-            <AddNationalDues
+            <NationalDuesForm
                 open={addDues}
                 id={editingId}
-                onClose={() => showAddDues(false)}
+                onClose={() => {
+                    showAddDues(false);
+                    setEditingId("")
+                }}
+                mode={editingId ? "edit" : "create"}
             />
         </>
     )
@@ -87,7 +91,7 @@ export default function NationalDuesTable({
 
 
 const fields: FieldConfig<NationalDuesResponse>[] = [ 
-    { label: "Amount Paid", value: (p) => `N${(+p["Amount Paid"]).toLocaleString()}`}, 
+    { label: "Amount Paid", value: (p) => `N${Math.round(+p["Amount Paid"]).toLocaleString()}`}, 
     { label: "Due Type", value: (p) => p["Due Type"] }, 
     { label: "Date", value: (p) => formatDate(p.Date, "dd-MM-yyyy h:mm  aaaaa'm'") }, 
     { label: "Intervals", value: (p) => p.Intervals } 
