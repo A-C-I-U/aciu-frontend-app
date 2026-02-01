@@ -9,6 +9,7 @@ import { useProjectDonationDetails } from "@/services/hooks/transactions";
 import { Divider } from "@mui/material";
 import type { DonationsResponse } from "@/services/types/transactions";
 import { formatDate } from "date-fns";
+import ReceiptDownloadButton from "@/components/ReceiptDownloadButton";
 
 export default function ProjectDonationsDetail ({
     open, onClose, id
@@ -17,7 +18,17 @@ export default function ProjectDonationsDetail ({
     if (!id) return null;
     const { data, isLoading, isError } = useProjectDonationDetails(id);
 
-        
+    const projectDonation = data ? {
+        projectName: data?.["Project Name"],
+        donorName: data?.["Donor Name"],
+        donorBranch: data?.["Donor Branch"],
+        source: data?.Source,
+        status: data?.Status,
+        amount: data?.Amount,
+        date: data?.Date,
+        ...data
+    } : null
+
     return (
         <>
             <ShellModal open={open} onClose={onClose}>
@@ -27,17 +38,17 @@ export default function ProjectDonationsDetail ({
                     <div className="flex flex-col h-full overflow-hidden">
                         <div className="resources-modal-body pb-6">
                             {isLoading && <DetailSkeleton />}
-                            {(isError && !data && !isLoading) && (
+                            {(isError && !projectDonation && !isLoading) && (
                                 <div className="text-aciu-abriba p-4">
                                     Unable to load details.
                                     Please open the modal again.
                                 </div>
                             )}
-                            {(!data && !isLoading )&& <EmptyRecords />}
-                            {data &&
+                            {(!projectDonation && !isLoading )&& <EmptyRecords />}
+                            {projectDonation &&
                             (<>
                                 {(() => {
-                                    const { label, labelColor, dotColor, bgColor } = paymentStatusMap[data.Status as DonationsResponse["Status"]]
+                                    const { label, labelColor, dotColor, bgColor } = paymentStatusMap[projectDonation.status as DonationsResponse["Status"]]
                                     return (
                                     <div className="flex flex-col gap-4">
                                         <div className="overflow-x-auto scroll-unset pb-2 w-full">
@@ -49,13 +60,13 @@ export default function ProjectDonationsDetail ({
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <ViewDetailRow label="Transaction ID" content={data.transactionId} />
-                                                    <ViewDetailRow label="Project Name" content={data["Project Name"]} />
-                                                    <ViewDetailRow label="Donor Name" content={data["Donor Name"]} />
-                                                    <ViewDetailRow label="Donor's Branch" content={data["Donor Branch"]} />
-                                                    <ViewDetailRow label="Amount" content={`N${Math.round(data.Amount).toLocaleString()}`} />
-                                                    <ViewDetailRow label="Source" content={data.Source} />
-                                                    <ViewDetailRow label="Date Paid" content={formatDate(data.Date, "dd-MM-yyyy h:mm  a")} />
+                                                    <ViewDetailRow label="Transaction ID" content={projectDonation.transactionId} />
+                                                    <ViewDetailRow label="Project Name" content={projectDonation.projectName} />
+                                                    <ViewDetailRow label="Donor Name" content={projectDonation.donorName} />
+                                                    <ViewDetailRow label="Donor's Branch" content={projectDonation.donorBranch} />
+                                                    <ViewDetailRow label="Amount" content={`N${Math.round(+projectDonation.amount).toLocaleString()}`} />
+                                                    <ViewDetailRow label="Source" content={projectDonation.source} />
+                                                    <ViewDetailRow label="Date Paid" content={formatDate(projectDonation.date, "dd-MM-yyyy h:mm  a")} />
                                                     <ViewDetailRow label="Payment Status" content={<StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />} />
                                                 </tbody>
                                             </table>
@@ -66,9 +77,7 @@ export default function ProjectDonationsDetail ({
                         )}
                         </div>
                         <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                            <button disabled={!data} className="btn btn-primary">
-                                Download Receipt
-                            </button>
+                            <ReceiptDownloadButton data={projectDonation} type="projectDonation" />
                         </div>
                     </div>
                 </div>
