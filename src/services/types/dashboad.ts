@@ -51,7 +51,7 @@ export interface NationalDashboardStats {
 }
 
 
-export interface WithdrawalDetailResponse {
+export interface DashboardWithdrawalApiResponse {
   id: string;
   TransactionID: string;
   "Payment Type": string;
@@ -60,16 +60,6 @@ export interface WithdrawalDetailResponse {
   Status: string;
   "Submitted By": string;
   "Branch Name": string;
-}
-
-
-export interface WithdrawalRequestResponse {
-  id: string,
-  TransactionID: string,
-  "Branch Name": string,
-  Date: string,
-  Amount: number,
-  Status: string
 }
 
 export interface MonthlyTransaction {

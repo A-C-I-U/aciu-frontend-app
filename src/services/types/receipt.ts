@@ -14,5 +14,5 @@ export interface ReceiptConfig {
 
 export interface ReceiptDownloadButtonProps {
     data: any;
-    type: 'dues' | 'eventDonation' | 'projectDonation';
+    type: 'dues' | 'eventDonation' | 'projectDonation' | 'withdrawalRequest';
 }

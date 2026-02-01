@@ -12,7 +12,7 @@ import {
     type DuesPaymentDetail, 
     type EventDonationDetails, 
     type ProjectDonationDetails, 
-    type WithdrawalDetailResponse,
+    type WithdrawalAPIResponse,
     type DuesStatusApiResponse,
 } from "../types/transactions";
 
@@ -188,10 +188,10 @@ export const useProjectDonationDetails = (id: string) => {
 }
 
 export const useWithdrawalDetails = (id: string) => {
-    return useQuery<WithdrawalDetailResponse>({
+    return useQuery<WithdrawalAPIResponse>({
         queryKey: ["transaction-withdrawal-detail", id],
-        queryFn: async (): Promise<WithdrawalDetailResponse> => {
-            const response = await apiClient.get<WithdrawalDetailResponse>(`/transactions/withdrawals/${id}`)
+        queryFn: async (): Promise<WithdrawalAPIResponse> => {
+            const response = await apiClient.get<WithdrawalAPIResponse>(`/transactions/withdrawals/${id}`)
             return response.data
         },
         staleTime: 5 * 60 * 1000,

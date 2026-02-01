@@ -76,19 +76,34 @@ export interface WithdrawalResponse {
 }
 
 
+export interface WithdrawalAPIResponse {
+    TransactionId: string;
+    Branch: string;
+    RequestedBy: string;
+    Position: string;
+    WithdrawalSource: string;
+    Amount: number;
+    BankName: string;
+    AccountName: string;
+    AccountNumber: string;
+    Date: string;
+    PaymentStatus: "pending" | "rejected" | "approved";
+    withdrawalAgreementForm: string;
+}
+
 export interface WithdrawalDetailResponse {
-    TransactionId: string,
-    Branch: string,
-    RequestedBy: string,
-    Position: string,
-    WithdrawalSource: string,
-    Amount: number,
-    BankName: string,
-    AccountNumber: string,
-    AccountName: string,
-    Date: string,
-    PaymentStatus: "pending" | "rejected" | "approved",
-    withdrawalAgreementForm: string | null
+    transactionId: string;
+    branch: string;
+    requestedBy: string;
+    position: string;
+    withdrawalSource: string;
+    amount: number;
+    bankName: string;
+    accountName: string;
+    accountNumber: string;
+    date: string;
+    status: "pending" | "rejected" | "approved";
+    withdrawalAgreementForm: string;
 }
 
 export interface DonationsResponse {

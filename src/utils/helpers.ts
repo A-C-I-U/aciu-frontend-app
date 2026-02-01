@@ -616,7 +616,7 @@ export function getStatusConfig(status: string) {
 }
 
 export const formatters = {
-  currency: (value: number) => `₦${Math.round(value).toLocaleString()}`,
+  currency: (value: number) => `₦${Math.round(value).toLocaleString()} `,
   date: (value: string | Date) => format(new Date(value), 'dd-MM-yyyy h:mm a'),
   nullableText: (value: string | null | undefined) => value || 'N/A',
   status: (value: string) => getStatusConfig(value),
@@ -671,8 +671,8 @@ export const duesReceiptConfig: ReceiptConfig = {
       { label: 'Dues Title', key: 'duesTitle' },
       { label: 'Source', key: 'source' },
       { label: 'Amount', key: 'amount', format: formatters.currency },
-      { label: 'Date Paid', key: 'datePaid', format: formatters.date },
-      { label: 'Status', key: 'paymentStatus', format: formatters.status },
+      { label: 'Date Paid', key: 'date', format: formatters.date },
+      { label: 'Status', key: 'status', format: formatters.status },
     ],
 };
 
@@ -683,10 +683,23 @@ export const projectDonationReceiptConfig: ReceiptConfig = {
         { label: 'Transaction ID', key: 'transactionId' },
         { label: 'Donor Name', key: 'donorName' },
         { label: 'Donor Branch', key: 'donorBranch', hideIfEmpty: true },
-        { label: 'Project Type', key: 'projectType'},
+        { label: 'Project Name', key: 'projectName'},
         { label: 'Amount', key: 'amount', format: formatters.currency },
         { label: 'Source', key: 'source' },
         { label: 'Date', key: 'date', format: formatters.date },
         { label: 'Status', key: 'status', format: formatters.status },
     ],
 };
+
+export const withdrawalReceiptConfig: ReceiptConfig = {
+  title: "WITHDRAWAL REQUEST RECEIPT",
+  fields: [
+    { label: 'Transaction ID', key: 'transactionId' },
+    { label: 'Payment Type', key: 'paymentType' },
+    { label: 'Amount', key: 'amount', format: formatters.currency },
+    { label: 'Branch Name', key: 'branchName' },
+    { label: 'Submitted By', key: 'submittedBy' },
+    { label: 'Date', key: 'date', format: formatters.date },
+    { label: 'Status', key: 'status', format: formatters.status },
+  ]
+}
