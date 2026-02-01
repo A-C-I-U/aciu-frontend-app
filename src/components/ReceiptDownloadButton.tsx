@@ -17,23 +17,30 @@ export default function ReceiptDownloadButton({
     };
     
     const config = configs[type];
-    console.log(data)
+
+    if (!data) {
+        return (
+            <button className='btn btn-primary' disabled>
+                <CircularProgress size={16} />
+                Generating...
+            </button>
+        );
+    }
 
     return (
         <PDFDownloadLink
             document={
-                <ReceiptTemplate
-                    config={config}
-                    data={data}
-                />
+                <ReceiptTemplate config={config} data={data} />
             }
-            fileName={`${type}-receipt.pdf`}
+            fileName={`${data?.transactionId}-receipt.pdf`}
+            className={`
+                    btn btn-primary w-full inline-flex items-center justify-center gap-2
+                    ${!data ? 'opacity-50 pointer-events-none cursor-not-allowed' : ''}
+                `}
+            aria-disabled={!data}
         >
             {({ loading }) => (
-                <button 
-                    className={`btn btn-primary w-full`}
-                    disabled={loading || !data}
-                >
+                <>
                     {loading ? (
                         <>
                             <CircularProgress size={16} />
@@ -44,7 +51,7 @@ export default function ReceiptDownloadButton({
                             Download Receipt
                         </>
                     )}
-                </button>
+                </>
             )}
         </PDFDownloadLink>
     );

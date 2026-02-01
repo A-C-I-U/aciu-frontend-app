@@ -5,65 +5,89 @@ import { formatDate } from 'date-fns';
 
 Font.register({
     family: 'Montserrat',
-    src: '/fonts/montserrat/Montserrat-Regular.ttf'
-},);
+    fonts: [
+        { src: '/public/fonts/montserrat/Montserrat-Regular.ttf', fontWeight: 400 },
+        { src: '/public/fonts/montserrat/Montserrat-Semibold.ttf', fontWeight: 600 },
+        { src: '/public/fonts/montserrat/Montserrat-Bold.ttf', fontWeight: 700 }
+    ]
+});
 
 Font.register({
     family: 'Coolvetica',
-    src: '/fonts/coolvetica/Coolvetica-bold.ttf',
+    src: '/public/fonts/coolvetica/Coolvetica-bold.ttf',
     fontWeight: 'bold'
 })
 
 const styles = StyleSheet.create({
     page: {
+        backgroundColor: "#fff",
+    },
+    main: {
         paddingLeft: 33,
         paddingRight: 33,
-        paddingTop: 24,
-        paddingBottom: 64,
-        backgroundColor: "#fff",
+        paddingTop: 49,
+        paddingBottom: 24,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 41
     },
     headerSection: {
         display: "flex",
         flexDirection: "column",
-        gap: 12
+        gap: 14
     },
     header: {
         display: "flex",
         flexDirection: "column",
-        gap: 24,
+        gap: 18,
         justifyContent: "center",
         alignItems: "center"
     },
     headerText: {
         fontSize: 24,
-        // lineHeight: 1.25,
+        lineHeight: 1.25,
         fontFamily: 'Coolvetica',
         color: "#313131"
     },
     date: {
         fontFamily: 'Montserrat',
-        // lineHeight: 20,
+        lineHeight: 1.25,
         color: "#3E3E3E",
-        textAlign: 'center'
+        fontSize: 12,
+        textAlign: 'center',
     },
     p: {
         fontFamily: 'Montserrat',
-        // lineHeight: 1,
-        color: "#3E3E3E"
+        lineHeight: 1,
+        color: "#3E3E3E",
+        fontSize: 12
     },
     amount: {
         display: "flex",
         flexDirection: "column",
-        gap: 16
+        gap: 12,
+        fontFamily: 'Montserrat',
+        alignItems: 'center'
+    },
+    amountLabel: {
+       fontSize: 14,
+       lineHeight: 1,
+       color: '#3E3E3E'
+    },
+    amountContent: {
+        fontWeight: 600,
+        fontSize: 24,
+        lineHeight: 1.25
     },
     logo: {
         width: 57,
-        height: 57
+        height: 57,
+        objectFit: 'contain'
     },
     statusBadge: {
+        display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        alignSelf: 'flex-start',
         gap: 4,
         paddingHorizontal: 8,
         paddingVertical: 4,
@@ -71,17 +95,18 @@ const styles = StyleSheet.create({
     },
     statusDot: {
         width: 6,
-        height: 6,
+        height: 6.25,
         borderRadius: 3,
-        marginRight: 6,
     },
     statusText: {
-        fontSize: 12,
-        fontWeight: 'bold',
+        fontSize: 10,
+        fontWeight: 'normal',
+        lineHeight: 1.25
     },
     table: {
         borderWidth: 1,
         borderColor: '#C9C9C9',
+        fontFamily: 'Montserrat'
     },
     tableHeader: {
         flexDirection: 'row',
@@ -97,8 +122,8 @@ const styles = StyleSheet.create({
     tableCellTitle: {
         width: '40%',
         padding: 15,
-        fontSize: 14,
-        color: '#737373',
+        fontSize: 12,
+        color: '#3E3E3E',
         backgroundColor: '#EEEEEE',
         borderRightWidth: 1,
         borderRightColor: '#C9C9C9',
@@ -106,15 +131,17 @@ const styles = StyleSheet.create({
     tableCellDesc: {
         width: '60%',
         padding: 15,
-        fontSize: 14,
-        color: '#737373',
+        fontSize: 12,
+        color: '#3E3E3E',
         backgroundColor: '#FCFCFC',
-        // lineHeight: 1.4,
+        lineHeight: 1.4,
+        verticalAlign: 'sub',
+        flexWrap: 'wrap'
     },
     tableHeaderText: {
         fontSize: 14,
         fontWeight: 'bold',
-        color: '#313131',
+        color: '#3E3E3E',
     },
 })
 
@@ -155,40 +182,52 @@ export default function ReceiptTemplate({
     return (
         <Document>
             <Page size="A4" style={styles.page}>
-                <View style={styles.headerSection}>
-                    <View style={styles.header}>
-                        <Image style={styles.logo} src="/images/receipt-logo.png" />
-                        <Text style={styles.headerText}>{config.title}</Text>
-                    </View>
-                    <Text style={styles.date}>{formatDate(new Date().toISOString(), "dd MM yyyy h:mm  aaaaa'm'")}</Text>
-                </View>
-                <View style={styles.table}>
-                    <View style={styles.tableHeader}>
-                        <View style={styles.tableCellTitle}>
-                            <Text style={styles.tableHeaderText}>Title</Text>
+                <View style={styles.main}>
+                    <View style={styles.headerSection}>
+                        <View style={styles.header}>
+                            <Image style={styles.logo} src="https://res.cloudinary.com/dgafp4dx4/image/upload/f_png/v1769946075/receipt-logo_q4eoxr.png" />
+                            <Text style={styles.headerText}>Payment Successful</Text>
+                            <View style={styles.amount}>
+                                <Text style={styles.amountLabel}>
+                                    Amount
+                                </Text>
+                                <Text style={styles.amountContent}>
+                                    {`₦${Math.round(data["amount"]).toLocaleString()}`}
+                                </Text>
+                            </View>
                         </View>
-                        <View style={styles.tableCellDesc}>
-                            <Text style={styles.tableHeaderText}>Description</Text>
-                        </View>
+                        <Text style={styles.date}>
+                            {formatDate(data["date"], "dd MMM yyyy h:mm aaaaa'm'")}
+                        </Text>
                     </View>
-                    {data && config.fields.map((field, index) => {
-                        const rawValue = data[field.key];
+                    <View style={styles.table}>
+                        <View style={styles.tableHeader}>
+                            <View style={styles.tableCellTitle}>
+                                <Text style={styles.tableHeaderText}>Title</Text>
+                            </View>
+                            <View style={styles.tableCellDesc}>
+                                <Text style={styles.tableHeaderText}>Description</Text>
+                            </View>
+                        </View>
+                        {data && config.fields.map((field, index) => {
+                            const rawValue = data[field.key];
 
-                        if (field.hideIfEmpty && !rawValue) return null;
+                            if (field.hideIfEmpty && !rawValue) return null;
 
-                        const formattedValue = field.format
-                            ? field.format(rawValue)
-                            : rawValue;
-                        
-                        
-                        return (
-                            <ReceiptTableRow
-                                key={index}
-                                label={field.label}
-                                content={formattedValue}
-                            />
-                        )
-                    })}
+                            const formattedValue = field.format
+                                ? field.format(rawValue)
+                                : rawValue;
+                            
+                            
+                            return (
+                                <ReceiptTableRow
+                                    key={index}
+                                    label={field.label}
+                                    content={formattedValue}
+                                />
+                            )
+                        })}
+                    </View>
                 </View>
             </Page>
         </Document>
