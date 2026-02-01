@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     tableHeaderText: {
-        fontSize: 14,
+        fontSize: 12,
         fontWeight: 'bold',
         color: '#3E3E3E',
     },
