@@ -18,6 +18,7 @@
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.2.0",
     "@mui/x-date-pickers": "^8.23.0",
+    "@react-pdf/renderer": "^4.3.2",
     "@solar-icons/react": "^1.0.1",
     "@stripe/react-stripe-js": "^5.4.1",
     "@stripe/stripe-js": "^8.5.3",
