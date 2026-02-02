@@ -1,16 +1,16 @@
 import { DetailSkeleton } from "@/components/DetailSkeleton";
+import ReceiptDownloadButton from "@/components/ReceiptDownloadButton";
 import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
 import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
-import { useWithdrawalDetail } from "@/services/hooks/dashboard";
-import type { WithdrawalDetailResponse } from "@/services/types/dashboad";
-import { copyTextToClipboard, withdrawalStatusMap } from "@/utils/helpers";
+import { useNationalDashboardWithdrawalDetail } from "@/services/hooks/dashboard";
+import type { DashboardWithdrawalApiResponse } from "@/services/types/dashboad";
+import { withdrawalStatusMap } from "@/utils/helpers";
 import type { WithdrawalDataType } from "@/utils/types";
 import { Divider } from "@mui/material";
 import { formatDate } from "date-fns";
-import { Copy } from "iconsax-react";
 
 export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
     open: boolean,
@@ -19,7 +19,18 @@ export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
 ) {
     if (!withdrawalId) return null;
 
-    const { data, isLoading } = useWithdrawalDetail(withdrawalId);
+    const { data, isLoading } = useNationalDashboardWithdrawalDetail(withdrawalId);
+
+    const withdrawalRequest = data ? {
+        ...data,
+        transactionId: data.TransactionID,
+        paymentType: data["Payment Type"].toLowerCase().replace(/\b\w/g, c => c.toUpperCase()),
+        date: data.Date,
+        amount: data.Amount,
+        status: data.Status.toLowerCase(),
+        submittedBy: data["Submitted By"],
+        branchName: data["Branch Name"]
+    } : null;
 
     return (
         <ShellModal
@@ -43,9 +54,7 @@ export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
                     )}
                     </div>
                     <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                        <button className="btn btn-primary" disabled={!data}>
-                            Download Receipt
-                        </button>
+                        <ReceiptDownloadButton data={withdrawalRequest} type="withdrawalRequest" />
                     </div> 
                 </div>
             </div>
@@ -53,7 +62,7 @@ export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
     )
 }
 
-const WithdrawalDetailContent = ({ data }: { data: WithdrawalDetailResponse }) => {
+const WithdrawalDetailContent = ({ data }: { data: DashboardWithdrawalApiResponse }) => {
     if (!data) return <EmptyRecords />
     
     const withdrawalDetail = {
@@ -78,38 +87,8 @@ const WithdrawalDetailContent = ({ data }: { data: WithdrawalDetailResponse }) =
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td className="payment-table-column title whitespace-nowrap">Transaction ID</td>
-                    <td className="payment-table-column">
-                        <span className=" flex items-center justify-between">
-                            <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-45 md:max-w-60 text-xs md:text-sm">
-                                {withdrawalDetail.transactionId}
-                            </span>
-                            <button
-                                aria-label="Copy Transaction ID"
-                                onClick={() => copyTextToClipboard(withdrawalDetail.transactionId)}
-                            >
-                                <Copy variant="Bulk" size={20} color="#00B686" />
-                            </button>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td className="payment-table-column title whitespace-nowrap">Submitted By</td>
-                    <td className="payment-table-column">
-                        <span className=" flex items-center justify-between">
-                            <span className="desc capitalize whitespace-nowrap truncate max-w-25 sm:max-w-50 md:max-w-60 text-xs md:text-sm">
-                                {withdrawalDetail.submittedBy}
-                            </span>
-                            <button
-                                aria-label="Copy Submitted By"
-                                onClick={() => copyTextToClipboard(withdrawalDetail.submittedBy)}
-                            >
-                                <Copy variant="Bulk" size={20} color="#00B686" />
-                            </button>
-                        </span>
-                    </td>
-                </tr>
+                <ViewDetailRow label="Transaction ID" content={withdrawalDetail.transactionId} />
+                <ViewDetailRow label="Submitted By" content={withdrawalDetail.submittedBy} />
                 <ViewDetailRow label="Payment Type" content={withdrawalDetail.paymentType} />
                 <ViewDetailRow label="Amount" content={`N${withdrawalDetail.amount.toLocaleString()}`} />
                 <ViewDetailRow label="Date Paid" content={formatDate(withdrawalDetail.date, "dd-MM-yyyy h:mm  aaaaa'm'")} />

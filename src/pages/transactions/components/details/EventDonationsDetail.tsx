@@ -1,4 +1,5 @@
 import { DetailSkeleton } from "@/components/DetailSkeleton";
+import ReceiptDownloadButton from "@/components/ReceiptDownloadButton";
 import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
 import { StatusBadge } from "@/components/StatusBadge";
@@ -67,9 +68,7 @@ export default function EventDonationsDetail ({
                             )}
                         </div>
                         <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                            <button disabled={!data} className="btn btn-primary">
-                                Download Receipt
-                            </button>
+                            <ReceiptDownloadButton data={data} type="eventDonation" />
                         </div>
                     </div>
                 </div>
