@@ -14,7 +14,7 @@ import { X } from "lucide-react";
 const defaultDialogSx = {
     "& .MuiDialog-paper": {
         overflow: "hidden",
-        width: { xs: "92%", md: "90dvh" },
+        width: { xs: "92%", md: "65%" },
         margin: "0 auto",
         maxWidth: "none",
         borderRadius: "1.25rem",
@@ -64,9 +64,18 @@ export default function ViewBranchMember({
             <ScrollLock open={open} />
             <Dialog open={open} onClose={onClose} sx={defaultDialogSx}>
                 <button onClick={onClose} className="pt-4 flex justify-end px-3.75"><X size={24} /></button>
-                <div className="pt-15 px-3.75 md:px-7 flex flex-col gap-4 overflow-y-auto">
+                <div className="pt-2.5 px-3.75 md:px-7 flex flex-col gap-6 overflow-y-auto">
                     <div className="flex flex-col gap-4">
-                        <Avatar src={DummyProfile} className="rounded-[4.8rem] w-21.25! h-21.25!"/>
+                         <div className="relative -mx-3.75 md:-mx-7">
+                                <div className="absolute top-1/2 left-0 right-0 h-px bg-aciu-dark-grey -translate-y-1/2" />
+                                
+                                <div className="relative z-10 px-3.75 md:px-7">
+                                    <Avatar 
+                                        src={DummyProfile} 
+                                        className="rounded-[4.8rem] w-21.25! h-21.25!"
+                                    />
+                                </div>
+                            </div>
                         <div className="flex flex-col gap-5">
                             <div className="flex flex-col gap-2">
                                 <p className="font-semibold text-aciu-border-grey">
@@ -74,11 +83,15 @@ export default function ViewBranchMember({
                                 </p>
                                 <StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} /> 
                             </div>
-                            <div className="hidden md:grid md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-8 items-center">
-                                <MemberField title="Joined on" content={formatDate(joinedOn, "dd-MM-yyyy h:mm  aaaaa'm'")} />
-                                <Divider orientation="vertical" className="h-7" />
-                                <MemberField title="Veirfied on" content="Nov 12, 2025" />
-                                <Divider orientation="vertical" className="h-7" />
+                            <div className="hidden md:grid grid-cols-3 gap-8 items-center max-w-fit">
+                                <div className="flex items-center gap-8">
+                                    <MemberField title="Joined on" content={formatDate(joinedOn, "dd-MM-yyyy h:mm  aaaaa'm'")} />
+                                    <span className="h-7 w-px bg-aciu-dark-grey" />
+                                </div>
+                                <div className="flex items-center gap-8">
+                                    <MemberField title="Verified on" content="Nov 12, 2025" />
+                                    <span className="h-7 w-px bg-aciu-dark-grey" />
+                                </div>
                                 <MemberField title="Verified by" content="Ngozi Umeh (Admin)" />
                             </div>
                         </div>
@@ -141,7 +154,7 @@ export const MemberField = ({ title, content }: {
     content: React.ReactNode
 }) => {
     return (
-        <div className="flex flex-col gap-2 text-sm">
+        <div className="flex flex-col gap-2 text-sm max-w-fit">
             <p className="text-aciu-grey">
                 {title}
             </p>

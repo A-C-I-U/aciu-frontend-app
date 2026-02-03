@@ -5,6 +5,7 @@ import { EmptyMemberActivity } from "@/components/EmptyStates";
 
 const activities = [];
 
+// Use Implementation on Dues Preview Activity Log
 export default function MemberActivityTab({ branchMember }: {
     branchMember: BranchMemberDataType
 }) {
