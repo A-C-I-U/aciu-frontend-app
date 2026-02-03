@@ -2,6 +2,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import type { Branch } from "@/services/types/database";
 import { branchStatusMap } from "@/utils/helpers";
 import type { ColumnDef, Row } from "@tanstack/react-table";
+import { useNavigate } from "react-router-dom";
 
 
 export const branchColumns = (setSelected: (p: Branch) => void): ColumnDef<Branch>[] => [
@@ -59,17 +60,19 @@ export const branchColumns = (setSelected: (p: Branch) => void): ColumnDef<Branc
         id: "actions",
         header: "Actions",
         size: 150,
-        cell: ({ row }: { row: Row<Branch>}) => (
-            <button
-                onClick={() => {
-                    setSelected(row.original)
-                }}
-                className="p-2 text-sm font-coolvetica 
-                text-aciu-green-normal rounded-[5px]
-                border border-aciu-green-normal min-w-fit whitespace-nowrap"
-            >
-                View Details
-            </button>
-        )
+        cell: ({ row }: { row: Row<Branch>}) => {
+            const navigate = useNavigate();
+            return (
+                <button
+                    onClick={() => {
+                        setSelected(row.original);
+                        navigate(`/database/branch/${row.original.id}`)
+                    }}
+                    className="btn-custom"
+                >
+                    View Details
+                </button>
+            )
+        }
     }
 ]

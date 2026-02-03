@@ -625,11 +625,60 @@ a, button {
     letter-spacing: -0.006rem;
   }
 
+  .btn-custom {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    font-family: var(--font-coolvetica);
+    color: var(--color-aciu-green-normal);
+    border-radius: 5px;
+    border: 1px solid var(--color-aciu-green-normal);
+    min-width: fit-content;
+    white-space: nowrap;
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .btn-custom:hover {
+    background-color: var(--color-aciu-green-light-hover)
+  }
+
+  .btn-back {
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+    left: 1rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-family: var(--font-montserrat);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-aciu-neutral);
+    border: 1px solid var(--color-neutrals-100);
+    border-radius: 1rem;
+    padding: 1rem;
+    background-color: transparent;
+    cursor: pointer;
+    background-color: var(--color-white);
+    transition: background-color 0.2s ease-in-out;
+  }
+
+  .btn-back:hover {
+    background-color: var(--color-neutrals-150)
+  }
+
+  .btn-back span {
+    margin-left: 0.75rem;
+    display: none;
+  }
+
 }
 
 @media screen and (max-width: 1024px) {
   .resource-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .btn-back span {
+    display: inline-block;
   }
 }
 
@@ -672,6 +721,10 @@ a, button {
   .btn {
     font-size: .75rem;
     padding: .875rem
+  }
+
+  .btn-back {
+    padding: 1rem;
   }
 
   .resource-grid {

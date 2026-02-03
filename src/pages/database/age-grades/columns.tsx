@@ -64,9 +64,7 @@ export const ageGradeColumns = (setSelected: (p: AgeGrade) => void): ColumnDef<A
                 onClick={() => {
                     setSelected(row.original)
                 }}
-                className="p-2 text-sm font-coolvetica 
-                text-aciu-green-normal rounded-[5px]
-                border border-aciu-green-normal min-w-fit whitespace-nowrap"
+                className="btn-custom"
             >
                 View Details
             </button>
