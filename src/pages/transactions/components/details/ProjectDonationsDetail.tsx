@@ -1,6 +1,6 @@
 import { StatusBadge } from "@/components/StatusBadge";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
-import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
+import { EmptyRecords } from "@/components/EmptyStates";
 import { paymentStatusMap } from "@/utils/helpers";
 import { DetailSkeleton } from "@/components/DetailSkeleton";
 import ShellHeader from "@/components/ShellHeader";
