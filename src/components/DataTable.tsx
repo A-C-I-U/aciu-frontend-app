@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Pagination, PaginationItemType } from "@heroui/react";
 import { scrollToPosition } from "@/utils/helpers";
+import { EmptyTable } from "@/components/EmptyStates";
 
 
 
@@ -28,75 +29,81 @@ export default function DataTable({
     table: TableType<any>,
     pagination?: boolean
 }) {
+    const rows = table.getRowModel().rows;
+    const isEmpty = rows.length === 0;
+    const isFiltered = table.getState().globalFilter || Object.values(table.getState().columnFilters).some(Boolean);
 
     
 
     return (
         <div className="w-full">
-            <TableContainer component={Paper} sx={{ maxWidth: "100%", overflowX: "auto", border: "1px solid #EAECF0" }}>   
-                <Table stickyHeader>
-                    <TableHead>
-                        {table.getHeaderGroups().map(headerGroup => (
-                            <TableRow key={headerGroup.id}
-                                sx={{
-                                    height: "2.5rem"
-                                }}>
-                                {headerGroup.headers.map(header => (
-                                    <TableCell 
-                                        key={header.id} 
-                                        colSpan={header.colSpan}
-                                        sx={{
-                                            padding: ".75rem 1.5rem",
-                                            fontSize: ".75rem",
-                                            fontFamily: 'Montserrat, sans-serif',
-                                            color: "#667085",
-                                            fontWeight: 500,
-                                            whiteSpace: "nowrap",
-                                            backgroundColor: "#F9FAFB", 
-                                            borderBottom: "1px solid #EAECF0",
-                                            lineHeight: "1.125rem",
+            {!isEmpty ? 
+                <TableContainer component={Paper} sx={{ maxWidth: "100%", overflowX: "auto", border: "1px solid #EAECF0" }}>  
+                    <Table stickyHeader>
+                        <TableHead>
+                            {table.getHeaderGroups().map(headerGroup => (
+                                <TableRow key={headerGroup.id}
+                                    sx={{
+                                        height: "2.5rem"
+                                    }}>
+                                    {headerGroup.headers.map(header => (
+                                        <TableCell 
+                                            key={header.id} 
+                                            colSpan={header.colSpan}
+                                            sx={{
+                                                padding: ".75rem 1.5rem",
+                                                fontSize: ".75rem",
+                                                fontFamily: 'Montserrat, sans-serif',
+                                                color: "#667085",
+                                                fontWeight: 500,
+                                                whiteSpace: "nowrap",
+                                                backgroundColor: "#F9FAFB", 
+                                                borderBottom: "1px solid #EAECF0",
+                                                lineHeight: "1.125rem",
 
-                                        }}
-                                    >
-                                        {flexRender(
-                                            header.column.columnDef.header,
-                                            header.getContext()
-                                        )}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableHead>
-                    <TableBody>
-                        {table.getRowModel().rows.map(row => (
-                            <TableRow key={row.id}>
-                                {row.getVisibleCells().map(cell => (
-                                    <TableCell 
-                                        key={cell.id}
-                                        sx={{
-                                            padding: "1rem 1.5rem",
-                                            fontSize: ".875rem",
-                                            fontFamily: 'Montserrat, sans-serif',
-                                            color: "#3E3E3E",
-                                            fontWeight: 400,
-                                            whiteSpace: "nowrap",
-                                            textOverflow: "ellipsis",
-                                            borderBottom: "1px solid #EAECF0",
-                                            lineHeight: "1.25rem"
-                                            
-                                        }}
+                                            }}
                                         >
-                                        {flexRender(
-                                            cell.column.columnDef.cell,
-                                            cell.getContext()
-                                        )}
-                                    </TableCell>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                                            {flexRender(
+                                                header.column.columnDef.header,
+                                                header.getContext()
+                                            )}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableHead>
+                        <TableBody>
+                            {table.getRowModel().rows.map(row => (
+                                <TableRow key={row.id}>
+                                    {row.getVisibleCells().map(cell => (
+                                        <TableCell 
+                                            key={cell.id}
+                                            sx={{
+                                                padding: "1rem 1.5rem",
+                                                fontSize: ".875rem",
+                                                fontFamily: 'Montserrat, sans-serif',
+                                                color: "#3E3E3E",
+                                                fontWeight: 400,
+                                                whiteSpace: "nowrap",
+                                                textOverflow: "ellipsis",
+                                                borderBottom: "1px solid #EAECF0",
+                                                lineHeight: "1.25rem"
+                                                
+                                            }}
+                                            >
+                                            {flexRender(
+                                                cell.column.columnDef.cell,
+                                                cell.getContext()
+                                            )}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            : <div className="items-center flex justify-center"><EmptyTable isFiltered={isFiltered} /></div>}
+
 
 
 
@@ -104,7 +111,7 @@ export default function DataTable({
             {(pagination && table.getPageCount() > 1) && 
             <div className="w-full pt-3 pb-4 px-6 flex justify-between items-center">
                 <button
-                    className="rounded-md py-2 px-[.875rem] 
+                    className="rounded-md py-2 px-3.5
                     flex gap-2 justify-center items-center
                     shadow-[0px_1px_2px_0px_#1018280D] border hover:bg-aciu-green-light
                     border-aciu-green-normal text-aciu-green-normal"
@@ -158,7 +165,7 @@ export default function DataTable({
                     }}
                 />
                 <button
-                    className="rounded-md py-2 px-[.875rem] 
+                    className="rounded-md py-2 px-3.5
                     flex gap-2 justify-center items-center
                     shadow-[0px_1px_2px_0px_#1018280D] border hover:bg-aciu-green-light
                     border-aciu-green-normal text-aciu-green-normal"

@@ -4,7 +4,7 @@ import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
-import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
+import { EmptyRecords } from "@/components/EmptyStates";
 import { useEventDonationDetails } from "@/services/hooks/transactions";
 import type { DonationsResponse } from "@/services/types/transactions";
 import { paymentStatusMap } from "@/utils/helpers";
