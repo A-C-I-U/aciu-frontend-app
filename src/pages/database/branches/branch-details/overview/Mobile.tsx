@@ -3,11 +3,10 @@ import type { ExtendedTabItem, TabItem } from "@/utils/types";
 import BranchInfoCard from "../BranchInfoCard";
 import { StatsCard } from "@/components/StatsCard";
 import { branchTabs } from "../BranchTabs";
-import { ArrowLeft2 } from "iconsax-react";
+import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
 import { useEffect, useState } from "react";
 import { Divider } from "@mui/material";
 import { branchInfo, branchStats } from "@/utils/data";
-import TabButton from "@/components/TabButton";
 
 export default function BranchMobileOverview({
     activeTab, onTabChange
@@ -55,12 +54,16 @@ export default function BranchMobileOverview({
                     ))}
                     <div className="flex flex-col gap-4 justify-center w-full mx-auto">
                         {branchTabs.map((tab: ExtendedTabItem) => (
-                           <TabButton
+                           <button
                                 key={tab.key}
-                                tab={tab}
-                                active={tab === activeTab}
                                 onClick={() => handleOpenContent(tab)}
-                            />
+                                className="w-full flex justify-between items-center p-4.5 bg-white h-19 rounded-2xs"
+                            >
+                                <span className="font-medium text-aciu-abriba leading-[1.4]">
+                                    {tab.label}
+                                </span>
+                                <ArrowRight2 size={20} variant="Linear" color="#151515" />
+                            </button>
                         ))}
                     </div>
                 </div>

@@ -57,7 +57,7 @@ export default function MyBranchMobileOverview({
                             <button
                                 key={tab.key}
                                 onClick={() => handleOpenContent(tab)}
-                                className="w-full flex justify-between items-center p-4.5 bg-white h-19 rounded-[.625rem]"
+                                className="w-full flex justify-between items-center p-4.5 bg-white h-19 rounded-2xs"
                             >
                                 <span className="font-medium font-montserrat text-aciu-abriba leading-[140%]">
                                     {tab.label}
@@ -92,7 +92,7 @@ export default function MyBranchMobileOverview({
                                 aria-label="Go back to My Branch Overview"
                                 title="Go back to My Branch Overview"
                                 className="flex items-center text-aciu-neutral font-montserrat text-sm
-                                    border border-neutrals-100 rounded-[0.75rem] px-2 py-4 bg-transparent hover:bg-neutrals-50 transition-colors"
+                                    border border-neutrals-100 rounded-xl px-2 py-4 bg-transparent hover:bg-neutrals-50 transition-colors"
                             >
                                 <ArrowLeft2 size={20} color="#898483" />
                             </button>

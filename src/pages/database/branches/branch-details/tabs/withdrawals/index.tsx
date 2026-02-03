@@ -1,25 +1,16 @@
 import { formatDate, generateMockWithdrawals, withdrawalStatusMap } from "@/utils/helpers";
 import type { FieldConfig, WithdrawalDataType } from "@/utils/types";
 import { useMediaQuery } from "@mui/material";
-import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import { useState } from "react"
 import { columns } from "./columns";
 import SectionHeader from "@/components/SectionHeader";
-import DataTable from "@/components/DataTable";
 import MobileItemCard from "@/components/MobileItem";
-import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 import ViewWithdrawalRequest from "./ViewWithdrawalRequest";
 import SubmitWithdrawalRequest from "./SubmitWithdrawalRequest";
 import SuccessfulRequest from "./SuccessfulRequest";
+import { ResponsiveDataTable } from "@/components/ResponsiveDataTable";
+import { sectionActions } from "@/components/SectionActions";
 
-const sectionActions = [
-    <button className="section-action-button">
-        Filter
-    </button>,
-    <button className="section-action-button">
-        2022
-    </button>
-]
 
 export default function WithdrawalTab() {
     const [_query, setQuery] = useState("");
@@ -30,8 +21,7 @@ export default function WithdrawalTab() {
     const [isViewOpen, setViewOpen] = useState(false);
     const [isSuccessOpen, setSuccessOpen] = useState(false);
 
-    // Separated open state from selected to allow proper exit and entry animations
-    // Using !!selected as open={!!selected} caused instant mounting and unmounting
+
     const handleViewClick = (withdrawal: WithdrawalDataType) => {
         setSelected(withdrawal);
         setViewOpen(true)
@@ -40,21 +30,6 @@ export default function WithdrawalTab() {
     const handleViewClose = () => {
         setViewOpen(false);
     }
-
-    const itemsPerPage = 4;
-    const [page, setPage] = useState(1);
-
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentItems = mockData.slice(start, end);
-
-    const table = useReactTable<WithdrawalDataType>({
-        data: mockData,
-        columns: columns(handleViewClick),
-        pageCount: Math.ceil(mockData.length / 10),
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel()
-    });
 
     const handleSearch = (q: string) => {
         setQuery(q)
@@ -79,35 +54,21 @@ export default function WithdrawalTab() {
                     </button>
                 </div>
 
-                <>
-                    {!isMedium ?
-                        <DataTable
-                            table={table}
+                <ResponsiveDataTable
+                    data={mockData}
+                    columns={columns(handleViewClick)}
+                    renderMobileItem={(withdrawal: WithdrawalDataType) => (
+                        <MobileItemCard
+                            key={withdrawal.id}
+                            item={withdrawal}
+                            fields={fields}
+                            status={withdrawalStatusMap[withdrawal.status]}
+                            actionLabel="View Details"
+                            onActionClick={() => handleViewClick(withdrawal)}
                         />
-                        :
-                        
-                        <div className="grid gap-4 md:grid-cols-2">
-                            {currentItems.map((withdrawal: WithdrawalDataType) => (
-                                <MobileItemCard
-                                    key={withdrawal.id}
-                                    item={withdrawal}
-                                    fields={fields}
-                                    status={withdrawalStatusMap[withdrawal.status]}
-                                    actionLabel="View Dues"
-                                    onActionClick={() => handleViewClick(withdrawal)}
-                                />
-                            ))}
-                        </div>
-                    }
-                    {isMedium &&
-                        <PaginationControls
-                            total={mockData.length}
-                            page={page}
-                            onPageChange={setPage}
-                            itemsPerPage={itemsPerPage}
-                        />
-                    }
-                </>
+                    )}
+                />
+                    
             </div>
 
             <ViewWithdrawalRequest
