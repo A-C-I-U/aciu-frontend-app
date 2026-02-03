@@ -284,6 +284,7 @@ export const branchStatusMap: Record<BranchDueDataType["status"], StatusMap> = {
         bgColor: "#E5E5E5"
     },
 }
+
 export interface StatusMap {
   label: string, 
   labelColor: string, 
@@ -392,7 +393,20 @@ export const duePaymentStatusMap: Record<DuesPaymentResponse["status"], StatusMa
     }
 }
 
-
+export const databaseMemberStatusMap: Record<"approved" | "pending", StatusMap> = {
+  pending: {
+      label: "Pending",
+      labelColor: "#FE961F",
+      dotColor: "#FE961F",
+      bgColor: "#FAF5EF"
+    },
+  approved: { 
+      label: "Approved", 
+      labelColor: "#027A48", 
+      dotColor: "#12B76A", 
+      bgColor: "#ECFDF3" 
+    }
+  }
 
 export const getExtension = (file: File | string): string => {
   if (typeof file === 'string') {
