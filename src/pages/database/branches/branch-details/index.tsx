@@ -1,18 +1,23 @@
 import type { ExtendedTabItem } from "@/utils/types";
 import { useMediaQuery } from "@mui/material";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { myBranchTabs } from "./BranchTabs";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { branchTabs } from "./BranchTabs";
 import BranchMobileOverview from "./overview/Mobile";
 import BranchDesktopOverview from "./overview/Desktop";
 import { ArrowLeft2 } from "iconsax-react";
 
 export default function BranchDetails() {
     const isMedium = useMediaQuery("(max-width: 1024px)");
-    const [activeTab, setActiveTab] = useState<ExtendedTabItem>(myBranchTabs[0])
     const navigate = useNavigate();
 
-    
+    const [searchParams, setSearchParams] = useSearchParams();
+    const activeTab = searchParams.get("tab") ?? branchTabs[0];
+    const currentTab: ExtendedTabItem = branchTabs.find(tab => tab.key === activeTab) ?? branchTabs[0];
+
+    const handleTabChange = (tab: ExtendedTabItem) => {
+        setSearchParams({ tab: tab.key })
+    }
+
     return (
         <div className="relative">
             <button
@@ -26,9 +31,9 @@ export default function BranchDetails() {
                 <span className="ml-3 hidden lg:inline-block">Go Back</span>
             </button>
             {isMedium ? (
-                <BranchMobileOverview activeTab={activeTab} setActiveTab={setActiveTab} />
+                <BranchMobileOverview activeTab={currentTab} onTabChange={handleTabChange} />
             ) : (
-                <BranchDesktopOverview activeTab={activeTab} setActiveTab={setActiveTab} />
+                <BranchDesktopOverview activeTab={currentTab} onTabChange={handleTabChange} />
             )}
         </div>
     )

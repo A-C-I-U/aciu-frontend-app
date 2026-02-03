@@ -2,18 +2,19 @@ import MotionBox from "@/components/MotionBox";
 import type { ExtendedTabItem, TabItem } from "@/utils/types";
 import BranchInfoCard from "../BranchInfoCard";
 import { StatsCard } from "@/components/StatsCard";
-import { myBranchTabs } from "../BranchTabs";
-import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
+import { branchTabs } from "../BranchTabs";
+import { ArrowLeft2 } from "iconsax-react";
 import { useEffect, useState } from "react";
 import { Divider } from "@mui/material";
 import { branchInfo, branchStats } from "@/utils/data";
+import TabButton from "@/components/TabButton";
 
 export default function BranchMobileOverview({
-    activeTab, setActiveTab
-}: { activeTab: ExtendedTabItem, setActiveTab: (tab: ExtendedTabItem) => void }) {
+    activeTab, onTabChange
+}: { activeTab: ExtendedTabItem, onTabChange: (tab: ExtendedTabItem) => void }) {
     const [ screen, setScreen ] = useState<"overview" | "content">("overview");
     const handleOpenContent = (tab: TabItem) => {
-        setActiveTab(tab);
+        onTabChange(tab);
         setScreen("content");
     };
 
@@ -53,17 +54,13 @@ export default function BranchMobileOverview({
                         />  
                     ))}
                     <div className="flex flex-col gap-4 justify-center w-full mx-auto">
-                        {myBranchTabs.map((tab) => (
-                            <button
+                        {branchTabs.map((tab: ExtendedTabItem) => (
+                           <TabButton
                                 key={tab.key}
+                                tab={tab}
+                                active={tab === activeTab}
                                 onClick={() => handleOpenContent(tab)}
-                                className="w-full flex justify-between items-center p-4.5 bg-white h-19 rounded-2xs"
-                            >
-                                <span className="font-medium font-montserrat text-aciu-abriba leading-[140%]">
-                                    {tab.label}
-                                </span>
-                                <ArrowRight2 size={20} variant="Linear" color="#151515" />
-                            </button>
+                            />
                         ))}
                     </div>
                 </div>

@@ -14,7 +14,7 @@ export default function BranchExecutivesTab() {
             <div className="flex flex-col gap-6 px-4">
                 <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                     <h2 className="hidden lg:block text-xl text-aciu-border-grey">
-                        Our Branch Executives
+                        Branch Executives
                     </h2>
                     <button 
                         className="btn btn-primary max-w-fit text-sm! md:text-base!"

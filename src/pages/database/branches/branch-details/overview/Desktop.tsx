@@ -3,13 +3,14 @@ import BranchInfoCard from "../BranchInfoCard";
 import { StatsCard } from "@/components/StatsCard";
 import { branchInfo, branchStats } from "@/utils/data";
 import type { ExtendedTabItem } from "@/utils/types";
-import { myBranchTabs } from "../BranchTabs";
+import { branchTabs } from "../BranchTabs";
 import { Divider } from "@mui/material";
 import { AnimatePresence } from "motion/react";
+import TabButton from "@/components/TabButton";
 
 export default function BranchDesktopOverview({
-    activeTab, setActiveTab
-}: { activeTab: ExtendedTabItem, setActiveTab: (tab: ExtendedTabItem) => void }) {
+    activeTab, onTabChange
+}: { activeTab: ExtendedTabItem, onTabChange: (tab: ExtendedTabItem) => void }) {
     return (
         <MotionBox
             initial={{ opacity: 0, y: -20 }}
@@ -41,21 +42,13 @@ export default function BranchDesktopOverview({
             <div className="bg-white rounded-xl pb-5 w-full">
                 <div className="overflow-x-auto">
                     <div className="flex flex-nowrap gap-4 md:gap-8 px-4 pt-5">
-                        {myBranchTabs.map((tab) => (
-                            <button
-                            key={tab.key}
-                            onClick={() => setActiveTab(tab)}
-                            className={`${
-                                activeTab?.key === tab.key
-                                ? "text-aciu-red font-semibold"
-                                : "text-aciu-abriba font-medium pb-4"
-                            } text-xs md:text-sm font-montserrat flex flex-col gap-2 whitespace-nowrap`}
-                            >
-                            {tab.label}
-                            {activeTab?.key === tab.key && (
-                                <span className="block w-full h-0.5 bg-aciu-red mt-2 rounded-full"></span>
-                            )}
-                            </button>
+                        {branchTabs.map((tab) => (
+                            <TabButton
+                                key={tab.key}
+                                tab={tab}
+                                active={tab === activeTab}
+                                onClick={() => onTabChange(tab)}
+                            />
                         ))}
                     </div>
                 </div>

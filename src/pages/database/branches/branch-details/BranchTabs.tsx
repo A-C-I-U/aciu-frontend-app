@@ -8,7 +8,7 @@ import BranchGalleryTab from "./tabs/branch-gallery";
 import BranchExecutivesTab from "./tabs/branch-leadership";
 
 
-export const myBranchTabs: ExtendedTabItem[] = [
+export const branchTabs: ExtendedTabItem[] = [
     {
         key: "branch-dues",
         label: "Branch Dues",
