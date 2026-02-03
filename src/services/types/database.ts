@@ -52,3 +52,14 @@ export interface DatabaseStats {
   totals: DatabaseTotals;
   growth: DatabaseTotals;
 }
+
+
+export interface CreateBranch {
+  name: string;
+  branchType: "Nigeria" | "Diaspora";
+  branchCity: string;
+  branchCountry: "Nigeria";
+  meetingLocation: string;
+  startDate: string;
+  branchLogo?: string;
+};

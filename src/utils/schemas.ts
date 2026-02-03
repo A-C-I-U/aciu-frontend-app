@@ -333,3 +333,13 @@ export const createNationalDuesSchema = object({
         .of(string().required("Notification cannot be empty"))
         .min(1, "At least one notification is required"),
 });
+
+export const createBranchSchema = object({
+  name: string().required("Name is required"),
+  branchType: string().required("Branch Type is required"),
+  branchCity: string().required("Branch City is required"),
+  branchCountry: string().required("Branch Country is required"),
+  meetingLocation: string().required("Meeting Location is required"),
+  startDate: date().required("Start Date is required"),
+  branchLogo: string().notRequired(),
+});
