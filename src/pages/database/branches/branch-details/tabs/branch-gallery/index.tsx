@@ -3,6 +3,7 @@ import { useMediaQuery } from "@mui/material";
 import { useState } from "react";
 import ViewPhoto from "./ViewPhoto";
 import { galleryImages } from "@/utils/data";
+import { sectionActions } from "@/components/SectionActions";
 
 // Keeping `Img` interface here in case of change
 export interface Img {
@@ -11,15 +12,6 @@ export interface Img {
     category: string
 }
 
-
-const sectionActions = [
-    <button className="section-action-button">
-        Filter
-    </button>,
-    <button className="section-action-button">
-        2022
-    </button>
-]
 
 
 export default function BranchGalleryTab() {

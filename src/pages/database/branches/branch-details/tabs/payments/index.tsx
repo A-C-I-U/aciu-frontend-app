@@ -7,15 +7,7 @@ import { columns } from "./columns";
 import MobileItemCard from "@/components/MobileItem";
 import ViewPayment from "./ViewPayment";
 import { ResponsiveDataTable } from "@/components/ResponsiveDataTable";
-
-const sectionActions = [
-    <button className="section-action-button">
-        Filter
-    </button>,
-    <button className="section-action-button">
-        2022
-    </button>
-]
+import { sectionActions } from "@/components/SectionActions";
 
 export default function BranchPaymentsTab() {
     const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
