@@ -21,7 +21,7 @@ export default function BranchDetails() {
 
   return (
     <div className="relative">
-      {isMedium && (
+      {!isMedium && (
         <button
           type="button"
           onClick={() => {

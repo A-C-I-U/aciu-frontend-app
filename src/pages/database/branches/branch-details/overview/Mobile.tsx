@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Divider } from "@mui/material";
 import { branchInfo, branchStats } from "@/utils/data";
 import BranchForm from "../../BranchForm";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function BranchMobileOverview({
   activeTab,
@@ -19,6 +19,7 @@ export default function BranchMobileOverview({
 }) {
   const [screen, setScreen] = useState<"overview" | "content">("overview");
   const [editOpen, setEditOpen] = useState(false);
+  const navigate = useNavigate();
 
   const { id: branchId } = useParams<{ id: string }>();
 
@@ -43,6 +44,18 @@ export default function BranchMobileOverview({
 
   return (
     <>
+      {screen === "overview" &&
+        <button
+          type="button"
+          onClick={() => {
+            navigate("/database?tab=branches");
+          }}
+          className="btn-back"
+        >
+          <ArrowLeft2 size={18} color="#898483" />
+          <span className="ml-3 hidden lg:inline-block">Go Back</span>
+        </button>
+      }
       <MotionBox
         key={screen}
         initial={{ opacity: 0, y: 20 }}
