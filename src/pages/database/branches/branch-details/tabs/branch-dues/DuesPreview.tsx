@@ -4,7 +4,7 @@ import ShellModal from "@/components/ShellModal";
 import { StatusBadge } from "@/components/StatusBadge";
 import { branchStatusMap } from "@/utils/helpers";
 import type { BranchDueDataType } from "@/utils/types";
-import { CircularProgress, Divider } from "@mui/material";
+import { Divider } from "@mui/material";
 import { formatDate } from "date-fns";
 import { Clock, DollarSquare, User } from "iconsax-react";
 import { useState } from "react";
@@ -12,18 +12,15 @@ import DueRules from "./DueRules";
 import ActivityLogs from "./ActivityLogs";
 import { useDuesDetails } from "@/services/hooks/dues";
 import { DetailSkeleton } from "@/components/DetailSkeleton";
-import { useDeactivateDues } from "@/services/mutations/nationaldues";
-import { enqueueSnackbar } from "notistack";
 
 
 export default function DuesPreview({
-    open, onClose, onEdit, id
+    open, onClose, id
 }: { open: boolean, onClose: () => void,  onEdit: () => void, id: string | null}) {
     
     if (!id) return null;
 
     const { data: due, isLoading, isError } = useDuesDetails(id);
-    const { mutateAsync: deactivateDues, isPending: deactivatePending } = useDeactivateDues();
 
     const duesPreviewTabs = [
         {
@@ -56,22 +53,6 @@ export default function DuesPreview({
 
     const [activeTab, setActiveTab] = useState(duesPreviewTabs[0]);
 
-
-    const handleDeactivateDues = async (id: string) => {
-        try {
-            await deactivateDues({ id });
-            enqueueSnackbar("This dues has been deactivated", {
-                variant: 'success',
-                autoHideDuration: 2000
-            });
-            onClose();
-        } catch (err) {
-           enqueueSnackbar("Failed to deactivate Dues. Please try again.", {
-                variant: 'error',
-                autoHideDuration: 4000,
-            });
-        }
-    }
 
     return (
         <ShellModal
@@ -184,23 +165,7 @@ export default function DuesPreview({
                             </div>
                         </div>
                     </div>
-
-                    {/* Should Trigger Edit Dues - Check National Dues for this implementation */}
-                    
                 </div>
-                <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 shrink-0">
-                    <button className="btn btn-primary" disabled={!dueOffset} onClick={onEdit}>
-                        Edit Dues
-                    </button>
-                    <button className="btn btn-secondary" disabled={!dueOffset} onClick={() => handleDeactivateDues(dueOffset ? dueOffset.id : "")}>
-                        {deactivatePending ? (
-                            <>
-                                <CircularProgress sx={{ color: 'black' }} size={12} />
-                                Deactivating
-                            </>
-                        ) : "Deactivate"}
-                    </button>
-                </div> 
             </div>
         </ShellModal>
     )

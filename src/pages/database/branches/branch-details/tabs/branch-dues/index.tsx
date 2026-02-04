@@ -1,44 +1,20 @@
-import DataTable from "@/components/DataTable";
 import { branchStatusMap, formatDate, generateMockBranchDues } from "@/utils/helpers";
-import { useMediaQuery } from "@mui/material";
-import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import { Sort } from "iconsax-react";
 import { useState } from "react";
-import { columns } from "./columns";
-import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 import type { BranchDueDataType, FieldConfig } from "@/utils/types";
 import MobileItemCard from "@/components/MobileItem";
 import DuesPreview from "./DuesPreview";
-import AddBranchDues from "./AddBranchDues";
-import SuccessfulDueCreation from "./SuccessfulDueCreation";
+import { ResponsiveDataTable } from "@/components/ResponsiveDataTable";
 
 export default function BranchDuesTab() {
-    const isMedium = useMediaQuery('(max-width:1250px)');
-    const itemsPerPage = 4;
-    const [page, setPage] = useState(1);
-
     const [isViewOpen, setIsViewOpen] = useState(false);
     const [selected, setSelected] = useState<BranchDueDataType | null>(null);
-    const [showAddDues, setShowAddDues] = useState(false);
-    const [isSuccessOpen, setIsSuccessOpen] = useState(false);
-    const [dueTitle, setDueTitle] = useState("");
 
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentItems = mockData.slice(start, end);
 
     const handleViewClick = (due: BranchDueDataType) => {
         setSelected(due);
         setIsViewOpen(true);
     }
-
-    const table = useReactTable<BranchDueDataType>({
-        data: mockData,
-        columns: columns(handleViewClick),
-        pageCount: Math.ceil(mockData.length / 10),
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel()
-    });
 
     return (
         <>
@@ -52,55 +28,25 @@ export default function BranchDuesTab() {
                         Filter
                         <Sort variant="Outline" color="#A4ACB9" size={20} />
                     </button>
-                    <button 
-                        onClick={() => {setShowAddDues(true)}}
-                        className="btn btn-primary max-w-fit text-sm! md:text-base!">
-                        Add new dues
-                    </button>
                 </div>
             </div>
 
 
-            <>
-                {!isMedium ?
-                    <DataTable 
-                        table={table}
+            <ResponsiveDataTable
+                data={mockData}
+                columns={mockData}
+                renderMobileItem={(branchDue: BranchDueDataType) => (
+                    <MobileItemCard
+                        key={branchDue.id}
+                        item={branchDue}
+                        fields={fields}
+                        status={branchStatusMap[branchDue.status]}
+                        actionLabel="View Dues"
+                        onActionClick={() => handleViewClick(branchDue)}
                     />
-                    :
-                    
-                    <div className="grid gap-4 md:grid-cols-2">
-                        {currentItems.map((branchDue: BranchDueDataType) => (
-                            <MobileItemCard
-                                key={branchDue.id}
-                                item={branchDue}
-                                fields={fields}
-                                status={branchStatusMap[branchDue.status]}
-                                actionLabel="View Dues"
-                                onActionClick={() => handleViewClick(branchDue)}
-                            />
-                        ))}
-                    </div>
-                }
-                {isMedium &&
-                    <PaginationControls
-                        total={mockData.length}
-                        page={page}
-                        onPageChange={setPage}
-                        itemsPerPage={itemsPerPage}
-                    />
-                }
-            </>  
+                )}
+            />
         </div>
-
-        {/* Check National Dues for this implementation */}
-        <AddBranchDues
-            open={showAddDues}
-            onClose={() => setShowAddDues(false)}
-            onSuccess={(values: any) => {
-                setDueTitle(values.dueTitle)
-                setIsSuccessOpen(true)
-            }}
-        />
 
         <DuesPreview
             open={isViewOpen}
@@ -108,17 +54,6 @@ export default function BranchDuesTab() {
             id={selected && selected?.id}
             onEdit={() => {}}
         />
-
-        <SuccessfulDueCreation
-            dueTitle={dueTitle}
-            open={isSuccessOpen}
-            onClose={() => setIsSuccessOpen(false)}
-            addBranchDues={() => {
-                setShowAddDues(false);
-                setIsSuccessOpen(false);
-            }}
-        />
-
         </>
     )
 }
