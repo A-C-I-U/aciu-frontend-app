@@ -257,7 +257,7 @@ export const CreateProjectTwo = () => {
                     ))}
                     <div className="flex justify-between items-center col-span-4">
                         <p className="text-grayscale-100 text-xs md:text-sm">
-                            Supported formats: pdf, docx, xml
+                            Supported formats: png, jpg, jpeg
                         </p>
                         <p className="text-grayscale-100 text-xs md:text-sm">
                             Max: 10mb
