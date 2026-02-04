@@ -8,10 +8,10 @@ import type { ReceiptConfig } from "@/services/types/receipt";
 import { City, State } from "country-state-city";
 
 export const capitalizeFirstLetters = (str: string) => {
-    return str
-        .split("-")
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" ");
+  return str
+    .split("-")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 }
 
 export const formatDate = (iso: string) => format(new Date(iso), "dd MMM yyyy");
@@ -151,37 +151,37 @@ export function generateMockBranchEvents(count: number): BranchEventDataType[] {
 }
 
 export const publicationStatusMap: Record<PublicationDataType["status"], StatusMap> = {
-    published: { 
-        label: "Published", 
-        labelColor: "#027A48", 
-        dotColor: "#12B76A", 
-        bgColor: "#ECFDF3" 
-    },
-    "pending approval": {
-        label: "Pending Approval",
-        labelColor: "#FE961F",
-        dotColor: "#FE961F",
-        bgColor: "#FAF5EF"
-    },
-    rejected: {
-        label: "Rejected",
-        labelColor: "#FF2E2E",
-        dotColor: "#FF2E2E",
-        bgColor: "#FFEAEA"
-    },
-    draft: {
-        label: "Draft",
-        labelColor: "#3E3E3E",
-        dotColor: "#3E3E3E",
-        bgColor: "#E5E5E5"
-    },
+  published: {
+    label: "Published",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
+    bgColor: "#ECFDF3"
+  },
+  "pending approval": {
+    label: "Pending Approval",
+    labelColor: "#FE961F",
+    dotColor: "#FE961F",
+    bgColor: "#FAF5EF"
+  },
+  rejected: {
+    label: "Rejected",
+    labelColor: "#FF2E2E",
+    dotColor: "#FF2E2E",
+    bgColor: "#FFEAEA"
+  },
+  draft: {
+    label: "Draft",
+    labelColor: "#3E3E3E",
+    dotColor: "#3E3E3E",
+    bgColor: "#E5E5E5"
+  },
 }
 
 export const PaymentStatus = {
   COMPLETED: "completed",
   OVERDUE: "overdue",
   FAILED: "failed",
-  CANCELED: "cancelled", 
+  CANCELED: "cancelled",
   UNPAID: "unpaid",
 } as const;
 
@@ -189,10 +189,10 @@ export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus];
 
 // utils/helpers.ts
 export const paymentStatusMap = {
-  completed: { 
-    label: "Completed", 
-    labelColor: "#027A48", 
-    dotColor: "#12B76A", 
+  completed: {
+    label: "Completed",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
     bgColor: "#ECFDF3",
     action: "download" as const
   },
@@ -256,142 +256,148 @@ export const getPaymentStatusConfig = (status: string): PaymentStatusConfig => {
 export const getPaymentAction = (status: string): PaymentAction => {
   return getPaymentStatusConfig(status).action;
 };
-export const branchPaymentStatusMap: Record<PaymentDataType["status"], StatusMap> = {
-     completed: { 
-        label: "Completed", 
-        labelColor: "#027A48", 
-        dotColor: "#12B76A", 
-        bgColor: "#ECFDF3" 
-    },
-    failed: {
-        label: "Failed",
-        labelColor: "#FF2E2E",
-        dotColor: "#FF2E2E",
-        bgColor: "#FFEAEA"
-    }
+export const branchPaymentStatusMap: Record<string, StatusMap> = {
+  completed: {
+    label: "Completed",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
+    bgColor: "#ECFDF3"
+  },
+  failed: {
+    label: "Failed",
+    labelColor: "#FF2E2E",
+    dotColor: "#FF2E2E",
+    bgColor: "#FFEAEA"
+  },
+  overdue: {
+    label: "Overdue",
+    labelColor: "#B54708",
+    dotColor: "#F79009",
+    bgColor: "#FFFAEB",
+  }
 }
 
 export const branchStatusMap: Record<BranchDueDataType["status"], StatusMap> = {
-    active: { 
-        label: "Active", 
-        labelColor: "#027A48", 
-        dotColor: "#12B76A", 
-        bgColor: "#ECFDF3" 
-    },
-    inactive: {
-        label: "Inactive",
-        labelColor: "#3E3E3E",
-        dotColor: "#3E3E3E",
-        bgColor: "#E5E5E5"
-    },
+  active: {
+    label: "Active",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
+    bgColor: "#ECFDF3"
+  },
+  inactive: {
+    label: "Inactive",
+    labelColor: "#3E3E3E",
+    dotColor: "#3E3E3E",
+    bgColor: "#E5E5E5"
+  },
 }
 
 export interface StatusMap {
-  label: string, 
-  labelColor: string, 
-  dotColor: string, 
+  label: string,
+  labelColor: string,
+  dotColor: string,
   bgColor: string
 }
 
 
 export const nationalDuesMap: Record<NationalDuesResponse["Status"], StatusMap> = {
-    active: { 
-        label: "Active", 
-        labelColor: "#027A48", 
-        dotColor: "#12B76A", 
-        bgColor: "#ECFDF3" 
-    },
-    inactive: {
-        label: "Inactive",
-        labelColor: "#3E3E3E",
-        dotColor: "#3E3E3E",
-        bgColor: "#E5E5E5"
-    },
+  active: {
+    label: "Active",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
+    bgColor: "#ECFDF3"
+  },
+  inactive: {
+    label: "Inactive",
+    labelColor: "#3E3E3E",
+    dotColor: "#3E3E3E",
+    bgColor: "#E5E5E5"
+  },
 }
 
 export const withdrawalStatusMap: Record<WithdrawalDataType["status"], StatusMap> = {
-    pending: {
-      label: "Pending",
-      labelColor: "#FE961F",
-      dotColor: "#FE961F",
-      bgColor: "#FAF5EF"
-    },
-    approved: { 
-      label: "Approved", 
-      labelColor: "#027A48", 
-      dotColor: "#12B76A", 
-      bgColor: "#ECFDF3" 
-    },
-    rejected: {
-        label: "Rejected",
-        labelColor: "#FF2E2E",
-        dotColor: "#FF2E2E",
-        bgColor: "#FFEAEA"
-    },
+  pending: {
+    label: "Pending",
+    labelColor: "#FE961F",
+    dotColor: "#FE961F",
+    bgColor: "#FAF5EF"
+  },
+  approved: {
+    label: "Approved",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
+    bgColor: "#ECFDF3"
+  },
+  rejected: {
+    label: "Rejected",
+    labelColor: "#FF2E2E",
+    dotColor: "#FF2E2E",
+    bgColor: "#FFEAEA"
+  },
 }
 
 
 export const branchMemberStatusMap: Record<BranchMemberDataType["verificationStatus"], StatusMap> = {
   pending: {
-      label: "Pending",
-      labelColor: "#FE961F",
-      dotColor: "#FE961F",
-      bgColor: "#FAF5EF"
-    },
-    verified: { 
-      label: "Verified", 
-      labelColor: "#027A48", 
-      dotColor: "#12B76A", 
-      bgColor: "#ECFDF3" 
-    }
+    label: "Pending",
+    labelColor: "#FE961F",
+    dotColor: "#FE961F",
+    bgColor: "#FAF5EF"
+  },
+  verified: {
+    label: "Verified",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
+    bgColor: "#ECFDF3"
   }
+}
 
 export const branchEventStatusMap: Record<BranchEventDataType["verificationStatus"], StatusMap> = {
   ongoing: {
-      label: "Ongoing",
-      labelColor: "#FE961F",
-      dotColor: "#FE961F",
-      bgColor: "#FAF5EF"
-    },
-    completed: { 
-      label: "Completed", 
-      labelColor: "#027A48", 
-      dotColor: "#12B76A", 
-      bgColor: "#ECFDF3" 
-    }
+    label: "Ongoing",
+    labelColor: "#FE961F",
+    dotColor: "#FE961F",
+    bgColor: "#FAF5EF"
+  },
+  completed: {
+    label: "Completed",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
+    bgColor: "#ECFDF3"
+  }
 }
 
 export const duePaymentStatusMap: Record<DuesPaymentResponse["status"], StatusMap> = {
-     completed: { 
-      label: "Completed", 
-      labelColor: "#027A48", 
-      dotColor: "#12B76A", 
-      bgColor: "#ECFDF3" 
-    },
-    failed: {
-      label: "Failed",
-      labelColor: "#FF2E2E",
-      dotColor: "#FF2E2E",
-      bgColor: "#FFEAEA"
-    },
-    unpaid: {
-      label: "Unpaid",
-      labelColor: "#FE961F",
-      dotColor: "#FE961F",
-      bgColor: "#FAF5EF"
-    },
-    cancelled: {
-      label: "Cancelled",
-      labelColor: "#3E3E3E",
-      dotColor: "#3E3E3E",
-      bgColor: "#E5E5E5"
-    },
-    overdue: {
-      label: "Overdue",
-      labelColor: "#667085",
-      dotColor: "#667085",
-      bgColor: "#F2F4F7",
-    }
+  completed: {
+    label: "Completed",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
+    bgColor: "#ECFDF3"
+  },
+  failed: {
+    label: "Failed",
+    labelColor: "#FF2E2E",
+    dotColor: "#FF2E2E",
+    bgColor: "#FFEAEA"
+  },
+  unpaid: {
+    label: "Unpaid",
+    labelColor: "#FE961F",
+    dotColor: "#FE961F",
+    bgColor: "#FAF5EF"
+  },
+  cancelled: {
+    label: "Cancelled",
+    labelColor: "#3E3E3E",
+    dotColor: "#3E3E3E",
+    bgColor: "#E5E5E5"
+  },
+  overdue: {
+    label: "Overdue",
+    labelColor: "#667085",
+    dotColor: "#667085",
+    bgColor: "#F2F4F7",
+  }
 }
 
 export const databaseMemberStatusMap: Record<"approved" | "pending", StatusMap> = {
@@ -411,10 +417,10 @@ export const databaseMemberStatusMap: Record<"approved" | "pending", StatusMap> 
 
 export const getExtension = (file: File | string): string => {
   if (typeof file === 'string') {
-    const filename = file.split('/').pop() || ''; 
+    const filename = file.split('/').pop() || '';
     return filename.split('.').pop()?.toUpperCase() || 'FILE';
   }
-  
+
   // Handle File object (original logic)
   return file.name.split('.').pop()?.toUpperCase() || 'FILE';
 };
@@ -444,12 +450,12 @@ export function timeAgo(dateString: string) {
   return `${diffYears} year${diffYears > 1 ? "s" : ""} ago`;
 }
 
-  export const formatCurrency = (amount: number) => {
-        return new Intl.NumberFormat('en-NG', {
-            style: 'currency',
-            currency: 'NGN'
-        }).format(amount);
-    };
+export const formatCurrency = (amount: number) => {
+  return new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN'
+  }).format(amount);
+};
 
 export function calculateReadingTime(text: string, wordsPerMinute = 225) {
   const words = text.trim().split(/\s+/).length;
@@ -470,12 +476,12 @@ export function slugify(text: string) {
 }
 
 const getRandomDate = (start: Date, end: Date): string => {
-    const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
-    return date.toISOString();
+  const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  return date.toISOString();
 };
 
 const getRandomFileSize = (min: number = 50000, max: number = 5000000): number => {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 export const generateMockPayment = (count: number): PaymentDataType[] => {
@@ -483,28 +489,29 @@ export const generateMockPayment = (count: number): PaymentDataType[] => {
     const categories = ["Monthly Dues", "Event Fee", "Donation", "Fine", "Registration Fee", "Levy"];
     const statuses = ["completed", "failed"];
     const amounts = ["15000", "25000", "10000", "50000", "2000", "30000"];
-    
+
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
     const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
     const randomAmount = amounts[Math.floor(Math.random() * amounts.length)];
     const randomDate = getRandomDate(new Date(2024, 0, 1), new Date());
-    
+
     return {
-        id: `PAY-${i + 1}`,
-        date: randomDate,
-        category: randomCategory,
-        description: `Payment for ${randomCategory.toLowerCase()}`,
-        amountPaid: randomAmount,
-        status: randomStatus,
-        file: {
-            url: `https://example.com/receipts/receipt-${Date.now()}.pdf`,
-            name: `payment-receipt-${Date.now()}.pdf`,
-            type: "application/pdf",
-            size: getRandomFileSize(),
-            uploadedAt: randomDate
+      id: `PAY-${i + 1}`,
+      date: randomDate,
+      category: randomCategory,
+      description: `Payment for ${randomCategory.toLowerCase()}`,
+      amountPaid: randomAmount,
+      status: randomStatus,
+      file: {
+        url: `https://example.com/receipts/receipt-${Date.now()}.pdf`,
+        name: `payment-receipt-${Date.now()}.pdf`,
+        type: "application/pdf",
+        size: getRandomFileSize(),
+        uploadedAt: randomDate
       },
     };
-})}
+  })
+}
 
 
 export const getExtensionFromUrl = (url: string): string => {
@@ -522,81 +529,81 @@ export async function copyTextToClipboard(text: string) {
   }
 }
 
-export const scrollToPosition = (desktop: boolean) => { 
+export const scrollToPosition = (desktop: boolean) => {
   const el = desktop ? document.getElementById("nav-tabs") : document.getElementById("section-header");
   el?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
 
 const FIELD_DISPLAY_NAMES: Record<string, string> = {
-    amount: 'Amount',
-    startDate: 'Start Date',
-    endDate: 'End Date',
-    ageGrades: 'Age Grades',
-    memberRoles: 'Member Roles',
-    notifications: 'Notifications',
-    currency: 'Currency',
-    interval: 'Interval',
-    gender: 'Gender',
-    location: 'Location',
-    title: 'Title',
+  amount: 'Amount',
+  startDate: 'Start Date',
+  endDate: 'End Date',
+  ageGrades: 'Age Grades',
+  memberRoles: 'Member Roles',
+  notifications: 'Notifications',
+  currency: 'Currency',
+  interval: 'Interval',
+  gender: 'Gender',
+  location: 'Location',
+  title: 'Title',
 };
 
 // Parse PostgreSQL array format {value1,value2} to array
 function parsePostgresArray(value: string): string[] {
-    if (!value || value === '{}') return [];
-    
-    const cleaned = value.replace(/^\{|\}$/g, '').replace(/"/g, '');
-    return cleaned ? cleaned.split(',').map(v => v.trim()) : [];
+  if (!value || value === '{}') return [];
+
+  const cleaned = value.replace(/^\{|\}$/g, '').replace(/"/g, '');
+  return cleaned ? cleaned.split(',').map(v => v.trim()) : [];
 }
 
 function formatArrayValue(value: string): string {
-    const array = parsePostgresArray(value);
-    if (array.length === 0) return 'None';
-    if (array.length === 1) return array[0];
-    return array.join(', ');
+  const array = parsePostgresArray(value);
+  if (array.length === 0) return 'None';
+  if (array.length === 1) return array[0];
+  return array.join(', ');
 }
 
 function normalizeDateString(dateStr: string): string {
-    try {
-        const date = new Date(dateStr);
-        return date.toISOString();
-    } catch {
-        return dateStr;
-    }
+  try {
+    const date = new Date(dateStr);
+    return date.toISOString();
+  } catch {
+    return dateStr;
+  }
 }
 
 
 function hasActualChange(field: string, oldValue: string, newValue: string): boolean {
-    if (field.toLowerCase().includes('date')) {
-        return normalizeDateString(oldValue) !== normalizeDateString(newValue);
-    }
-    
+  if (field.toLowerCase().includes('date')) {
+    return normalizeDateString(oldValue) !== normalizeDateString(newValue);
+  }
 
-    if (oldValue.startsWith('{') && newValue.startsWith('{')) {
-        const oldArray = parsePostgresArray(oldValue);
-        const newArray = parsePostgresArray(newValue);
-        
-        return JSON.stringify(oldArray.sort()) !== JSON.stringify(newArray.sort());
-    }
-    
-    return oldValue !== newValue;
+
+  if (oldValue.startsWith('{') && newValue.startsWith('{')) {
+    const oldArray = parsePostgresArray(oldValue);
+    const newArray = parsePostgresArray(newValue);
+
+    return JSON.stringify(oldArray.sort()) !== JSON.stringify(newArray.sort());
+  }
+
+  return oldValue !== newValue;
 }
 
 function formatValue(field: string, value: string): string {
-    if (field.toLowerCase().includes('date')) {
-        return format(value, "dd MMMM yyyy h:mm a");
-    }
+  if (field.toLowerCase().includes('date')) {
+    return format(value, "dd MMMM yyyy h:mm a");
+  }
 
-    if (value.startsWith('{')) {
-        return formatArrayValue(value);
-    }
-    
-    if (field === 'amount') {
-        return `${Number(value).toLocaleString()}`;
-    }
-    
-    return value;
+  if (value.startsWith('{')) {
+    return formatArrayValue(value);
+  }
+
+  if (field === 'amount') {
+    return `${Number(value).toLocaleString()}`;
+  }
+
+  return value;
 }
 
 export function formatActivityLogs(logs: ActivityLog[]): FormattedActivityLog[] {

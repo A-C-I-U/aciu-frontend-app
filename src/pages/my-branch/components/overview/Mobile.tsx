@@ -5,13 +5,46 @@ import { StatsCard } from "@/components/StatsCard";
 import { myBranchTabs } from "../MyBranchTabs";
 import { ArrowLeft2, ArrowRight2 } from "iconsax-react";
 import { useEffect, useState } from "react";
-import { Divider } from "@mui/material";
-import { branchInfo, branchStats } from "@/utils/data";
+import { Divider, Skeleton } from "@mui/material";
+import { useBranchDashboard, useBranchOverview } from "@/services/hooks/branch";
 
 export default function MyBranchMobileOverview({
     activeTab, setActiveTab
 }: { activeTab: ExtendedTabItem, setActiveTab: (tab: ExtendedTabItem) => void }) {
-    const [ screen, setScreen ] = useState<"overview" | "content">("overview");
+    const [screen, setScreen] = useState<"overview" | "content">("overview");
+    const { data: dashboardData, isLoading: isDashboardLoading } = useBranchDashboard();
+    const { data: overviewData, isLoading: isOverviewLoading } = useBranchOverview();
+
+    const stats = [
+        {
+            title: "Total Verified Members",
+            number: dashboardData?.totalVerifiedMembers.toString() || "0",
+            rateOfChange: "12.5"
+        },
+        {
+            title: "Active Age Grades",
+            number: dashboardData?.activeAgeGrades.toString() || "0",
+            rateOfChange: "12.5"
+        },
+        {
+            title: "Pending Verification",
+            number: dashboardData?.pendingVerifications.toString() || "0",
+            rateOfChange: "33"
+        },
+        {
+            title: "Total Withdrawals",
+            number: dashboardData?.totalWithdrawals.toLocaleString() || "0",
+            rateOfChange: "0",
+            currency: "₦"
+        },
+        {
+            title: "Total Dues Collected",
+            number: dashboardData?.totalDuesCollected.toLocaleString() || "0",
+            rateOfChange: "10.2",
+            currency: "₦"
+        }
+    ];
+
     const handleOpenContent = (tab: TabItem) => {
         setActiveTab(tab);
         setScreen("content");
@@ -19,7 +52,7 @@ export default function MyBranchMobileOverview({
 
     const handleBack = () => setScreen("overview");
 
-     useEffect(() => {
+    useEffect(() => {
         window.scrollTo({
             top: 0,
             left: 0,
@@ -42,16 +75,27 @@ export default function MyBranchMobileOverview({
         >
             {screen === "overview" && (
                 <div className="relative flex flex-col gap-5.5">
-                    <BranchInfoCard branchInfo={branchInfo}/>
-                    {branchStats.map((stat, index) => (
-                        <StatsCard
-                            key={index}
-                            title={stat.title} 
-                            number={`${(+stat.number).toLocaleString()}`}
-                            rateOfChange={stat.rateOfChange}
-                            currency={stat.currency}
-                        />  
-                    ))}
+                    {isOverviewLoading ? (
+                        <Skeleton variant="rectangular" height={200} className="w-full rounded-[.625rem]" />
+                    ) : (
+                        <BranchInfoCard branchInfo={overviewData} />
+                    )}
+
+                    {isDashboardLoading ? (
+                        Array.from({ length: 5 }).map((_, index) => (
+                            <Skeleton key={index} variant="rectangular" height={140} className="w-full rounded-2xl" />
+                        ))
+                    ) : (
+                        stats.map((stat, index) => (
+                            <StatsCard
+                                key={index}
+                                title={stat.title}
+                                number={stat.number}
+                                rateOfChange={stat.rateOfChange}
+                                currency={stat.currency}
+                            />
+                        ))
+                    )}
                     <div className="flex flex-col gap-4 justify-center w-full mx-auto">
                         {myBranchTabs.map((tab) => (
                             <button
@@ -70,7 +114,7 @@ export default function MyBranchMobileOverview({
             )}
 
             {screen === "content" && activeTab && (
-               <MotionBox
+                <MotionBox
                     key={activeTab?.key}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -82,8 +126,8 @@ export default function MyBranchMobileOverview({
                         xs: 1,
                         md: 2
                     }}
-                > 
-                    
+                >
+
                     <div className="flex flex-col gap-6 w-full mb-6">
                         <div className="flex items-center gap-3">
                             <button
@@ -105,12 +149,12 @@ export default function MyBranchMobileOverview({
                                 </p>
                             </div>
                         </div>
-                        <Divider orientation="horizontal" flexItem />  
-                    </div> 
+                        <Divider orientation="horizontal" flexItem />
+                    </div>
                     {activeTab.content}
                 </MotionBox>
             )}
-            
+
         </MotionBox>
     )
 }

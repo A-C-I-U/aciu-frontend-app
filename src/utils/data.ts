@@ -1,16 +1,16 @@
 import { Calendar2, DollarSquare, FolderOpen, Routing } from "iconsax-react";
-import type { 
+import type {
   ActivityLog,
   BlogSubmissionDetails,
   BranchExecCardProps,
-  EventDetailsProps, 
-  FeaturedPostCardType, 
-  MenuCardProps, 
-  OptionLabelProps, 
-  ProjectCardProps, 
-  ProjectDetailsProps, 
-  PublicationDataType, 
-  RegularPostCardType, 
+  EventDetailsProps,
+  FeaturedPostCardType,
+  MenuCardProps,
+  OptionLabelProps,
+  ProjectCardProps,
+  ProjectDetailsProps,
+  PublicationDataType,
+  RegularPostCardType,
   StatsCardProps,
   UpcomingEventCardProps
 } from "./types";
@@ -26,9 +26,9 @@ export const BRANCHES: string[] = [
 ];
 
 export const AGEGRADES: string[] = [
-  "okpu-nnukwu", "ndi-udo", "ndi-ijeoma", 
-  "uke-achara", "uke-ezinne", 
-  "uke-progressive", "uke-unity"
+  "All Age Grades", "Okpu Nnukwu", "Ndi Udo", "Ndi Ijeoma",
+  "Uke Achara", "Uke Ezinne",
+  "Uke Progressive", "Uke Unity"
 ]
 
 export const genderOptions: OptionLabelProps[] = [
@@ -57,13 +57,14 @@ export const abroadBranches: OptionLabelProps[] = [
 ];
 
 export const ageGradeOptions: OptionLabelProps[] = [
-  { label: "Okpu Nnukwu", value: "okpu-nnukwu" },
-  { label: "Ndi Udo", value: "ndi-udo" },
-  { label: "Ndi Ijeoma", value: "ndi-ijeoma" },
-  { label: "Uke Achara", value: "uke-achara" },
-  { label: "Uke Ezinne", value: "uke-ezinne" },
-  { label: "Uke Progressive", value: "uke-progressive" },
-  { label: "Uke Unity", value: "uke-unity" },
+  { label: "All Age Grades", value: "All Age Grades" },
+  { label: "Okpu Nnukwu", value: "Okpu Nnukwu" },
+  { label: "Ndi Udo", value: "Ndi Udo" },
+  { label: "Ndi Ijeoma", value: "Ndi Ijeoma" },
+  { label: "Uke Achara", value: "Uke Achara" },
+  { label: "Uke Ezinne", value: "Uke Ezinne" },
+  { label: "Uke Progressive", value: "Uke Progressive" },
+  { label: "Uke Unity", value: "Uke Unity" },
 ];
 
 export const locationOptions: OptionLabelProps[] = [
@@ -103,124 +104,124 @@ export const eventDetails: EventDetailsProps = {
 
 
 export const regularPosts: RegularPostCardType[] = [
-    {
-      id: "1",
-      img: "/images/nig-uk-flag.jpg",
-      title: "My First Igwa Mang: Walking with My Age Grade",
-      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-      author: "Chinedu Okoro",
-      date: "16 Jan 2025",
-      tags: ["ACIU News", "Union Updates"]
-    },
-    {
-      id: "2",
-      img: "/images/nig-uk-flag.jpg",
-      title: "My First Igwa Mang: Walking with My Age Grade",
-      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-      author: "Chinedu Okoro",
-      date: "16 Jan 2025",
-      tags: ["ACIU News", "Union Updates"]
-    },
-    {
-      id: "3",
-      img: "/images/nig-uk-flag.jpg",
-      title: "My First Igwa Mang: Walking with My Age Grade",
-      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-      author: "Chinedu Okoro",
-      date: "16 Jan 2025",
-      tags: ["ACIU News", "Union Updates"]
-    },
-    {
-      id: "4",
-      img: "/images/nig-uk-flag.jpg",
-      title: "My First Igwa Mang: Walking with My Age Grade",
-      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-      author: "Chinedu Okoro",
-      date: "16 Jan 2025",
-      tags: ["ACIU News", "Union Updates"]
-    },
-    {
-      id: "5",
-      img: "/images/nig-uk-flag.jpg",
-      title: "My First Igwa Mang: Walking with My Age Grade",
-      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-      author: "Chinedu Okoro",
-      date: "16 Jan 2025",
-      tags: ["ACIU News", "Union Updates"]
-    },
-    {
-      id: "6",
-      img: "/images/nig-uk-flag.jpg",
-      title: "My First Igwa Mang: Walking with My Age Grade",
-      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-      author: "Chinedu Okoro",
-      date: "16 Jan 2025",
-      tags: ["ACIU News", "Union Updates"]
-    },
-    {
-      id: "7",
-      img: "/images/nig-uk-flag.jpg",
-      title: "My First Igwa Mang: Walking with My Age Grade",
-      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-      author: "Chinedu Okoro",
-      date: "16 Jan 2025",
-      tags: ["ACIU News", "Union Updates"]
-    },
-    {
-      id: "8",
-      img: "/images/nig-uk-flag.jpg",
-      title: "My First Igwa Mang: Walking with My Age Grade",
-      subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
-      author: "Chinedu Okoro",
-      date: "16 Jan 2025",
-      tags: ["ACIU News", "Union Updates"]
-    },
+  {
+    id: "1",
+    img: "/images/nig-uk-flag.jpg",
+    title: "My First Igwa Mang: Walking with My Age Grade",
+    subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+    author: "Chinedu Okoro",
+    date: "16 Jan 2025",
+    tags: ["ACIU News", "Union Updates"]
+  },
+  {
+    id: "2",
+    img: "/images/nig-uk-flag.jpg",
+    title: "My First Igwa Mang: Walking with My Age Grade",
+    subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+    author: "Chinedu Okoro",
+    date: "16 Jan 2025",
+    tags: ["ACIU News", "Union Updates"]
+  },
+  {
+    id: "3",
+    img: "/images/nig-uk-flag.jpg",
+    title: "My First Igwa Mang: Walking with My Age Grade",
+    subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+    author: "Chinedu Okoro",
+    date: "16 Jan 2025",
+    tags: ["ACIU News", "Union Updates"]
+  },
+  {
+    id: "4",
+    img: "/images/nig-uk-flag.jpg",
+    title: "My First Igwa Mang: Walking with My Age Grade",
+    subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+    author: "Chinedu Okoro",
+    date: "16 Jan 2025",
+    tags: ["ACIU News", "Union Updates"]
+  },
+  {
+    id: "5",
+    img: "/images/nig-uk-flag.jpg",
+    title: "My First Igwa Mang: Walking with My Age Grade",
+    subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+    author: "Chinedu Okoro",
+    date: "16 Jan 2025",
+    tags: ["ACIU News", "Union Updates"]
+  },
+  {
+    id: "6",
+    img: "/images/nig-uk-flag.jpg",
+    title: "My First Igwa Mang: Walking with My Age Grade",
+    subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+    author: "Chinedu Okoro",
+    date: "16 Jan 2025",
+    tags: ["ACIU News", "Union Updates"]
+  },
+  {
+    id: "7",
+    img: "/images/nig-uk-flag.jpg",
+    title: "My First Igwa Mang: Walking with My Age Grade",
+    subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+    author: "Chinedu Okoro",
+    date: "16 Jan 2025",
+    tags: ["ACIU News", "Union Updates"]
+  },
+  {
+    id: "8",
+    img: "/images/nig-uk-flag.jpg",
+    title: "My First Igwa Mang: Walking with My Age Grade",
+    subtitle: "Experiencing Igwa Mang for the first time and the pride of marching with my age grade.",
+    author: "Chinedu Okoro",
+    date: "16 Jan 2025",
+    tags: ["ACIU News", "Union Updates"]
+  },
 ]
 
 export const featuredPosts: FeaturedPostCardType[] = [
-    {
-      id: "10",
-      img: "/images/blog-placeholder.jpg",
-      title: "Tech, Tradition and the Future of ACIU",
-      author: "Eke Urum",
-      date: "20 Jan 2025",
-      views: 239,
-      comments: 21
-    },
-    {
-      id: "12",
-      img: "/images/blog-placeholder.jpg",
-      title: "Tech, Tradition and the Future of ACIU",
-      author: "Eke Urum",
-      date: "20 Jan 2025",
-      views: 239,
-      comments: 21
-    }
+  {
+    id: "10",
+    img: "/images/blog-placeholder.jpg",
+    title: "Tech, Tradition and the Future of ACIU",
+    author: "Eke Urum",
+    date: "20 Jan 2025",
+    views: 239,
+    comments: 21
+  },
+  {
+    id: "12",
+    img: "/images/blog-placeholder.jpg",
+    title: "Tech, Tradition and the Future of ACIU",
+    author: "Eke Urum",
+    date: "20 Jan 2025",
+    views: 239,
+    comments: 21
+  }
 ]
 
 export const publicationStats: StatsCardProps[] = [
-    {
-        title: 'Total Submissions',
-        number: '5',
-        rateOfChange: '+12.5',
-        itemLabel: "Post(s)"
-    },
-    {
-        title: 'Published Posts',
-        number: '3',
-        rateOfChange: '+12.5',
-        itemLabel: "Post(s)"
-    },
-     {
-        title: 'Pending Approval',
-        number: '2',
-        rateOfChange: '-12.5',
-        itemLabel: "Post(s)"
-    },
+  {
+    title: 'Total Submissions',
+    number: '5',
+    rateOfChange: '+12.5',
+    itemLabel: "Post(s)"
+  },
+  {
+    title: 'Published Posts',
+    number: '3',
+    rateOfChange: '+12.5',
+    itemLabel: "Post(s)"
+  },
+  {
+    title: 'Pending Approval',
+    number: '2',
+    rateOfChange: '-12.5',
+    itemLabel: "Post(s)"
+  },
 ]
 
-export const publicationStatuses: PublicationDataType["status"][] = 
-["published", "pending approval", "rejected", "draft"]
+export const publicationStatuses: PublicationDataType["status"][] =
+  ["published", "pending approval", "rejected", "draft"]
 
 
 
@@ -285,36 +286,36 @@ export const getHelpSupportMenu = (role: string): MenuCardProps[] => {
 };
 
 export const helpAndSupportAccordion = [
-    {
-        id: 1,
-        summary: "How do I register as a member?",
-        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
-    },
-    {
-        id: 2,
-        summary: "What if I don’t know my age grade?",
-        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
-    },
-    {
-        id: 3,
-        summary: "How do I pay my dues or make a donation?",
-        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
-    },
-    {
-        id: 4,
-        summary: "Can I volunteer or serve in a committee?",
-        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
-    },
-    {
-        id: 5,
-        summary: "How do I contact my local branch?",
-        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
-    },
-    {
-        id: 6,
-        summary: "I need help with my login or dashboard. What should I do?",
-        content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
-    },
+  {
+    id: 1,
+    summary: "How do I register as a member?",
+    content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+  },
+  {
+    id: 2,
+    summary: "What if I don’t know my age grade?",
+    content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+  },
+  {
+    id: 3,
+    summary: "How do I pay my dues or make a donation?",
+    content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+  },
+  {
+    id: 4,
+    summary: "Can I volunteer or serve in a committee?",
+    content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+  },
+  {
+    id: 5,
+    summary: "How do I contact my local branch?",
+    content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+  },
+  {
+    id: 6,
+    summary: "I need help with my login or dashboard. What should I do?",
+    content: "Visit the Membership page and click “Register.” Fill in your details, select your branch and submit for verification."
+  },
 ]
 
 
@@ -451,8 +452,8 @@ export const projectDetail: ProjectDetailsProps = {
   title: "Abiriba Community Road Rehabilitation",
   location: "Abriba Town",
   badge: "Community Infrastructure",
-  projectImages: ["/images/project-img-1.jpg", "/images/project-img-1.jpg", 
-    "/images/project-img-1.jpg", "/images/project-img-1.jpg", 
+  projectImages: ["/images/project-img-1.jpg", "/images/project-img-1.jpg",
+    "/images/project-img-1.jpg", "/images/project-img-1.jpg",
     "/images/project-img-1.jpg",
   ],
   description: `This project focuses on rehabilitating and 
@@ -473,16 +474,16 @@ export const projectDetail: ProjectDetailsProps = {
     ]
   }],
   scope: [{
-      type: "list",
-      content: [
-        "Grading and resurfacing of the 7 km stretch",
-        "Installation of proper drainage to prevent flooding"
-      ]
-    },
-    {
-      type: "paragraph",
-      content: ["We will begin next week."]
-    }
+    type: "list",
+    content: [
+      "Grading and resurfacing of the 7 km stretch",
+      "Installation of proper drainage to prevent flooding"
+    ]
+  },
+  {
+    type: "paragraph",
+    content: ["We will begin next week."]
+  }
   ],
   collectedFunds: "₦18,200,000",
   targetFunds: "₦25,000,000",
@@ -784,31 +785,31 @@ export const branchInfo = {
 
 export const branchStats = [
   {
-      title: "Total Verified Members",
-      number: "25",
-      rateOfChange: "12.5"
+    title: "Total Verified Members",
+    number: "25",
+    rateOfChange: "12.5"
   },
   {
-      title: "Active Age Grades",
-      number: "3",
-      rateOfChange: "12.5"
+    title: "Active Age Grades",
+    number: "3",
+    rateOfChange: "12.5"
   },
   {
-      title: "Pending Verification",
-      number: "45",
-      rateOfChange: "33"
+    title: "Pending Verification",
+    number: "45",
+    rateOfChange: "33"
   },
   {
-      title: "Total Dues Collected",
-      number: "25104000",
-      rateOfChange: "44",
-      currency: "N"
+    title: "Total Dues Collected",
+    number: "25104000",
+    rateOfChange: "44",
+    currency: "N"
   },
   {
-      title: "Total Withdrawals",
-      number: "30100000",
-      rateOfChange: "44",
-      currency: "N"
+    title: "Total Withdrawals",
+    number: "30100000",
+    rateOfChange: "44",
+    currency: "N"
   }
 ]
 
@@ -886,14 +887,14 @@ export const fakeMonthlyPayments = [
 
 export const datePickerSx = {
   '& .MuiInputLabel-root': {
-      fontSize: '.875rem'
+    fontSize: '.875rem'
   },
   '& .MuiPickersInputBase-root': {
-      fontSize: ".875rem"
+    fontSize: ".875rem"
   },
   '& .MuiPickersOutlinedInput-root': {
-      borderRadius: ".5rem",
-      borderColor: "#DFE1E7",
+    borderRadius: ".5rem",
+    borderColor: "#DFE1E7",
   }
 }
 
@@ -905,7 +906,7 @@ export const formLabelSx = {
 }
 
 export const dueAgeGradeOptions = [
-  { label: "All Age Grades", value: "All Age Grades"},
+  { label: "All Age Grades", value: "All Age Grades" },
   { label: "Okpu Nnukwu", value: "Okpu Nnukwu" },
   { label: "Ndi Udo", value: "Ndi Udo" },
   { label: "Ndi Ijeoma", value: "Ndi Ijeoma" },

@@ -1,15 +1,16 @@
 import type { BranchMemberDataType, FieldConfig } from "@/utils/types";
-import { useMediaQuery } from "@mui/material";
+import { Skeleton, useMediaQuery } from "@mui/material";
 import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
-import { useState } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { columns } from "./columns";
 import SectionHeader from "@/components/SectionHeader";
 import DataTable from "@/components/DataTable";
-import { branchMemberStatusMap, generateMockBranchMembers } from "@/utils/helpers";
+import { branchMemberStatusMap } from "@/utils/helpers";
 import MobileItemCard from "@/components/MobileItem";
 import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 import ViewBranchMember from "./ViewBranchMember";
 import { formatDate } from "date-fns";
+import { useBranchMembers } from "@/services/hooks/branch";
 
 const sectionActions = [
     <button className="section-action-button">
@@ -31,25 +32,58 @@ export default function BranchMembersTab() {
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
+    const { data: members, isLoading } = useBranchMembers();
+
+    // Transform API data to table data
+    const tableData: BranchMemberDataType[] = useMemo(() =>
+        members?.map(member => ({
+            id: member.id,
+            fullName: member.fullName,
+            ageGrade: member.ageGrade,
+            joinedOn: member.joinedOn,
+            occupation: member.occupation,
+            verificationStatus: member.verificationStatus ? "verified" : "pending"
+        })) || [],
+        [members]
+    );
+
     const start = (page - 1) * itemsPerPage;
     const end = start + itemsPerPage;
-    const currentItems = mockData.slice(start, end);
+    const currentItems = tableData.slice(start, end);
 
-    const handleViewClick = (member: BranchMemberDataType) => {
+    const handleViewClick = useCallback((member: BranchMemberDataType) => {
         setSelected(member);
-        setIsViewOpen(true)
-    }
+        setIsViewOpen(true);
+    }, []);
+
+    const tableColumns = useMemo(
+        () => columns(handleViewClick),
+        [handleViewClick]
+    );
 
     const table = useReactTable<BranchMemberDataType>({
-        data: mockData,
-        columns: columns(handleViewClick),
-        pageCount: Math.ceil(mockData.length / 10),
+        data: tableData,
+        columns: tableColumns,
+        pageCount: Math.ceil(tableData.length / 10),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel()
     });
 
     const handleSearch = (q: string) => {
-        setQuery(q)
+        setQuery(q);
+    }
+
+    if (isLoading) {
+        return (
+            <div className="flex flex-col gap-6 px-4">
+                <Skeleton variant="rectangular" height={60} className="rounded-lg" />
+                <div className="grid gap-4">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                        <Skeleton key={i} variant="rectangular" height={80} className="rounded-lg" />
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -70,7 +104,7 @@ export default function BranchMembersTab() {
                         table={table}
                     />
                     :
-                    
+
                     <div className="grid gap-4 md:grid-cols-2">
                         {currentItems.map((branchMember: BranchMemberDataType) => (
                             <MobileItemCard
@@ -78,7 +112,7 @@ export default function BranchMembersTab() {
                                 item={branchMember}
                                 fields={fields}
                                 status={branchMemberStatusMap[branchMember.verificationStatus]}
-                                actionLabel="View Dues"
+                                actionLabel="View Details"
                                 onActionClick={() => handleViewClick(branchMember)}
                             />
                         ))}
@@ -86,26 +120,24 @@ export default function BranchMembersTab() {
                 }
                 {isMedium &&
                     <PaginationControls
-                        total={mockData.length}
+                        total={tableData.length}
                         page={page}
                         onPageChange={setPage}
                         itemsPerPage={itemsPerPage}
                     />
                 }
             </>
-            
-            <ViewBranchMember 
-                open={isViewOpen} 
-                onClose={() => setIsViewOpen(false)} 
+
+            <ViewBranchMember
+                open={isViewOpen}
+                onClose={() => setIsViewOpen(false)}
                 branchMember={selected}
             />
-            
+
         </div>
     )
-    
+
 }
-    
-const mockData = generateMockBranchMembers(20);
 
 const fields: FieldConfig<BranchMemberDataType>[] = [
     {
@@ -118,7 +150,13 @@ const fields: FieldConfig<BranchMemberDataType>[] = [
     },
     {
         label: "Joined On",
-        value: (p) => formatDate(p.joinedOn, "dd-MM-yyyy h:mm  aaaaa'm'")
+        value: (p) => {
+            try {
+                return formatDate(new Date(p.joinedOn), "dd-MM-yyyy h:mm aaaaa'm'");
+            } catch {
+                return "N/A";
+            }
+        }
     },
     {
         label: "Occupation",
