@@ -5,6 +5,7 @@ import type { BranchDueDataType, FieldConfig } from "@/utils/types";
 import MobileItemCard from "@/components/MobileItem";
 import DuesPreview from "./DuesPreview";
 import { ResponsiveDataTable } from "@/components/ResponsiveDataTable";
+import { columns } from "./columns";
 
 export default function BranchDuesTab() {
     const [isViewOpen, setIsViewOpen] = useState(false);
@@ -34,7 +35,7 @@ export default function BranchDuesTab() {
 
             <ResponsiveDataTable
                 data={mockData}
-                columns={mockData}
+                columns={columns(handleViewClick)}
                 renderMobileItem={(branchDue: BranchDueDataType) => (
                     <MobileItemCard
                         key={branchDue.id}
