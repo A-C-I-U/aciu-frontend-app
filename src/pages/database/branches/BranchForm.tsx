@@ -1,5 +1,5 @@
 import FormikField from "@/components/FormikField";
-import { MarkIcon, UploadFileImage } from "@/components/Icons";
+import { CloudIcon, MarkIcon } from "@/components/Icons";
 import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
 import { SuccessDialog } from "@/components/SuccessDialog";
@@ -52,10 +52,13 @@ export default function BranchForm({
   const { user } = useUser();
 
   const handleSubmit = async (values: CreateBranchPayload, actions: any) => {
+    const countryObj = countries.find(
+      c => c.value === values.branchCountry
+    );
     const payload = {
       name: values.name,
       branchCity: values.branchCity,
-      branchCountry: values.branchCountry,
+      branchCountry: countryObj?.label ?? "",
       branchType: values.branchType,
       meetingLocation: values.meetingLocation,
       startDate: values.startDate,
@@ -116,7 +119,7 @@ export default function BranchForm({
             validateOnBlur
             enableReinitialize
           >
-            {({ isValid, isSubmitting, setFieldValue, values }) => {
+            {({ errors, touched, isValid, isSubmitting, setFieldValue, values }) => {
               return (
                 <Form className="flex flex-col h-full overflow-hidden">
                   <div className="flex flex-col gap-4 resources-modal-body pb-8">
@@ -145,9 +148,11 @@ export default function BranchForm({
                         name="branchCountry"
                         placeholder="Select branch country"
                         options={countries}
-                        onChange={(option: any) => {
-                          setCountry(option.value);
-                          setFieldValue("branchCountry", option.label);
+                        value={values.branchCountry ?? ""}
+                        onChange={(e: any) => {
+                          const selectedValue = e?.target?.value ?? e;
+                          setCountry(selectedValue);
+                          setFieldValue("branchCountry", e?.target?.value);
                         }}
                         fullWidth
                         select
@@ -156,10 +161,15 @@ export default function BranchForm({
                         label="Branch City"
                         name="branchCity"
                         placeholder="Select branch city"
+                        value={cities.some(c => c.value === values.branchCity) ? values.branchCity : ""}
                         options={cities}
                         fullWidth
                         select
                         disabled={!country}
+                        onChange={(e: any) => {
+                          const selectedValue = e?.target?.value ?? e;
+                          setFieldValue("branchCity", selectedValue);
+                        }}
                       />
                     </div>
                     <FormikField
@@ -179,11 +189,9 @@ export default function BranchForm({
                       />
                     </div>
                     <div className="gap-2 flex flex-col">
-                      <span className="text-aciu-aciu-border-grey text-sm leading-default font-medium">
-                          Branch Logo (if any)
-                      </span>
-                      <div
-                        className="w-full h-32 rounded-2xs overflow-hidden border border-dashed border-gray-300 cursor-pointer flex items-center justify-center"
+                      <FormLabel sx={formLabelSx}>Branch Logo(if any)</FormLabel>
+                      <label
+                        className="w-full rounded-2xs overflow-hidden cursor-pointer flex items-center justify-center"
                         onClick={() => inputRef.current?.click()}
                       >
                         <input
@@ -201,7 +209,24 @@ export default function BranchForm({
                         />
 
                         {!image ? (
-                          <UploadFileImage width="100%" height="100%" />
+                          <div className="gap-2 flex flex-col w-full">
+                            <div className={`border-2 border-dashed flex flex-col justify-center
+                              relative h-32 rounded-[5px] w-full 
+                              ${isSubmitting ? 'bg-gray-100' : 'bg-aciu-cyan-light'}
+                              ${touched.branchLogo && errors.branchLogo ? 'border-red-500' : 'border-gray-300'}`}
+                            >
+                              <div
+                                className="items-center justify-center
+                                  text-white font-coolvetica
+                                  flex flex-col md:flex-row gap-3 w-full"
+                              >
+                                <CloudIcon width={48} height={48} color="#00B686" />
+                                <p className="text-aciu-abriba font-montserrat font-medium text-sm">
+                                  Drag & drop or click to choose file
+                                </p>
+                              </div>
+                            </div>
+                          </div>
                         ) : (
                           <img
                             src={URL.createObjectURL(image)}
@@ -209,7 +234,7 @@ export default function BranchForm({
                             className="w-full h-full object-cover rounded-2xs"
                           />
                         )}
-                      </div>
+                      </label>
                       <div className="flex justify-between items-center col-span-4">
                         <p className="text-grayscale-100 text-xs md:text-sm">
                             Supported formats: png, jpg, jpeg
