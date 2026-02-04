@@ -37,10 +37,10 @@ const initialValues = {
 
 export default function BranchPresidentForm({
     mode, open, onClose
-}: DialogFuncProps & { id?: string; mode: "create" | "edit" }) {
+}: DialogFuncProps & { id?: string; mode: "create" | "edit" | null }) {
     const [memberIdentity, setMemberIdentity] = useState<{ name: string } | null>(null);
     const [isSuccessOpen, setIsSuccessOpen] = useState(false);
-    const [successMode, setSuccessMode] = useState<"create" | "edit">("create")
+    const [successMode, setSuccessMode] = useState<"create" | "edit" | null>("create")
 
     const handleSubmit = (values: any, _actions: any) => {
         setIsSuccessOpen(true);
@@ -68,45 +68,48 @@ export default function BranchPresidentForm({
                             return (
                                 <Form className="flex flex-col h-full overflow-hidden">
                                     <div className="resources-modal-body">
-                                        <p className="text-lg font-medium text-aciu-border-grey">
-                                            Search Member
+                                        <p className="text-lg font-medium text-aciu-border-grey leading-5 tracking-tighter">
+                                            {mode === "create" ? "Assign Role" : "New President"}
                                         </p>
-                                        <FormikField
-                                            label="Member Name"
-                                            name="memberName"
-                                            placeholder="Type name, phone or email"
-                                            options={[
-                                                { value: "dues", label: "Dues" }
-                                            ]}
-                                            select
-                                            fullWidth
-                                        />
-                                        <div className="flex flex-col gap-4 lg:gap-2 items-center w-full">
-                                            <FormikField
-                                                label="Created By"
-                                                name="createdBy"
-                                                disabled
+                                        <div className="flex flex-col gap-4">
+                                            <div className="flex flex-col gap-2">
+                                                <FormikField
+                                                    label="Search Member"
+                                                    name="memberName"
+                                                    placeholder="Type name, phone or email"
+                                                    options={[
+                                                        { value: "dues", label: "Dues" }
+                                                    ]}
+                                                    select
+                                                    fullWidth
+                                                />
+                                                <p className="text-grayscale-100 text-xs leading-[1.55]">
+                                                    Only verified members from this branch will appear here
+                                                </p>
+                                            </div>
+                                            <div className="flex gap-4 lg:gap-2 items-center w-full">
+                                                <FormikField
+                                                    label="Created By"
+                                                    name="createdBy"
+                                                    disabled
+                                                    fullWidth
+                                                />
+                                                <FormikField
+                                                    label="Created on"
+                                                    name="createdOn"
+                                                    disabled
+                                                    fullWidth
+                                                />
+                                            </div>
+
+                                            <FormikField 
+                                                label="Role"
+                                                name="role"
                                                 fullWidth
-                                            />
-                                            <FormikField
-                                                label="Created on"
-                                                name="createdOn"
                                                 disabled
-                                                fullWidth
                                             />
                                         </div>
-
-
-                                        <p className="text-lg font-medium text-aciu-border-grey">
-                                            Assign Role
-                                        </p>
-                                        <FormikField 
-                                            label="Role"
-                                            name="role"
-                                            fullWidth
-                                            select
-                                        />
-
+                                        
                                         <p className="text-lg font-medium text-aciu-border-grey">
                                             Set Team Duration
                                         </p>
@@ -175,7 +178,7 @@ export default function BranchPresidentForm({
                                             type="submit"
                                             disabled={!isValid || isSubmitting}
                                         >
-                                            Assign President
+                                            {mode === "create" ? "Assign President" : "Change President"}
                                         </button>
                                         <button 
                                             className="btn btn-danger"
