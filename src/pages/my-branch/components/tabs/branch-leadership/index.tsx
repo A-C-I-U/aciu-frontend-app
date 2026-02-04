@@ -1,13 +1,16 @@
 import { BranchExecCard } from "@/components/BranchExecCard";
-import { branchExecutiveMockData } from "@/utils/data";
 import { useState } from "react";
 import AddAdmin from "./AddAdmin";
 import SuccessfulAdminAdd from "./SuccessfulAdminAdd";
+import { useBranchExecutives } from "@/services/hooks/branch";
+import { Skeleton } from "@mui/material";
 
 export default function BranchExecutivesTab() {
     const [isAddOpen, setIsAddOpen] = useState(false);
     const [isSuccessfulAdd, setIsSuccessfulAdd] = useState(false);
     const [memberIdentity, setMemberIdentity] = useState<{ name: string; role: string } | null>(null);
+
+    const { data: executives, isLoading } = useBranchExecutives();
 
     return (
         <>
@@ -16,7 +19,7 @@ export default function BranchExecutivesTab() {
                     <h2 className="hidden lg:block text-xl text-aciu-border-grey">
                         Our Branch Executives
                     </h2>
-                    <button 
+                    <button
                         className="btn btn-primary max-w-fit !text-sm md:text-base!"
                         onClick={() => setIsAddOpen(true)}
                     >
@@ -26,12 +29,25 @@ export default function BranchExecutivesTab() {
                 <div
                     className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-4"
                 >
-                    {branchExecutiveMockData.map(
-                        (branchExec) => (
-                            <BranchExecCard
-                                key={branchExec.id}
-                                branchExec={branchExec}
-                            />
+                    {isLoading ? (
+                        Array.from({ length: 6 }).map((_, i) => (
+                            <Skeleton key={i} variant="rectangular" height={200} className="w-full rounded-xl" />
+                        ))
+                    ) : (
+                        executives?.map(
+                            (branchExec, index) => (
+                                <BranchExecCard
+                                    key={index}
+                                    branchExec={{
+                                        id: index,
+                                        name: branchExec.fullName,
+                                        position: branchExec.role,
+                                        occupation: branchExec.occupation,
+                                        email: branchExec.email,
+                                        phoneNumber: branchExec.phone
+                                    }}
+                                />
+                            )
                         )
                     )}
                 </div>
@@ -42,7 +58,7 @@ export default function BranchExecutivesTab() {
                 onSuccess={(values) => {
                     setIsAddOpen(false);
                     setMemberIdentity({
-                        name: values.memberName,
+                        name: values.fullName,
                         role: values.role || values.customRole,
                     });
                     setIsSuccessfulAdd(true)

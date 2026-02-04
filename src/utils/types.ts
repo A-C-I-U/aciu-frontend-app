@@ -82,20 +82,20 @@ export interface NavProps {
   handleClose?: () => void;
 }
 export interface EventItemProps {
-    id: string;
-    title: string;
-    img: string;
-    host: string;
-    date: string;
-    startTime: string;
-    endTime: string;
-    description?: string;
-    location?: string;
-    category?: string;
-    entryFee?: string;
-    enableRSVP?: boolean;
-    enableDonations?: boolean;
-    registeredCount?: number;
+  id: string;
+  title: string;
+  img: string;
+  host: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  description?: string;
+  location?: string;
+  category?: string;
+  entryFee?: string;
+  enableRSVP?: boolean;
+  enableDonations?: boolean;
+  registeredCount?: number;
 }
 export interface EventItemProps {
   id: string;
@@ -396,12 +396,12 @@ export interface NotificationSectionProps {
 }
 
 export interface StatsCardProps {
-    title: string;
-    number: string;
-    itemLabel?: string;
-    currency?: string;
-    description?: string;
-    rateOfChange?: string
+  title: string;
+  number: string;
+  itemLabel?: string;
+  currency?: string;
+  description?: string;
+  rateOfChange?: string
 }
 
 export interface PaymentDataType {
@@ -458,87 +458,87 @@ export interface ExtendedTabItem extends TabItem {
 }
 
 export interface DueRulesType {
-    ageGrades: string[],
-    gender: string,
-    location: string,
-    memberRoles: string,
-    currency: string,
-    notifications: string[]
+  ageGrades: string[],
+  gender: string,
+  location: string,
+  memberRoles: string,
+  currency: string,
+  notifications: string[]
 }
 
 export interface ActivityLog {
-    id: string,
-    action: string,
-    timestamp: string,
-    actor: string,
-    details?: string,
-    metadata?: Record<string, any>
+  id: string,
+  action: string,
+  timestamp: string,
+  actor: string,
+  details?: string,
+  metadata?: Record<string, any>
 }
 
 export interface BranchDueDataType {
-    id: string,
-    creationDate: string,
-    createdBy: string,
-    startDate: string,
-    endDate: string,
-    dueType: string,
-    intervals: string,
-    amountPaid: string,
-    status: "inactive" | "active",
-    dueRules: DueRulesType,
-    activityLogs: ActivityLog[]
+  id: string,
+  creationDate: string,
+  createdBy?: string,
+  startDate?: string,
+  endDate?: string,
+  dueType: string,
+  intervals: string,
+  amountPaid: string,
+  status: "inactive" | "active",
+  dueRules?: DueRulesType,
+  activityLogs?: ActivityLog[]
 }
 
 export interface FieldConfig<T> {
-    label: string;
-    value: (item: T) => React.ReactNode;
+  label: string;
+  value: (item: T) => React.ReactNode;
 }
 
 export interface StatusConfig {
-    label: string;
-    labelColor: string;
-    dotColor: string;
-    bgColor: string;
+  label: string;
+  labelColor: string;
+  dotColor: string;
+  bgColor: string;
 }
 
 export interface BranchPaymentsDataType {
-    id: string,
-    memberName: string,
-    date: string,
-    title: string,
-    type: string,
-    amountPaid: string,
-    status: string
+  id: string,
+  memberName: string,
+  date: string,
+  title: string,
+  type: string,
+  amountPaid: string,
+  status: string
 }
 
 export interface WithdrawalDataType {
-    id: string,
-    transactionId?: string,
-    submittedBy: string,
-    branchName?: string,
-    reasons: string,
-    type: string,
-    title: string,
-    date: string,
-    amount: string,
-    source: string,
-    status: "pending" | "approved" | "rejected"
+  id: string,
+  transactionId?: string,
+  submittedBy: string,
+  branchName?: string,
+  reasons: string,
+  type: string,
+  title: string,
+  date: string,
+  amount: string,
+  source: string,
+  status: "pending" | "approved" | "rejected"
 }
 
 export interface BranchMemberDataType {
-    id: string,
-    fullName: string,
-    ageGrade: string,
-    joinedOn: string,
-    occupation: string
-    verificationStatus: string
+  id: string,
+  fullName: string,
+  ageGrade: string,
+  joinedOn: string,
+  occupation: string
+  verificationStatus: string
 }
 
 export interface BranchEventDataType {
-    id: string,
-    eventTitle: string,
-    createdBy: string,
-    createdOn: string,
-    registered: string,
-    verificationStatus: string
+  id: string,
+  eventTitle: string,
+  createdBy: string,
+  createdOn: string,
+  registered: string,
+  verificationStatus: string
 }

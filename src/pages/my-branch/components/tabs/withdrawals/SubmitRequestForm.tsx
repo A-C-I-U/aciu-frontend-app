@@ -1,12 +1,12 @@
 import FormikField from "@/components/FormikField";
 import { UploadImageShort, UploadImageShortMobile } from "@/components/Icons";
+import { useSubmitWithdrawalRequest } from "@/services/mutations/withdrawals";
 import { withdrawalRequestSchema } from "@/utils/schemas";
 import { formatDate } from "date-fns";
 import { Form, Formik } from "formik";
 import { useRef, useState } from "react";
 import { ImageUploaded } from "../branch-gallery/ImageUploaded";
 
-// submittedBy - Name of Current User
 const initialValues = {
     source: "",
     amount: "",
@@ -17,15 +17,35 @@ const initialValues = {
     accountNumber: "",
     reason: "",
     customReason: "",
-    document: null
+    document: null as File | null
 }
 
 export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () => void, onSuccess: () => void }) {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [progress, setProgress] = useState(0);
 
-    const handleSubmit = (_values: any, _actions: any) => {
-        onSuccess();
+    const { mutate: submitWithdrawal, isPending } = useSubmitWithdrawalRequest();
+
+    const handleSubmit = (values: typeof initialValues, actions: any) => {
+        submitWithdrawal({
+            withdrawalSource: values.source,
+            amount: Number(values.amount),
+            bankName: values.bankName,
+            accountName: values.accountName,
+            accountNumber: values.accountNumber,
+            requestReason: values.reason,
+            customReason: values.customReason,
+            document: values.document
+        }, {
+            onSuccess: () => {
+                actions.resetForm();
+                onSuccess();
+                onClose();
+            },
+            onSettled: () => {
+                actions.setSubmitting(false);
+            }
+        });
     }
 
     const simulateUpload = () => {
@@ -47,7 +67,8 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
         >
             {({
                 values,
-                setFieldValue
+                setFieldValue,
+                isSubmitting
             }) => {
                 return (
                     <Form className="flex flex-col h-full overflow-hidden">
@@ -55,12 +76,14 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
                             <h5 className="text-base md:text-lg !font-montserrat font-medium text-aciu-border-grey">
                                 Request Summary
                             </h5>
-                            <FormikField 
+                            <FormikField
                                 label="Withdrawal Source"
                                 name="source"
                                 placeholder="Select the source of this withdrawal"
                                 options={[
-                                    { value: "dues", label: "Dues" }
+                                    { value: "dues", label: "Dues" },
+                                    { value: "donation", label: "Donation" },
+                                    { value: "event", label: "Event" }
                                 ]}
                                 select
                                 fullWidth
@@ -68,6 +91,7 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
                             <FormikField
                                 label="Amount"
                                 name="amount"
+                                type="number"
                                 placeholder="Input the amount you'd like to withdraw"
                                 fullWidth
                             />
@@ -90,17 +114,13 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
                             <h5 className="text-base md:text-lg !font-montserrat font-medium text-aciu-border-grey">
                                 Bank Account Details
                             </h5>
-                            <FormikField 
+                            <FormikField
                                 label="Bank Name"
                                 name="bankName"
-                                placeholder="Select the bank name"
-                                options={[
-                                    { value: "first-bank", label: "First Bank" }
-                                ]}
-                                select
+                                placeholder="Enter the bank name"
                                 fullWidth
                             />
-                            <FormikField 
+                            <FormikField
                                 label="Account Name"
                                 name="accountName"
                                 placeholder="Input the name of the account"
@@ -117,17 +137,20 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
                             <h5 className="text-base md:text-lg !font-montserrat font-medium text-aciu-border-grey">
                                 Request Reason
                             </h5>
-                            <FormikField 
+                            <FormikField
                                 label="Select a Reason"
                                 name="reason"
                                 placeholder="Reason"
                                 options={[
-                                    { value: "welfare", label: "Welfare" }
+                                    { value: "welfare", label: "Welfare" },
+                                    { value: "development", label: "Development" },
+                                    { value: "emergency", label: "Emergency" },
+                                    { value: "other", label: "Other" }
                                 ]}
                                 fullWidth
                                 select
                             />
-                            <FormikField 
+                            <FormikField
                                 label="Custom Reason"
                                 name="customReason"
                                 placeholder="Custom Reason"
@@ -142,7 +165,7 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
                                 <label className="resources-form-label">
                                     Upload document
                                 </label>
-                                <div 
+                                <div
                                     className="cursor-pointer"
                                     onClick={() => inputRef.current?.click()}
                                 >
@@ -164,34 +187,44 @@ export default function SubmitRequestForm({ onClose, onSuccess }: { onClose: () 
                                                 </p>
                                             </div>
                                         </div> :
-                                       <ImageUploaded
+                                        <ImageUploaded
                                             image={values.document}
                                             progress={progress}
-                                            onDelete={() => setFieldValue("document", "")}
+                                            onDelete={() => {
+                                                setFieldValue("document", null);
+                                                setProgress(0);
+                                            }}
                                         />
                                     }
                                 </div>
-                                <input 
+                                <input
                                     ref={inputRef}
                                     type="file"
-                                    accept="image/*"
+                                    accept="image/*,.pdf"
+                                    className="hidden"
                                     onChange={(e) => {
-                                        simulateUpload();
-                                        setFieldValue("document", e.target.value)
+                                        const file = e.target.files?.[0];
+                                        if (file) {
+                                            simulateUpload();
+                                            setFieldValue("document", file);
+                                        }
                                     }}
                                 />
                             </div>
                         </div>
                         <div className="py-5.5 px-10.5 resource-buttons-container">
-                            <button 
+                            <button
                                 className="btn btn-primary"
                                 type="submit"
+                                disabled={isSubmitting || isPending}
                             >
-                                Send Request
+                                {isPending ? "Submitting..." : "Send Request"}
                             </button>
-                            <button 
+                            <button
                                 className="btn btn-danger"
+                                type="button"
                                 onClick={onClose}
+                                disabled={isSubmitting || isPending}
                             >
                                 Cancel
                             </button>
