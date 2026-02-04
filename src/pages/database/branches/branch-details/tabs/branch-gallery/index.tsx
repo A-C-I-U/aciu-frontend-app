@@ -1,7 +1,6 @@
 import SectionHeader from "@/components/SectionHeader";
 import { useMediaQuery } from "@mui/material";
 import { useState } from "react";
-import UploadPhoto from "./UploadPhoto";
 import ViewPhoto from "./ViewPhoto";
 import { galleryImages } from "@/utils/data";
 
@@ -28,7 +27,6 @@ export default function BranchGalleryTab() {
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const isLarge = useMediaQuery("(max-width: 1024px)");
     const [selected, setSelected] = useState<Img | null>(null);
-    const [showUploadPhoto, setShowUploadPhoto] = useState(false);
     const [isViewOpen, setIsViewOpen] = useState(false);
 
     const handleSearch = (q: string) => {
@@ -51,12 +49,6 @@ export default function BranchGalleryTab() {
                         actions={sectionActions}
                         noTitle={!isLarge ? false : true}
                     />
-                    <button 
-                        className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                        onClick={() => setShowUploadPhoto(true)}
-                    >
-                    Upload Photo
-                    </button>
                 </div>
                 <div className="grid gap-x-3.5 gap-y-4 md:grid-cols-2 md:max-w-150 lg:grid-cols-[repeat(auto-fit,minmax(270px,1fr))] lg:max-w-full overflow-y-auto no-scrollbar">
                     {galleryImages.map((image, index) => (
@@ -71,10 +63,6 @@ export default function BranchGalleryTab() {
                     ))}
                 </div>
             </div>
-            <UploadPhoto
-                open={showUploadPhoto}
-                onClose={() => setShowUploadPhoto(false)}
-            />
 
             <ViewPhoto
                 open={isViewOpen}
