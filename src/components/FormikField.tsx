@@ -229,8 +229,8 @@ export default function FormikField({
             <MenuItem key="placeholder" value="" defaultValue="" disabled>
               {placeholder}
             </MenuItem>,
-            ...options.map((opt) => (
-              <MenuItem key={opt.value} value={opt.value} defaultValue={opt.value}>
+            ...options.map((opt, i) => (
+              <MenuItem key={`${opt.value}-${i}`} value={opt.value} defaultValue={opt.value}>
                 {opt.label}
               </MenuItem>
             ))
