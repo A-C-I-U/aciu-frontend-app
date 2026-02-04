@@ -45,6 +45,11 @@ export default function ViewWithdrawalRequest({ open, onClose, withdrawal }: {
                             </tbody>
                         </table>
                     </div>
+                    <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 shrink-0">
+                        <button className="btn btn-primary">
+                            Download Receipt
+                        </button>
+                    </div>
                 </div>
             </div>
         </ShellModal>
