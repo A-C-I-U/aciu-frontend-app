@@ -248,7 +248,6 @@ export const adminSchema = object({
     ),
 })
 
-
 export const duesValidationSchema = object({
     duesTitle: string()
         .required("Dues title is required"),
@@ -343,3 +342,37 @@ export const createBranchSchema = object({
   startDate: date().required("Start Date is required"),
   branchLogo: string().notRequired(),
 });
+
+export const branchPresidentSchema = object({
+    memberName: string()
+        .required("Member's name is required"),
+    createdBy: string()
+        .required("This field is required"),
+    createdOn: string()
+        .required("Creation date is required"),
+    startDate: string()
+        .required("Start date is required"),
+    endDate: string()
+        .nullable()
+        .min(ref("startDate"), "End date cannot be before start date"),
+    permissions: object({
+        // Member Access
+        viewProfiles: boolean().default(false),
+        approveMembers: boolean().default(false),
+        deleteMemberInfo: boolean().default(false),
+
+        // Dues & Payments
+        createEditDues: boolean().default(false),
+        viewPayments: boolean().default(false),
+        sendReminders: boolean().default(false),
+
+        // Events & Communications
+        createEvents: boolean().default(false),
+        approvePublications: boolean().default(false),
+    })
+    .test(
+        "at-least-one",
+        "At least one permission must be selected",
+        (obj) => Object.values(obj).some(Boolean)
+    ),
+})

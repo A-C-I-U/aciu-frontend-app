@@ -1,13 +1,10 @@
 import { BranchExecCard } from "@/components/BranchExecCard";
 import { branchExecutiveMockData } from "@/utils/data";
 import { useState } from "react";
-import AddAdmin from "./AddAdmin";
-import SuccessfulAdminAdd from "./SuccessfulAdminAdd";
+import BranchPresidentForm from "./BranchPresidentForm";
 
 export default function BranchExecutivesTab() {
     const [isAddOpen, setIsAddOpen] = useState(false);
-    const [isSuccessfulAdd, setIsSuccessfulAdd] = useState(false);
-    const [memberIdentity, setMemberIdentity] = useState<{ name: string; role: string } | null>(null);
 
     return (
         <>
@@ -36,26 +33,10 @@ export default function BranchExecutivesTab() {
                     )}
                 </div>
             </div>
-            <AddAdmin
+            <BranchPresidentForm
+                mode="create"
                 open={isAddOpen}
                 onClose={() => setIsAddOpen(false)}
-                onSuccess={(values) => {
-                    setIsAddOpen(false);
-                    setMemberIdentity({
-                        name: values.memberName,
-                        role: values.role || values.customRole,
-                    });
-                    setIsSuccessfulAdd(true)
-                }}
-            />
-
-            <SuccessfulAdminAdd
-                open={isSuccessfulAdd}
-                onClose={() => {
-                    setIsSuccessfulAdd(false)
-                }}
-                addAdmin={() => setIsAddOpen(true)}
-                memberIdentity={memberIdentity ?? { name: "", role: "" }}
             />
         </>
     )
