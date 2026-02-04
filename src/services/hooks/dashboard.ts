@@ -4,8 +4,8 @@ import {
   type TransactionsResponse, 
   type DashboardResponse, 
   type FinancesResponse, 
-  type NationalDashboardStats, 
-  type WithdrawalDetailResponse 
+  type NationalDashboardStats,
+  type DashboardWithdrawalApiResponse
 } from '../types/dashboad';
 import { useUser } from '@/context/UserContext';
 
@@ -68,12 +68,12 @@ export const useNationalDashboardWithdrawals = () => {
   })
 }
 
-export const useWithdrawalDetail = (id: string) => {
-  return useQuery<WithdrawalDetailResponse, Error>({
-    queryKey: ['withdrawal', 'detail', id],
+export const useNationalDashboardWithdrawalDetail = (id: string) => {
+  return useQuery<DashboardWithdrawalApiResponse, Error>({
+    queryKey: ['withdrawal-detail', id],
     enabled: !!id,
-    queryFn: async (): Promise<WithdrawalDetailResponse> => {
-      const response = await apiClient.get<{ message: string; data: WithdrawalDetailResponse }>(`/withdrawal/${id}`);
+    queryFn: async (): Promise<DashboardWithdrawalApiResponse> => {
+      const response = await apiClient.get<{ message: string; data: DashboardWithdrawalApiResponse }>(`/withdrawal/${id}`);
       return response.data.data;
     },
     staleTime: 5 * 60 * 1000,

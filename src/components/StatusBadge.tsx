@@ -21,7 +21,7 @@ export function StatusBadge({
             className="w-1.5 h-1.5 rounded-full"
             style={{ backgroundColor: dotColor }}
         />
-        {label}
+        <span className="leading-default">{label}</span>
     </span>
   );
 }

@@ -28,6 +28,21 @@ export default function TransactionsWithdrawalDetail({ open, onClose, id }: {
     const { mutateAsync: updateStatus, isPending } = useUpdateWithdrawalRequestStatus();
     const [openReject, setOpenReject] = useState(false);
 
+    const withdrawal = data ? {
+        transactionId: data.TransactionId,
+        branch: data.Branch,
+        requestedBy: data.RequestedBy,
+        position: data.Position,
+        withdrawalSource: data.WithdrawalSource,
+        amount: data.Amount,
+        bankName: data.BankName,
+        accountNumber: data.AccountNumber,
+        accountName: data.AccountName,
+        date: data.Date,
+        status: data.PaymentStatus,
+        ...data
+    }: null;
+
     const handleApprove = async (id: string) => {
         await updateStatus({
             id,
@@ -57,8 +72,8 @@ export default function TransactionsWithdrawalDetail({ open, onClose, id }: {
                     <div className="flex flex-col h-full overflow-hidden">
                         <div className="resources-modal-body pb-6">
                             {isLoading && <DetailSkeleton />}
-                            {data && <DetailContent data={data} />}
-                            {(isError && !data && !isLoading) && (
+                            {withdrawal && <DetailContent data={withdrawal} />}
+                            {(isError && !withdrawal && !isLoading) && (
                                 <div className="text-aciu-abriba p-4">
                                     Unable to load nominated project's details.
                                     Please open the modal again.
@@ -89,10 +104,10 @@ export default function TransactionsWithdrawalDetail({ open, onClose, id }: {
 const DetailContent = ({ data }: { data: WithdrawalDetailResponse }) => {
     if (!data) return <EmptyRecords />;
 
-    const { TransactionId, Branch, RequestedBy, Position, WithdrawalSource, Amount, BankName, AccountName, AccountNumber, Date, PaymentStatus, withdrawalAgreementForm } = data;
+    const { transactionId, branch, requestedBy, position, withdrawalSource, amount, bankName, accountName, accountNumber, date, status, withdrawalAgreementForm } = data;
 
-    const rawStatus = PaymentStatus;
-    const normalized = rawStatus.toLowerCase() as WithdrawalDetailResponse["PaymentStatus"];
+    const rawStatus = status;
+    const normalized = rawStatus.toLowerCase() as WithdrawalDetailResponse["status"];
                 
     const { label, labelColor, dotColor, bgColor } =
         withdrawalStatusMap[normalized];
@@ -110,16 +125,16 @@ const DetailContent = ({ data }: { data: WithdrawalDetailResponse }) => {
                         </thead>
 
                         <tbody>
-                            <ViewCopyDetailRow label="Transaction ID" content={TransactionId} ariaLabel="Copy Transaction ID"/>
-                            <ViewDetailRow label="Branch" content={Branch} />
-                            <ViewDetailRow label="Requested By" content={RequestedBy} />
-                            <ViewDetailRow label="Position" content={Position} />
-                            <ViewDetailRow label="Withdrawal Source" content={WithdrawalSource.toLocaleLowerCase()} />
-                            <ViewDetailRow label="Amount" content={`₦${Math.round(Amount).toLocaleString()}`} />
-                            <ViewCopyDetailRow label="Bank Name" content={BankName} ariaLabel="Copy Bank Name" />
-                            <ViewCopyDetailRow label="Account Number" content={AccountNumber} ariaLabel="Copy Account Number" />
-                            <ViewCopyDetailRow label="Account Name" content={AccountName} ariaLabel="Copy Account Name" />
-                            <ViewDetailRow label="Date" content={formatDate(Date, "dd-MM-yyyy h:mm  aaaaa'm'")} />
+                            <ViewCopyDetailRow label="Transaction ID" content={transactionId} ariaLabel="Copy Transaction ID"/>
+                            <ViewDetailRow label="branch" content={branch} />
+                            <ViewDetailRow label="Requested By" content={requestedBy} />
+                            <ViewDetailRow label="position" content={position} />
+                            <ViewDetailRow label="Withdrawal Source" content={withdrawalSource.toLocaleLowerCase()} />
+                            <ViewDetailRow label="amount" content={`₦${Math.round(amount).toLocaleString()}`} />
+                            <ViewCopyDetailRow label="Bank Name" content={bankName} ariaLabel="Copy Bank Name" />
+                            <ViewCopyDetailRow label="Account Number" content={accountNumber} ariaLabel="Copy Account Number" />
+                            <ViewCopyDetailRow label="Account Name" content={accountName} ariaLabel="Copy Account Name" />
+                            <ViewDetailRow label="date" content={formatDate(date, "dd-MM-yyyy h:mm  aaaaa'm'")} />
                             <ViewDetailRow label="Status" content={<StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />} />
                         </tbody>
                     </table>

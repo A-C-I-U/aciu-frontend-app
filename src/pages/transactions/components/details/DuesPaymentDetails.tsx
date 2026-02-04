@@ -1,4 +1,5 @@
 import { DetailSkeleton } from "@/components/DetailSkeleton";
+import ReceiptDownloadButton from "@/components/ReceiptDownloadButton";
 import ShellHeader from "@/components/ShellHeader"
 import ShellModal from "@/components/ShellModal"
 import { StatusBadge } from "@/components/StatusBadge";
@@ -17,6 +18,12 @@ export default function DuesPaymentDetail({ open, onClose, id }: {
 }) {
     if (!id) return null;
     const { data, isLoading, isError } = useDuesPaymentDetails(id);
+    const duesPayment = data ? {
+        ...data,
+        status: data.paymentStatus,
+        date: data.datePaid,
+        source: data.source.toLowerCase().replace(/\b\w/g, c => c.toUpperCase())
+    } : null;
 
     return (
         <>
@@ -38,9 +45,7 @@ export default function DuesPaymentDetail({ open, onClose, id }: {
                             )}
                         </div>
                         <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                            <button disabled={!data} className="btn btn-primary">
-                                Download Receipt
-                            </button>
+                            <ReceiptDownloadButton data={duesPayment} type="dues" />
                         </div>
                     </div>
                 </div>
