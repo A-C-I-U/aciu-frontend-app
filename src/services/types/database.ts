@@ -14,7 +14,7 @@ export interface MemberProfile {
   ageGrade: string;
   village: string;
   occupation: string;
-  gender: 'Man' | 'Woman' | string;
+  gender: "Man" | "Woman" | string;
   branch: string | null;
   joinedOn: string;
   verifiedOn: string | null;
@@ -27,18 +27,17 @@ export interface Branch {
   id: string;
   branchName: string;
   meetingLocation: string;
-  status: 'active' | 'inactive';
+  status: "active" | "inactive";
   branchMembers: number;
   branchPresident: string | null;
 }
-
 
 export interface AgeGrade {
   name: string;
   yearFormed: string;
   members: number;
   associatedBranches: number;
-  status: 'Active' | 'Inactive';
+  status: "Active" | "Inactive";
 }
 
 export interface DatabaseTotals {
@@ -53,13 +52,31 @@ export interface DatabaseStats {
   growth: DatabaseTotals;
 }
 
-
-export interface CreateBranch {
+export interface CreateBranchPayload {
   name: string;
-  branchType: "Nigeria" | "Diaspora";
+  branchType: string;
   branchCity: string;
-  branchCountry: "Nigeria";
+  branchCountry: string;
   meetingLocation: string;
   startDate: string;
   branchLogo?: string;
-};
+}
+
+export interface CreateBranch {
+  id: string;
+  status: "active" | "inactive";
+  branchType: string;
+  branchCity: string;
+  branchCountry: string;
+  meetingLocation: string;
+  branchLogo?: string | null;
+  branchChairman?: string | null;
+  chairmanEmail?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateBranchResponse {
+  message: string;
+  newBranch: CreateBranch;
+}
