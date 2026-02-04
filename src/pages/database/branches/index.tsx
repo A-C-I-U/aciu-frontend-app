@@ -11,12 +11,13 @@ import type { FieldConfig } from "@/utils/types";
 import { useMediaQuery } from "@mui/material";
 import { useState } from "react";
 import { branchColumns } from "./columns";
+import BranchForm from "./BranchForm";
 
 export default function Branches() {
     const isMedium = useMediaQuery("(max-width: 1250px)");
     
     const [_selected, setSelected] = useState<Branch | null>(null);
-    const [_isViewOpen, setViewOpen] = useState(false);
+    const [isViewOpen, setViewOpen] = useState(false);
     const [_query, setQuery] = useState("");
 
     const { data, isLoading  } = useDatabaseBranches();
@@ -33,12 +34,18 @@ export default function Branches() {
     return (
         <>
             <div className="flex flex-col gap-6 py-6 px-4 rounded-lg">
-                <SectionHeader
-                    title="Branches"
-                    onSearch={handleSearch}
-                    showSearch={isMedium ? false : true}
-                    actions={sectionActions}
-                />
+                <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
+                    <SectionHeader
+                        title="Branches"
+                        onSearch={handleSearch}
+                        showSearch={isMedium ? false : true}
+                        actions={sectionActions}
+                    />
+                    <button className="max-w-fit btn btn-primary" onClick={() => setViewOpen(true)}>
+                        Add New Branch
+                    </button>
+                </div>
+                
                 {isLoading ?
                     (isMedium ?
                         <div className="grid gap-4 md:grid-cols-2">
@@ -64,6 +71,11 @@ export default function Branches() {
                 />
                 }
             </div>
+            <BranchForm
+                open={isViewOpen}
+                onClose={() => setViewOpen(false)}
+                mode="create"
+            />
         </>
     )
 }

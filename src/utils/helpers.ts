@@ -729,17 +729,19 @@ export const withdrawalReceiptConfig: ReceiptConfig = {
 export const getAllCitiesOfCountry = (countryCode: string) => {
   const states = State.getStatesOfCountry(countryCode);
 
-  let cities: { value: string; label: string }[] = [];
+  let cities: { value: string; label: string; }[] = [];
 
   states.forEach((state) => {
-    const stateCities = City.getCitiesOfState(countryCode, state.isoCode);
-    cities.push(
-      ...stateCities.map((city) => ({
-        value: city.name,
-        label: city.name,
-      }))
-    );
+  const stateCities = City.getCitiesOfState(countryCode, state.isoCode);
+  stateCities.forEach((city) => {
+    cities.push({
+      value: `${city.name} Branch`,
+      label: `${city.name} Branch`,
+    });
   });
+});
+
+
 
   return cities;
 };

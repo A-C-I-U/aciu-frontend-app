@@ -14,11 +14,15 @@ const saveBranch = async ({
 
   const formData = new FormData();
 
-  formData.append("name", payload.name);
-  formData.append("branchType", payload.branchType);
-  formData.append("branchCity", payload.branchCity);
-  formData.append("branchCountry", payload.branchCountry);
-  formData.append("meetingLocation", payload.meetingLocation);
+  Object.entries(payload).forEach(([key, value]) => {
+    if (value === undefined) return;
+
+    if (value instanceof File) {
+      formData.append(key, value);
+    } else if (typeof value === "string" && value.trim()) {
+      formData.append(key, value);
+    }
+  });
 
   if (payload.branchLogo) {
     formData.append("branchLogo", payload.branchLogo);
