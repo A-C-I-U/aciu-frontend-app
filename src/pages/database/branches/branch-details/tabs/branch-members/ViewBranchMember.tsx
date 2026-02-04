@@ -1,5 +1,4 @@
 import { ScrollLock } from "@/components/ScrollLock";
-import type { BranchMemberDataType } from "@/utils/types";
 import { Avatar, Dialog, Divider } from "@mui/material";
 import DummyProfile from "/images/avatar.png"
 import { StatusBadge } from "@/components/StatusBadge";
@@ -10,6 +9,7 @@ import ProfileOverviewTab from "./ProfileOverviewTab";
 import MemberPaymentTab from "./MemberPaymentTab";
 import MemberActivityTab from "./MemberActivityTab";
 import { X } from "lucide-react";
+import { dummyBranchMember } from "@/utils/data";
 
 const defaultDialogSx = {
     "& .MuiDialog-paper": {
@@ -43,19 +43,18 @@ const branchMemberTabs = [
     }
 ]
 
-// Pass id instead of branch member
-
 export default function ViewBranchMember({
-    open, onClose, branchMember
+    open, onClose, id
 }: { 
     open: boolean,
     onClose: () => void,
-    branchMember: BranchMemberDataType | null
+    id: string | null
 }) {
-    if (!branchMember) return null;
+    if (!id) return null;
 
-    const { fullName, verificationStatus, joinedOn } = branchMember;
-    const { label, bgColor, dotColor, labelColor } = branchMemberStatusMap[verificationStatus];
+    const { fullName, verifiedOn, joinedOn } = dummyBranchMember;
+    const verificationStatus = Boolean(verifiedOn);
+    const { label, bgColor, dotColor, labelColor } = branchMemberStatusMap[String(verificationStatus)];
     const [activeTab, setActiveTab] = useState(branchMemberTabs[0])
     const ActiveTabComponent = activeTab.content;
 
@@ -140,7 +139,7 @@ export default function ViewBranchMember({
                         </div>
                         <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
                         <div className="mt-6 overflow-y-auto h-full">
-                            <ActiveTabComponent branchMember={branchMember} />
+                            <ActiveTabComponent branchMember={dummyBranchMember} />
                         </div>
                     </div>
                 </div>

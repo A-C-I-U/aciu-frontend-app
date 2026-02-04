@@ -1,11 +1,11 @@
-import type { BranchMemberDataType } from "@/utils/types";
 import { MemberField } from "./ViewBranchMember";
 import { Copy } from "iconsax-react";
 import { copyTextToClipboard } from "@/utils/helpers";
+import type { MemberProfile } from "@/services/types/database";
 
 export default function ProfileOverviewTab({
     branchMember
-}: { branchMember: BranchMemberDataType}) {
+}: { branchMember: MemberProfile}) {
     return (
         <div className="grid md:grid-cols-2 justify-between gap-x-8 gap-y-7.5">
             <MemberField title="Full Name" content={branchMember.fullName} />

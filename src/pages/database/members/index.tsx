@@ -12,12 +12,13 @@ import { databaseMemberStatusMap } from "@/utils/helpers";
 import { useDatabaseMembers } from "@/services/hooks/database";
 import TableSkeleton from "@/components/TableSkeleton";
 import MobileItemSkeleton from "@/components/MobileItemSkeleton";
+import ViewBranchMember from "../branches/branch-details/tabs/branch-members/ViewBranchMember";
 
 export default function Members() {
     const isMedium = useMediaQuery("(max-width: 1250px)");
     
-    const [_selected, setSelected] = useState<Member | null>(null);
-    const [_isViewOpen, setViewOpen] = useState(false);
+    const [selected, setSelected] = useState<Member | null>(null);
+    const [isViewOpen, setViewOpen] = useState(false);
     const [_query, setQuery] = useState("");
 
     const { data, isLoading  } = useDatabaseMembers();
@@ -65,6 +66,11 @@ export default function Members() {
                 />
                 }
             </div>
+            <ViewBranchMember
+                open={isViewOpen} 
+                onClose={() => setViewOpen(false)} 
+                id={selected?.id ?? ""}
+            />
         </>
     )
 }

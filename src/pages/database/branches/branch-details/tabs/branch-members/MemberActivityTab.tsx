@@ -1,13 +1,13 @@
-import type { BranchMemberDataType } from "@/utils/types"
 import { Avatar } from "@mui/material"
 import DummyProfile from "/images/avatar.png"
 import { EmptyMemberActivity } from "@/components/EmptyStates";
+import type { MemberProfile } from "@/services/types/database";
 
 const activities = [];
 
 // Use Implementation on Dues Preview Activity Log
 export default function MemberActivityTab({ branchMember }: {
-    branchMember: BranchMemberDataType
+    branchMember: MemberProfile
 }) {
     return (
         <div className="flex flex-col gap-7.5 overflow-y-auto">

@@ -3,11 +3,10 @@
  * but a new columns array and the table instance 
  * will appear here
  */
-
-import type { BranchMemberDataType } from "@/utils/types";
 import { EmptyPaymentsState } from "@/components/EmptyStates";
+import type { MemberProfile } from "@/services/types/database";
 
-export default function MemberPaymentTab({ branchMember }: { branchMember: BranchMemberDataType}) {
+export default function MemberPaymentTab({ branchMember }: { branchMember: MemberProfile}) {
     
     return (
        branchMember ? (

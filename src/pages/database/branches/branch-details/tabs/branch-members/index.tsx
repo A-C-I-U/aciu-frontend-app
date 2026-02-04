@@ -97,7 +97,7 @@ export default function BranchMembersTab() {
             <ViewBranchMember 
                 open={isViewOpen} 
                 onClose={() => setIsViewOpen(false)} 
-                branchMember={selected}
+                id={selected?.id ?? ""}
             />
             
         </div>
