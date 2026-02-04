@@ -1,5 +1,5 @@
 import FormikField from "@/components/FormikField";
-import { MarkIcon } from "@/components/Icons";
+import { MarkIcon, UploadFileImage } from "@/components/Icons";
 import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
 import { SuccessDialog } from "@/components/SuccessDialog";
@@ -14,8 +14,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { Form, Formik } from "formik";
 import { enqueueSnackbar } from "notistack";
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Country } from "country-state-city";
+import { getAllCitiesOfCountry } from "@/utils/helpers";
 
 const initialValues = {
   name: "",
@@ -39,6 +41,10 @@ export default function BranchForm({
   const [showSuccess, setShowSuccess] = useState(false);
   const [successMode, setSuccessMode] = useState<"create" | "edit">("create");
   const [newBranchId, setNewBranchId] = useState<string>();
+  const [country, setCountry] = useState<string>("");
+  const [image, setImage] = useState<File | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
 
   const saveBranchMutation = useSaveBranch();
 
@@ -76,6 +82,23 @@ export default function BranchForm({
       enqueueSnackbar(error, { variant: "error" });
     }
   };
+
+  const countries = useMemo(
+    () =>
+      Country.getAllCountries().map(c => ({
+        value: c.isoCode,
+        label: c.name,
+      })),
+    []
+  );
+
+  const cities = useMemo(() => {
+    if (!country) return [];
+    return getAllCitiesOfCountry(country);
+  }, [country]);
+
+
+
 
   return (
     <>
@@ -116,27 +139,27 @@ export default function BranchForm({
                       select
                     />
                     <div className="flex gap-4 items-start">
+                      
                       <FormikField
                         label="Branch Country"
                         name="branchCountry"
                         placeholder="Select branch country"
-                        options={[
-                          { value: "USD", label: "USD" },
-                          { value: "NGN", label: "NGN" },
-                        ]}
+                        options={countries}
+                        onChange={(option: any) => {
+                          setCountry(option.value);
+                          setFieldValue("branchCountry", option.label);
+                        }}
                         fullWidth
                         select
                       />
                       <FormikField
-                        label="Branch Country"
-                        name="branchCountry"
-                        placeholder="Select branch country"
-                        options={[
-                          { value: "USD", label: "USD" },
-                          { value: "NGN", label: "NGN" },
-                        ]}
+                        label="Branch City"
+                        name="branchCity"
+                        placeholder="Select branch city"
+                        options={cities}
                         fullWidth
                         select
+                        disabled={!country}
                       />
                     </div>
                     <FormikField
@@ -154,6 +177,47 @@ export default function BranchForm({
                         className="w-full h-unset py-2"
                         sx={datePickerSx}
                       />
+                    </div>
+                    <div className="gap-2 flex flex-col">
+                      <span className="text-aciu-aciu-border-grey text-sm leading-default font-medium">
+                          Branch Logo (if any)
+                      </span>
+                      <div
+                        className="w-full h-32 rounded-2xs overflow-hidden border border-dashed border-gray-300 cursor-pointer flex items-center justify-center"
+                        onClick={() => inputRef.current?.click()}
+                      >
+                        <input
+                          type="file"
+                          accept="image/png,image/jpeg,image/jpg"
+                          hidden
+                          ref={inputRef}
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              setImage(file);
+                              setFieldValue("branchLogo", file)
+                            }
+                          }}
+                        />
+
+                        {!image ? (
+                          <UploadFileImage width="100%" height="100%" />
+                        ) : (
+                          <img
+                            src={URL.createObjectURL(image)}
+                            alt="Selected"
+                            className="w-full h-full object-cover rounded-2xs"
+                          />
+                        )}
+                      </div>
+                      <div className="flex justify-between items-center col-span-4">
+                        <p className="text-grayscale-100 text-xs md:text-sm">
+                            Supported formats: png, jpg, jpeg
+                        </p>
+                        <p className="text-grayscale-100 text-xs md:text-sm">
+                            Max: 10mb
+                        </p>
+                    </div>
                     </div>
                   </div>
                   <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 shrink-0">

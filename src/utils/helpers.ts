@@ -5,6 +5,7 @@ import { format, parseISO } from "date-fns";
 import type { DuesPaymentResponse, NationalDuesResponse } from "@/services/types/transactions";
 import type { ActivityLog, FormattedActivityLog } from "@/services/types/nationaldues";
 import type { ReceiptConfig } from "@/services/types/receipt";
+import { City, State } from "country-state-city";
 
 export const capitalizeFirstLetters = (str: string) => {
     return str
@@ -717,3 +718,21 @@ export const withdrawalReceiptConfig: ReceiptConfig = {
     { label: 'Status', key: 'status', format: formatters.status },
   ]
 }
+
+export const getAllCitiesOfCountry = (countryCode: string) => {
+  const states = State.getStatesOfCountry(countryCode);
+
+  let cities: { value: string; label: string }[] = [];
+
+  states.forEach((state) => {
+    const stateCities = City.getCitiesOfState(countryCode, state.isoCode);
+    cities.push(
+      ...stateCities.map((city) => ({
+        value: city.name,
+        label: city.name,
+      }))
+    );
+  });
+
+  return cities;
+};
