@@ -6,8 +6,6 @@ import { columns } from "./columns";
 import SectionHeader from "@/components/SectionHeader";
 import MobileItemCard from "@/components/MobileItem";
 import ViewWithdrawalRequest from "./ViewWithdrawalRequest";
-import SubmitWithdrawalRequest from "./SubmitWithdrawalRequest";
-import SuccessfulRequest from "./SuccessfulRequest";
 import { ResponsiveDataTable } from "@/components/ResponsiveDataTable";
 import { sectionActions } from "@/components/SectionActions";
 
@@ -16,10 +14,8 @@ export default function WithdrawalTab() {
     const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const isLarge = useMediaQuery("(max-width: 1024px)");
-    const [showSubmitRequest, setShowSubmitRequest] = useState(false);
     const [selected, setSelected] = useState<WithdrawalDataType | null>(null);
     const [isViewOpen, setViewOpen] = useState(false);
-    const [isSuccessOpen, setSuccessOpen] = useState(false);
 
 
     const handleViewClick = (withdrawal: WithdrawalDataType) => {
@@ -46,12 +42,6 @@ export default function WithdrawalTab() {
                         actions={sectionActions}
                         noTitle={!isLarge ? false : true}
                     />
-                    <button 
-                        className="btn btn-primary max-w-fit text-sm! md:text-base!"
-                        onClick={() => setShowSubmitRequest(true)}
-                    >
-                        Submit Withdrawal Request
-                    </button>
                 </div>
 
                 <ResponsiveDataTable
@@ -75,17 +65,6 @@ export default function WithdrawalTab() {
                 open={isViewOpen}
                 onClose={handleViewClose}
                 withdrawal={selected}
-            />
-
-            <SubmitWithdrawalRequest
-                open={showSubmitRequest}
-                onClose={() => setShowSubmitRequest(false)}
-                onSuccess={() => setSuccessOpen(true)}
-            />
-            
-            <SuccessfulRequest
-                open={isSuccessOpen}
-                onClose={() => setSuccessOpen(true)}
             />
         </>
     )

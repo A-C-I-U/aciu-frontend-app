@@ -2,14 +2,11 @@ import SectionHeader from "@/components/SectionHeader";
 import { branchPaymentStatusMap, formatDate, generateMockBranchPayments } from "@/utils/helpers";
 import type { BranchPaymentsDataType, FieldConfig } from "@/utils/types";
 import { useMediaQuery } from "@mui/material";
-import { getCoreRowModel, getPaginationRowModel, useReactTable } from "@tanstack/react-table";
 import { useState } from "react";
 import { columns } from "./columns";
-import DataTable from "@/components/DataTable";
 import MobileItemCard from "@/components/MobileItem";
-import { PaginationControls } from "@/pages/blog/components/shared/PaginationControls";
 import ViewPayment from "./ViewPayment";
-import DuesReminder from "./DuesReminder";
+import { ResponsiveDataTable } from "@/components/ResponsiveDataTable";
 
 const sectionActions = [
     <button className="section-action-button">
@@ -24,29 +21,13 @@ export default function BranchPaymentsTab() {
     const [_query, setQuery] = useState(""); // TODO: Remove underscore when search logic is implemented
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const isLarge = useMediaQuery("(max-width: 1024px)");
-    const [showDuesReminder, setShowDuesReminder] = useState(false);
     const [selected, setSelected] = useState<BranchPaymentsDataType | null>(null);
     const [isViewOpen, setViewOpen] = useState(false);
-
-    const itemsPerPage = 4;
-    const [page, setPage] = useState(1);
-
-    const start = (page - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const currentItems = mockData.slice(start, end);
 
     const handleViewClick = (payment: BranchPaymentsDataType) => {
         setSelected(payment);
         setViewOpen(true);
     }
-
-    const table = useReactTable<BranchPaymentsDataType>({
-        data: mockData,
-        columns: columns(handleViewClick),
-        pageCount: Math.ceil(mockData.length / 10),
-        getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel()
-    })
 
     const handleSearch = (q: string) => {
         setQuery(q)
@@ -62,51 +43,25 @@ export default function BranchPaymentsTab() {
                     actions={sectionActions}
                     noTitle={!isLarge ? false : true}
                 />
-                <button 
-                    className="text-sm md:text-base py-3 px-2 md:py-4 md:px-2 gap-2 text-white font-coolvetica bg-aciu-green-normal whitespace-nowrap w-fit rounded-xl"
-                    onClick={() => setShowDuesReminder(true)}
-                >
-                    Send Dues Reminder
-                </button>
             </div>
 
-            <>
-                {!isMedium ?
-                    <DataTable 
-                        table={table}
-                    />
-                    :
-                    
-                    <div className="grid gap-4 md:grid-cols-2">
-                        {currentItems.map((branchPayment: BranchPaymentsDataType) => (
-                            <MobileItemCard
-                                key={branchPayment.id}
-                                item={branchPayment}
-                                fields={fields}
-                                status={branchPaymentStatusMap[branchPayment.status]}
-                                actionLabel="View Dues"
-                                onActionClick={() => {handleViewClick(branchPayment)}}
-                            />
-                        ))}
-                    </div>
-                }
-                {isMedium &&
-                    <PaginationControls
-                        total={mockData.length}
-                        page={page}
-                        onPageChange={setPage}
-                        itemsPerPage={itemsPerPage}
-                    />
-                }
-            </>
+            <ResponsiveDataTable
+                data={mockData}
+                columns={columns(handleViewClick)}
+                renderMobileItem={(payment: BranchPaymentsDataType) => (
+                    <MobileItemCard
+                        key={payment.id}
+                        item={payment}
+                        fields={fields}
+                        status={branchPaymentStatusMap[payment.status]}
+                        actionLabel="View Details"
+                        onActionClick={() => handleViewClick(payment)}
+                    />)}
+                />
             <ViewPayment
                 open={isViewOpen}
                 onClose={() => setViewOpen(false)}
                 payment={selected}
-            />
-            <DuesReminder
-                open={showDuesReminder}
-                onClose={() => setShowDuesReminder(false)}
             />
         </div>
     )
