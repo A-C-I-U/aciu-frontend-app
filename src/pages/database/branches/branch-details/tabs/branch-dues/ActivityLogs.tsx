@@ -4,16 +4,17 @@ import DummyProfile from "/images/avatar.png"
 import { useDuesActivityLog } from "@/services/hooks/dues";
 import { formatActivityLogs } from "@/utils/helpers";
 import { formatDate } from "date-fns";
+import ErrorState from "@/components/ErrorState";
 
 
 export default function ActivityLogs({ id }: { id: string }) {
-    const { data, isLoading } = useDuesActivityLog(id);
+    const { data, isLoading, isError } = useDuesActivityLog(id);
 
     const logs = formatActivityLogs(data?.details || [])
 
-    return (
-        <div className="flex flex-col gap-10">
-            {isLoading && 
+    if (isLoading) {
+        return (
+            <div className="flex flex-col gap-10">
                 <div className="flex flex-col gap-10">
                     {Array.from({ length: 5 }).map((_, index) => (
                         <div className="flex flex-col gap-4 animate-pulse" key={index}>
@@ -27,7 +28,16 @@ export default function ActivityLogs({ id }: { id: string }) {
                             </div>
                     ))}
                 </div>
-            }
+            </div>
+        )
+    }
+
+    if (isError) {
+        return <ErrorState label="Activity Logs" />
+    }
+
+    return (
+        <div className="flex flex-col gap-10">
             {logs && logs.length > 0 ? (
                 logs.map((detail, index) => (
                 <div key={index} className="flex flex-col gap-4">

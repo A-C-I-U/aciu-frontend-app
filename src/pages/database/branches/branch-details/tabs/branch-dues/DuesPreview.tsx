@@ -6,7 +6,7 @@ import { branchStatusMap } from "@/utils/helpers";
 import type { BranchDueDataType } from "@/utils/types";
 import { Divider } from "@mui/material";
 import { formatDate } from "date-fns";
-import { Clock, DollarSquare, User } from "iconsax-react";
+import { Clock, DollarSquare, User, Warning2 } from "iconsax-react";
 import { useState } from "react";
 import DueRules from "./DueRules";
 import ActivityLogs from "./ActivityLogs";
@@ -66,9 +66,14 @@ export default function DuesPreview({
                     <div className="resources-modal-body">
                         {isLoading && <DetailSkeleton />}
                         {(isError && !dueOffset && !isLoading) && (
-                            <div className="text-aciu-abriba p-4">
-                                Unable to load due's details.
-                                Please open the modal again.
+                            <div className="text-aciu-abriba p-4 h-full min-h-80 flex flex-col gap-2 w-full justify-center items-center">
+                                <div className="w-15 h-15 shadow-[0px_4px_50px_0px_#0000001A] flex items-center justify-center">
+                                    <Warning2 size={32} color="#737373" variant="Linear"/>
+                                </div>
+                                <p className="max-w-[70%] text-center">
+                                    Unable to load due's details.
+                                    Please open the modal again.
+                                </p>
                             </div>
                         )}
                         {dueOffset && 

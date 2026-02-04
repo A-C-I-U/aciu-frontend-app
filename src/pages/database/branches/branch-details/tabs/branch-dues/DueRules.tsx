@@ -3,17 +3,22 @@ import { EmptyRecords } from "@/components/EmptyStates";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
 import { Information } from "iconsax-react";
 import { DetailSkeleton } from "@/components/DetailSkeleton";
+import ErrorState from "@/components/ErrorState";
 
 export default function DueRules({ id }: { id: string}) {
-    const { data: dueRules, isLoading } = useDuesRules(id);
+    const { data: dueRules, isLoading, isError } = useDuesRules(id);
 
-    if (isLoading && !dueRules) return <div className="w-full"><DetailSkeleton /></div>;
+    if (isLoading) return <div className="w-full"><DetailSkeleton /></div>;
 
-    if (!dueRules && !isLoading) return <EmptyRecords />;
+    if (isError) {
+        return <ErrorState label="Due Rules" />;
+    }
+
+    if (!dueRules) return <EmptyRecords />;
 
     return (
         <>
-        {dueRules && !isLoading &&
+        {dueRules &&
             <div className="flex flex-col gap-5 h-full w-full">
                 <table className="w-full">
                     <thead>
