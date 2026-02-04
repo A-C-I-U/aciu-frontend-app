@@ -4,7 +4,8 @@ import { useState } from "react";
 import BranchPresidentForm from "./BranchPresidentForm";
 
 export default function BranchExecutivesTab() {
-    const [isAddOpen, setIsAddOpen] = useState(false);
+    const [formMode, setFormMode] = useState<"create" | "edit" | null>(null);
+    const chairman = true;
 
     return (
         <>
@@ -13,11 +14,18 @@ export default function BranchExecutivesTab() {
                     <h2 className="hidden lg:block text-xl text-aciu-border-grey">
                         Branch Executives
                     </h2>
-                    <button 
+                    {/* We should be able to change the text and function here based on whether there is a branch chairman or not */}
+                    <button
                         className="btn btn-primary max-w-fit text-sm! md:text-base!"
-                        onClick={() => setIsAddOpen(true)}
+                        onClick={() => {
+                            if (chairman) {
+                                setFormMode("edit");
+                            } else {
+                                setFormMode("create");
+                            }
+                        }}
                     >
-                        Add admin
+                        {chairman ? "Change Branch President" : "Assign Branch President"}
                     </button>
                 </div>
                 <div
@@ -28,15 +36,16 @@ export default function BranchExecutivesTab() {
                             <BranchExecCard
                                 key={branchExec.id}
                                 branchExec={branchExec}
+                                onEdit={() => setFormMode("edit")}
                             />
                         )
                     )}
                 </div>
             </div>
             <BranchPresidentForm
-                mode="create"
-                open={isAddOpen}
-                onClose={() => setIsAddOpen(false)}
+                mode={formMode}
+                open={formMode !== null}
+                onClose={() => setFormMode(null)}
             />
         </>
     )
