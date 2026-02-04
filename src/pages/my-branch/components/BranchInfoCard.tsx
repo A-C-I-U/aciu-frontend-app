@@ -1,41 +1,33 @@
 import { BranchInitials } from "@/pages/help-and-support/components/BranchInitials";
 import { Edit } from "iconsax-react";
-
-interface BranchInfo {
-    createdAt: string,
-    meetingLocation: string,
-    branchKey: string,
-    branchName: string,
-    branchChairman: string,
-    branchChairmanEmail: string
-}
+import type { BranchOverview } from "@/services/types/branch";
 
 export default function BranchInfoCard({
     branchInfo
-}: { branchInfo: BranchInfo }) {
+}: { branchInfo?: BranchOverview }) {
+
     const {
-        createdAt,
+        createdOn,
         meetingLocation,
-        branchKey,
         branchName,
         branchChairman,
-        branchChairmanEmail
-    } = branchInfo;
+        chairmanEmail
+    } = branchInfo || {};
 
     const branchInfoDetails = [
-        { title: "Meeting Location", content: meetingLocation },
-        { title: "Branch Chairman", content: branchChairman },
-        { title: "Branch Chairman Email", content: branchChairmanEmail },
-        { title: "Created at", content: createdAt }
+        { title: "Meeting Location", content: meetingLocation || "N/A" },
+        { title: "Branch Chairman", content: branchChairman || "N/A" },
+        { title: "Branch Chairman Email", content: chairmanEmail || "N/A" },
+        { title: "Created at", content: createdOn ? new Date(createdOn).toLocaleDateString() : "N/A" }
     ]
 
     return (
         <div className="bg-white rounded-[.625rem] py-6 px-5 flex flex-col gap-4 lg:gap-6">
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between lg:items-center">
                 <div className="flex  items-center gap-4">
-                    <BranchInitials branchName={branchKey} />
+                    <BranchInitials branchName={branchName || ""} />
                     <h5 className="text-xl text-aciu-border-grey">
-                        {branchName}
+                        {branchName || "Loading..."}
                     </h5>
                 </div>
                 <button className="text-aciu-abriba border border-aciu-abriba rounded-xl flex items-center gap-2 max-w-fit text-sm p-3 lg:text-base lg:p-4 shadow-[0px_1px_3px_0px_#0D0D120D]">
@@ -45,7 +37,7 @@ export default function BranchInfoCard({
             </div>
 
             <div className="hidden lg:grid lg:grid-cols-2 ml:grid-cols-[1fr_.5fr_.5fr_.5fr] items-start gap-4">
-                {branchInfoDetails.map(({title, content }, index) => (
+                {branchInfoDetails.map(({ title, content }, index) => (
                     <div key={index} className="flex flex-col gap-2 max-w-83.25">
                         <p className="text-aciu-abriba">
                             {title}

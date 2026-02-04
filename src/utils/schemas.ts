@@ -24,7 +24,7 @@ export const signupValidationSchemas = [
         gender: string()
             .oneOf(["man", "woman"], "Select one gender")
             .required("Gender is required"),
-        
+
         location: string()
             .oneOf(["nigeria", "abroad"], "Select one location")
             .required("Branch Location is required"),
@@ -37,7 +37,7 @@ export const signupValidationSchemas = [
         ageGrade: string()
             .oneOf(AGEGRADES, "Select one age grade")
             .required("Age grade is required"),
-       occupation: string()
+        occupation: string()
             .required("Occupation is required"),
     })
 ]
@@ -84,25 +84,25 @@ export const projectSchema = object({
     description: string().required("Description is required").min(20, "Description must be at least 20 characters"),
     impact: string().required("Impact is required").min(10, "Impact must be at least 10 characters"),
     cost: number().typeError("Must be a number").positive().required("Cost is required"),
-     image: mixed()
+    image: mixed()
         .required("Image is required")
         .test(
             "fileType",
             "Only PNG, JPG, and WEBP images are allowed",
-        (value: any) => {
-            if (!value) return false;
-            if (typeof value === "string") return true;
-            return ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(value?.type);
-        }
+            (value: any) => {
+                if (!value) return false;
+                if (typeof value === "string") return true;
+                return ["image/jpeg", "image/png", "image/webp", "image/jpg"].includes(value?.type);
+            }
         )
         .test(
-        "fileSize",
-        "File must be less than 10 MB",
-        (value: any) => {
-            if (!value || typeof value === "string") return true;
-            return value?.size <= 10 * 1024 * 1024;
-        }
-    ),
+            "fileSize",
+            "File must be less than 10 MB",
+            (value: any) => {
+                if (!value || typeof value === "string") return true;
+                return value?.size <= 10 * 1024 * 1024;
+            }
+        ),
 });
 
 export const donationSchema = object({
@@ -121,7 +121,7 @@ export const donationSchema = object({
 
     remarks: string()
         .max(200, "Remarks cannot exceed 200 characters"),
-        
+
     anonymousDonate: boolean()
 });
 
@@ -148,21 +148,21 @@ export const profileValidationSchema = object({
 
 
 export const changePasswordSchema = yup.object({
-  oldPassword: yup
-    .string()
-    .required('Old password is required')
-    .min(6, 'Old password must be at least 6 characters'),
-  
-  newPassword: yup
-    .string()
-    .required('New password is required')
-    .min(6, 'New password must be at least 6 characters')
-    .notOneOf([yup.ref('oldPassword')], 'New password must be different from old password'),
-  
-  confirmPassword: yup
-    .string()
-    .required('Please confirm your password')
-    .oneOf([yup.ref('newPassword')], 'Passwords must match'),
+    oldPassword: yup
+        .string()
+        .required('Old password is required')
+        .min(6, 'Old password must be at least 6 characters'),
+
+    newPassword: yup
+        .string()
+        .required('New password is required')
+        .min(6, 'New password must be at least 6 characters')
+        .notOneOf([yup.ref('oldPassword')], 'New password must be different from old password'),
+
+    confirmPassword: yup
+        .string()
+        .required('Please confirm your password')
+        .oneOf([yup.ref('newPassword')], 'Passwords must match'),
 });
 
 export const editResourceSchema = object({
@@ -186,7 +186,7 @@ export const uploadResourceSchema = object({
         .required("A file is required")
         .test("is-file", "Invalid file", value => value instanceof File),
 
-    accessLevel: string() 
+    accessLevel: string()
         .required("Access level is required")
         .oneOf(['all_members', 'only_admins'], 'Please select a valid access level'),
 });
@@ -207,7 +207,7 @@ export const withdrawalRequestSchema = object({
     reason: string()
         .required("Reason is required"),
     customReason: string()
-        .optional(), 
+        .optional(),
     document: mixed()
         .required("A file is required")
         .test("is-file", "Invalid file", value => value instanceof File),
@@ -215,15 +215,21 @@ export const withdrawalRequestSchema = object({
 })
 
 export const adminSchema = object({
-    memberName: string()
+    userId: string()
         .required("Member's name is required"),
     createdBy: string()
         .required("This field is required"),
     createdOn: string()
         .required("Creation date is required"),
+    role: string()
+        .optional(),
+    customRole: string()
+        .optional(),
     startDate: date()
+        .typeError("Please enter a valid date")
         .required("Start date is required"),
     endDate: date()
+        .typeError("Please enter a valid date")
         .nullable()
         .min(ref("startDate"), "End date cannot be before start date"),
     permissions: object({
@@ -241,12 +247,20 @@ export const adminSchema = object({
         createEvents: boolean().default(false),
         approvePublications: boolean().default(false),
     })
-    .test(
-        "at-least-one",
-        "At least one permission must be selected",
-        (obj) => Object.values(obj).some(Boolean)
-    ),
-})
+        .test(
+            "at-least-one",
+            "At least one permission must be selected",
+            (obj) => Object.values(obj).some(Boolean)
+        ),
+}).test(
+    "role-or-custom",
+    "Please provide either a fixed role or a custom role, but not both.",
+    (values) => {
+        const hasRole = !!values.role;
+        const hasCustomRole = !!values.customRole;
+        return (hasRole || hasCustomRole) && !(hasRole && hasCustomRole);
+    }
+);
 
 
 export const duesValidationSchema = object({
@@ -266,8 +280,8 @@ export const duesValidationSchema = object({
         .required("Start date is required"),
     endDate: date()
         .min(
-        ref("startDate"),
-        "End date must be after start date"
+            ref("startDate"),
+            "End date must be after start date"
         )
         .required("End date is required"),
     ageGrades: array()
@@ -280,8 +294,9 @@ export const duesValidationSchema = object({
     location: string()
         .required("Location is required"),
 
-    memberRoles: string()
-        .required("Member role is required"),
+    memberRoles: array()
+        .of(string().required("Member role is required"))
+        .min(1, "At least one member role is required"),
 
     notifications: array()
         .of(string().required("Notification is required"))
