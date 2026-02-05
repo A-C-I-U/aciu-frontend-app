@@ -141,7 +141,7 @@ export default function BranchForm({
                       fullWidth
                       select
                     />
-                    <div className="flex gap-4 items-start">
+                    <div className="flex flex-col lg:flex-row gap-4 items-start">
                       
                       <FormikField
                         label="Branch Country"
