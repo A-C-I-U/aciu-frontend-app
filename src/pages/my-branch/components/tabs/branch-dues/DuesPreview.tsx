@@ -12,8 +12,8 @@ import DueRules from "./DueRules";
 import ActivityLogs from "./ActivityLogs";
 import { useDuesDetails } from "@/services/hooks/dues";
 import { DetailSkeleton } from "@/components/DetailSkeleton";
-import { useDeactivateDues } from "@/services/mutations/nationaldues";
 import { enqueueSnackbar } from "notistack";
+import { useToggleDuesStatus } from "@/services/mutations/nationaldues";
 
 
 export default function DuesPreview({
@@ -23,7 +23,8 @@ export default function DuesPreview({
     if (!id) return null;
 
     const { data: due, isLoading, isError } = useDuesDetails(id);
-    const { mutateAsync: deactivateDues, isPending: deactivatePending } = useDeactivateDues();
+    const { mutateAsync: toggleStatus, isPending: togglePending } = useToggleDuesStatus();
+
 
     const duesPreviewTabs = [
         {
@@ -51,16 +52,22 @@ export default function DuesPreview({
         amount: due?.amount,
     } : null;
 
+    const isActive = dueOffset?.status === "Active";
+
     
 
 
     const [activeTab, setActiveTab] = useState(duesPreviewTabs[0]);
 
 
-    const handleDeactivateDues = async (id: string) => {
+    const handleDuesStatus = async (id: string) => {
+        if (!dueOffset) return;
+
+        const action = dueOffset.status === "Active" ? "deactivate" : "activate";
+        
         try {
-            await deactivateDues({ id });
-            enqueueSnackbar("This dues has been deactivated", {
+            const result = await toggleStatus({ id, action });
+            enqueueSnackbar(result.data.message, {
                 variant: 'success',
                 autoHideDuration: 2000
             });
@@ -188,17 +195,21 @@ export default function DuesPreview({
                     {/* Should Trigger Edit Dues */}
                     
                 </div>
-                <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
+                <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 shrink-0">
                     <button className="btn btn-primary" disabled={!dueOffset} onClick={onEdit}>
                         Edit Dues
                     </button>
-                    <button className="btn btn-secondary" disabled={!dueOffset} onClick={() => handleDeactivateDues(dueOffset ? dueOffset.id : "")}>
-                        {deactivatePending ? (
+                    <button 
+                        className="btn btn-secondary" 
+                        disabled={!dueOffset} 
+                        onClick={() => handleDuesStatus(dueOffset ? dueOffset.id : "")}
+                    >
+                        {togglePending ? (
                             <>
                                 <CircularProgress sx={{ color: 'black' }} size={12} />
-                                Deactivating
+                                {isActive ? "Deactivating" : "Reactivating"}
                             </>
-                        ) : "Deactivate"}
+                        ) : isActive ? "Deactivate" : "Reactivate"}
                     </button>
                 </div> 
             </div>

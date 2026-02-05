@@ -56,3 +56,32 @@ export interface FormattedActivityLog {
   formattedDate: string;
   hasActualChange: boolean;
 }
+
+export interface ToggleDueStatusResponse {
+  message: string;
+  due: Due;
+}
+
+export interface Due {
+  id: string;
+  branchId: string;
+  isNational: boolean;
+  title: string;
+  createdBy: string;
+  createdOn: string;
+  currency: string;
+  amount: string;
+  amountUsd: number;
+  amountNaira: number;
+  startDate: string;
+  endDate: string;
+  interval: Interval;
+  ageGrades: string[];
+  gender: Gender;
+  location: string;
+  memberRoles: string[];
+  notifications: string[];
+  status: "Active" | "Inactive";
+  createdAt: string;
+  updatedAt: string;
+}

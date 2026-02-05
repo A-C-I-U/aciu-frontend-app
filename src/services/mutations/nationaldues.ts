@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "..";
-import type { CreateNationalDuesPayload } from "../types/nationaldues";
+import { type ToggleDueStatusResponse, type CreateNationalDuesPayload } from "../types/nationaldues";
 
 
 const saveNationalDues = async ({
@@ -39,14 +39,14 @@ export const useSaveNationalDues = () => {
 }
 
 
-const deactivateDues = ({ id }: { id: string }) => {
-    return apiClient.patch(`/dues/${id}/deactivate`)
+const toggleDuesStatus = ({ id, action }: { id: string, action: "activate" | "deactivate" }) => {
+    return apiClient.patch<ToggleDueStatusResponse>(`/dues/${id}/status?action=${action}`)
 }
 
-export const useDeactivateDues = () => {
+export const useToggleDuesStatus = () => {
      const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: deactivateDues,
+        mutationFn: toggleDuesStatus,
         onSuccess: (_, { id }) => {
             queryClient.invalidateQueries({ queryKey: ["national-dues"]});
             queryClient.invalidateQueries({ queryKey: ["dues-detail", id]})
