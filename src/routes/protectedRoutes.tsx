@@ -29,6 +29,7 @@ import AddEventPage from "@/pages/my-branch/components/tabs/branch-events/add-ev
 import Analytics from "@/pages/analytics";
 import Transactions from "@/pages/transactions";
 import Database from "@/pages/database";
+import BranchDetails from "@/pages/database/branches/branch-details";
 
 
 export const protectedRoutes = [
@@ -55,11 +56,21 @@ export const protectedRoutes = [
   },
   {
     path: "/database",
-    element: <Database />,
     label: "ACIU Database",
     icon: Hashtag,
+    children: [
+      {
+        index: true,
+        element: <Database />
+      },
+      {
+        path: "branch/:id",
+        element: <BranchDetails />
+      }
+    ],
     roles: ["national_admin"]
   },
+
   {
     path: "/my-payments",
     element: <MyPaymentsPage />,

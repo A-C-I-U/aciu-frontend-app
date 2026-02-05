@@ -16,6 +16,7 @@ import type {
 } from "./types";
 import { timeAgo } from "./helpers";
 import type { Img } from "@/pages/my-branch/components/tabs/branch-gallery";
+import type { MemberProfile } from "@/services/types/database";
 
 export const BRANCHES: string[] = [
   "home", "aba", "umuahia", "enugu", "owerri",
@@ -914,3 +915,19 @@ export const dueAgeGradeOptions = [
   { label: "Uke Progressive", value: "Uke Progressive" },
   { label: "Uke Unity", value: "Uke Unity" },
 ]
+
+export const dummyBranchMember: MemberProfile = {
+  fullName: "Chinedu Okafor",
+  phone: "+234 803 456 7890",
+  email: "chinedu.okafor@gmail.com",
+  ageGrade: "Umuaka 2015",
+  village: "Umuahia",
+  occupation: "Civil Engineer",
+  gender: "Man",
+  branch: "Abuja Municipal Branch",
+  joinedOn: "2022-06-14",
+  verifiedOn: "2022-06-20",
+  verifiedBy: "Branch Chairman",
+  events: "Annual General Meeting, Youth Development Summit",
+  projects: "Community Hall Renovation, Road Maintenance Project"
+};

@@ -5,7 +5,7 @@ import ShellModal from "@/components/ShellModal";
 import { StatusBadge } from "@/components/StatusBadge";
 import ViewCopyDetailRow from "@/components/ViewCopyDetailRow";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
-import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
+import { EmptyRecords } from "@/components/EmptyStates";
 import { useWithdrawalDetails } from "@/services/hooks/transactions";
 import type { WithdrawalDetailResponse } from "@/services/types/transactions";
 import { withdrawalStatusMap } from "@/utils/helpers";

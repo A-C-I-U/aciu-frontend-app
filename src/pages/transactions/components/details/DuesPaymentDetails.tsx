@@ -4,7 +4,7 @@ import ShellHeader from "@/components/ShellHeader"
 import ShellModal from "@/components/ShellModal"
 import { StatusBadge } from "@/components/StatusBadge";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
-import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
+import { EmptyRecords } from "@/components/EmptyStates";
 import { useDuesPaymentDetails } from "@/services/hooks/transactions";
 import type { DuesPaymentDetail, DuesPaymentResponse } from "@/services/types/transactions";
 import { duePaymentStatusMap } from "@/utils/helpers";

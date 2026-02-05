@@ -2,7 +2,7 @@ import { DetailSkeleton } from "@/components/DetailSkeleton";
 import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
-import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
+import { EmptyRecords } from "@/components/EmptyStates";
 import { useProjectNominationDetail } from "@/services/hooks/project";
 import { useUpdateProjectStatus } from "@/services/mutations/projects";
 import type { ProjectNominationDetail } from "@/services/types/projects";

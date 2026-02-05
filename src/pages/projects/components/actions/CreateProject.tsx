@@ -90,7 +90,7 @@ export default function CreateProject({ open, onClose }: {
                                         {currentStep === 1 && <CreateProjectOne />}
                                         {currentStep === 2 && <CreateProjectTwo />}
                                     </div>
-                                    <div className="px-5.5 py-4 flex items-center gap-2 shadow-[0px_4px_50px_0px_#0000001A] flex-shrink-0">
+                                    <div className="px-5.5 py-4 flex items-center gap-2 shadow-[0px_4px_50px_0px_#0000001A] shrink-0">
                                         {!isAdvancing && (currentStep !== createProjectSchemas.length ? (
                                             <button 
                                                 className="btn btn-primary"
@@ -257,7 +257,7 @@ export const CreateProjectTwo = () => {
                     ))}
                     <div className="flex justify-between items-center col-span-4">
                         <p className="text-grayscale-100 text-xs md:text-sm">
-                            Supported formats: pdf, docx, xml
+                            Supported formats: png, jpg, jpeg
                         </p>
                         <p className="text-grayscale-100 text-xs md:text-sm">
                             Max: 10mb

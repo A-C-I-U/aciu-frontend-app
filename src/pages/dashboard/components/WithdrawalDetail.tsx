@@ -4,7 +4,7 @@ import ShellHeader from "@/components/ShellHeader";
 import ShellModal from "@/components/ShellModal";
 import { StatusBadge } from "@/components/StatusBadge";
 import { ViewDetailRow } from "@/components/ViewDetailRow";
-import { EmptyRecords } from "@/pages/my-branch/components/EmptyStates";
+import { EmptyRecords } from "@/components/EmptyStates";
 import { useNationalDashboardWithdrawalDetail } from "@/services/hooks/dashboard";
 import type { DashboardWithdrawalApiResponse } from "@/services/types/dashboad";
 import { withdrawalStatusMap } from "@/utils/helpers";
@@ -53,7 +53,7 @@ export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
                         </div>
                     )}
                     </div>
-                    <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
+                    <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 shrink-0">
                         <ReceiptDownloadButton data={withdrawalRequest} type="withdrawalRequest" />
                     </div> 
                 </div>

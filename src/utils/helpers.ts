@@ -5,6 +5,7 @@ import { format, parseISO } from "date-fns";
 import type { DuesPaymentResponse, NationalDuesResponse } from "@/services/types/transactions";
 import type { ActivityLog, FormattedActivityLog } from "@/services/types/nationaldues";
 import type { ReceiptConfig } from "@/services/types/receipt";
+import { City, State } from "country-state-city";
 
 export const capitalizeFirstLetters = (str: string) => {
   return str
@@ -290,6 +291,7 @@ export const branchStatusMap: Record<BranchDueDataType["status"], StatusMap> = {
     bgColor: "#E5E5E5"
   },
 }
+
 export interface StatusMap {
   label: string,
   labelColor: string,
@@ -398,7 +400,20 @@ export const duePaymentStatusMap: Record<DuesPaymentResponse["status"], StatusMa
   }
 }
 
-
+export const databaseMemberStatusMap: Record<"approved" | "pending", StatusMap> = {
+  pending: {
+      label: "Pending",
+      labelColor: "#FE961F",
+      dotColor: "#FE961F",
+      bgColor: "#FAF5EF"
+    },
+  approved: { 
+      label: "Approved", 
+      labelColor: "#027A48", 
+      dotColor: "#12B76A", 
+      bgColor: "#ECFDF3" 
+    }
+  }
 
 export const getExtension = (file: File | string): string => {
   if (typeof file === 'string') {
@@ -710,3 +725,23 @@ export const withdrawalReceiptConfig: ReceiptConfig = {
     { label: 'Status', key: 'status', format: formatters.status },
   ]
 }
+
+export const getAllCitiesOfCountry = (countryCode: string) => {
+  const states = State.getStatesOfCountry(countryCode);
+
+  let cities: { value: string; label: string; }[] = [];
+
+  states.forEach((state) => {
+  const stateCities = City.getCitiesOfState(countryCode, state.isoCode);
+  stateCities.forEach((city) => {
+    cities.push({
+      value: `${city.name} Branch`,
+      label: `${city.name} Branch`,
+    });
+  });
+});
+
+
+
+  return cities;
+};
