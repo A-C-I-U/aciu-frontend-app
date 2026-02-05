@@ -12,24 +12,22 @@ import { useMediaQuery } from "@mui/material";
 import { useState } from "react";
 import { branchColumns } from "./columns";
 import BranchForm from "./BranchForm";
+import { useNavigate } from "react-router-dom";
 
 export default function Branches() {
     const isMedium = useMediaQuery("(max-width: 1250px)");
     
     const [_selected, setSelected] = useState<Branch | null>(null);
-    const [isViewOpen, setViewOpen] = useState(false);
+    const [isFormOpen, setFormOpen] = useState(false);
     const [_query, setQuery] = useState("");
 
     const { data, isLoading  } = useDatabaseBranches();
-
-    const handleViewClick = (branch: Branch) => {
-        setSelected(branch);
-        setViewOpen(true);
-    }
+    const navigate = useNavigate();
 
     const handleSearch = (q: string) => {
         setQuery(q)
     }
+
 
     return (
         <>
@@ -41,7 +39,7 @@ export default function Branches() {
                         showSearch={isMedium ? false : true}
                         actions={sectionActions}
                     />
-                    <button className="max-w-fit btn btn-primary" onClick={() => setViewOpen(true)}>
+                    <button className="max-w-fit btn btn-primary" onClick={() => setFormOpen(true)}>
                         Add New Branch
                     </button>
                 </div>
@@ -57,7 +55,7 @@ export default function Branches() {
                     ) : 
                 <ResponsiveDataTable
                     data={data ?? []}
-                    columns={branchColumns(handleViewClick)}
+                    columns={branchColumns(setSelected)}
                     renderMobileItem={(branch: Branch) => (
                         <MobileItemCard
                             key={branch.id}
@@ -65,15 +63,18 @@ export default function Branches() {
                             fields={fields}
                             status={branchStatusMap[branch.status as Branch["status"]]}
                             actionLabel="View Details"
-                            onActionClick={() => handleViewClick(branch)}
+                            onActionClick={() => {
+                                setSelected(branch);
+                                navigate(`/database/branch/${branch.id}`)
+                            }}
                         />
                     )}
                 />
                 }
             </div>
             <BranchForm
-                open={isViewOpen}
-                onClose={() => setViewOpen(false)}
+                open={isFormOpen}
+                onClose={() => setFormOpen(false)}
                 mode="create"
             />
         </>
