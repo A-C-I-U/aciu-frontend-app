@@ -80,7 +80,7 @@ export default function TransactionsWithdrawalDetail({ open, onClose, id }: {
                                 </div>
                             )}
                         </div>
-                        <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
+                        <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 shrink-0">
                             <button className="btn btn-primary" disabled={!data}
                                 onClick={() => handleSubmit(id)}>
                                     {isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
