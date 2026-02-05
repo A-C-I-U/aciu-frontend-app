@@ -2,7 +2,7 @@ import { ScrollLock } from "@/components/ScrollLock";
 import { Avatar, Dialog, Divider } from "@mui/material";
 import DummyProfile from "/images/avatar.png"
 import { StatusBadge } from "@/components/StatusBadge";
-import { branchMemberStatusMap } from "@/utils/helpers";
+import { databaseMemberStatusMap } from "@/utils/helpers";
 import { formatDate } from "date-fns";
 import { useState } from "react";
 import ProfileOverviewTab from "./ProfileOverviewTab";
@@ -53,8 +53,7 @@ export default function ViewBranchMember({
     if (!id) return null;
 
     const { fullName, verifiedOn, joinedOn } = dummyBranchMember;
-    const verificationStatus = Boolean(verifiedOn);
-    const { label, bgColor, dotColor, labelColor } = branchMemberStatusMap[String(verificationStatus)];
+    const { label, bgColor, dotColor, labelColor } = databaseMemberStatusMap[verifiedOn ? 'approved' : 'pending'];
     const [activeTab, setActiveTab] = useState(branchMemberTabs[0])
     const ActiveTabComponent = activeTab.content;
 
