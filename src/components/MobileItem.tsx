@@ -18,7 +18,7 @@ export default function MobileItemCard<T>({
     onActionClick,
 }: MobileItemCardProps<T>) {
   return (
-    <div className="w-full py-4.5 flex flex-col gap-4 items-center rounded-[.625rem] border border-grayscale-200">
+    <div className="w-full py-4.5 flex flex-col gap-4 items-center rounded-2xs border border-grayscale-200">
 
         <div className="flex justify-between items-center w-full px-3">
             <div className="flex flex-col gap-2 w-full">
@@ -62,9 +62,7 @@ export default function MobileItemCard<T>({
         {actionLabel && (
             <button
                 onClick={onActionClick}
-                className="p-2 text-sm font-coolvetica 
-                text-aciu-green-normal rounded-[5px]
-                border border-aciu-green-normal w-11/12 mx-auto 
+                className="btn-custom w-11/12 mx-auto 
                 text-center whitespace-nowrap px-3"
             >
                 {actionLabel}
