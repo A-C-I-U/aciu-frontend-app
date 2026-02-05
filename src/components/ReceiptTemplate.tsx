@@ -6,15 +6,15 @@ import { formatDate } from 'date-fns';
 Font.register({
     family: 'Montserrat',
     fonts: [
-        { src: '/public/fonts/montserrat/Montserrat-Regular.ttf', fontWeight: 400 },
-        { src: '/public/fonts/montserrat/Montserrat-Semibold.ttf', fontWeight: 600 },
-        { src: '/public/fonts/montserrat/Montserrat-Bold.ttf', fontWeight: 700 }
+        { src: '/fonts/montserrat/Montserrat-Regular.ttf', fontWeight: 400 },
+        { src: '/fonts/montserrat/Montserrat-Semibold.ttf', fontWeight: 600 },
+        { src: '/fonts/montserrat/Montserrat-Bold.ttf', fontWeight: 700 }
     ]
 });
 
 Font.register({
     family: 'Coolvetica',
-    src: '/public/fonts/coolvetica/Coolvetica-bold.ttf',
+    src: '/fonts/coolvetica/Coolvetica-bold.ttf',
     fontWeight: 'bold'
 })
 
@@ -70,9 +70,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     amountLabel: {
-       fontSize: 14,
-       lineHeight: 1,
-       color: '#3E3E3E'
+        fontSize: 14,
+        lineHeight: 1,
+        color: '#3E3E3E'
     },
     amountContent: {
         fontWeight: 600,
@@ -174,7 +174,7 @@ const ReceiptTableRow = ({ label, content }: { label: string; content: any }) =>
 export default function ReceiptTemplate({
     config,
     data
-}: { config: ReceiptConfig, data: any}) {
+}: { config: ReceiptConfig, data: any }) {
     if (!data) {
         return null;
     }
@@ -217,8 +217,8 @@ export default function ReceiptTemplate({
                             const formattedValue = field.format
                                 ? field.format(rawValue)
                                 : rawValue;
-                            
-                            
+
+
                             return (
                                 <ReceiptTableRow
                                     key={index}
