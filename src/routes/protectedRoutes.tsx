@@ -83,7 +83,7 @@ export const protectedRoutes = [
     element: <EventsPage />,
     label: "ACIU Events",
     icon: Calendar2,
-    roles: ["branch_admin", "national_admin"],
+    roles: ["member", "branch_admin", "national_admin"],
     children: [
       {
         index: true,
@@ -104,13 +104,13 @@ export const protectedRoutes = [
   {
     path: "/events/:id",
     element: <EventDetails />,
-    roles: ["member", "branch-admin", "national-admin"]
+    roles: ["branch-admin", "national-admin"]
   },
   {
     path: "/projects",
     label: "ACIU Projects",
     icon: Buildings2,
-    roles: ["branch_admin", "national_admin"],
+    roles: ["projects", "branch_admin", "national_admin"],
     children: [
       {
         index: true,
@@ -131,18 +131,19 @@ export const protectedRoutes = [
       {
         index: true,
         element: <MyBranchPage />
-      },
-      {
-        path: "add-event",
-        element: <AddEventPage returnRoute="my-branch" />
       }
     ]
+  },
+  {
+    path: "/my-branch/add-event",
+    element: <AddEventPage returnRoute="my-branch" />,
+    roles: ["branch_admin"]
   },
     {
     path: "/blog",
     label: "ACIU Blog",
     icon: Stickynote,
-    roles: ["branch_admin", "national_admin"],
+    roles: ["member", "branch_admin", "national_admin"],
     children: [
       {
         index: true,
@@ -171,7 +172,7 @@ export const protectedRoutes = [
     element: <ResourcesPage />,
     label: "ACIU Resources",
     icon: FolderOpen,
-    roles: ["branch_admin", "national_admin"],
+    roles: ["member", "branch_admin", "national_admin"],
   },
   {
     path: "/support",
