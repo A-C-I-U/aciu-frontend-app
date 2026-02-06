@@ -22,7 +22,7 @@ export default function Header() {
         <header className={`w-full 
             ${isAdmin ? "bg-aciu-green-normal" : "bg-aciu-light-grey"}
             md:bg-white
-            p-5`}>
+            p-5  ${activeRole === "member" ? "border-b-[.7px] border-aciu-dashboard-background" : ""}`}>
                 <div className="max-w-360 mx-auto">
                      <div className="block md:hidden"> 
                         <MobileNav handleOpen={handleOpen} /> 

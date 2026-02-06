@@ -18,7 +18,7 @@ export default function Sidebar() {
     
 
     return (
-        <div className="flex flex-col pt-5 px-5 overflow-hidden h-screen">
+        <div className={`flex flex-col pt-5 px-5 overflow-hidden h-screen ${activeRole === "member" ? "border-r-[.7px] border-aciu-dashboard-background" : ""}`}>
             <div className="pb-3">
                 <img 
                     src={isAdmin ? AciuLogo : MemberAciuLogo } 
@@ -37,6 +37,7 @@ export default function Sidebar() {
                             [
                             "flex items-center gap-2 py-3.5 px-2 rounded-md transition-colors duration-300 ease-in-out group",
                             "text-sm font-coolvetica leading-default transition-transform active:scale-95",
+                            "outline-none focus:outline-none focus-visible:outline-none",
                             isAdmin
                                 ? "hover:bg-white hover:text-aciu-green-normal"
                                 : "hover:bg-aciu-green-light hover:text-aciu-green-normal",
