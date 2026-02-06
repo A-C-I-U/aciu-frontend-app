@@ -8,9 +8,10 @@ import MemberAciuLogo from "/images/sidebar-aciu-logo.png"
 
 export default function Sidebar() {
     const { user } = useUser();
-    const activeRole = user?.role || "member"
-    const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
     const isMobile = useMediaQuery('max-width:768px')
+
+    const activeRole = user!.role;
+    const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
 
 
     const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
@@ -55,7 +56,7 @@ export default function Sidebar() {
                             <>
                             {icon && (
                                 <IconButton
-                                    className="group-hover:!text-aciu-green-normal"
+                                    className="group-hover:text-aciu-green-normal!"
                                     sx={{
                                         color: isActive 
                                             ? (isAdmin ? "#00B686" : "#00B686") 

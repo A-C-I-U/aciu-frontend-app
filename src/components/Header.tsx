@@ -17,14 +17,13 @@ export default function Header() {
     const handleClose = () => {
         setDropdownOpen(false)
     }
-    // md:bg-aciu-dashboard-background 
 
     return (
         <header className={`w-full 
             ${isAdmin ? "bg-aciu-green-normal" : "bg-aciu-light-grey"}
             md:bg-white
             p-5`}>
-                <div className="max-w-[90rem] mx-auto">
+                <div className="max-w-360 mx-auto">
                      <div className="block md:hidden"> 
                         <MobileNav handleOpen={handleOpen} /> 
                     </div>
