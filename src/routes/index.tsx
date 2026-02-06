@@ -32,12 +32,10 @@ const router = createBrowserRouter([
         element: <Navigate to="/dashboard" replace />,
       },
       ...protectedRoutes,
+      { path: '*', element: <NotFound />, handle: { isNotFound: true } },
     ],
   },
-  {
-    path: '*',
-    element: <NotFound />,
-  }
+
 ]);
 
 export default router;
