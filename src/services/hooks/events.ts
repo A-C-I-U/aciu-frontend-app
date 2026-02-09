@@ -23,11 +23,9 @@ const fetchAllEvents = async (page: number): Promise<EventsResponse> => {
 };
 
 export const useAllEvents = (page: number) => {
-  const { user } = useUser();
   return useQuery({
     queryKey: ["events", "all-events", page],
     queryFn: () => fetchAllEvents(page),
-    enabled: user?.role === "national_admin",
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
   })

@@ -110,6 +110,7 @@ export default function BranchPaymentsTab() {
                             <div className="flex flex-col gap-4">
                                 <DataTable
                                     table={table}
+                                    pagination={false}
                                 />
                                 <div className="mt-4">
                                     <PaginationControls
@@ -117,6 +118,7 @@ export default function BranchPaymentsTab() {
                                         page={page}
                                         onPageChange={setPage}
                                         itemsPerPage={itemsPerPage}
+                                        desktop={!isMedium}
                                     />
                                 </div>
                             </div>

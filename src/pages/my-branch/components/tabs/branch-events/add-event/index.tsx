@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 import BasicDetailsForm from "./BasicDetailsForm";
 import DateTimeForm from "./DateTimeForm";
 import MediaForm from "./MediaForm";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useEventDetails } from "@/services/hooks/events";
 import type { EventCategory, EventDressCode, EventType } from "@/services/types/events";
 import { useSaveEvent } from "@/services/mutations/events";
@@ -25,8 +25,9 @@ export default function AddEventPage({
     const { data } = useEventDetails(eventId ?? "");
     const saveEventMutation = useSaveEvent();
     const queryClient = useQueryClient();
+    const [searchParams] = useSearchParams();
+    const branchId = searchParams.get("branchId");
 
-    
     const navigate = useNavigate();
 
     const handleGoBack = () => {
@@ -37,7 +38,7 @@ export default function AddEventPage({
         }
     }
 
-    const handleSubmit = async(values: typeof initialValues, actions: any) => {
+    const handleSubmit = async (values: typeof initialValues, actions: any) => {
         const payload = {
             title: values.eventTitle,
             description: values.eventDescription,
@@ -54,18 +55,24 @@ export default function AddEventPage({
             coverImage: values.image instanceof File ? values.image : null,
             enableCountdown: values.enableCountdown,
             enableRSVP: values.enableRsvp,
-            enableDonations: values.enableDonations
+            enableDonations: values.enableDonations,
+            branchId: (branchId ?? undefined)
         }
 
         try {
-            const result = await saveEventMutation.mutateAsync({ eventId, payload }); 
+            const result = await saveEventMutation.mutateAsync({ eventId, payload });
             if (eventId) {
                 queryClient.invalidateQueries({ queryKey: ["event", eventId] });
             }
-            enqueueSnackbar(result.message || (eventId ? "Event updated successfully" : "Event created successfully"), 
-                { variant: "success" } );
+            enqueueSnackbar(result.message || (eventId ? "Event updated successfully" : "Event created successfully"),
+                { variant: "success" });
             actions.setSubmitting(false);
-            navigate(`/${returnRoute}`, {
+
+            const redirectUrl = branchId
+                ? `/database/branch/${branchId}?tab=branch-events`
+                : `/${returnRoute}`;
+
+            navigate(redirectUrl, {
                 state: { eventTitle: values.eventTitle }
             });
         } catch (error: any) {
@@ -95,7 +102,7 @@ export default function AddEventPage({
         enableCountdown: data.event.enableCountdown,
     } : null
 
-    
+
     return (
         <Formik
             initialValues={(eventId && eventValues) ? eventValues : initialValues}
@@ -107,9 +114,9 @@ export default function AddEventPage({
                 return (
                     <Form className="py-4 mx-5 flex flex-col gap-5.5">
                         <div className="flex justify-between items-center">
-                            <button 
+                            <button
                                 onClick={handleGoBack}
-                                type="button" 
+                                type="button"
                                 className="btn bg-aciu-dashboard-background border border-aciu-dark-grey text-aciu-abriba max-w-fit"
                             >
                                 <ArrowLeft size={20} color="#737373" />
@@ -137,17 +144,17 @@ export default function AddEventPage({
                                     Next
                                     <ArrowRight color="#fff" size={20} />
                                 </button>
-                                ) : (
-                                    <button 
-                                        type="submit" 
-                                        className="max-w-fit btn btn-primary"
-                                        disabled={!isValid || isSubmitting}
-                                    >
-                                        {eventId ? "Update Event" : "Create Event"}
-                                        {saveEventMutation.isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
-                                        <ArrowRight color="#fff" size={20} />
-                                    </button>
-                                ))}
+                            ) : (
+                                <button
+                                    type="submit"
+                                    className="max-w-fit btn btn-primary"
+                                    disabled={!isValid || isSubmitting}
+                                >
+                                    {eventId ? "Update Event" : "Create Event"}
+                                    {saveEventMutation.isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
+                                    <ArrowRight color="#fff" size={20} />
+                                </button>
+                            ))}
                         </div>
 
 
@@ -166,16 +173,16 @@ export default function AddEventPage({
                                 </motion.div>
                             </AnimatePresence>
                         </div>
-                        
+
                     </Form>
                 )
             }}
-        
+
         </Formik>
     )
 }
 
-const NumberSquare = ({ value }: {value: string | number}) => {
+const NumberSquare = ({ value }: { value: string | number }) => {
     return (
         <div className="relative inline-block w-6 h-6 border border-aciu-border-100 rounded-[5px]">
             <span className="absolute inset-0 flex items-center justify-center text-sm font-medium text-aciu-border-200">
@@ -186,8 +193,8 @@ const NumberSquare = ({ value }: {value: string | number}) => {
 }
 
 const Step = ({
-    currentStep, step 
-}: { currentStep: number, step: { id: string | number, label: string }}) => {
+    currentStep, step
+}: { currentStep: number, step: { id: string | number, label: string } }) => {
 
     return (
         <div className="flex gap-2 items-center">

@@ -122,6 +122,7 @@ export default function WithdrawalTab() {
                                 <div className="flex flex-col gap-4">
                                     <DataTable
                                         table={table}
+                                        pagination={false}
                                     />
                                     <div className="mt-4">
                                         <PaginationControls
@@ -129,6 +130,7 @@ export default function WithdrawalTab() {
                                             page={page}
                                             onPageChange={setPage}
                                             itemsPerPage={itemsPerPage}
+                                            desktop={!isMedium}
                                         />
                                     </div>
                                 </div>
