@@ -30,6 +30,8 @@ import Analytics from "@/pages/analytics";
 import Transactions from "@/pages/transactions";
 import Database from "@/pages/database";
 import BranchDetails from "@/pages/database/branches/branch-details";
+import { RequireRole } from "./RequireRole";
+import { Outlet } from "react-router-dom";
 
 
 export const protectedRoutes = [
@@ -94,23 +96,23 @@ export const protectedRoutes = [
   {
     path: "/events/create",
     element: <AddEventPage returnRoute="events" />,
-    roles: ["national-admin"]
+    roles: ["national_admin"]
   },
   {
     path: "/events/:eventId/edit",
     element: <AddEventPage returnRoute="events" />,
-    roles: ["national-admin"]
+    roles: ["national_admin"]
   },
   {
     path: "/events/:id",
     element: <EventDetails />,
-    roles: ["branch-admin", "national-admin"]
+    roles: ["branch_admin", "national_admin"]
   },
   {
     path: "/projects",
     label: "ACIU Projects",
     icon: Buildings2,
-    roles: ["projects", "branch_admin", "national_admin"],
+    roles: ["member", "branch_admin", "national_admin"],
     children: [
       {
         index: true,
@@ -190,3 +192,26 @@ export const protectedRoutes = [
   },
   
 ];
+
+
+// Permissions enforcement
+const wrapWithRoleGuard = (route: any): any => {
+  if (route.children) {
+    return {
+      ...route,
+      element: route.roles
+        ? <RequireRole roles={route.roles}>{route.element ?? <Outlet />}</RequireRole>
+        : route.element,
+      children: route.children.map(wrapWithRoleGuard),
+    };
+  }
+
+  return {
+    ...route,
+    element: route.roles
+      ? <RequireRole roles={route.roles}>{route.element}</RequireRole>
+      : route.element,
+  };
+};
+
+export const guardedRoutes = protectedRoutes.map(wrapWithRoleGuard);
