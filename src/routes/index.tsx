@@ -6,7 +6,7 @@ import LoginPage from '../pages/auth/login';
 import ProtectedRoute from './ProtectedRoute';
 import SignUpPage from '@/pages/auth/sign-up';
 import ForgotPasswordPage from '@/pages/auth/forgot-password';
-import { protectedRoutes } from './protectedRoutes';
+import { guardedRoutes } from './protectedRoutes';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +31,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Navigate to="/dashboard" replace />,
       },
-      ...protectedRoutes,
+      ...guardedRoutes,
       { path: '*', element: <NotFound />, handle: { isNotFound: true } },
     ],
   },
