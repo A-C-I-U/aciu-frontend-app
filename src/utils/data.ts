@@ -15,7 +15,6 @@ import type {
   UpcomingEventCardProps
 } from "./types";
 import { timeAgo } from "./helpers";
-import type { Img } from "@/pages/my-branch/components/tabs/branch-gallery";
 import type { MemberProfile } from "@/services/types/database";
 
 export const BRANCHES: string[] = [
@@ -813,43 +812,7 @@ export const branchStats = [
   }
 ]
 
-export const galleryImages: Img[] = [
-  {
-    name: "IMG 7756879",
-    url: "./public/images/abriba-event.jpg",
-    category: "Branch Events"
-  },
-  {
-    name: "IMG 7756879",
-    url: "./public/images/abriba-event.jpg",
-    category: "Branch Events"
-  },
-  {
-    name: "IMG 7756879",
-    url: "./public/images/abriba-event.jpg",
-    category: "Branch Events"
-  },
-  {
-    name: "IMG 7756879",
-    url: "./public/images/ojode-ena.jpg",
-    category: "Branch Events"
-  },
-  {
-    name: "IMG 7756879",
-    url: "./public/images/abriba-event.jpg",
-    category: "Branch Events"
-  },
-  {
-    name: "IMG 7756879",
-    url: "./public/images/nig-uk-flag.jpg",
-    category: "Branch Events"
-  },
-  {
-    name: "IMG 7756879",
-    url: "./public/images/nig-uk-flag.jpg",
-    category: "Branch Events"
-  },
-]
+
 
 export const logs: ActivityLog[] = [
   {
