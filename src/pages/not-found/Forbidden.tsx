@@ -12,7 +12,7 @@ const ForbiddenPage = () => (
       </h2>
 
       <p className="text-aciu-neutral leading-[1.6] font-medium">
-        This section of the dashboard is restricted based on your account role.
+        This section is restricted based on your account role.
       </p>
       <p className="text-aciu-neutral leading-[1.6] font-medium">
         If you think this is a mistake, please contact your administrator or support team.  
