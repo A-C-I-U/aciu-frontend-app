@@ -4,14 +4,14 @@ export interface Event {
   id: string;
   title: string;
   description: string;
-  category: string; 
-  type: string; 
+  category: string;
+  type: string;
   guestExpectation: number;
-  dressCode: string; 
+  dressCode: string;
   entryFee: string;
-  eventDate: string; 
-  startTime: string; 
-  endTime: string; 
+  eventDate: string;
+  startTime: string;
+  endTime: string;
   location: string;
   highlights: string[];
   coverImage: string;
@@ -20,11 +20,11 @@ export interface Event {
   enableCountdown: boolean;
   createdBy: string;
   branchId: string;
-  verificationStatus: string; 
+  verificationStatus: string;
   registeredCount: number;
   shareableLink: string;
-  createdAt: string; 
-  updatedAt: string; 
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface EventsResponse {
@@ -81,7 +81,7 @@ export interface EventsStatsResponse {
   }
 }
 
-export type EventCategory =  "NATIONAL_EVENT" | "LOCAL_EVENT" | "OTHER";
+export type EventCategory = "NATIONAL_EVENT" | "LOCAL_EVENT" | "OTHER";
 export type EventType = "VIRTUAL" | "PHYSICAL" | "HYBRID";
 export type EventDressCode = "SMART_CASUAL" | "FORMAL" | "TRADITIONAL" | string;
 
@@ -102,6 +102,7 @@ export interface CreateEventData {
   enableRSVP: boolean;
   enableDonations: boolean;
   enableCountdown: boolean;
+  branchId?: string;
 }
 
 
@@ -122,4 +123,5 @@ export interface EventFormValues {
   enableRsvp: boolean;
   enableDonations: boolean;
   enableCountdown: boolean;
+  branchId?: string;
 }
