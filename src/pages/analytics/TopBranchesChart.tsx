@@ -8,6 +8,7 @@ import {
   LabelList,
 } from "recharts";
 import type { TopBranch } from "@/services/types/analytics";
+import { ChartEmptyState } from "@/components/ChartEmptyState";
 
 const CustomLabel = (props: any) => {
   const { x, y, width, height, value } = props;
@@ -32,7 +33,8 @@ interface TopBranchesChartProps {
 }
 
 export const TopBranchesChart = ({ data }: TopBranchesChartProps) => {
-  const maxCount = Math.max(...data.map(d => d.memberCount), 10);
+  const isDataEmpty = !data || data.length === 0 || data.every(item => item.memberCount === 0);
+  const maxCount = Math.max(...(data || []).map(d => d.memberCount), 10);
 
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm h-full">
@@ -48,28 +50,32 @@ export const TopBranchesChart = ({ data }: TopBranchesChartProps) => {
 
       {/* Chart */}
       <ResponsiveContainer width="100%" height={320}>
-        <BarChart
-          data={data}
-          layout="vertical"
-          margin={{ top: 10, right: 60, left: 10, bottom: 10 }}
-        >
-          <XAxis type="number" hide domain={[0, maxCount + 10]} />
-          <YAxis
-            type="category"
-            dataKey="branchName"
-            tick={{ fontSize: 14, fill: "#3E3E3E" }}
-            axisLine={false}
-            tickLine={false}
-            width={120}
-            className="font-montserrat"
-          />
-          <Bar dataKey="memberCount" radius={[0, 4, 4, 0]} barSize={14}>
-            {data.map((_entry, index) => (
-              <Cell key={`cell-${index}`} fill="#00B686" />
-            ))}
-            <LabelList dataKey="memberCount" content={CustomLabel} />
-          </Bar>
-        </BarChart>
+        {isDataEmpty ? (
+          <ChartEmptyState height={320} description="No branch data available to rank." />
+        ) : (
+          <BarChart
+            data={data}
+            layout="vertical"
+            margin={{ top: 10, right: 60, left: 10, bottom: 10 }}
+          >
+            <XAxis type="number" hide domain={[0, maxCount + 10]} />
+            <YAxis
+              type="category"
+              dataKey="branchName"
+              tick={{ fontSize: 14, fill: "#3E3E3E" }}
+              axisLine={false}
+              tickLine={false}
+              width={120}
+              className="font-montserrat"
+            />
+            <Bar dataKey="memberCount" radius={[0, 4, 4, 0]} barSize={14}>
+              {data.map((_entry, index) => (
+                <Cell key={`cell-${index}`} fill="#00B686" />
+              ))}
+              <LabelList dataKey="memberCount" content={CustomLabel} />
+            </Bar>
+          </BarChart>
+        )}
       </ResponsiveContainer>
     </div>
   );
