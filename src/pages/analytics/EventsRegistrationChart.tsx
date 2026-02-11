@@ -10,6 +10,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import type { EventRegistrationTrend } from "@/services/types/analytics";
+import { ChartEmptyState } from "@/components/ChartEmptyState";
 
 interface CustomTooltipProps {
   active?: boolean;
@@ -52,6 +53,7 @@ export const EventsRegistrationsChart = ({ data, availableYears }: EventsRegistr
   // Filter data by year if possible (API currently returns all trends for the requested period, 
   // but if we had multiple years we'd filter here. For now we just use the data passed from parent)
   const filteredData = data.filter(item => item.month.startsWith(selectedYear));
+  const isDataEmpty = filteredData.length === 0 || filteredData.every(item => item.rsvps === 0);
 
   const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
@@ -89,56 +91,60 @@ export const EventsRegistrationsChart = ({ data, availableYears }: EventsRegistr
 
       {/* Chart */}
       <ResponsiveContainer width="100%" height={350}>
-        <ComposedChart
-          data={filteredData}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id="eventGreenGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#00B686" stopOpacity={0.2} />
-              <stop offset="100%" stopColor="#00B686" stopOpacity={0.02} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#e5e7eb"
-            vertical={false}
-            horizontal={true}
-          />
-          <XAxis
-            dataKey="month"
-            tick={{ fontSize: 13, fill: '#9ca3af' }}
-            stroke="#e5e7eb"
-            axisLine={false}
-            tickLine={false}
-            tickMargin={10}
-            tickFormatter={formatMonth}
-          />
-          <YAxis
-            tick={{ fontSize: 13, fill: '#9ca3af' }}
-            stroke="#e5e7eb"
-            axisLine={false}
-            tickLine={false}
-            tickFormatter={(value) => value >= 1000 ? `${value / 1000}k` : value}
-            tickMargin={10}
-          />
-          <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#00B686', strokeWidth: 1, strokeDasharray: '5 5' }} />
-          <Area
-            type="monotone"
-            dataKey="rsvps"
-            fill="url(#eventGreenGradient)"
-            stroke="none"
-          />
-          <Line
-            type="monotone"
-            dataKey="rsvps"
-            stroke="#00B686"
-            strokeWidth={3}
-            dot={false}
-            activeDot={{ r: 6, fill: '#00B686', strokeWidth: 2, stroke: '#fff' }}
-            name="RSVPs"
-          />
-        </ComposedChart>
+        {isDataEmpty ? (
+          <ChartEmptyState height={350} description={`No event registrations found for ${selectedYear}.`} />
+        ) : (
+          <ComposedChart
+            data={filteredData}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id="eventGreenGradient" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#00B686" stopOpacity={0.2} />
+                <stop offset="100%" stopColor="#00B686" stopOpacity={0.02} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#e5e7eb"
+              vertical={false}
+              horizontal={true}
+            />
+            <XAxis
+              dataKey="month"
+              tick={{ fontSize: 13, fill: '#9ca3af' }}
+              stroke="#e5e7eb"
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              tickFormatter={formatMonth}
+            />
+            <YAxis
+              tick={{ fontSize: 13, fill: '#9ca3af' }}
+              stroke="#e5e7eb"
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(value) => value >= 1000 ? `${value / 1000}k` : value}
+              tickMargin={10}
+            />
+            <Tooltip content={<CustomTooltip />} cursor={{ stroke: '#00B686', strokeWidth: 1, strokeDasharray: '5 5' }} />
+            <Area
+              type="monotone"
+              dataKey="rsvps"
+              fill="url(#eventGreenGradient)"
+              stroke="none"
+            />
+            <Line
+              type="monotone"
+              dataKey="rsvps"
+              stroke="#00B686"
+              strokeWidth={3}
+              dot={false}
+              activeDot={{ r: 6, fill: '#00B686', strokeWidth: 2, stroke: '#fff' }}
+              name="RSVPs"
+            />
+          </ComposedChart>
+        )}
       </ResponsiveContainer>
     </div>
   );

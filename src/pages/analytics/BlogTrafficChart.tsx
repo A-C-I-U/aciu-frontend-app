@@ -8,6 +8,7 @@ import {
   ResponsiveContainer
 } from 'recharts';
 import type { BlogTraffic } from "@/services/types/analytics";
+import { ChartEmptyState } from "@/components/ChartEmptyState";
 
 interface CustomTooltipProps {
   active?: boolean;
@@ -45,6 +46,7 @@ interface BlogTrafficChartProps {
 
 export const BlogTrafficChart = ({ data }: BlogTrafficChartProps) => {
   const chartData = data?.dailyViews || [];
+  const isDataEmpty = chartData.length === 0 || chartData.every(item => item.views === 0);
 
   const formatDateRange = () => {
     if (chartData.length === 0) return "No data";
@@ -71,40 +73,44 @@ export const BlogTrafficChart = ({ data }: BlogTrafficChartProps) => {
       </div>
 
       <ResponsiveContainer width="100%" height={280}>
-        <BarChart
-          data={chartData}
-          margin={{ top: 20, right: 10, left: -20, bottom: 20 }}
-        >
-          <CartesianGrid
-            strokeDasharray="3 3"
-            stroke="#e5e7eb"
-            vertical={false}
-            horizontal={true}
-          />
-          <XAxis
-            dataKey="date"
-            tick={{ fontSize: 12, fill: '#9ca3af' }}
-            stroke="#e5e7eb"
-            axisLine={false}
-            tickLine={false}
-            tickMargin={10}
-            tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-          />
-          <YAxis
-            tick={{ fontSize: 12, fill: '#9ca3af' }}
-            stroke="#e5e7eb"
-            axisLine={false}
-            tickLine={false}
-            tickMargin={10}
-          />
-          <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0, 182, 134, 0.1)' }} />
-          <Bar
-            dataKey="views"
-            fill="#00B686"
-            radius={[8, 8, 8, 8]}
-            maxBarSize={20}
-          />
-        </BarChart>
+        {isDataEmpty ? (
+          <ChartEmptyState height={280} description="No blog traffic recorded for this period." />
+        ) : (
+          <BarChart
+            data={chartData}
+            margin={{ top: 20, right: 10, left: -20, bottom: 20 }}
+          >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="#e5e7eb"
+              vertical={false}
+              horizontal={true}
+            />
+            <XAxis
+              dataKey="date"
+              tick={{ fontSize: 12, fill: '#9ca3af' }}
+              stroke="#e5e7eb"
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+              tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+            />
+            <YAxis
+              tick={{ fontSize: 12, fill: '#9ca3af' }}
+              stroke="#e5e7eb"
+              axisLine={false}
+              tickLine={false}
+              tickMargin={10}
+            />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0, 182, 134, 0.1)' }} />
+            <Bar
+              dataKey="views"
+              fill="#00B686"
+              radius={[8, 8, 8, 8]}
+              maxBarSize={20}
+            />
+          </BarChart>
+        )}
       </ResponsiveContainer>
     </div>
   );

@@ -9,6 +9,7 @@ import {
   Area,
 } from "recharts";
 import type { MemberSignupTrend } from "@/services/types/analytics";
+import { ChartEmptyState } from "@/components/ChartEmptyState";
 
 interface CustomTooltipProps {
   active?: boolean;
@@ -53,6 +54,8 @@ interface MemberSignUpsChartProps {
 }
 
 export const MemberSignUpsChart = ({ data, percentageChange }: MemberSignUpsChartProps) => {
+  const isDataEmpty = !data || data.length === 0 || data.every(item => item.totalSignUps === 0 && item.pendingVerification === 0);
+
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm h-full flex flex-col min-h-[300px]">
       <div className="mb-4">
@@ -73,64 +76,68 @@ export const MemberSignUpsChart = ({ data, percentageChange }: MemberSignUpsChar
       </div>
 
       <div className="flex-1 min-h-[250px]">
-        <ResponsiveContainer width="100%" height={300}>
-          <ComposedChart
-            data={data}
-            margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
-          >
-            <defs>
-              <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#00B686" stopOpacity={0.15} />
-                <stop offset="100%" stopColor="#00B686" stopOpacity={0.02} />
-              </linearGradient>
-            </defs>
-            <CartesianGrid
-              strokeDasharray="3 3"
-              stroke="#f0f0f0"
-              vertical={false}
-            />
-            <XAxis
-              dataKey="date"
-              tick={{ fontSize: 12, fill: "#9ca3af" }}
-              stroke="#e5e7eb"
-              axisLine={false}
-              tickLine={false}
-              tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-            />
-            <YAxis
-              tick={{ fontSize: 12, fill: "#9ca3af" }}
-              stroke="#e5e7eb"
-              axisLine={false}
-              tickLine={false}
-            />
-            <Tooltip content={<CustomTooltip />} />
-            <Area
-              type="monotone"
-              dataKey="totalSignUps"
-              fill="url(#greenGradient)"
-              stroke="none"
-              name="Total Sign Ups"
-            />
-            <Line
-              type="monotone"
-              dataKey="totalSignUps"
-              stroke="#00B686"
-              strokeWidth={3}
-              dot={false}
-              activeDot={{ r: 6, fill: "#00B686" }}
-              name="Total Sign Ups"
-            />
-            <Line
-              type="monotone"
-              dataKey="pendingVerification"
-              stroke="#EBC563"
-              strokeWidth={3}
-              dot={false}
-              activeDot={{ r: 6, fill: "#EBC563" }}
-              name="Pending Verification"
-            />
-          </ComposedChart>
-        </ResponsiveContainer>
+        {isDataEmpty ? (
+          <ChartEmptyState height={300} description="We couldn't find any member signup history for this period." />
+        ) : (
+          <ResponsiveContainer width="100%" height={300}>
+            <ComposedChart
+              data={data}
+              margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
+            >
+              <defs>
+                <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#00B686" stopOpacity={0.15} />
+                  <stop offset="100%" stopColor="#00B686" stopOpacity={0.02} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid
+                strokeDasharray="3 3"
+                stroke="#f0f0f0"
+                vertical={false}
+              />
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 12, fill: "#9ca3af" }}
+                stroke="#e5e7eb"
+                axisLine={false}
+                tickLine={false}
+                tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+              />
+              <YAxis
+                tick={{ fontSize: 12, fill: "#9ca3af" }}
+                stroke="#e5e7eb"
+                axisLine={false}
+                tickLine={false}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Area
+                type="monotone"
+                dataKey="totalSignUps"
+                fill="url(#greenGradient)"
+                stroke="none"
+                name="Total Sign Ups"
+              />
+              <Line
+                type="monotone"
+                dataKey="totalSignUps"
+                stroke="#00B686"
+                strokeWidth={3}
+                dot={false}
+                activeDot={{ r: 6, fill: "#00B686" }}
+                name="Total Sign Ups"
+              />
+              <Line
+                type="monotone"
+                dataKey="pendingVerification"
+                stroke="#EBC563"
+                strokeWidth={3}
+                dot={false}
+                activeDot={{ r: 6, fill: "#EBC563" }}
+                name="Pending Verification"
+              />
+            </ComposedChart>
+          </ResponsiveContainer>
+        )}
       </div>
 
       <div className="flex items-center justify-between mt-2">
