@@ -1,5 +1,6 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 import type { GenderDistribution } from "@/services/types/analytics";
+import { ChartEmptyState } from "@/components/ChartEmptyState";
 
 const COLORS = ['#00B686', '#EBC563', '#9ca3af'];
 
@@ -49,25 +50,29 @@ export const GenderChart = ({ data }: GenderChartProps) => {
       </div>
 
       <div className="flex-1 flex items-center justify-center">
-        <ResponsiveContainer width="100%" height={280}>
-          <PieChart>
-            <Pie
-              data={chartData}
-              cx="50%"
-              cy="50%"
-              innerRadius={80}
-              outerRadius={120}
-              paddingAngle={0}
-              dataKey="value"
-              label={(props) => renderCustomLabel({ ...props, total })}
-              labelLine={false}
-            >
-              {chartData.map((_entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
+        {total === 0 ? (
+          <ChartEmptyState height={280} description="No gender distribution data available." />
+        ) : (
+          <ResponsiveContainer width="100%" height={280}>
+            <PieChart>
+              <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                innerRadius={80}
+                outerRadius={120}
+                paddingAngle={0}
+                dataKey="value"
+                label={(props) => renderCustomLabel({ ...props, total })}
+                labelLine={false}
+              >
+                {chartData.map((_entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        )}
       </div>
 
       <div className="flex flex-col gap-2 mt-4 space-y-1">
