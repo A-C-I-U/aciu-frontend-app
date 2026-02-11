@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
   Area,
 } from "recharts";
+import type { MemberSignupTrend } from "@/services/types/analytics";
 
 interface CustomTooltipProps {
   active?: boolean;
@@ -46,27 +47,14 @@ const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   return null;
 };
 
-// Hardcoded data - will be replaced with API data later
-const data = [
-  { day: "Day 1", totalSignUps: 15, pendingVerification: 70 },
-  { day: "Day 2", totalSignUps: 28, pendingVerification: 68 },
-  { day: "Day 3", totalSignUps: 45, pendingVerification: 65 },
-  { day: "Day 4", totalSignUps: 52, pendingVerification: 58 },
-  { day: "Day 5", totalSignUps: 60, pendingVerification: 52 },
-  { day: "Day 6", totalSignUps: 55, pendingVerification: 48 },
-  { day: "Day 7", totalSignUps: 50, pendingVerification: 45 },
-  { day: "Day 8", totalSignUps: 85, pendingVerification: 35 },
-  { day: "Day 9", totalSignUps: 75, pendingVerification: 28 },
-  { day: "Day 10", totalSignUps: 35, pendingVerification: 25 },
-  { day: "Day 11", totalSignUps: 28, pendingVerification: 35 },
-  { day: "Day 12", totalSignUps: 45, pendingVerification: 52 },
-  { day: "Day 13", totalSignUps: 71, pendingVerification: 71 },
-  { day: "Day 14", totalSignUps: 65, pendingVerification: 65 },
-];
+interface MemberSignUpsChartProps {
+  data: MemberSignupTrend[];
+  percentageChange?: number;
+}
 
-export const MemberSignUpsChart = () => {
+export const MemberSignUpsChart = ({ data, percentageChange }: MemberSignUpsChartProps) => {
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm h-full flex flex-col">
+    <div className="bg-white rounded-lg p-6 shadow-sm h-full flex flex-col min-h-[300px]">
       <div className="mb-4">
         <h3 className="text-lg font-semibold text-gray-800 font-coolvetica">
           Member Sign Ups
@@ -84,8 +72,8 @@ export const MemberSignUpsChart = () => {
         </div>
       </div>
 
-      <div className="flex-1">
-        <ResponsiveContainer width="100%" height="100%">
+      <div className="flex-1 min-h-[250px]">
+        <ResponsiveContainer width="100%" height={300}>
           <ComposedChart
             data={data}
             margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
@@ -102,12 +90,12 @@ export const MemberSignUpsChart = () => {
               vertical={false}
             />
             <XAxis
-              dataKey="day"
+              dataKey="date"
               tick={{ fontSize: 12, fill: "#9ca3af" }}
               stroke="#e5e7eb"
               axisLine={false}
               tickLine={false}
-              hide
+              tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
             />
             <YAxis
               tick={{ fontSize: 12, fill: "#9ca3af" }}
@@ -121,6 +109,7 @@ export const MemberSignUpsChart = () => {
               dataKey="totalSignUps"
               fill="url(#greenGradient)"
               stroke="none"
+              name="Total Sign Ups"
             />
             <Line
               type="monotone"
@@ -146,9 +135,9 @@ export const MemberSignUpsChart = () => {
 
       <div className="flex items-center justify-between mt-2">
         <span className="text-xs text-gray-500">Last 14 days</span>
-        <div className="flex items-center gap-1 text-[#00B686]">
-          <span className="text-xs">▲</span>
-          <span className="text-sm font-semibold">+12.5%</span>
+        <div className={`flex items-center gap-1 ${percentageChange && percentageChange >= 0 ? 'text-[#00B686]' : 'text-red-500'}`}>
+          <span className="text-xs">{percentageChange && percentageChange >= 0 ? '▲' : '▼'}</span>
+          <span className="text-sm font-semibold">{percentageChange ? `${percentageChange >= 0 ? '+' : ''}${percentageChange}%` : '0%'}</span>
         </div>
       </div>
     </div>

@@ -7,15 +7,7 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
-
-// Hardcoded data - will be replaced with API data later
-const data = [
-  { branch: "ACIU Atlanta", members: 192, color: "#00B686" },
-  { branch: "ACIU Atlanta", members: 64, color: "#00B686" },
-  { branch: "ACIU Atlanta", members: 44, color: "#00B686" },
-  { branch: "ACIU Atlanta", members: 40, color: "#00B686" },
-  { branch: "ACIU Atlanta", members: 36, color: "#00B686" },
-];
+import type { TopBranch } from "@/services/types/analytics";
 
 const CustomLabel = (props: any) => {
   const { x, y, width, height, value } = props;
@@ -35,7 +27,13 @@ const CustomLabel = (props: any) => {
   );
 };
 
-export const TopBranchesChart = () => {
+interface TopBranchesChartProps {
+  data: TopBranch[];
+}
+
+export const TopBranchesChart = ({ data }: TopBranchesChartProps) => {
+  const maxCount = Math.max(...data.map(d => d.memberCount), 10);
+
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm h-full">
       {/* Header */}
@@ -55,21 +53,21 @@ export const TopBranchesChart = () => {
           layout="vertical"
           margin={{ top: 10, right: 60, left: 10, bottom: 10 }}
         >
-          <XAxis type="number" hide domain={[0, 200]} />
+          <XAxis type="number" hide domain={[0, maxCount + 10]} />
           <YAxis
             type="category"
-            dataKey="branch"
+            dataKey="branchName"
             tick={{ fontSize: 14, fill: "#3E3E3E" }}
             axisLine={false}
             tickLine={false}
             width={120}
             className="font-montserrat"
           />
-          <Bar dataKey="members" radius={[0, 4, 4, 0]} barSize={14}>
-            {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} />
+          <Bar dataKey="memberCount" radius={[0, 4, 4, 0]} barSize={14}>
+            {data.map((_entry, index) => (
+              <Cell key={`cell-${index}`} fill="#00B686" />
             ))}
-            <LabelList dataKey="members" content={CustomLabel} />
+            <LabelList dataKey="memberCount" content={CustomLabel} />
           </Bar>
         </BarChart>
       </ResponsiveContainer>
