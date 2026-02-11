@@ -1,34 +1,28 @@
-import { publicationStatusMap } from "@/utils/helpers";
-import type { PublicationDataType } from "@/utils/types";
+import type { Publication, Submission } from "@/services/types/blogs";
 import { Eye } from "@solar-icons/react";
 import { CommentOutlined } from "@ant-design/icons";
-import { formatDate } from "@/utils/helpers";
+import { formatDate, publicationStatusMap } from "@/utils/helpers";
 import { Link } from "react-router-dom";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Divider } from "@mui/material";
 
-export default function MobilePublicationItem({ 
+export default function MobilePublicationItem({
     publication
 }: {
-    publication: PublicationDataType
+    publication: Publication | Submission
 }) {
-     const { 
+    const {
         id,
-        title, 
-        creationDate, 
-        lastModified, 
-        postImpressions,
+        title,
+        createdAt,
         status
     } = publication;
 
-    const { 
-        label, 
-        labelColor, 
-        dotColor, 
-        bgColor 
-    } = publicationStatusMap[status as PublicationDataType["status"]];
+    const updatedAt = (publication as Publication).updatedAt;
+    const views = (publication as Publication).views;
+    const commentsCount = (publication as Publication).commentsCount;
 
-    const { comments, views } = postImpressions;
+    const statusConfig = publicationStatusMap[status.toLowerCase() as keyof typeof publicationStatusMap] || publicationStatusMap["draft"];
 
     return (
         <div className="w-full py-4.5 flex flex-col gap-4 items-center rounded-[.625rem] border border-grayscale-200">
@@ -42,36 +36,36 @@ export default function MobilePublicationItem({
                     </p>
                 </div>
                 <StatusBadge
-                    label={label}
-                    labelColor={labelColor}
-                    bgColor={bgColor}
-                    dotColor={dotColor}
+                    label={statusConfig.label}
+                    labelColor={statusConfig.labelColor}
+                    bgColor={statusConfig.bgColor}
+                    dotColor={statusConfig.dotColor}
                 />
             </div>
 
-            <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey"/>
+            <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey" />
 
             <div className="flex justify-between w-full items-center px-3">
                 <p className="text-xs font-medium text-aciu-abriba">
                     Creation Date
                 </p>
                 <p className="text-sm text-aciu-border-grey">
-                    {formatDate(creationDate)}
+                    {formatDate(createdAt)}
                 </p>
             </div>
 
-             <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey"/>
+            <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey" />
 
             <div className="flex justify-between w-full items-center px-3">
                 <p className="text-xs font-medium text-aciu-abriba">
                     Last Modified
                 </p>
                 <p className="text-sm text-aciu-border-grey">
-                    {formatDate(lastModified)}
+                    {formatDate(updatedAt)}
                 </p>
             </div>
 
-            <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey"/>
+            <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey" />
 
             <div className="flex justify-between w-full items-center px-3">
                 <p className="text-xs font-medium text-aciu-abriba">
@@ -80,22 +74,22 @@ export default function MobilePublicationItem({
                 <p className="text-sm text-aciu-border-grey">
                     <span className="gap-4 flex items-center">
                         <span className="gap-2 flex items-center">
-                            <Eye fontVariant="linear" size={16} color="#3E3E3E"/>
-                            {views || '-'}
+                            <Eye fontVariant="linear" size={16} color="#3E3E3E" />
+                            {views ?? '-'}
                         </span>
                         <span className="gap-2 flex items-center">
                             <CommentOutlined size={16} color="#3E3E3E" />
-                            {comments || '-'}
+                            {commentsCount ?? '-'}
                         </span>
                     </span>
                 </p>
             </div>
-            <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey"/>
-            <Link to={`/blogs/${id}`}
+            <Divider orientation="horizontal" flexItem className="text-aciu-dark-grey" />
+            <Link to={`/blog/posts/${id}`}
                 className="p-2 text-sm font-coolvetica 
-                text-aciu-green-normal rounded-[5px] pointer-events-none
+                text-aciu-green-normal rounded-[5px]
                 border border-aciu-green-normal w-11/12 mx-auto 
-                text-center whitespace-nowrap">
+                text-center whitespace-nowrap hover:bg-aciu-green-light transition-colors">
                 View Post
             </Link>
         </div>
