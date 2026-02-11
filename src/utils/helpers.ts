@@ -14,7 +14,12 @@ export const capitalizeFirstLetters = (str: string) => {
     .join(" ");
 }
 
-export const formatDate = (iso: string) => format(new Date(iso), "dd MMM yyyy");
+export const formatDate = (iso: string | undefined | null) => {
+  if (!iso) return "-";
+  const date = new Date(iso);
+  if (isNaN(date.getTime())) return "-";
+  return format(date, "dd MMM yyyy");
+};
 
 export function randomDate(start: Date, end: Date) {
   return new Date(
@@ -402,18 +407,18 @@ export const duePaymentStatusMap: Record<DuesPaymentResponse["status"], StatusMa
 
 export const databaseMemberStatusMap: Record<"approved" | "pending", StatusMap> = {
   pending: {
-      label: "Pending",
-      labelColor: "#FE961F",
-      dotColor: "#FE961F",
-      bgColor: "#FAF5EF"
-    },
-  approved: { 
-      label: "Approved", 
-      labelColor: "#027A48", 
-      dotColor: "#12B76A", 
-      bgColor: "#ECFDF3" 
-    }
+    label: "Pending",
+    labelColor: "#FE961F",
+    dotColor: "#FE961F",
+    bgColor: "#FAF5EF"
+  },
+  approved: {
+    label: "Approved",
+    labelColor: "#027A48",
+    dotColor: "#12B76A",
+    bgColor: "#ECFDF3"
   }
+}
 
 export const getExtension = (file: File | string): string => {
   if (typeof file === 'string') {
@@ -607,23 +612,23 @@ function formatValue(field: string, value: string): string {
 }
 
 export function formatActivityLogs(logs: ActivityLog[]): FormattedActivityLog[] {
-    return logs
-      .map(log => {
-        const hasChange = hasActualChange(log.field, log.oldValue, log.newValue);
-        
-        return {
-            userName: log.userName,
-            field: log.field,
-            displayField: FIELD_DISPLAY_NAMES[log.field] || log.field,
-            oldValue: log.oldValue,
-            newValue: log.newValue,
-            formattedOldValue: formatValue(log.field, log.oldValue),
-            formattedNewValue: formatValue(log.field, log.newValue),
-            createdAt: log.createdAt,
-            formattedDate: format(parseISO(log.createdAt), 'dd MMM yyyy h:mm a'),
-            hasActualChange: hasChange,
-        };
-      })
+  return logs
+    .map(log => {
+      const hasChange = hasActualChange(log.field, log.oldValue, log.newValue);
+
+      return {
+        userName: log.userName,
+        field: log.field,
+        displayField: FIELD_DISPLAY_NAMES[log.field] || log.field,
+        oldValue: log.oldValue,
+        newValue: log.newValue,
+        formattedOldValue: formatValue(log.field, log.oldValue),
+        formattedNewValue: formatValue(log.field, log.newValue),
+        createdAt: log.createdAt,
+        formattedDate: format(parseISO(log.createdAt), 'dd MMM yyyy h:mm a'),
+        hasActualChange: hasChange,
+      };
+    })
     .filter(log => log.hasActualChange);
 }
 
@@ -646,71 +651,71 @@ export const formatters = {
 
 
 export const RECEIPT_STATUS_MAP = {
-    // Success (green)
-    'completed': { label: "Completed", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
-    'published': { label: "Published", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
-    'approved': { label: "Approved", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
-    'verified': { label: "Verified", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
-    'active': { label: "Active", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
+  // Success (green)
+  'completed': { label: "Completed", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
+  'published': { label: "Published", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
+  'approved': { label: "Approved", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
+  'verified': { label: "Verified", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
+  'active': { label: "Active", labelColor: "#027A48", dotColor: "#12B76A", bgColor: "#ECFDF3" },
 
-    // Warning (orange)
-    'pending': { label: "Pending", labelColor: "#FE961F", dotColor: "#FE961F", bgColor: "#FAF5EF" },
-    'pending approval': { label: "Pending Approval", labelColor: "#FE961F", dotColor: "#FE961F", bgColor: "#FAF5EF" },
-    'overdue': { label: "Overdue", labelColor: "#B54708", dotColor: "#F79009", bgColor: "#FFFAEB" },
+  // Warning (orange)
+  'pending': { label: "Pending", labelColor: "#FE961F", dotColor: "#FE961F", bgColor: "#FAF5EF" },
+  'pending approval': { label: "Pending Approval", labelColor: "#FE961F", dotColor: "#FE961F", bgColor: "#FAF5EF" },
+  'overdue': { label: "Overdue", labelColor: "#B54708", dotColor: "#F79009", bgColor: "#FFFAEB" },
 
-    // Error (red)
-    'failed': { label: "Failed", labelColor: "#FF2E2E", dotColor: "#FF2E2E", bgColor: "#FFEAEA" },
-    'rejected': { label: "Rejected", labelColor: "#FF2E2E", dotColor: "#FF2E2E", bgColor: "#FFEAEA" },
+  // Error (red)
+  'failed': { label: "Failed", labelColor: "#FF2E2E", dotColor: "#FF2E2E", bgColor: "#FFEAEA" },
+  'rejected': { label: "Rejected", labelColor: "#FF2E2E", dotColor: "#FF2E2E", bgColor: "#FFEAEA" },
 
-    // Neutral (gray)
-    'cancelled': { label: "Cancelled", labelColor: "#667085", dotColor: "#667085", bgColor: "#F2F4F7" },
-    'draft': { label: "Draft", labelColor: "#3E3E3E", dotColor: "#3E3E3E", bgColor: "#E5E5E5" },
-    'inactive': { label: "Inactive", labelColor: "#3E3E3E", dotColor: "#3E3E3E", bgColor: "#E5E5E5" },
-    'unpaid': { label: "Unpaid", labelColor: "#6941C6", dotColor: "#9E77ED", bgColor: "#F9F5FF" },
+  // Neutral (gray)
+  'cancelled': { label: "Cancelled", labelColor: "#667085", dotColor: "#667085", bgColor: "#F2F4F7" },
+  'draft': { label: "Draft", labelColor: "#3E3E3E", dotColor: "#3E3E3E", bgColor: "#E5E5E5" },
+  'inactive': { label: "Inactive", labelColor: "#3E3E3E", dotColor: "#3E3E3E", bgColor: "#E5E5E5" },
+  'unpaid': { label: "Unpaid", labelColor: "#6941C6", dotColor: "#9E77ED", bgColor: "#F9F5FF" },
 } as const;
 
 export const eventDonationReceiptConfig: ReceiptConfig = {
-    title: 'PAYMENT RECEIPT',
-    fields: [
-        { label: 'Transaction ID', key: 'transactionId' },
-        { label: 'Event Name', key: 'eventName', format: formatters.nullableText },
-        { label: 'Event Category', key: 'eventCategory', format: formatters.nullableText },
-        { label: 'Donor Name', key: 'donorName' },
-        { label: "Donor's Branch", key: 'donorBranch' },
-        { label: 'Amount', key: 'amount', format: formatters.currency },
-        { label: 'Source', key: 'source' },
-        { label: 'Date Paid', key: 'date', format: formatters.date },
-        { label: 'Payment Status', key: 'status', format: formatters.status },
-    ],
+  title: 'PAYMENT RECEIPT',
+  fields: [
+    { label: 'Transaction ID', key: 'transactionId' },
+    { label: 'Event Name', key: 'eventName', format: formatters.nullableText },
+    { label: 'Event Category', key: 'eventCategory', format: formatters.nullableText },
+    { label: 'Donor Name', key: 'donorName' },
+    { label: "Donor's Branch", key: 'donorBranch' },
+    { label: 'Amount', key: 'amount', format: formatters.currency },
+    { label: 'Source', key: 'source' },
+    { label: 'Date Paid', key: 'date', format: formatters.date },
+    { label: 'Payment Status', key: 'status', format: formatters.status },
+  ],
 };
 
 export const duesReceiptConfig: ReceiptConfig = {
-    title: 'DUES PAYMENT RECEIPT',
-    fields: [
-      { label: 'Transaction ID', key: 'transactionId' },
-      { label: 'Paid By', key: 'paidBy' },
-      { label: 'Payer Branch', key: 'payerBranch' },
-      { label: 'Dues Title', key: 'duesTitle' },
-      { label: 'Source', key: 'source' },
-      { label: 'Amount', key: 'amount', format: formatters.currency },
-      { label: 'Date Paid', key: 'date', format: formatters.date },
-      { label: 'Status', key: 'status', format: formatters.status },
-    ],
+  title: 'DUES PAYMENT RECEIPT',
+  fields: [
+    { label: 'Transaction ID', key: 'transactionId' },
+    { label: 'Paid By', key: 'paidBy' },
+    { label: 'Payer Branch', key: 'payerBranch' },
+    { label: 'Dues Title', key: 'duesTitle' },
+    { label: 'Source', key: 'source' },
+    { label: 'Amount', key: 'amount', format: formatters.currency },
+    { label: 'Date Paid', key: 'date', format: formatters.date },
+    { label: 'Status', key: 'status', format: formatters.status },
+  ],
 };
 
 
 export const projectDonationReceiptConfig: ReceiptConfig = {
-    title: 'DONATION RECEIPT',
-    fields: [
-        { label: 'Transaction ID', key: 'transactionId' },
-        { label: 'Donor Name', key: 'donorName' },
-        { label: 'Donor Branch', key: 'donorBranch', hideIfEmpty: true },
-        { label: 'Project Name', key: 'projectName'},
-        { label: 'Amount', key: 'amount', format: formatters.currency },
-        { label: 'Source', key: 'source' },
-        { label: 'Date', key: 'date', format: formatters.date },
-        { label: 'Status', key: 'status', format: formatters.status },
-    ],
+  title: 'DONATION RECEIPT',
+  fields: [
+    { label: 'Transaction ID', key: 'transactionId' },
+    { label: 'Donor Name', key: 'donorName' },
+    { label: 'Donor Branch', key: 'donorBranch', hideIfEmpty: true },
+    { label: 'Project Name', key: 'projectName' },
+    { label: 'Amount', key: 'amount', format: formatters.currency },
+    { label: 'Source', key: 'source' },
+    { label: 'Date', key: 'date', format: formatters.date },
+    { label: 'Status', key: 'status', format: formatters.status },
+  ],
 };
 
 export const withdrawalReceiptConfig: ReceiptConfig = {
@@ -732,14 +737,14 @@ export const getAllCitiesOfCountry = (countryCode: string) => {
   let cities: { value: string; label: string; }[] = [];
 
   states.forEach((state) => {
-  const stateCities = City.getCitiesOfState(countryCode, state.isoCode);
-  stateCities.forEach((city) => {
-    cities.push({
-      value: `${city.name} Branch`,
-      label: `${city.name} Branch`,
+    const stateCities = City.getCitiesOfState(countryCode, state.isoCode);
+    stateCities.forEach((city) => {
+      cities.push({
+        value: `${city.name} Branch`,
+        label: `${city.name} Branch`,
+      });
     });
   });
-});
 
 
 

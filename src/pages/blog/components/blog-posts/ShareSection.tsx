@@ -1,15 +1,18 @@
-import { regularPosts } from "@/utils/data";
 import { Divider } from "@mui/material";
 import { Copy } from "iconsax-react";
 import { useState } from "react";
-import { RegularPostCard } from "./RegularPostTypeCard"; 
 import { enqueueSnackbar } from "notistack";
 import { CheckCircleIcon } from "lucide-react";
+import { useRelatedBlogPosts } from "@/services/hooks/blogs";
+import { BlogPostCard } from "./BlogPostCard";
 
-export default function ShareSection({ title, url }: {
+export default function ShareSection({ title, url, postId }: {
     title: string,
-    url: string
+    url: string,
+    postId: string
 }) {
+    const { data: relatedData, isLoading } = useRelatedBlogPosts(postId);
+    const relatedPosts = relatedData?.relatedPosts || [];
     const [copied, setCopied] = useState(false);
 
     const encodedURL = encodeURIComponent(url);
@@ -86,20 +89,20 @@ export default function ShareSection({ title, url }: {
                 </div>
             </div>
 
-            {regularPosts.length > 0 &&
-            <>
-                <Divider orientation="horizontal" flexItem />
+            {!isLoading && relatedPosts.length > 0 &&
+                <>
+                    <Divider orientation="horizontal" flexItem />
 
-                <h1 className="text-gray-900 text-2xl leading-8">
-                    Related blog posts
-                </h1>
+                    <h1 className="text-gray-900 text-2xl leading-8">
+                        Related blog posts
+                    </h1>
 
-                <div className="flex flex-col gap-8">
-                    {regularPosts?.slice(0, 3).map((post) => {
-                        return <RegularPostCard key={post.id} post={post} />;
-                    })}
-                </div>
-            </>
+                    <div className="flex flex-col gap-8">
+                        {relatedPosts?.slice(0, 3).map((post) => {
+                            return <BlogPostCard key={post.id} post={post} />;
+                        })}
+                    </div>
+                </>
             }
         </div>
     );

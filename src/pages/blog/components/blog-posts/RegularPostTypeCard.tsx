@@ -1,5 +1,6 @@
 import { Badge } from "@mui/material";
 import { ArrowUpRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export interface RegularPostCardType {
   id: string;
@@ -12,7 +13,9 @@ export interface RegularPostCardType {
 }
 
 export const RegularPostCard = ({ post }: { post: RegularPostCardType }) => {
+  const navigate = useNavigate();
   const {
+    id,
     img,
     title,
     subtitle,
@@ -23,6 +26,7 @@ export const RegularPostCard = ({ post }: { post: RegularPostCardType }) => {
 
   return (
     <div
+      onClick={() => navigate(`/blog/posts/${id}`)}
       className="
         border border-aciu-light-grey 
         rounded-[.625rem] py-2 px-2

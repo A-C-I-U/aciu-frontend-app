@@ -2,30 +2,36 @@ import type { BlogPost } from '@/services/types/blogs';
 import { CommentOutlined } from '@ant-design/icons';
 import { Eye } from "@solar-icons/react";
 import { formatDistanceToNow } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
 
 export const FeaturedPostCard = ({ post }: { post: BlogPost }) => {
-    const { 
-        displayImage, 
+    const navigate = useNavigate();
+    const {
+        id,
+        displayImage,
         displayImageAlt,
-        title, 
-        author, 
-        createdAt, 
-        views, 
-        commentsCount 
+        title,
+        author,
+        createdAt,
+        views,
+        commentsCount
     } = post;
-    
+
     const formattedDate = formatDistanceToNow(new Date(createdAt), { addSuffix: true });
-    
+
     return (
-       <div className="relative w-full min-h-108 overflow-hidden rounded-[.625rem]">
-            <img 
-                src={displayImage}
+        <div
+            onClick={() => navigate(`/blog/posts/${id}`)}
+            className="relative w-full min-h-108 overflow-hidden rounded-[.625rem] cursor-pointer hover:shadow-lg transition-all"
+        >
+            <img
+                src={displayImage || ""}
                 alt={displayImageAlt || title}
                 loading="lazy"
                 className="w-full h-full min-h-108 object-cover"
             />
 
-            <div 
+            <div
                 className="absolute inset-0 pointer-events-none
                 bg-gradient-to-b from-white/20 
                 from-30% via-white/20 via-50% to-black/20"
