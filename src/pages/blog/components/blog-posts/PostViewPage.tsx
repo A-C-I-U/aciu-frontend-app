@@ -1,5 +1,5 @@
 import { useParams, } from "react-router-dom";
-import { useBlogPostDetails, usePostComments, useRelatedBlogPosts } from "@/services/hooks/blogs";
+import { useBlogPostDetails, usePostComments } from "@/services/hooks/blogs";
 import CommentBlock from "../shared/CommentBlock";
 import ShareSection from "./ShareSection";
 import PostViewHeader from "../shared/PostViewHeader";
