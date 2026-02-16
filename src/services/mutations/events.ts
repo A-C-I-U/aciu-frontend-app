@@ -31,19 +31,23 @@ const saveEvent = async (
     formData.append("enableDonations", String(payload.enableDonations));
     formData.append("enableCountdown", String(payload.enableCountdown));
 
+    if (payload.branchId) {
+        formData.append("branchId", payload.branchId);
+    }
+
     const url = eventId ? `/events/${eventId}` : `/events`;
     const method = eventId ? "put" : "post";
 
     const response = await apiClient[method]<{ message: string }>(
-        url, 
+        url,
         formData, {
-            headers: eventId
-                ? undefined
-                : { "Content-Type": "multipart/form-data" }
-            }
-        );
+        headers: eventId
+            ? undefined
+            : { "Content-Type": "multipart/form-data" }
+    }
+    );
 
-  return response.data;
+    return response.data;
 };
 
 export const useSaveEvent = () => {

@@ -9,9 +9,26 @@ import { EventsRegistrationsChart } from "./EventsRegistrationChart";
 import { TopBranchesChart } from "./TopBranchesChart";
 import { MemberSignUpsChart } from "./MembersSignUpChart";
 import { GenderChart } from "./GenderChart"
+import { useNationalAnalytics } from "@/services/hooks/analytics";
+import { AnalyticsSkeleton } from "./AnalyticsSkeleton";
 
 export default function Analytics() {
   const { user } = useUser();
+  const { data: analyticsData, isLoading, error } = useNationalAnalytics();
+
+  if (isLoading) {
+    return <AnalyticsSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div className="flex h-[80vh] items-center justify-center text-red-500">
+        Error loading analytics data. Please try again later.
+      </div>
+    );
+  }
+
+  const data = analyticsData?.data;
 
   return (
     <div className="flex flex-col gap-6">
@@ -20,26 +37,26 @@ export default function Analytics() {
           <div className="flex flex-col lg:flex-row gap-4 mx-5 mt-6">
             <StatsCard
               title="Total MEMBERS"
-              number="1,247"
-              rateOfChange="+12.5%"
+              number={data?.overview?.totalMembers.toString() || "0"}
+              rateOfChange={`${data?.memberSignups?.percentageChange || 0}%`}
               description="All Time"
             />
             <StatsCard
               title="Total INFLOWS"
-              number="$48,250"
-              rateOfChange="+8.3%"
+              number={`₦${data?.overview?.totalInflows.toLocaleString() || "0"}`}
+              rateOfChange="+0%"
               description="All Time"
             />
             <StatsCard
               title="TOTAL EVENTS HOSTED"
-              number="42"
-              rateOfChange="+15.2%"
+              number={data?.overview?.totalEvents.toString() || "0"}
+              rateOfChange="+0%"
               description="All Time"
             />
             <StatsCard
               title="APPROVED PROJECTS"
-              number="10"
-              rateOfChange="+5.7%"
+              number={data?.overview?.totalApprovedProjects.toString() || "0"}
+              rateOfChange="+0%"
               description="All Time"
             />
           </div>
@@ -63,33 +80,36 @@ export default function Analytics() {
         >
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div className="lg:col-span-2">
-              <MemberSignUpsChart />
+              <MemberSignUpsChart
+                data={data?.memberSignups?.dailyTrend || []}
+                percentageChange={data?.memberSignups?.percentageChange}
+              />
             </div>
 
             <div className="lg:col-span-1">
-              <GenderChart />
+              <GenderChart data={data?.genderDistribution} />
             </div>
 
             <div className="lg:col-span-1">
-              <DevicesChart />
+              <DevicesChart data={data?.deviceUsage} />
             </div>
           </div>
 
           <div className="my-6  "></div>
 
           <div>
-            <EventsRegistrationsChart />
+            <EventsRegistrationsChart data={data?.eventRegistrations?.monthlyTrend || []} availableYears={data?.eventRegistrations?.availableYears || []} />
           </div>
 
           <div className="my-6 "></div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div>
-              <BlogTrafficChart />
+              <BlogTrafficChart data={data?.blogTraffic} />
             </div>
 
             <div>
-              <TopBranchesChart />
+              <TopBranchesChart data={data?.topBranches || []} />
             </div>
           </div>
         </MotionBox>

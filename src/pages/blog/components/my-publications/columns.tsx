@@ -1,55 +1,56 @@
 import { formatDate, publicationStatusMap } from "@/utils/helpers";
-import { Eye } from "iconsax-react";
+import { Eye as EyeLinear } from "iconsax-react";
 import { CommentOutlined } from "@ant-design/icons";
-import type { PublicationDataType } from "@/utils/types";
-import { Link } from "react-router-dom";
+import type { Publication } from "@/services/types/blogs";
+import { useNavigate } from "react-router-dom";
 import type { ColumnDef, Row } from "@tanstack/react-table";
 import { StatusBadge } from "@/components/StatusBadge";
+import { Eye } from "lucide-react";
 
-export const columns: ColumnDef<PublicationDataType>[] = [
+export const getColumns = (): ColumnDef<Publication>[] => [
   {
     accessorKey: "title",
     header: "Title",
-    cell: ({ row }: { row: Row<PublicationDataType> }) => (
+    cell: ({ row }: { row: Row<Publication> }) => (
       <span className="font-medium text-aciu-border-grey">
         {row.original.title}
       </span>
     ),
   },
   {
-    accessorKey: "creationDate",
+    accessorKey: "createdAt",
     header: "Creation Date",
-    cell: ({ row }: { row: Row<PublicationDataType> }) => (
+    cell: ({ row }: { row: Row<Publication> }) => (
       <span className="text-aciu-abriba">
-        {formatDate(row.original.creationDate)}
+        {formatDate(row.original.createdAt)}
       </span>
     ),
   },
   {
     id: "postImpressions",
     header: "Post Impressions",
-    cell: ({ row }: { row: Row<PublicationDataType> }) => {
-      const { comments, views } = row.original.postImpressions;
+    cell: ({ row }: { row: Row<Publication> }) => {
+      const { commentsCount, views } = row.original;
       return (
         <div className="flex items-center gap-6">
           <span className="flex items-center gap-2 text-aciu-border-grey">
-            <Eye fontVariant="linear" size={16} color="#3E3E3E" />
-            {views.toLocaleString()}
+            <EyeLinear fontVariant="linear" size={16} color="#3E3E3E" />
+            {(views || 0).toLocaleString()}
           </span>
           <span className="flex items-center gap-2 text-aciu-border-grey">
             <CommentOutlined size={16} color="#3E3E3E" />
-            {comments.toLocaleString()}
+            {(commentsCount || 0).toLocaleString()}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "lastModified",
+    accessorKey: "updatedAt",
     header: "Last Modified",
-    cell: ({ row }: { row: Row<PublicationDataType> }) => (
+    cell: ({ row }: { row: Row<Publication> }) => (
       <span className="text-aciu-abriba">
-        {formatDate(row.original.lastModified)}
+        {formatDate(row.original.updatedAt)}
       </span>
     ),
   },
@@ -58,8 +59,8 @@ export const columns: ColumnDef<PublicationDataType>[] = [
     header: "Status",
     maxSize: 300,
     cell: ({ getValue }) => {
-      const status = getValue() as PublicationDataType["status"];
-      const statusConfig = publicationStatusMap[status];
+      const status = getValue() as Publication["status"];
+      const statusConfig = publicationStatusMap[status.toLowerCase() as keyof typeof publicationStatusMap] || publicationStatusMap["draft"];
 
       return (
         <StatusBadge
@@ -75,13 +76,24 @@ export const columns: ColumnDef<PublicationDataType>[] = [
     id: "actions",
     header: "Actions",
     size: 150,
-    cell: ({ row }: { row: Row<PublicationDataType> }) => (
-      <Link
-        to={`/blog/posts/${row.original.id}`}
-        className="p-2 text-sm font-coolvetica text-aciu-green-normal rounded-[5px] border border-aciu-green-normal min-w-36.5 whitespace-nowrap hover:bg-aciu-green-light transition-colors text-center block"
-      >
-        View Post
-      </Link>
-    ),
+    cell: ({ row }: { row: Row<Publication> }) => {
+      const navigate = useNavigate();
+
+      const handleViewPost = () => {
+        navigate(`/blog/posts/${row.original.id}`)
+      }
+
+      return (
+        <button
+          onClick={handleViewPost}
+          className="flex items-center gap-2 px-3 py-2 border border-aciu-green-normal 
+            rounded-[5px] text-aciu-green-normal font-montserrat font-semibold text-sm
+            hover:bg-aciu-green-normal hover:text-white transition-colors duration-200"
+        >
+          <Eye size={16} />
+          View Post
+        </button>
+      )
+    },
   },
 ];

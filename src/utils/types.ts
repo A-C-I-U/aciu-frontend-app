@@ -2,6 +2,7 @@ import type React from "react";
 import { type JSONContent, Editor } from "@tiptap/react";
 import type { Icon } from "iconsax-react";
 import type { BranchSearchResponse } from "@/services/types/helpandsupport";
+import { BlogPostVisibility } from "@/services/types/blogs";
 
 export interface AuthCardProps {
   header?: string;
@@ -214,12 +215,15 @@ export interface UploadResourceProps {
 export interface BlogPostFormValues {
   title: string;
   description: string;
-  tags: string[];
-  displayImage: string;
+  tags: string | string[];
+  displayImage: File | null;
   imageAlt: string;
   content: string;
-  postVisibility: "public" | "private";
+  contentHtml?: string;
+  contentJson?: any;
+  postVisibility: BlogPostVisibility;
   status: "published" | "pending approval" | "rejected" | "draft";
+  featured?: boolean;
 }
 
 export type EditorContent = Editor | string | JSONContent | null;

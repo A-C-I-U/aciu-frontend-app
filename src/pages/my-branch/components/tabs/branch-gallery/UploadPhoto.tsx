@@ -2,10 +2,12 @@ import { UploadFileImage, UploadImageShortMobile } from "@/components/Icons"
 import { ScrollLock } from "@/components/ScrollLock"
 import ShellHeader from "@/components/ShellHeader"
 import type { DialogFuncProps } from "@/utils/types"
-import { Dialog, Divider } from "@mui/material"
+import { Dialog, Divider, CircularProgress, MenuItem, Select, FormControl, InputLabel } from "@mui/material"
 import { Form, Formik } from "formik"
 import { useRef, useState } from "react"
 import { ImageUploaded } from "./ImageUploaded"
+import { useUploadGallery } from "@/services/mutations/gallery"
+import { GalleryCategory } from "@/services/types/gallery"
 
 const dialogSx = {
     "& .MuiDialog-paper": {
@@ -18,7 +20,8 @@ const dialogSx = {
 }
 
 const initialValues = {
-    images: [] as File[]
+    images: [] as File[],
+    category: GalleryCategory.BRANCH_MEETINGS
 }
 
 export default function UploadPhoto({
@@ -26,6 +29,7 @@ export default function UploadPhoto({
 }: DialogFuncProps) {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const [uploads, setUploads] = useState<{ id: string; image: File; progress: number }[]>([]);
+    const { mutate: uploadImages, isPending } = useUploadGallery();
 
     const simulateUpload = (image: File) => {
         const id = `${image.name}-${image.lastModified}`;
@@ -36,20 +40,30 @@ export default function UploadPhoto({
             setUploads((prev) =>
                 prev.map((u) =>
                     u.id === id
-                    ? {
-                        ...u,
-                        progress: u.progress >= 100 ? 100 : u.progress + 10,
-                    }
-                    : u
+                        ? {
+                            ...u,
+                            progress: u.progress >= 100 ? 100 : u.progress + 10,
+                        }
+                        : u
                 )
             );
-        }, 300);
-            setTimeout(() => clearInterval(interval), 300 * 11);
-        };
+        }, 100);
+        setTimeout(() => clearInterval(interval), 100 * 11);
+    };
 
-    const handleSubmit = (_values: any, _actions: any) => {}
+    const handleSubmit = (values: typeof initialValues, { resetForm }: any) => {
+        if (values.images.length === 0) return;
 
-    
+        uploadImages(values.images, {
+            onSuccess: () => {
+                resetForm();
+                setUploads([]);
+                onClose();
+            }
+        });
+    }
+
+
     return (
         <>
             <ScrollLock open={open} />
@@ -65,7 +79,7 @@ export default function UploadPhoto({
                         initialValues={initialValues}
                         onSubmit={handleSubmit}
                     >
-                        {({ values, setFieldValue, isSubmitting, isValid }) => {
+                        {({ values, setFieldValue, isValid }) => {
 
                             const handleDeleteImage = (index: number) => {
                                 const newImages = values.images.filter((_, i) => i !== index);
@@ -76,8 +90,24 @@ export default function UploadPhoto({
 
                             return (
                                 <Form className="flex flex-col h-4/5 md:h-full overflow-hidden">
-                                    <div className="resources-modal-body mb-10 overflow-hidden">
-                                        <div 
+                                    <div className="resources-modal-body mb-5 overflow-y-auto no-scrollbar">
+                                        <div className="mb-6">
+                                            <FormControl fullWidth size="small">
+                                                <InputLabel id="category-label">Category</InputLabel>
+                                                <Select
+                                                    labelId="category-label"
+                                                    value={values.category}
+                                                    label="Category"
+                                                    onChange={(e) => setFieldValue("category", e.target.value)}
+                                                    sx={{ borderRadius: "0.5rem" }}
+                                                >
+                                                    <MenuItem value={GalleryCategory.NATIONAL_EVENTS}>National Events</MenuItem>
+                                                    <MenuItem value={GalleryCategory.BRANCH_MEETINGS}>Branch Meetings</MenuItem>
+                                                </Select>
+                                            </FormControl>
+                                        </div>
+
+                                        <div
                                             className="cursor-pointer"
                                             onClick={() => inputRef.current?.click()}
                                         >
@@ -98,8 +128,9 @@ export default function UploadPhoto({
                                                     </p>
                                                 </div>
                                             </div>
-                                            <input 
+                                            <input
                                                 ref={inputRef}
+                                                style={{ display: 'none' }}
                                                 type="file"
                                                 accept="image/*"
                                                 multiple
@@ -116,9 +147,9 @@ export default function UploadPhoto({
                                             />
                                         </div>
                                         {uploads.length > 0 &&
-                                            <div className="flex flex-col gap-2 overflow-y-auto max-h-50">
+                                            <div className="flex flex-col gap-2 mt-6 overflow-y-auto max-h-50">
                                                 <p className="font-semibold leading-[100%] text-aciu-border-grey">
-                                                    Upload Document
+                                                    Selected Photos ({uploads.length})
                                                 </p>
                                                 {uploads.map((upload, index) => (
                                                     <ImageUploaded
@@ -132,14 +163,14 @@ export default function UploadPhoto({
                                         }
                                     </div>
                                     <div className="py-5.5 px-10.5 resource-buttons-container items-start">
-                                        <button 
-                                            className="btn btn-primary"
-                                            disabled={isSubmitting || !isValid}
+                                        <button
+                                            className="btn btn-primary flex items-center justify-center gap-2"
+                                            disabled={isPending || !isValid || values.images.length === 0}
                                             type="submit"
                                         >
-                                            Upload Media
+                                            {isPending ? <CircularProgress size={20} color="inherit" /> : "Upload Media"}
                                         </button>
-                                        <button 
+                                        <button
                                             className="btn btn-danger"
                                             onClick={onClose}
                                             type="button"

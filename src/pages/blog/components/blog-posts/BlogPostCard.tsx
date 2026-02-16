@@ -2,9 +2,12 @@ import type { BlogPost } from "@/services/types/blogs";
 import { Badge } from "@mui/material";
 import { ArrowUpRight } from "lucide-react";
 import { formatDistanceToNow, parseISO, isValid } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 export const BlogPostCard = ({ post }: { post: BlogPost }) => {
+  const navigate = useNavigate();
   const {
+    id,
     displayImage,
     displayImageAlt,
     title,
@@ -22,6 +25,7 @@ export const BlogPostCard = ({ post }: { post: BlogPost }) => {
 
   return (
     <div
+      onClick={() => navigate(`/blog/posts/${id}`)}
       className="
         border border-aciu-light-grey 
         rounded-[.625rem] py-2 px-2
@@ -30,7 +34,7 @@ export const BlogPostCard = ({ post }: { post: BlogPost }) => {
       "
     >
       <img
-        src={displayImage}
+        src={displayImage || ""}
         alt={displayImageAlt || title}
         loading="lazy"
         className="w-full h-60 object-cover rounded-[.625rem]"
