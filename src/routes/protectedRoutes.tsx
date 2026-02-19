@@ -31,6 +31,7 @@ import Database from "@/pages/database";
 import BranchDetails from "@/pages/database/branches/branch-details";
 import { RequireRole } from "./RequireRole";
 import { Outlet } from "react-router-dom";
+import BranchPage from "@/pages/branch";
 
 
 export const protectedRoutes = [

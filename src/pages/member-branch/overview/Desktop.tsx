@@ -19,27 +19,26 @@ export default function Desktop({
         transition={{ duration: 0.4 }}
         borderRadius=".625rem"
         bgcolor="#fff"
-        mx="1.25rem"
-        py="1rem"
         display="flex"
         flexDirection="column"
+        alignItems="center"
         gap="2rem"
         position="relative"
     >
-      <>
+      <div className="max-w-124.5 w-full flex items-center justify-center py-8">
         {isLoading && <BranchDashboardSkeleton />}
 
         {!isLoading && overviewData && (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 items-center">
             <BranchInitials branchName={`${overviewData.dashboard.branchTitle}`} />
-            <h2 className="text-xl leading-[1.2] text-aciu-dark-grey">
+            <h2 className="text-xl leading-[1.2] text-aciu-border-grey">
               {overviewData.dashboard.branchTitle}
             </h2>
             <div className="flex items-center gap-2">
                <div className="flex items-center gap-2.5 px-4 py-2.5 border border-aciu-light-grey rounded-2xs">
                     <People size={24} color="#00B686" />
                     <p className="leading-[1.2] text-aciu-abriba">
-                        {`${overviewData.dashboard.isActive ? "Verified and Active" : "Inactive"}`}
+                        {`${overviewData.dashboard.registeredMembers} registered members`}
                     </p>
                 </div>
                 <div className="flex items-center gap-2.5 px-4 py-2.5 border border-aciu-light-grey rounded-2xs">
@@ -55,13 +54,13 @@ export default function Desktop({
                 {overviewData.dashboard.meetingLocation}
               </p>
             </div>
-            <button className="btn btn-primary max-w-fit">Locate Map</button>
+            <button className="btn btn-primary max-w-35.5 leading-[1.55]">Locate on map</button>
           </div>
         )}
-      </>
+      </div>
 
-      <div className="overflow-x-auto">
-        <div className="flex flex-nowrap gap-8">
+      <div className="overflow-x-auto w-full text-center">
+        <div className="flex items-center justify-center flex-nowrap gap-8">
           {branchTabs.map((tab) => (
             <button
               key={tab.key}
@@ -79,8 +78,9 @@ export default function Desktop({
             </button>
           ))}
         </div>
+        <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
       </div>
-      <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
+      
       <div className="py-6">{activeTab?.content}</div>
     </MotionBox>
   );
