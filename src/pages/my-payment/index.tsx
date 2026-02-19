@@ -194,7 +194,7 @@ export default function MyPaymentsPage() {
             {activeTab?.key === "dues-breakdown" && duesData && (
               <PaymentReminderCard
                 targetDate={nextMonth}
-                amount={duesData.nextMonthlyDue.amount.toString()}
+                amount={duesData.nextMonthlyDue.amountUsd.toString()}
                 className="lg:h-39"
                 timeUntilDue={duesData.nextMonthlyDue.timeUntilDue}
               />

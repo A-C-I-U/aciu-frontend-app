@@ -11,7 +11,7 @@ export interface TimeUntilDue {
 }
 
 export interface NextMonthlyDue {
-  amount: number;
+  amountUsd: number;
   timeUntilDue: TimeUntilDue;
 }
 
