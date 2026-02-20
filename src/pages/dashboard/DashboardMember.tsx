@@ -206,7 +206,7 @@ export default function Dashboard() {
           <ProfileCard />
 
           <div className="flex flex-col gap-4 items-center w-full">
-            <div className="flex flex-col lg:flex-row gap-[1.375rem] items-center w-full">
+            <div className="flex flex-col lg:flex-row gap-5.5 items-center w-full">
               {finances && (
                 <>
                   <MetricsCard

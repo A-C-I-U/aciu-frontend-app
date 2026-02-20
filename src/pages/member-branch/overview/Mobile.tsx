@@ -1,29 +1,30 @@
 import MotionBox from "@/components/MotionBox";
 import type { BranchOverviewProps } from "@/services/types/members";
-import type { TabItem } from "@/utils/types";
 import { ArrowLeft2, ArrowRight2, People, Verify } from "iconsax-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Divider } from "@mui/material";
 import { branchTabs } from "..";
 import { BranchInitials } from "@/pages/help-and-support/components/BranchInitials";
 import BranchDashboardSkeleton from "../BranchDashboardSkeleton";
+import type { URLSearchParams } from "url";
+import type { TabItem } from "@/utils/types";
 
 export default function MobileOverview({
   activeTab,
   setActiveTab,
+  searchParams,
   overviewData,
   isLoading,
   clearSearchParams
-}: BranchOverviewProps & { clearSearchParams: () => void }) {
-  const [screen, setScreen] = useState<"overview" | "content">("overview");
+}: BranchOverviewProps & { searchParams: URLSearchParams, clearSearchParams: () => void }) {
+  const isContent = Boolean(activeTab);
+  const isOverview = !searchParams.get("tab");
 
   const handleOpenContent = (tab: TabItem) => {
     setActiveTab(tab);
-    setScreen("content");
   };
 
   const handleBack = () => {
-    setScreen("overview");
     clearSearchParams();
   }
 
@@ -35,13 +36,8 @@ export default function MobileOverview({
     });
   }, [activeTab]);
 
-  useEffect(() => {
-    setScreen("overview");
-  }, []);
-
   return (
     <MotionBox
-      key={screen}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
@@ -51,16 +47,11 @@ export default function MobileOverview({
       alignItems="center"
       position="relative"
     >
-      {screen === "overview" && 
-        isLoading || !overviewData ? <BranchDashboardSkeleton /> :
-        !isLoading && overviewData && 
-        <div className="w-full flex flex-col gap-6">
-          
-          
-          <div className="bg-white w-full flex items-center justify-center py-6 px-7.5">
-            
-
-            
+      {isOverview && (
+          isLoading || !overviewData 
+          ? <BranchDashboardSkeleton /> :
+            <div className="w-full flex flex-col gap-6">          
+              <div className="bg-white w-full flex items-center justify-center py-6 px-7.5">
               <div className="flex flex-col gap-4 items-center">
                 <BranchInitials branchName={`${overviewData.dashboard.branchTitle}`} />
                 <h2 className="text-xl leading-[1.2] text-aciu-border-grey">
@@ -86,7 +77,7 @@ export default function MobileOverview({
                     {overviewData.dashboard.meetingLocation}
                   </p>
                 </div>
-                <button className="btn btn-primary max-w-35.5 leading-[1.55]">Locate on map</button>
+                <button className="btn btn-primary max-w-35.5 leading-[1.55] text-base!">Locate on map</button>
               </div>
             
           </div>
@@ -106,9 +97,9 @@ export default function MobileOverview({
             ))}
           </div>
         </div>
-        }
+        )}
       
-      {screen === "content" && activeTab && (
+      {isContent && activeTab && (
         <MotionBox
           key={activeTab?.key}
           initial={{ opacity: 0, y: 10 }}

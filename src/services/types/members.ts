@@ -83,8 +83,16 @@ export interface GetMemberImpactSummary {
 }
 
 export interface BranchOverviewProps {
-    activeTab: TabItem,
+    activeTab?: TabItem,
     setActiveTab: (activeTab: TabItem) => void,
     overviewData?: GetMemberDashboardResponse,
     isLoading: boolean;
+}
+
+export interface GetMemberDues {
+  title: string;
+  status: "Active" | "Inactive";
+  interval: "Monthly" | "Weekly" | "Yearly";
+  amount: string;
+  nextPayment: string;
 }

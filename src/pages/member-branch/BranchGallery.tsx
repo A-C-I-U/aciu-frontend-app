@@ -10,13 +10,13 @@ import { useGallery } from "@/services/hooks/gallery";
 import { EmptyPage } from "@/components/EmptyPage";
 
 const filterGroups = [
-  { key: "all-photos", label: "All Photos" },
-  { key: "branch-meetings", label: "Branch Meetings" },
-  { key: "national-events", label: "National Events" },
+  { key: "", label: "All Photos" },
+  { key: "Branch Meetings", label: "Branch Meetings" },
+  { key: "National Events", label: "National Events" },
 ]
 
 export default function BranchGallery() {
-    const [filterParam, setFilterParam] = useState("all-photos")
+    const [filterParam, setFilterParam] = useState(filterGroups[0].key)
     const [selected, setSelected] = useState<GalleryItem | null>(null);
     const [isViewOpen, setIsViewOpen] = useState(false);
 

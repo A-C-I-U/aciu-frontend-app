@@ -21,8 +21,8 @@ export default function MemberBranch() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { data, isLoading } = useMemberBranchDashboard();
-  const activeTab = searchParams.get("tab") ?? branchTabs[0].key;
-  const currentTab: TabItem = branchTabs.find((tab) => tab.key === activeTab) ?? branchTabs[0];
+  const activeTab = searchParams.get("tab");
+  const currentTab = branchTabs.find((tab) => tab.key === activeTab);
   const handleTabChange = (tab: TabItem) => {
     setSearchParams({ tab: tab.key });
   };
@@ -32,6 +32,7 @@ export default function MemberBranch() {
       {isMedium ? (
         <MobileOverview
           activeTab={currentTab}
+          searchParams={searchParams}
           setActiveTab={handleTabChange}
           overviewData={data}
           isLoading={isLoading}
@@ -39,7 +40,7 @@ export default function MemberBranch() {
         />
       ) : (
         <Desktop
-          activeTab={currentTab}
+          activeTab={currentTab ?? branchTabs[0]}
           setActiveTab={handleTabChange}
           overviewData={data}
           isLoading={isLoading}

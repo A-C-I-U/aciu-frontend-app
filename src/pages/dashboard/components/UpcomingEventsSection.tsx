@@ -2,9 +2,10 @@ import SectionHeader from "@/components/SectionHeader";
 import { ArrowDown2, Sort } from "iconsax-react";
 import { Link } from "react-router-dom";
 import { UpcomingEventCard } from "./UpcomingEventsCard";
-import { useEvents } from "@/services/hooks/events";
+import {  useUpcomingEvents } from "@/services/hooks/events";
 import { Skeleton } from "@mui/material";
 import { useSnackbar } from "notistack";
+import type { Event } from "@/services/types/events";
 
 const sectionActions = [
     <button 
@@ -55,7 +56,7 @@ const UpcomingEventCardSkeleton = () => {
 };
 
 export const UpcomingEventsSection = () => {
-    const { data, isLoading, error } = useEvents();
+    const { data, isLoading, error } = useUpcomingEvents();
     const { enqueueSnackbar } = useSnackbar();
 
     if (error) {
@@ -65,14 +66,15 @@ export const UpcomingEventsSection = () => {
     }
 
     const upcomingEvents = data?.events
-        ?.filter(event => {
-            const eventDate = new Date(event.eventDate);
-            const today = new Date();
-            return eventDate >= today;
-        })
-        .slice(0, 4) || []; 
+        ? data.events.map((event: any) => ({
+            ...event,
+            img: event.coverImage,
+            date: event.eventDate,
+            host: event.category?.replace(/_/g, ' ') || "Event"
+        }))
+        .slice(0, 4) : []; 
 
-    const transformedEvents = upcomingEvents.map(event => ({
+    const transformedEvents = upcomingEvents.map((event: Event) => ({
         id: event.id,
         image: event.coverImage,
         label: event.title,
@@ -86,7 +88,7 @@ export const UpcomingEventsSection = () => {
     }));
 
     return (
-        <div className="bg-white rounded-[.625rem] p-5 flex flex-col gap-4">
+        <div className="bg-white rounded-2xs p-5 flex flex-col gap-4">
             <div className="flex flex-wrap gap-4 justify-between items-start lg:flex-nowrap lg:items-center w-full">
                 <div className="min-w-fit lg:w-full">
                     <SectionHeader
@@ -111,7 +113,7 @@ export const UpcomingEventsSection = () => {
                         <UpcomingEventCardSkeleton key={index} />
                     ))
                 ) : transformedEvents.length > 0 ? (
-                    transformedEvents.map((event) => (
+                    transformedEvents.map((event: any) => (
                         <UpcomingEventCard
                             key={event.id}
                             event={event}
