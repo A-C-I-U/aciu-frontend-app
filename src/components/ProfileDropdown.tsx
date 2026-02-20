@@ -23,7 +23,6 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
     const links = protectedRoutes.filter(
         r => r.label && r.roles.includes(activeRole)
     );
-    console.log(links)
 
     const handleLogout = () => {
         onClose();
