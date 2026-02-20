@@ -8,6 +8,8 @@ import {
   type DashboardWithdrawalApiResponse
 } from '../types/dashboad';
 import { useUser } from '@/context/UserContext';
+import { type GetMemberProfileResponse } from '../types/members';
+
 
 export const useDashboardOverview = () => {
   return useQuery<DashboardResponse, Error>({
@@ -35,6 +37,20 @@ export const useFinances = () => {
     retry: 2,
   });
 };
+
+const fetchUpcomingEvents = async (year: string, month: string): Promise<GetMemberProfileResponse> => {
+  const response = await apiClient.get<GetMemberProfileResponse>(`/member-dashboard/events?year=${year}&month=${month}`)
+  return response.data
+}
+
+export const useMemberUpcomingEvents = (year: string, month: string) => {
+  return useQuery({
+      queryKey: ["member-upcoming-events"],
+      queryFn: () => fetchUpcomingEvents(year, month),
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000
+  })
+}
 
 export const useNationalDashboardStats = () => {
   const { user } = useUser();

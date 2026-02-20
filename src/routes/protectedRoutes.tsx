@@ -14,7 +14,6 @@ import Dashboard from "../pages/dashboard";
 import MyPaymentsPage from "@/pages/my-payment";
 import EventsPage from "@/pages/events";
 import ProjectsPage from "@/pages/projects";
-import MyBranchPage from "@/pages/my-branch";
 import BlogPage from "@/pages/blog";
 import ResourcesPage from "@/pages/resources";
 import HelpAndSupportPage from "@/pages/help-and-support";
@@ -32,6 +31,7 @@ import Database from "@/pages/database";
 import BranchDetails from "@/pages/database/branches/branch-details";
 import { RequireRole } from "./RequireRole";
 import { Outlet } from "react-router-dom";
+import BranchPage from "@/pages/branch";
 
 
 export const protectedRoutes = [
@@ -124,7 +124,7 @@ export const protectedRoutes = [
       }
     ]
   },
-    {
+  {
     path: "/my-branch",
     label: "My Branch",
     icon: Hashtag,
@@ -132,7 +132,7 @@ export const protectedRoutes = [
     children: [
       {
         index: true,
-        element: <MyBranchPage />
+        element: <BranchPage />
       }
     ]
   },
