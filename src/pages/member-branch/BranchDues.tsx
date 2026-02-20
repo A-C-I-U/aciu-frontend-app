@@ -1,3 +1,4 @@
+import { EmptyPage } from "@/components/EmptyPage";
 import { StatusBadge } from "@/components/StatusBadge";
 import { useBranchDues } from "@/services/hooks/branch";
 import type { BranchDue } from "@/services/types/branch";
@@ -20,7 +21,7 @@ function BranchDuesCard({ due }: { due: BranchDue }) {
     } = branchStatusMap[status as "inactive" | "active"];
 
     return (
-        <div className="border border-aciu-light-grey rounded-2xs max-w-90">
+        <div className="border border-aciu-light-grey rounded-2xs w-full">
             <div className="px-3.25 py-4.25 flex flex-col gap-6.5">
                 <div className="flex justify-between items-center">
                     <StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} className="w-97"/>
@@ -41,22 +42,27 @@ function BranchDuesCard({ due }: { due: BranchDue }) {
 export default function BranchDues() {
     const { data: duesData, isLoading } = useBranchDues();
     return (
-        <div className="px-4.5 py-6">
+        <div className="lg:px-4.5 lg:py-6 flex flex-col gap-6 w-full">
             <div className="flex justify-between items-center">
-                <h2 className="text-xl leading-[1.2] text-aciu-border-grey">
+                <h2 className="lg:block hidden text-xl leading-[1.2] text-aciu-border-grey">
                     Branch Dues
                 </h2>
-                <Link to="/my-payments" className="btn-primary">
+                <Link to="/my-payments" className="btn btn-primary max-w-fit">
                     View my Payments
                 </Link>
             </div>
-            {isLoading
-                ? Array.from({ length: 3 }).map((_, i) => (
-                    <BranchDuesCardSkeleton key={i} />
-                    ))
-                : duesData?.map((due) => (
-                    <BranchDuesCard key={due.id} due={due} />
-            ))}
+            {!duesData && !isLoading && (
+                <EmptyPage label="No branch dues found." />
+            )}
+            <div className="grid gap-x-5 gap-y-4 md:grid-cols-2 md:max-w-150 lg:grid-cols-[repeat(auto-fit,minmax(270px,1fr))] lg:max-w-full overflow-y-auto no-scrollbar">
+                {isLoading
+                    ? Array.from({ length: 3 }).map((_, i) => (
+                        <BranchDuesCardSkeleton key={i} />
+                        ))
+                    : duesData?.map((due) => (
+                        <BranchDuesCard key={due.id} due={due} />
+                ))}
+            </div>  
         </div>
     )
 }
@@ -64,7 +70,7 @@ export default function BranchDues() {
 
 function BranchDuesCardSkeleton() {
   return (
-    <div className="border border-aciu-light-grey rounded-2xs max-w-90 animate-pulse">
+    <div className="border border-aciu-light-grey rounded-2xs w-full animate-pulse">
       <div className="px-3.25 py-4.25 flex flex-col gap-6.5">
         <div className="flex justify-between items-center">
           <div className="h-6 w-24 bg-gray-200 rounded-md" />
@@ -79,7 +85,7 @@ function BranchDuesCardSkeleton() {
         flexItem
       />
 
-      <div className="pt-2 px-4 bg-aciu-body flex justify-between items-center">
+      <div className="py-2 px-4 bg-aciu-body flex justify-between items-center">
         <div className="flex flex-col gap-2 w-full">
           <div className="h-4 w-20 bg-gray-200 rounded" />
 

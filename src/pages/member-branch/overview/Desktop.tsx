@@ -5,6 +5,7 @@ import { People, Verify } from "iconsax-react";
 import { branchTabs } from "..";
 import type { BranchOverviewProps } from "@/services/types/members";
 import BranchDashboardSkeleton from "../BranchDashboardSkeleton";
+import TabButton from "@/components/TabButton";
 
 export default function Desktop({
   activeTab,
@@ -22,7 +23,6 @@ export default function Desktop({
         display="flex"
         flexDirection="column"
         alignItems="center"
-        gap="2rem"
         position="relative"
     >
       <div className="max-w-124.5 w-full flex items-center justify-center py-8">
@@ -62,26 +62,18 @@ export default function Desktop({
       <div className="overflow-x-auto w-full text-center">
         <div className="flex items-center justify-center flex-nowrap gap-8">
           {branchTabs.map((tab) => (
-            <button
+            <TabButton
               key={tab.key}
+              tab={tab}
+              active={tab === activeTab}
               onClick={() => setActiveTab(tab)}
-              className={`${
-                activeTab?.key === tab.key
-                  ? "text-aciu-red font-semibold"
-                  : "text-aciu-abriba font-medium pb-4"
-              } text-xs md:text-sm font-montserrat flex flex-col gap-2 whitespace-nowrap`}
-            >
-              {tab.label}
-              {activeTab?.key === tab.key && (
-                <span className="block w-full h-0.5 bg-aciu-red mt-2 rounded-full"></span>
-              )}
-            </button>
+          />
           ))}
         </div>
         <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
       </div>
       
-      <div className="py-6">{activeTab?.content}</div>
+      {activeTab?.content}
     </MotionBox>
   );
 }

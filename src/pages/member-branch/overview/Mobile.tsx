@@ -13,7 +13,8 @@ export default function MobileOverview({
   setActiveTab,
   overviewData,
   isLoading,
-}: BranchOverviewProps) {
+  clearSearchParams
+}: BranchOverviewProps & { clearSearchParams: () => void }) {
   const [screen, setScreen] = useState<"overview" | "content">("overview");
 
   const handleOpenContent = (tab: TabItem) => {
@@ -21,7 +22,10 @@ export default function MobileOverview({
     setScreen("content");
   };
 
-  const handleBack = () => setScreen("overview");
+  const handleBack = () => {
+    setScreen("overview");
+    clearSearchParams();
+  }
 
   useEffect(() => {
     window.scrollTo({
@@ -41,41 +45,42 @@ export default function MobileOverview({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      mx="1.25rem"
-      my={3}
       borderRadius=".625rem"
       display="flex"
-        flexDirection="column"
-        alignItems="center"
-        gap="2rem"
-        position="relative"
+      flexDirection="column"
+      alignItems="center"
+      position="relative"
     >
-      {screen === "overview" && (
-        <div>
-          <div className="bg-whitemax-w-124.5 w-full flex items-center justify-center py-8">
-            {isLoading && <BranchDashboardSkeleton />}
+      {screen === "overview" && 
+        isLoading || !overviewData ? <BranchDashboardSkeleton /> :
+        !isLoading && overviewData && 
+        <div className="w-full flex flex-col gap-6">
+          
+          
+          <div className="bg-white w-full flex items-center justify-center py-6 px-7.5">
+            
 
-            {!isLoading && overviewData && (
+            
               <div className="flex flex-col gap-4 items-center">
                 <BranchInitials branchName={`${overviewData.dashboard.branchTitle}`} />
                 <h2 className="text-xl leading-[1.2] text-aciu-border-grey">
                   {overviewData.dashboard.branchTitle}
                 </h2>
-                <div className="flex items-center gap-2">
+                <div className="flex flex-col items-center gap-4">
                   <div className="flex items-center gap-2.5 px-4 py-2.5 border border-aciu-light-grey rounded-2xs">
                     <People size={24} color="#00B686" />
-                    <p className="leading-[1.2] text-aciu-abriba">
+                    <p className="leading-4.25 text-aciu-abriba font-medium">
                       {`${overviewData.dashboard.registeredMembers} registered members`}
                     </p>
                   </div>
                   <div className="flex items-center gap-2.5 px-4 py-2.5 border border-aciu-light-grey rounded-2xs">
                     <Verify size={24} color="#00B686" />
-                    <p className="leading-[1.2] text-aciu-abriba">
+                    <p className="leading-4.25 text-aciu-abriba font-medium">
                       {`${overviewData.dashboard.isActive ? "Verified and Active" : "Inactive"}`}
                     </p>
                   </div>
                 </div>
-                <div className="flex flex-col gap-2 items-center">
+                <div className="flex flex-col gap-2 items-center text-sm">
                   <p className="text-aciu-abriba leading-[1.2]">Meeting Location</p>
                   <p className="font-medium text-aciu-border-grey leading-[1.2]">
                     {overviewData.dashboard.meetingLocation}
@@ -83,7 +88,7 @@ export default function MobileOverview({
                 </div>
                 <button className="btn btn-primary max-w-35.5 leading-[1.55]">Locate on map</button>
               </div>
-            )}
+            
           </div>
 
           <div className="flex flex-col gap-4 justify-center w-full mx-auto">
@@ -93,7 +98,7 @@ export default function MobileOverview({
                 onClick={() => handleOpenContent(tab)}
                 className="w-full flex justify-between items-center p-4.5 bg-white h-19 rounded-2xs"
               >
-                <span className="font-medium font-montserrat text-aciu-abriba leading-[140%]">
+                <span className="text-sm font-medium font-montserrat text-aciu-abriba leading-5">
                   {tab.label}
                 </span>
                 <ArrowRight2 size={20} variant="Linear" color="#151515" />
@@ -101,7 +106,8 @@ export default function MobileOverview({
             ))}
           </div>
         </div>
-      )}
+        }
+      
       {screen === "content" && activeTab && (
         <MotionBox
           key={activeTab?.key}
@@ -110,6 +116,7 @@ export default function MobileOverview({
           transition={{ duration: 0.3 }}
           bgcolor="#fff"
           borderRadius=".625rem"
+          width="100%"
           py={3}
           px={{
             xs: 1,
@@ -124,7 +131,7 @@ export default function MobileOverview({
                 aria-label="Go back to Branch Overview"
                 title="Go back to Branch Overview"
                 className="flex items-center text-aciu-neutral font-montserrat text-sm
-                                    border border-neutrals-100 rounded-xl px-2 py-4 bg-transparent hover:bg-neutrals-50 transition-colors"
+                  border border-neutrals-100 rounded-xl px-2 py-4 bg-transparent hover:bg-neutrals-50 transition-colors"
               >
                 <ArrowLeft2 size={20} color="#898483" />
               </button>

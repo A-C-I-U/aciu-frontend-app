@@ -7,6 +7,7 @@ import type { DialogFuncProps } from "@/utils/types";
 import { Divider } from "@mui/material";
 import { GallerySkeleton } from "@/components/GallerySkeleton";
 import { useGallery } from "@/services/hooks/gallery";
+import { EmptyPage } from "@/components/EmptyPage";
 
 const filterGroups = [
   { key: "all-photos", label: "All Photos" },
@@ -28,15 +29,15 @@ export default function BranchGallery() {
 
   return (
     <>
-        <div className="px-4.5 py-6 flex flex-col gap-4">
-            <div className="flex justify-between items-center">
+        <div className="lg:px-4.5 lg:py-6 flex flex-col gap-6 w-full">
+            <div className="flex justify-between">
                 <div className="flex gap-4.5">
                     {filterGroups.map(({ key, label }) => (
                         <button
                             key={key}
                             onClick={() => setFilterParam(key)}
                             className={cx(
-                                "rounded-xl shadow-[0px_1px_3px_0px_#0D0D120D] px-4 py-2 text-sm transition-colors duration-200",
+                                "rounded-xl shadow-[0px_1px_3px_0px_#0D0D120D] p-4 tracking-[5%] text-sm font-coolvetica active:scale-[.9] transition-all duration-200",
                                 filterParam === key
                                 ? "bg-aciu-green-normal text-white"
                                 : "border border-aciu-green-normal text-aciu-green-normal"
@@ -52,9 +53,7 @@ export default function BranchGallery() {
             ) : (
                 <div className="grid gap-x-3.5 gap-y-4 md:grid-cols-2 md:max-w-150 lg:grid-cols-[repeat(auto-fit,minmax(270px,1fr))] lg:max-w-full overflow-y-auto no-scrollbar">
                     {images?.length === 0 && (
-                        <p className="text-center col-span-full py-10 text-grayscale-100">
-                            No images found for this category.
-                        </p>
+                        <EmptyPage label="No images found for this category." />
                     )}
                     {images?.map((image: GalleryItem) => (
                         <img
