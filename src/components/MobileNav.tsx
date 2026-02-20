@@ -28,7 +28,7 @@ export const MobileNav = ({ handleOpen }: NavProps) => {
                     <button
                         className={`border rounded-[3.125rem] 
                             ${isAdmin ? "border-white" : "border-aciu-white-normal"}
-                            w-[2.5rem] h-[2.5rem] 
+                            w-10 h-10
                             flex items-center justify-center`}
                         >
                         <SearchNormal
@@ -40,7 +40,7 @@ export const MobileNav = ({ handleOpen }: NavProps) => {
                     <button
                         className={`border rounded-[3.125rem] 
                             ${isAdmin ? "border-white" : "border-aciu-white-normal"}
-                            w-[2.5rem] h-[2.5rem] 
+                            w-10 h-10
                             flex items-center justify-center`}
                         >
                         <solar.Notifications.BellBing

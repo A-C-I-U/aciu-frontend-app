@@ -20,7 +20,10 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
     const activeRole = user?.role || "member";
     const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
     
-    const links = protectedRoutes.filter(r => r.roles.includes(activeRole));
+    const links = protectedRoutes.filter(
+        r => r.label && r.roles.includes(activeRole)
+    );
+    console.log(links)
 
     const handleLogout = () => {
         onClose();
