@@ -1,13 +1,13 @@
-import { 
-  Buildings2, 
-  Calendar2, 
-  DollarSquare, 
-  FolderOpen, 
-  Hashtag, 
-  Personalcard, 
-  Setting, 
-  I24Support, 
-  Stickynote, 
+import {
+  Buildings2,
+  Calendar2,
+  DollarSquare,
+  FolderOpen,
+  Hashtag,
+  Personalcard,
+  Setting,
+  I24Support,
+  Stickynote,
   Activity
 } from "iconsax-react";
 import Dashboard from "../pages/dashboard";
@@ -141,7 +141,7 @@ export const protectedRoutes = [
     element: <AddEventPage returnRoute="my-branch" />,
     roles: ["branch_admin"]
   },
-    {
+  {
     path: "/blog",
     label: "ACIU Blog",
     icon: Stickynote,
@@ -153,7 +153,7 @@ export const protectedRoutes = [
       },
       {
         path: "create",
-        element: <BlogPostForm type="create"/>
+        element: <BlogPostForm type="create" />
       },
       {
         path: "posts/:slug",
@@ -161,7 +161,7 @@ export const protectedRoutes = [
       },
       {
         path: "posts/:slug/edit",
-        element: <BlogPostForm type="edit"/>
+        element: <BlogPostForm type="edit" />
       },
       {
         path: "submissions/:id",
@@ -169,7 +169,7 @@ export const protectedRoutes = [
       }
     ]
   },
-    {
+  {
     path: "/resources",
     element: <ResourcesPage />,
     label: "ACIU Resources",
@@ -190,7 +190,7 @@ export const protectedRoutes = [
     icon: Setting,
     roles: ["member", "branch_admin", "national_admin"],
   },
-  
+
 ];
 
 

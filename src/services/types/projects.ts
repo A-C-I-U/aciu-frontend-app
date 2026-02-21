@@ -15,14 +15,14 @@ export interface Project {
   briefDescription: string;
   expectedImpact: string;
   estimatedCostUSD: number;
-  image: string | null; 
-  projectScope: string; 
-  projectImpact: string; 
-  whyItMatters: string; 
-  images: string[]; 
+  image: string | null;
+  projectScope: string;
+  projectImpact: string;
+  whyItMatters: string;
+  images: string[];
   isCompleted: boolean;
   isApproved: boolean;
-  isNomination: boolean; 
+  isNomination: boolean;
   createdBy: string;
   createdOn: string;
   rejectionReason: string | null;
@@ -33,25 +33,29 @@ export interface Project {
     targetAmount: number;
     percentageReached: number;
   };
-  fundStatus: { 
+  fundStatus: {
     totalRaised: number;
     targetAmount: number;
     managedBy: string;
   };
-  collectedFunds?: number; 
+  collectedFunds?: number;
 }
 
 
 export interface ProjectDetails {
   id: string;
-  branchId: string;
+  branchId: string | null;
   title: string;
   category: string;
   location: string;
   briefDescription: string;
   expectedImpact: string;
   estimatedCostUSD: number;
-  image: string;
+  image: string | null;
+  projectScope: string;
+  projectImpact: string;
+  whyItMatters: string;
+  images: string[];
   isCompleted: boolean;
   isApproved: boolean;
   createdBy: string;
@@ -59,6 +63,11 @@ export interface ProjectDetails {
   rejectionReason: string | null;
   createdAt: string;
   updatedAt: string;
+  fundStatus?: {
+    totalRaised: number;
+    targetAmount: number;
+    managedBy: string;
+  };
 }
 
 
@@ -79,6 +88,7 @@ export interface NominateProjectResponse {
 export interface CreateProjectPayload {
   title: string;
   managedBy: string;
+  location: string;
   briefDescription: string;
   whyItMatters: string;
   projectScope: string;
@@ -95,7 +105,7 @@ export interface RecommendedProject {
     category: string;
     location: string;
     briefDescription: string;
-    images: string[]; 
+    images: string[];
   };
   donationStats: {
     totalDonated: number;
@@ -186,6 +196,7 @@ export const createProjectSchemas = [
   object({
     title: string().required("Project title is required"),
     managedBy: string().required("Project Assignee is required"),
+    location: string().required("Location is required"),
     briefDescription: string().required("Project description is required"),
     whyItMatters: string().required("This field is required"),
     projectScope: string().required("Project scope is required")

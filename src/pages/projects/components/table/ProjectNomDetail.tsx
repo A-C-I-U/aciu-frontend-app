@@ -58,7 +58,7 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
                     <div className="flex flex-col h-full overflow-hidden">
                         <div className="resources-modal-body pb-6">
                             {isLoading && <DetailSkeleton />}
-                            {data && <ProjectNomDetailContent data={data} projectId={projectId}/>}
+                            {data && <ProjectNomDetailContent data={data} projectId={projectId} />}
                             {(isError && !data && !isLoading) && (
                                 <div className="text-aciu-abriba p-4">
                                     Unable to load nominated project's details.
@@ -69,10 +69,10 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
                         <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
                             <button className="btn btn-primary" disabled={!data}
                                 onClick={() => handleSubmit(id)}>
-                                    {isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
+                                {isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
                                 Mark as Approved
                             </button>
-                            <button className="btn btn-danger tracking-[5%]" disabled={!data} onClick={() => { setOpenReject(true); onClose()}}>
+                            <button className="btn btn-danger tracking-[5%]" disabled={!data} onClick={() => { setOpenReject(true); onClose() }}>
                                 Reject Nomination
                             </button>
                         </div>
@@ -88,7 +88,8 @@ export default function ProjectNomDetail({ open, onClose, id, projectId }: {
     )
 }
 
-const ProjectNomDetailContent = ({ data, projectId }: { data: ProjectNominationDetail, projectId: string}) => {
+const ProjectNomDetailContent = ({ data, projectId }: { data: ProjectNominationDetail, projectId: string }) => {
+    const [showPreview, setShowPreview] = useState(false);
     if (!data) return <EmptyRecords />;
 
     const { title, submittedBy, emailAddress, phoneNumber, branch, location, estimatedCostUSD, category, briefDescription, expectedImpact, date, status, image } = data;
@@ -124,11 +125,27 @@ const ProjectNomDetailContent = ({ data, projectId }: { data: ProjectNominationD
                     </tbody>
                 </table>
             </div>
-            <FileCard 
-                fileType="img" 
-                fileUrl={image} 
+            <FileCard
+                fileType="img"
+                fileUrl={image}
                 fileLabel="Project Image"
+                onPreview={() => setShowPreview(true)}
             />
+
+            {/* In-app Image Preview Modal */}
+            <ShellModal open={showPreview} onClose={() => setShowPreview(false)}>
+                <div className="resources-modal-section flex flex-col h-full overflow-hidden">
+                    <ShellHeader title="Image Preview" onClose={() => setShowPreview(false)} />
+                    <Divider className="flex shrink-0" />
+                    <div className="flex-1 overflow-auto p-4 flex items-center justify-center bg-black/5">
+                        <img
+                            src={image}
+                            alt="Project Preview"
+                            className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+                        />
+                    </div>
+                </div>
+            </ShellModal>
         </div>
     )
 }

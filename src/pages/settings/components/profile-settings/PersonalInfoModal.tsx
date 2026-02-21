@@ -9,17 +9,17 @@ import { useUserSettings, useUpdateProfile } from "@/services/hooks/settings";
 import { enqueueSnackbar } from "notistack";
 
 const transformFormToPayload = (values: ProfileFormValues) => ({
-  occupation: values.occupation,
-  phone: values.phoneNumber,
+    occupation: values.occupation,
+    phone: values.phoneNumber,
 });
 
 const mapSettingsToFormValues = (settings: any): ProfileFormValues => ({
-  email: settings?.profile.email || '',
-  name: settings?.profile.fullName || '',
-  ageGrade: settings?.profile.ageGrade || '',
-  branch: settings?.profile.branch || '',
-  occupation: settings?.profile.occupation || '',
-  phoneNumber: settings?.profile.phoneNumber || '',
+    email: settings?.profile.email || '',
+    name: settings?.profile.fullName || '',
+    ageGrade: settings?.profile.ageGrade || '',
+    branch: settings?.profile.branch || '',
+    occupation: settings?.profile.occupation || '',
+    phoneNumber: settings?.profile.phoneNumber || '',
 });
 
 export default function PersonalInfoModal({
@@ -28,27 +28,27 @@ export default function PersonalInfoModal({
     initialValues
 }: DialogFuncProps & { initialValues?: ProfileFormValues }) {
     const { data: userSettings, isLoading, error } = useUserSettings();
-    const updateProfileMutation = useUpdateProfile();    
-    
+    const updateProfileMutation = useUpdateProfile();
+
     const formInitialValues = initialValues || mapSettingsToFormValues(userSettings);
 
     const handleSubmit = async (values: ProfileFormValues, actions: any) => {
         try {
             const payload = transformFormToPayload(values);
             const result = await updateProfileMutation.mutateAsync(payload);
-            
+
             enqueueSnackbar(result.message || 'Profile updated successfully', {
                 variant: 'success',
             });
-            
+
             actions.setSubmitting(false);
-            onClose(); 
+            onClose();
         } catch (error: any) {
             const errorMessage = error.response?.data?.message || 'Failed to update profile';
             enqueueSnackbar(errorMessage, {
                 variant: 'error',
             });
-            
+
             actions.setSubmitting(false);
         }
     }
@@ -95,7 +95,7 @@ export default function PersonalInfoModal({
                     <div className="text-red-500 mb-4">
                         Failed to load user settings
                     </div>
-                    <button 
+                    <button
                         onClick={onClose}
                         className="bg-aciu-green-normal rounded-xl p-4 font-coolvetica text-white"
                     >
@@ -138,8 +138,8 @@ export default function PersonalInfoModal({
                         <div className="flex justify-between items-center px-6 pt-5 lg:px-20 lg:pt-10.5">
                             <h3 className="text-xl md:text-2xl text-aciu-dark">Edit Personal Info</h3>
                         </div>
-                        <button 
-                            className="absolute top-5 lg:top-7.5 right-8" 
+                        <button
+                            className="absolute top-5 lg:top-7.5 right-8"
                             onClick={onClose}
                             disabled={updateProfileMutation.isPending}
                         >
@@ -147,7 +147,7 @@ export default function PersonalInfoModal({
                         </button>
                         <div className="flex-1 overflow-y-auto px-6 lg:px-20 pb-10">
                             <Form className="flex flex-col gap-10">
-                                <PersonalInfoForm />
+                                <PersonalInfoForm allowEditContact={true} />
                             </Form>
                         </div>
 
@@ -157,14 +157,14 @@ export default function PersonalInfoModal({
                                 disabled={isSubmitting || !isValid || !dirty || updateProfileMutation.isPending}
                                 className="bg-aciu-green-normal rounded-xl p-4 font-coolvetica text-white w-full disabled:bg-gray-400 disabled:cursor-not-allowed"
                             >
-                            {updateProfileMutation.isPending ? (
-                                <>
-                                    <CircularProgress size={12} className="mr-2" />
-                                    Saving...
-                                </>
-                            ) : (
-                                "Save Changes"
-                            )}
+                                {updateProfileMutation.isPending ? (
+                                    <>
+                                        <CircularProgress size={12} className="mr-2" />
+                                        Saving...
+                                    </>
+                                ) : (
+                                    "Save Changes"
+                                )}
                             </button>
                         </div>
                     </div>

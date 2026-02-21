@@ -11,15 +11,20 @@ import DonateToProject from "../actions/DonateToProject";
 import ProjectSidebarCard from "./ProjectSidebarCard";
 import MotionBox from "@/components/MotionBox";
 import { useProjects, useProjectDonations } from "@/services/hooks/project";
+import { useMarkProjectAsCompleted } from "@/services/mutations/projects";
 import { enqueueSnackbar } from "notistack";
 import { EmptyPage } from "@/components/EmptyPage";
 import PageDetailSkeleton from "@/components/PageDetailSkeleton";
+import { useUser } from "@/context/UserContext";
+import CreateProject from "../actions/CreateProject";
 
 export default function ProjectDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useUser();
   const [showDonateProject, setShowDonateProject] = useState(false);
   const [showShareProject, setShowShareProject] = useState(false);
+  const [showEditProject, setShowEditProject] = useState(false);
   const [activeTab, setActiveTab] = useState<TabItem | null>(null);
 
 
@@ -27,19 +32,20 @@ export default function ProjectDetailsPage() {
   const { data: ongoingProjects, isLoading: isLoadingOngoing, error: errorOngoing } = useProjects("ongoing");
   const { data: completedProjects, isLoading: isLoadingCompleted, error: errorCompleted } = useProjects("completed");
   const { data: donations } = useProjectDonations(id!);
-  
+  const markAsCompletedMutation = useMarkProjectAsCompleted();
+
   const ongoingProject = ongoingProjects?.find((p) => p.id === id);
   const completedProject = completedProjects?.find((p) => p.id === id);
-  
-  const project = ongoingProject || completedProject;
-  const isCompletedProject = !!completedProject; 
 
-  const relatedProjects = !isCompletedProject ? 
+  const project = ongoingProject || completedProject;
+  const isCompletedProject = !!completedProject;
+
+  const relatedProjects = !isCompletedProject ?
     ongoingProjects
       ?.filter((p) => p.id !== id)
       .sort(() => 0.5 - Math.random())
-      .slice(0, 3) || [] 
-    : []; 
+      .slice(0, 3) || []
+    : [];
 
   const isLoading = isLoadingOngoing || isLoadingCompleted;
   const error = errorOngoing || errorCompleted;
@@ -80,15 +86,28 @@ export default function ProjectDetailsPage() {
   }, [error, enqueueSnackbar]);
 
 
+  const handleMarkAsCompleted = async () => {
+    try {
+      const result = await markAsCompletedMutation.mutateAsync({ id: id! });
+      enqueueSnackbar(result.message || "Project marked as completed successfully", {
+        variant: "success",
+      });
+    } catch (error: any) {
+      enqueueSnackbar(error.message || "Failed to mark project as completed", {
+        variant: "error",
+      });
+    }
+  };
+
   return (
     <>
       <button
-          type="button"
-          onClick={() => navigate("/projects")}
-          className="cancel-btn"
+        type="button"
+        onClick={() => navigate("/projects")}
+        className="cancel-btn"
       >
         <ArrowLeft size={20} color="#898483" />
-        <span className="ml-3">Cancel</span>
+        <span className="ml-3">Back</span>
       </button>
 
       <AnimatePresence>
@@ -126,28 +145,27 @@ export default function ProjectDetailsPage() {
                       {project.location}
                     </p>
                   </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="event-tag py-1.5 px-2.5 rounded-md">
-                  <span className="font-coolvetica text-xs text-aciu-border-grey font-bold">
-                    {project.category}
-                  </span>
                 </div>
-                {isCompletedProject && (
-                  <div className="event-tag py-1.5 px-2.5 rounded-md bg-green-100">
-                    <span className="font-coolvetica text-xs text-green-700 font-bold">
-                      Completed
+
+                <div className="flex items-center gap-2">
+                  <div className="event-tag py-1.5 px-2.5 rounded-md">
+                    <span className="font-coolvetica text-xs text-aciu-border-grey font-bold">
+                      {project.category}
                     </span>
                   </div>
-                )}
+                  {isCompletedProject && (
+                    <div className="event-tag py-1.5 px-2.5 rounded-md bg-green-100">
+                      <span className="font-coolvetica text-xs text-green-700 font-bold">
+                        Completed
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
               <div
-                className={`px-3.5 lg:px-6.5 project-gallery min-h-78 md:min-h-80 count-${
-                  project.images?.length || 0
-                }`}
+                className={`px-3.5 lg:px-6.5 project-gallery min-h-78 md:min-h-80 count-${project.images?.length || 0
+                  }`}
               >
                 {project.images && project.images.length > 0 ? (
                   project.images.map((image, index) => (
@@ -176,11 +194,10 @@ export default function ProjectDetailsPage() {
                       <button
                         key={tab.key}
                         onClick={() => setActiveTab(tab)}
-                        className={`${
-                          activeTab?.key === tab.key
-                            ? "text-aciu-red font-semibold"
-                            : "text-aciu-abriba font-medium pb-4"
-                        } text-xs md:text-sm font-montserrat flex flex-col gap-4`}
+                        className={`${activeTab?.key === tab.key
+                          ? "text-aciu-red font-semibold"
+                          : "text-aciu-abriba font-medium pb-4"
+                          } text-xs md:text-sm font-montserrat flex flex-col gap-4`}
                       >
                         {tab.label}
                         {activeTab?.key === tab.key && (
@@ -202,6 +219,9 @@ export default function ProjectDetailsPage() {
                   onDonateClick={() => !isCompletedProject && setShowDonateProject(true)}
                   onShareClick={() => setShowShareProject(true)}
                   isCompleted={isCompletedProject}
+                  userRole={user?.role}
+                  onEditClick={() => !isCompletedProject && setShowEditProject(true)}
+                  onCompleteClick={handleMarkAsCompleted}
                 />
               </div>
 
@@ -234,6 +254,12 @@ export default function ProjectDetailsPage() {
                   onClose={() => setShowDonateProject(false)}
                 />
               )}
+
+              <CreateProject
+                open={showEditProject}
+                onClose={() => setShowEditProject(false)}
+                id={id}
+              />
             </>
           )}
         </MotionBox>

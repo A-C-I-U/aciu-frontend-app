@@ -4,6 +4,7 @@ import { useState } from "react";
 import ProjectCard from "../ProjectCard";
 import { useMediaQuery, Skeleton } from "@mui/material";
 import { useProjects } from "@/services/hooks/project";
+import { useUser } from "@/context/UserContext";
 import { EmptyPage } from "@/components/EmptyPage";
 
 const sectionActions = [
@@ -32,8 +33,9 @@ const sectionActions = [
 export default function CompletedProjects() {
     const [_query, setQuery] = useState("");
     const isMedium = useMediaQuery("(max-width: 1250px)");
-    
+
     const { data: projects, isLoading, error } = useProjects('completed');
+    const { user } = useUser();
 
     const handleSearch = (q: string) => {
         setQuery(q);
@@ -96,7 +98,8 @@ export default function CompletedProjects() {
                             <ProjectCard
                                 key={project.id}
                                 project={project}
-                                isCompleted={true} 
+                                isCompleted={true}
+                                userRole={user?.role}
                             />
                         ))}
                     </div>
