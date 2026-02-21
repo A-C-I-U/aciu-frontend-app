@@ -27,7 +27,7 @@ function BranchDuesCard({ due }: { due: GetMemberDues }) {
         <div className="border border-aciu-light-grey rounded-2xs w-full">
             <div className="px-3.25 py-4.25 flex flex-col gap-4">
                 <div className="flex justify-between items-center">
-                    <StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} className="w-97"/>
+                    <StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} className="max-w-full w-24.5! justify-center!"/>
                     <p className="font-semibold text-aciu-green-normal leading-4.25">NGN {+amount.toLocaleString()}</p>
                 </div>
                 <p className="text-aciu-border-grey font-semibold leading-4.75">{title}</p>

@@ -106,7 +106,7 @@ export const protectedRoutes = [
   {
     path: "/events/:id",
     element: <EventDetails />,
-    roles: ["branch_admin", "national_admin"]
+    roles: ["member", "branch_admin", "national_admin"]
   },
   {
     path: "/projects",
