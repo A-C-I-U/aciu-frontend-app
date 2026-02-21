@@ -1,23 +1,23 @@
 import apiClient from "..";
-import type { MeetingReportsResponse, Resource, ResourcesResponse } from "../types/resources";
+import type { ResourceApiResponse, ResourceResponse } from "../types/resources";
 import { useQuery } from '@tanstack/react-query';
 
-const fetchResources = async (): Promise<ResourcesResponse> => {
-  const response = await apiClient.get<ResourcesResponse>('/resources');
+const fetchResources = async (): Promise<ResourceApiResponse> => {
+  const response = await apiClient.get<ResourceApiResponse>('/resources/aciu-resources');
   return response.data;
 };
 
 export const useResources = () => {
   return useQuery({
-    queryKey: ['resources'],
+    queryKey: ['aciu-resources'],
     queryFn: fetchResources,
     staleTime: 10 * 60 * 1000, 
     gcTime: 15 * 60 * 1000, 
   });
 };
 
-const fetchMeetingReports = async (): Promise<MeetingReportsResponse> => {
-  const response = await apiClient.get<MeetingReportsResponse>('/resources/meeting-reports');
+const fetchMeetingReports = async (): Promise<ResourceApiResponse> => {
+  const response = await apiClient.get<ResourceApiResponse>('/resources/meeting-reports');
   return response.data;
 };
 
@@ -30,8 +30,8 @@ export const useMeetingReports = () => {
   });
 };
 
-const fetchResourceById = async (resourceId: string): Promise<Resource> => {
-  const response = await apiClient.get<Resource>(`/resources/${resourceId}`);
+const fetchResourceById = async (resourceId: string): Promise<ResourceResponse> => {
+  const response = await apiClient.get<ResourceResponse>(`/resources/${resourceId}`);
   return response.data;
 };
 

@@ -397,8 +397,19 @@ a, button {
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    transition: opacity 0.2s, background 0.2s, color 0.2s, border 0.2s;
+    transition-property: all;
     white-space: nowrap;
+    transition-duration: 150ms;
+  }
+
+  .btn:active {
+    scale: .95;
+  }
+
+  .btn:disabled {
+    scale: unset;
+    cursor: default !important;
+    pointer-events: none;
   }
 
   .btn-primary {

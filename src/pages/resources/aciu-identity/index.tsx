@@ -1,15 +1,21 @@
-import SearchBar from "@/components/SearchBar";
 import { Sort } from "iconsax-react";
 import { useState, useEffect } from "react";
 import EmptyState from "../components/EmptyState";
 import FileView from "../components/FileView";
 import { useResources } from "@/services/hooks/resources";
 import { enqueueSnackbar } from "notistack";
+import SectionHeader from "@/components/SectionHeader";
+import { Skeleton, useMediaQuery } from "@mui/material";
+import UploadResource from "../components/UploadResource";
+import { useUser } from "@/context/UserContext";
 
 export default function IdentityPage() {
   const [query, setQuery] = useState("");
+  const [openUpload, setOpenUpload] = useState(false);
+  const isMedium = useMediaQuery("(max-width:1250px)");
+  const { user } = useUser();
 
-  const { data: resources, isLoading, error } = useResources();
+  const { data, isLoading, error } = useResources();
 
   useEffect(() => {
     if (error) {
@@ -25,7 +31,7 @@ export default function IdentityPage() {
 
   // Filter resources based on search query
   const filteredResources =
-    resources?.filter(
+    data?.resources?.filter(
       (resource) =>
         resource.file_name.toLowerCase().includes(query.toLowerCase()) ||
         resource.file_description.toLowerCase().includes(query.toLowerCase()) ||
@@ -35,25 +41,25 @@ export default function IdentityPage() {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-4 lg:gap-8">
-        <div className="flex justify-between items-center w-full">
-          <div className="flex flex-col gap-4 lg:flex-row lg:gap-0 lg:justify-between lg:items-center w-full">
-            <h1 className="text-lg lg:text-xl font-bold text-aciu-border-grey">
-              Our Voice, Our Symbols, Our Pride
-            </h1>
-
-            <div className="flex gap-4 items-center ">
-              <div className="hidden lg:block">
-                <SearchBar
-                  onSearch={handleSearch}
-                  placeholder="Search for constitutions, logo, anthems, or reports"
-                />
-              </div>
-              <button className="section-action-button">
-                Filter
-                <Sort variant="Outline" color="#A4ACB9" size={20} />
-              </button>
-            </div>
-          </div>
+        <div className="flex gap-4 justify-between items-center w-full">
+          <SectionHeader
+            title="Our Voice. Our Symbols. Our Pride."
+            onSearch={handleSearch}
+            showSearch={isMedium ? false : true}
+            actions={[
+                <button className="section-action-button">
+                    Filter
+                    <Sort variant="Outline" color="#A4ACB9" size={20} />
+                </button>
+            ]}
+          />
+          {(user?.role === "national_admin") &&
+          <Skeleton
+            variant="rectangular" 
+            width={160} 
+            height={44}
+            sx={{ borderRadius: '8px' }}
+        />}
         </div>
         <div className="resource-grid">
           {Array.from({ length: 6 }).map((_, index) => (
@@ -67,48 +73,56 @@ export default function IdentityPage() {
   }
 
   return (
-    <div className="flex flex-col gap-4 lg:gap-8">
-      <div className="flex justify-between items-center w-full">
-        <div className="flex flex-col gap-4 lg:flex-row lg:gap-0 lg:justify-between lg:items-center w-full">
-          <h1 className="text-lg lg:text-xl font-bold text-aciu-border-grey">
-            Our Voice, Our Symbols, Our Pride
-          </h1>
+    <>
+      <div className="flex flex-col gap-4 lg:gap-8">
+        <div className="flex gap-4 justify-between items-center w-full">
+          <SectionHeader
+            title="Our Voice. Our Symbols. Our Pride."
+            onSearch={handleSearch}
+            showSearch={isMedium ? false : true}
+            actions={[
+                <button className="section-action-button">
+                    Filter
+                    <Sort variant="Outline" color="#A4ACB9" size={20} />
+                </button>
+            ]}
+          />
+          {(user?.role === "national_admin") &&
+              <button
+                  className="btn btn-primary max-w-fit text-base!"
+                  onClick={() => setOpenUpload(true)}
+              >
+                  Upload Resource
+              </button>
+          }   
+        </div>
 
-          <div className="flex gap-4 items-center ">
-            <div className="hidden lg:block">
-              <SearchBar
-                onSearch={handleSearch}
-                placeholder="Search for constitutions, logo, anthems, or reports"
+        {filteredResources.length > 0 ? (
+          <div className="resource-grid">
+            {filteredResources.map((resource) => (
+              <FileView
+                key={resource.id}
+                file={{
+                  url: resource.file_url,
+                  size: resource.file_size,
+                  format: resource.file_format,
+                  name: resource.file_name,
+                }}
+                name={resource.file_name}
+                description={resource.file_description}
+                resourceId={resource.id}
               />
-            </div>
-            <button className="section-action-button">
-              Filter
-              <Sort variant="Outline" color="#A4ACB9" size={20} />
-            </button>
+            ))}
           </div>
-        </div>
+        ) : (
+          <EmptyState prompt={query || "ACIU Identity resources at the moment"} />
+        )}
       </div>
-
-      {filteredResources.length > 0 ? (
-        <div className="resource-grid">
-          {filteredResources.map((resource) => (
-            <FileView
-              key={resource.id}
-              file={{
-                url: resource.file_url,
-                size: resource.file_size,
-                format: resource.file_format,
-                name: resource.file_name,
-              }}
-              name={resource.file_name}
-              description={resource.file_description}
-              resourceId={resource.id}
-            />
-          ))}
-        </div>
-      ) : (
-        <EmptyState prompt={query} />
-      )}
-    </div>
+      <UploadResource 
+        open={openUpload} 
+        onClose={() => setOpenUpload(false)} 
+        type="aciu-resources" 
+      />
+    </>
   );
 }

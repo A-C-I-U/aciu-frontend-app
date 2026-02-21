@@ -5,10 +5,11 @@ import { SuccessDialog } from "@/components/SuccessDialog";
 import { MarkIcon } from "@/components/Icons";
 import { useNavigate } from "react-router-dom";
 import ShellModal from "@/components/ShellModal";
+import type { UploadResourceType } from "@/services/types/resources";
 
 export default function UploadResource({
-    open, onClose
-}: DialogFuncProps) {
+    type, open, onClose
+}: DialogFuncProps & { type: UploadResourceType }) {
     const [openSuccessPrompt, setOpenSuccessPrompt] = useState(false)
     const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ export default function UploadResource({
                 onClose={onClose}
             >
                 <UploadResourceContent
+                    type={type}
                     onClose={onClose}
                     onSuccess={() => {
                         onClose();

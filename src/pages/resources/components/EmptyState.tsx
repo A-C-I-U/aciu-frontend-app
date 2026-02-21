@@ -12,7 +12,7 @@ export default function EmptyState({ prompt }: { prompt: string}) {
                     className="object-cover w-full"
                 />
                 <p className="text-center text-aciu-abriba text-sm font-montserrat font-semibold">
-                    No Results for {prompt}
+                    No results for {prompt}
                 </p>
             </div>
         </div>

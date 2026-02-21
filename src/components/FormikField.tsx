@@ -66,6 +66,7 @@ export default function FormikField({
         label={!select ? placeholder : ''}
         error={meta.touched && !!meta.error}
         helperText={meta.touched && meta.error}
+        onBlur={field.onBlur}
         slotProps={{
           select: {
             multiple: props.multiple,

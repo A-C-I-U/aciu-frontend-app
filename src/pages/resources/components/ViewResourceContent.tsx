@@ -1,12 +1,16 @@
 import FormikField from "@/components/FormikField";
 import type { FileViewDrawerProps,  } from "@/utils/types";
-import { Divider } from "@mui/material";
+import { CircularProgress, Divider } from "@mui/material";
 import { Form, Formik } from "formik";
 import { X } from "lucide-react";
 import { FilePreviewCard } from "./FilePreviewCard";
 import { useState } from "react";
 import { editResourceSchema } from "@/utils/schemas";
 import type { Resource } from "@/services/types/resources";
+import { useUser } from "@/context/UserContext";
+import { useArchiveResource, useDownloadResource, useUpdateResource } from "@/services/mutations/resources";
+import { enqueueSnackbar } from "notistack";
+import ShellHeader from "@/components/ShellHeader";
 
 interface ResourceContentProps extends FileViewDrawerProps {
     onSuccess: () => void;
@@ -19,20 +23,68 @@ export default function ResourceContent({
     resource 
 }: ResourceContentProps) {
     const [mode, setMode] = useState<"view" | "edit">("view");
+    const { user } = useUser();
+
     
     const initialValues = {
         fileName: resource?.file_name || "",
         fileDescription: resource?.file_description || ""
     }
 
-    const handleSubmit = async ( actions: any) => {
+    const { mutateAsync: downloadResource, isPending: isDownloading } = useDownloadResource();
+    const { mutateAsync: archiveResource, isPending: isArchiving } = useArchiveResource();
+
+    const handleDownload = async (id: string, fileName: string) => {
+        const blob = await downloadResource(id);
+
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+
+        link.remove();
+        window.URL.revokeObjectURL(url);
+    };
+
+    const handleArchive = async (id: string) => {
+        if (resource?.archived) {
+            enqueueSnackbar({
+                message: "Resource already archived",
+                variant: "info"
+            })
+            return;
+        }
         try {
-           
-            
-            onSuccess();
-            actions.setSubmitting(false);
+            await archiveResource({
+                id
+            });
+            enqueueSnackbar({
+                message: "Resource Archived",
+                variant: "success"
+            })
         } catch (error) {
-            console.error('Failed to update resource:', error);
+            enqueueSnackbar({message: 'Failed to archive resource', variant: "error"});
+        }
+    }
+
+    const { mutateAsync: updateResource, isPending: isUpdating } = useUpdateResource();
+
+    const handleSubmit = async (values: typeof initialValues, actions: any) => {
+        try {
+           await updateResource({ 
+                id: resource!.id, 
+                fileName: values.fileName, 
+                fileDescription: values.fileDescription 
+            });
+            enqueueSnackbar("Resource updated successfully!", { variant: "success" });
+            onSuccess();
+            setMode("view");
+        } catch (error: any) {
+            enqueueSnackbar(`Update failed: ${error.message}`, { variant: "error" });
+        } finally {
             actions.setSubmitting(false);
         }
     }
@@ -40,7 +92,7 @@ export default function ResourceContent({
     if (!resource) {
         return (
             <div className="resources-modal-section flex flex-col h-4/5 md:h-full overflow-hidden">
-                <div className="relative flex items-center justify-between flex-shrink-0">
+                <div className="relative flex items-center justify-between shrink-0">
                     <p className="resources-modal-title">Resource Details</p>
                     <button onClick={onClose} className="resources-modal-close">
                         <X width={24} height={24} color="#3E3E3E" />
@@ -52,29 +104,25 @@ export default function ResourceContent({
             </div>
         );
     }
+
+
+
     
     return (
-        <div className="resources-modal-section flex flex-col h-4/5 md:h-full overflow-hidden">
-            <div className="relative flex items-center justify-between flex-shrink-0">
-                <p className="resources-modal-title">
-                    {mode === "view" ? "View resources" : "Edit resources"}
-                </p>
-                <button onClick={onClose} className="resources-modal-close">
-                    <X width={24} height={24} color="#3E3E3E" />
-                </button>
-            </div>
+        <div className="resources-modal-section flex flex-col h-full overflow-hidden">
+            <ShellHeader title={mode === "view" ? "View resources" : "Edit resources"} onClose={onClose}/>
 
-            <Divider className="flex-shrink-0" />
+            <Divider className="shrink-0" />
 
             <Formik 
                 initialValues={initialValues} 
                 onSubmit={handleSubmit}
                 validationSchema={editResourceSchema}
-                enableReinitialize
+                enableReinitialize={false}
             >
-                {({ isValid, submitForm, isSubmitting }) => (
-                    <div className="flex flex-col h-4/5 md:h-full overflow-hidden">
-                        <Form className="resources-modal-body">
+                {({ isValid, isSubmitting }) => (
+                    <Form className="flex flex-col h-full overflow-hidden">
+                        <div className="resources-modal-body pb-6">
                             <div className="w-full flex items-center justify-center pb-4.5">
                                 <FilePreviewCard
                                     file={{
@@ -84,7 +132,7 @@ export default function ResourceContent({
                                         name: resource.file_name
                                     }}
                                     height="h-65"
-                                    className="!mt-12"
+                                    className="mt-12!"
                                 />
                             </div>
 
@@ -105,46 +153,75 @@ export default function ResourceContent({
                                     fullWidth
                                 />
                             </div>
-                        </Form>
-
-                        <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                            {mode === "view" ? (
-                                <>
-                                    <button
-                                        className="btn btn-primary"
-                                        type="button"
-                                        onClick={() => setMode("edit")}
-                                    >
-                                        Edit Resource
-                                    </button>
-
-                                    <button className="btn btn-secondary" type="button">
-                                        Archive Resource
-                                    </button>
-                                </>
-                            ) : (
-                                <>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-primary"
-                                        onClick={submitForm}
-                                        disabled={!isValid || isSubmitting}
-                                    >
-                                        {isSubmitting ? 'Updating...' : 'Update Resource'}
-                                    </button>
-
-                                    <button
-                                        type="button"
-                                        className="btn btn-secondary"
-                                        onClick={() => setMode("view")}
-                                        disabled={isSubmitting}
-                                    >
-                                        Cancel
-                                    </button>
-                                </>
-                            )}
                         </div>
-                    </div>
+                        {user?.role === "member" &&
+                            <div className="py-5.5 px-10.5 resources-button-container">
+                                <button
+                                    className="btn btn-primary"
+                                    type="button"
+                                    disabled={isDownloading}
+                                    onClick={() => handleDownload(resource.id, resource.file_name)}
+                                >
+                                    Download Resource
+                                    {isDownloading && <CircularProgress size={16} color='inherit' />}
+                                </button>
+                            </div>
+                        }
+                         {!(user?.role === "member") &&
+                            <div className="py-5.5 px-10.5 resource-buttons-container">
+                                {mode === "view" ? (
+                                    <>
+                                        <button
+                                            className="btn btn-primary"
+                                            type="button"
+                                            onClick={() => setMode("edit")}
+                                        >
+                                            Edit Resource
+                                        </button>
+
+                                        {<button 
+                                            className="btn btn-secondary" 
+                                            type="button"
+                                            disabled={resource.archived || isArchiving} 
+                                            onClick={() => handleArchive(resource.id)}
+                                        >  
+                                            {resource.archived ? "Archived" :
+                                            (isArchiving ?
+                                            <>
+                                                Archiving..
+                                                <CircularProgress size={16} color='inherit' />
+                                            </> : 
+                                                "Archive Resource"
+                                            )}
+                                        </button>}
+                                    </>
+                                ) : mode === "edit" && (
+                                    <>
+                                        <button
+                                            type="submit"
+                                            className="btn btn-primary"
+                                            disabled={!isValid || isSubmitting || isUpdating}
+                                        >
+                                            {isUpdating ? 
+                                            <>
+                                                Updating..
+                                                <CircularProgress size={16} color='inherit' />
+                                            </> : 'Update Resource'}
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            className="btn btn-secondary"
+                                            onClick={() => setMode("view")}
+                                            disabled={isSubmitting}
+                                        >
+                                            Cancel
+                                        </button>
+                                    </>
+                                )}
+                            </div>
+                        }  
+                    </Form>
                 )}
              </Formik>
         </div>
