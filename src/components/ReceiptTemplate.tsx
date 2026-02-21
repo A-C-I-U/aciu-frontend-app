@@ -1,4 +1,5 @@
 import type { ReceiptConfig } from '@/services/types/receipt';
+import { getPaymentOutcome, OUTCOME_TO_HEADER } from '@/utils/helpers';
 import type { StatusBadgeProps } from '@/utils/types';
 import { Document, Page, Text, View, StyleSheet, Image, Font } from '@react-pdf/renderer';
 import { formatDate } from 'date-fns';
@@ -179,14 +180,21 @@ export default function ReceiptTemplate({
         return null;
     }
 
+    const outcome = getPaymentOutcome(data.status);
+
+    if (!outcome) return null;
+
+    const { title, imageUrl } = OUTCOME_TO_HEADER[outcome];
+
+
     return (
         <Document>
             <Page size="A4" style={styles.page}>
                 <View style={styles.main}>
                     <View style={styles.headerSection}>
                         <View style={styles.header}>
-                            <Image style={styles.logo} src="https://res.cloudinary.com/dgafp4dx4/image/upload/f_png/v1769946075/receipt-logo_q4eoxr.png" />
-                            <Text style={styles.headerText}>Payment Successful</Text>
+                            <Image style={styles.logo} src={imageUrl} />
+                            <Text style={styles.headerText}>{title}</Text>
                             <View style={styles.amount}>
                                 <Text style={styles.amountLabel}>
                                     Amount

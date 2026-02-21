@@ -750,3 +750,42 @@ export const getAllCitiesOfCountry = (countryCode: string) => {
 
   return cities;
 };
+
+
+export type PaymentOutcome = "success" | "pending" | "failed";
+
+const STATUS_TO_OUTCOME: Record<string, PaymentOutcome | null> = {
+  completed: "success",
+  published: "success",
+  approved: "success",
+  verified: "success",
+  active: "success",
+
+  pending: "pending",
+  "pending approval": "pending",
+  overdue: null,
+
+  failed: "failed",
+  rejected: "failed",
+
+  cancelled: null,
+  draft: null,
+  inactive: null,
+  unpaid: null,
+};
+
+export function getPaymentOutcome(status?: string): PaymentOutcome | null {
+  if (!status) return null;
+  return STATUS_TO_OUTCOME[status.toLowerCase()] ?? null;
+}
+
+export function canGenerateReceipt(status?: string): boolean {
+  const outcome = getPaymentOutcome(status);
+  return outcome !== null;
+}
+
+export const OUTCOME_TO_HEADER: Record<PaymentOutcome, { title: string, imageUrl: string }> = {
+  success: { title: "Payment Successful", imageUrl: "https://res.cloudinary.com/dgafp4dx4/image/upload/f_png/v1771672502/receipt-successful_qu5ipl.png" },
+  pending: { title: "Payment Pending", imageUrl: "https://res.cloudinary.com/dgafp4dx4/image/upload/f_png/v1771672491/receipt-cancelled_hlz49n.png" },
+  failed: { title: "Payment Failed", imageUrl: "https://res.cloudinary.com/dgafp4dx4/image/upload/f_png/v1771672511/receipt-failed_knswrj.png" },
+};
