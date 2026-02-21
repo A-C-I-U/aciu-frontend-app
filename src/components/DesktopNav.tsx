@@ -1,16 +1,18 @@
-import { Avatar, Breadcrumbs } from "@mui/material"
+import { Breadcrumbs } from "@mui/material"
 import { NavLink, useLocation } from "react-router-dom";
 import solar from '@solar-icons/react';
-import DummyProfile from "/images/avatar.png";
-import { ArrowDown2, ArrowRight } from "iconsax-react";
+import { ArrowRight } from "iconsax-react";
 import { capitalizeFirstLetters } from "@/utils/helpers";
+import DesktopProfileDropdown from "./DesktopProfileDropdown";
+
+
 
 export const DesktopNav = () => {
     const location = useLocation();
     const pathnames = location.pathname.split("/").filter(Boolean);
 
-
     return (
+        <>
         <div className="flex items-center justify-between">
             <Breadcrumbs 
                 separator={<ArrowRight size={18} color="#C9C9C9"/>}
@@ -60,13 +62,10 @@ export const DesktopNav = () => {
                         height={24}
                         width={24}
                     />
-                    </button>
-
-                <button className="flex items-center gap-2.5">
-                    <Avatar src={DummyProfile} className="rounded-[3.125rem] w-8 h-8" />
-                    <ArrowDown2 size={18} color="#BFBFBF" />
                 </button>
+                <DesktopProfileDropdown /> 
             </div>
         </div>
+        </>
     )
 }
