@@ -4,22 +4,11 @@ import solar from '@solar-icons/react';
 import DummyProfile from "/images/avatar.png";
 import { ArrowDown2, ArrowRight } from "iconsax-react";
 import { capitalizeFirstLetters } from "@/utils/helpers";
-import { protectedRoutes } from "@/routes/protectedRoutes";
-import { useUser } from "@/context/UserContext";
-import { useMemo } from "react";
 
 export const DesktopNav = () => {
     const location = useLocation();
     const pathnames = location.pathname.split("/").filter(Boolean);
-    const { user } = useUser();
 
-
-    const isNotFound = useMemo(() => {
-        if (!user) return false;
-        
-        const userRoutes = protectedRoutes.filter(r => r.roles.includes(user.role));
-        return !userRoutes.some(route => route.path === location.pathname);
-    }, [location.pathname, user]);
 
     return (
         <div className="flex items-center justify-between">
@@ -31,12 +20,7 @@ export const DesktopNav = () => {
                 <p className={"font-montserrat font-medium text-aciu-red"}>
                     Home
                 </p>
-                {isNotFound ? (
-                    <p className="font-montserrat font-medium text-aciu-abriba">
-                        Not Found
-                    </p>
-                ) : 
-                (pathnames.slice(0, 1).map((value, index, arr) => {
+                {pathnames.slice(0, 1).map((value, index, arr) => {
                     const to = "/" + pathnames.slice(0, index + 1).join("/");
                     const isLast = index === arr.length - 1;
 
@@ -59,7 +43,7 @@ export const DesktopNav = () => {
                     </NavLink>
                 );
             })
-            )}
+            }
             </Breadcrumbs>
 
             <div 
