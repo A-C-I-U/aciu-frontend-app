@@ -3,13 +3,14 @@ import type { CreateProjectPayload, NominateProjectPayload, NominateProjectRespo
 import apiClient from '..';
 
 
-const createProject = async ({ payload }: { 
-  payload: CreateProjectPayload 
+const createProject = async ({ payload }: {
+  payload: CreateProjectPayload
 }): Promise<NominateProjectResponse> => {
   const formData = new FormData();
 
   formData.append('title', payload.title);
   formData.append('managedBy', payload.managedBy);
+  formData.append('location', payload.location);
   formData.append('briefDescription', payload.briefDescription);
   formData.append('whyItMatters', payload.whyItMatters);
   formData.append('projectScope', payload.projectScope);
@@ -27,10 +28,10 @@ const createProject = async ({ payload }: {
 
   const response = await apiClient.post<{ message: string }>(
     "/projects", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
+    headers: {
+      "Content-Type": "multipart/form-data"
     }
+  }
   )
 
   return response.data;
@@ -53,14 +54,14 @@ const nominateProject = async ({ payload }: {
   payload: NominateProjectPayload
 }): Promise<NominateProjectResponse> => {
   const formData = new FormData();
-  
+
   formData.append('title', payload.title);
   formData.append('category', payload.category);
   formData.append('location', payload.location);
   formData.append('briefDescription', payload.briefDescription);
   formData.append('expectedImpact', payload.expectedImpact);
   formData.append('estimatedCostUSD', payload.estimatedCostUSD);
-  
+
   if (payload.image) {
     formData.append('image', payload.image);
   }
@@ -69,7 +70,7 @@ const nominateProject = async ({ payload }: {
       'Content-Type': 'multipart/form-data',
     },
   });
-  
+
   return response.data;
 };
 
@@ -105,6 +106,70 @@ export const useUpdateProjectStatus = () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       queryClient.invalidateQueries({ queryKey: ["projects", id] });
       queryClient.invalidateQueries({ queryKey: ["project-nominations"] });
+    },
+  });
+};
+
+
+const markProjectAsCompleted = async ({ id }: { id: string }) => {
+  const response = await apiClient.patch<{ message: string }>(`/projects/${id}/complete`);
+  return response.data;
+};
+
+export const useMarkProjectAsCompleted = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: markProjectAsCompleted,
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["projects", id] });
+    },
+  });
+};
+const updateProject = async ({ id, payload }: {
+  id: string,
+  payload: Partial<CreateProjectPayload>
+}) => {
+  const formData = new FormData();
+
+  if (payload.title) formData.append('title', payload.title);
+  if (payload.managedBy) formData.append('managedBy', payload.managedBy);
+  if (payload.location) formData.append('location', payload.location);
+  if (payload.briefDescription) formData.append('briefDescription', payload.briefDescription);
+  if (payload.whyItMatters) formData.append('whyItMatters', payload.whyItMatters);
+  if (payload.projectScope) formData.append('projectScope', payload.projectScope);
+  if (payload.category) formData.append('category', payload.category);
+  if (payload.projectImpact) formData.append('projectImpact', payload.projectImpact);
+  if (payload.estimatedCostUSD) formData.append('estimatedCostUSD', payload.estimatedCostUSD);
+
+  if (payload.images && payload.images.length > 0) {
+    payload.images.forEach((image) => {
+      if (image instanceof File) {
+        formData.append("images", image);
+      }
+    });
+  }
+
+  const response = await apiClient.patch<{ message: string }>(
+    `/projects/${id}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  }
+  );
+
+  return response.data;
+};
+
+export const useUpdateProject = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateProject,
+    onSuccess: (_, { id }) => {
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["projects", id] });
     },
   });
 };

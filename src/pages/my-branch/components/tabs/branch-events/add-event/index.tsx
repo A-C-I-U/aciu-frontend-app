@@ -120,7 +120,7 @@ export default function AddEventPage({
                                 className="btn bg-aciu-dashboard-background border border-aciu-dark-grey text-aciu-abriba max-w-fit"
                             >
                                 <ArrowLeft size={20} color="#737373" />
-                                {currentStep === 1 ? "Cancel" : "Back"}
+                                {currentStep === 1 ? "Back" : "Back"}
                             </button>
                             <div className="hidden lg:flex items-center gap-3.5">
                                 {steps.map((step, index) => (

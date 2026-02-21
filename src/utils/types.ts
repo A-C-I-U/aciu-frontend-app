@@ -314,6 +314,9 @@ export interface ProjectSidebarCardProps {
   isCompleted?: boolean;
   onDonateClick: () => void;
   onShareClick: () => void;
+  userRole?: string;
+  onEditClick?: () => void;
+  onCompleteClick?: () => void;
 }
 
 export interface DonationProgressBarProps {

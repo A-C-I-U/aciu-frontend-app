@@ -32,13 +32,13 @@ export default function OngoingProjects() {
     const isMedium = useMediaQuery("(max-width: 1250px)");
     const [showNominate, setShowNominate] = useState(false);
     const [showCreate, setShowCreate] = useState(false);
-    
+
     const { data: projects, isLoading, error } = useProjects('ongoing');
     const { user } = useUser();
 
     const handleSearch = (q: string) => {
         setQuery(q);
-    } 
+    }
 
     if (error) {
         return (
@@ -50,7 +50,7 @@ export default function OngoingProjects() {
                         showSearch={isMedium ? false : true}
                         actions={sectionActions}
                     />
-                    <button 
+                    <button
                         className="btn btn-primary max-w-fit"
                         onClick={() => setShowNominate(true)}
                     >
@@ -74,21 +74,21 @@ export default function OngoingProjects() {
                     actions={sectionActions}
                 />
                 {user?.role === "national_admin" ?
-                        <button 
-                            className="btn btn-primary max-w-fit !text-sm md:!text-base"
-                            onClick={() => setShowCreate(true)}
-                        >
-                            Create Project
-                        </button>
+                    <button
+                        className="btn btn-primary max-w-fit !text-sm md:!text-base"
+                        onClick={() => setShowCreate(true)}
+                    >
+                        Create Project
+                    </button>
                     :
-                        <button 
-                            className="btn btn-primary max-w-fit !text-sm md:!text-base"
-                            onClick={() => setShowNominate(true)}
-                        >
-                            Nominate a Project
-                        </button>
-                    }
-                    
+                    <button
+                        className="btn btn-primary max-w-fit !text-sm md:!text-base"
+                        onClick={() => setShowNominate(true)}
+                    >
+                        Nominate a Project
+                    </button>
+                }
+
             </div>
 
             {isLoading ? (
@@ -104,9 +104,10 @@ export default function OngoingProjects() {
                             <ProjectCard
                                 key={project.id}
                                 project={project}
+                                userRole={user?.role}
                             />
                         ))}
-                        
+
                     </div>
                     {projects?.length === 0 && (
                         <EmptyPage label="Ongoing projects" />
@@ -114,7 +115,7 @@ export default function OngoingProjects() {
                 </>
             )}
 
-            <NominateProject 
+            <NominateProject
                 open={showNominate}
                 onClose={() => setShowNominate(false)}
             />

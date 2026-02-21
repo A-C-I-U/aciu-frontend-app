@@ -50,57 +50,58 @@ export default function NominateProject({
   return (
     <ShellModal open={open} onClose={onClose} forceDialog>
       <>
-          {step === 2 ? (
-            <ThankYouPrompt
-              title="Thank you!"
-              description="Your project has been submitted..."
-              onClose={handleThankYouClose}
+        {step === 2 ? (
+          <ThankYouPrompt
+            title="Thank you!"
+            description="Your project has been submitted..."
+            onClose={handleThankYouClose}
+          />
+        ) : (
+          <div className="resources-modal-section flex flex-col h-full overflow-hidden">
+            <ShellHeader title="Send Project Nomination" onClose={onClose} />
+            <Divider className="flex shrink-0" />
+            <NominateProjectForm
+              handleNext={handleNext}
             />
-          ) : (
-            <div className="resources-modal-section flex flex-col h-full overflow-hidden">
-              <ShellHeader title="Send Project Nomination" onClose={onClose} />
-              <Divider className="flex shrink-0" />
-              <NominateProjectForm
-                handleNext={handleNext}
-              />
-            </div>
-          )}
-        </>
-      </ShellModal>
-  )}
+          </div>
+        )}
+      </>
+    </ShellModal>
+  )
+}
 
 
 function NominateProjectForm({
   handleNext
-}: { handleNext: () => void}) {
+}: { handleNext: () => void }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const nominateProjectMutation = useNominateProject();
 
   const handleSubmit = async (values: ProjectFormValues, actions: any) => {
     try {
-      
+
       const payload = {
         title: values.title,
         category: values.category,
         location: values.location,
         briefDescription: values.description,
         expectedImpact: values.impact,
-        estimatedCostUSD: values.cost.toString(), 
+        estimatedCostUSD: values.cost.toString(),
         image: values.image instanceof File ? values.image : null,
       };
 
 
       const result = await nominateProjectMutation.mutateAsync({ payload });
-      
+
       enqueueSnackbar(result.message || 'Project nominated successfully', {
         variant: 'success',
       });
-      
+
       actions.setSubmitting(false);
       handleNext(); // Move to thank you step
     } catch (error: any) {
       console.error('Project nomination error:', error);
-      
+
       let errorMessage = 'Failed to nominate project';
       if (error.response?.data?.message) {
         errorMessage = error.response.data.message;
@@ -111,11 +112,11 @@ function NominateProjectForm({
       } else if (error.message) {
         errorMessage = error.message;
       }
-      
+
       enqueueSnackbar(errorMessage, {
         variant: 'error',
       });
-      
+
       actions.setSubmitting(false);
     }
   }
@@ -127,7 +128,7 @@ function NominateProjectForm({
       onSubmit={handleSubmit}
       validateOnMount
     >
-      {({ values, setFieldValue, isValid, isSubmitting, errors, touched, handleSubmit }) => (
+      {({ values, setFieldValue, isSubmitting, errors, touched, handleSubmit }) => (
         <div className="flex flex-col h-full overflow-hidden">
           <div className="resources-modal-body flex-1 overflow-auto">
             <Form onSubmit={handleSubmit} className="flex flex-col gap-6 mb-6">
@@ -183,28 +184,28 @@ function NominateProjectForm({
 
               <div className="flex flex-col gap-2">
                 <FormLabel
-                    sx={{
-                      fontWeight: 500,
-                      fontFamily: '"Montserrat", sans-serif',
-                      fontSize: ".875rem",
-                      color: "#3E3E3E"
-                    }}
-                  >
-                    Upload any related image&nbsp;
-                    {touched.image && errors.image && (
-                      <span className="text-red-500 text-xs">({errors.image})</span>
-                    )}
+                  sx={{
+                    fontWeight: 500,
+                    fontFamily: '"Montserrat", sans-serif',
+                    fontSize: ".875rem",
+                    color: "#3E3E3E"
+                  }}
+                >
+                  Upload any related image&nbsp;
+                  {touched.image && errors.image && (
+                    <span className="text-red-500 text-xs">({errors.image})</span>
+                  )}
                 </FormLabel>
-                <div 
+                <label
                   className="cursor-pointer"
-                  onClick={() => !isSubmitting && inputRef.current?.click()}
+                  htmlFor="project-image-upload"
                 >
                   {!values.image ? (
                     <div className="gap-2 flex flex-col">
                       <div className={`border-2 border-dashed flex flex-col justify-center
                         relative h-53.5 rounded-[5px] w-full 
-                        ${isSubmitting ? 'bg-gray-100' : 'bg-aciu-cyan-light'}
-                        ${touched.image && errors.image ? 'border-red-500' : 'border-gray-300'}`}
+                        ${isSubmitting ? 'bg-grayscale-100' : 'bg-aciu-cyan-light'}
+                        ${touched.image && errors.image ? 'border-error-normal' : 'border-grayscale-300'}`}
                       >
                         <div
                           className="items-center justify-center
@@ -229,62 +230,68 @@ function NominateProjectForm({
                   ) : (
                     <div className="flex flex-col gap-2.5 items-center">
                       {typeof values.image === "string" ? (
-                          <img
-                            src={values.image}
-                            alt="Project cover"
-                            className="rounded-[.625rem] w-full h-53.5 object-cover"
-                          />
-                        ) : (
-                          <img
-                            src={URL.createObjectURL(values.image)}
-                            alt="Project cover preview"
-                            className="rounded-[.625rem] w-full h-53.5 object-cover"
-                          />
-                        )}
-                        {!isSubmitting && (
-                          <div className="w-full self-end">
-                            <p className="text-aciu-green-normal font-coolvetica text-2xs cursor-pointer">
-                              Edit Cover Image
-                            </p>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <input
-                    ref={inputRef}
-                    type="file"
-                    accept="image/jpeg, image/png, image/webp, image/jpg"
-                    hidden
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        if (!file.type.startsWith('image/')) {
-                          enqueueSnackbar('Please select a valid image file', { variant: 'error' });
-                          return;
-                        }
-                        if (file.size > 10 * 1024 * 1024) {
-                          enqueueSnackbar('File size must be less than 10MB', { variant: 'error' });
-                          return;
-                        }
-                        setFieldValue("image", file);
-                      }
-                    }}
-                    disabled={isSubmitting}
-                  />
-                </div>
-              </Form>
-            </div>
-            <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-              <button className="btn btn-primary !text-sm md:!text-base" disabled={isSubmitting || !isValid}>
-                  {isSubmitting ? 'Submitting...' : 'Send Project Nomination'}
-
-                  {isSubmitting && (
-                    <CircularProgress sx={{ color: "white" }} size={12} />
+                        <img
+                          src={values.image}
+                          alt="Project cover"
+                          className="rounded-[.625rem] w-full h-53.5 object-cover"
+                        />
+                      ) : (
+                        <img
+                          src={URL.createObjectURL(values.image)}
+                          alt="Project cover preview"
+                          className="rounded-[.625rem] w-full h-53.5 object-cover"
+                        />
+                      )}
+                      {!isSubmitting && (
+                        <div className="w-full self-end">
+                          <p className="text-aciu-green-normal font-coolvetica text-2xs cursor-pointer">
+                            Edit Cover Image
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   )}
-              </button>
-            </div>
+                </label>
+                <input
+                  id="project-image-upload"
+                  ref={inputRef}
+                  type="file"
+                  accept="image/jpeg, image/png, image/webp, image/jpg"
+                  style={{ display: 'none' }}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      if (!file.type.startsWith('image/')) {
+                        enqueueSnackbar('Please select a valid image file', { variant: 'error' });
+                        return;
+                      }
+                      if (file.size > 10 * 1024 * 1024) {
+                        enqueueSnackbar('File size must be less than 10MB', { variant: 'error' });
+                        return;
+                      }
+                      setFieldValue("image", file);
+                    }
+                  }}
+                  disabled={isSubmitting}
+                />
+              </div>
+            </Form>
           </div>
+          <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
+            <button
+              type="button"
+              className="btn btn-primary !text-sm md:!text-base"
+              onClick={() => handleSubmit()}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Send Project Nomination'}
+
+              {isSubmitting && (
+                <CircularProgress sx={{ color: "white" }} size={12} />
+              )}
+            </button>
+          </div>
+        </div>
       )}
     </Formik>
   );
