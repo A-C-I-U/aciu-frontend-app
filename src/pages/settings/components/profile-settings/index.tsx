@@ -9,13 +9,13 @@ import type { ProfileFormValues } from "@/utils/types";
 
 export default function ProfileSettings() {
     const [openProfileInfo, setOpenProfileInfo] = useState(false);
-   
+
     const { user } = useUser();
     const initialValues: ProfileFormValues = {
         name: user?.name || "",
         email: user?.email || "",
-        branch: user?.branch || "", 
-        ageGrade: user?.ageGrade || "", 
+        branch: user?.branch || "",
+        ageGrade: user?.ageGrade || "",
         occupation: user?.occupation || "",
         phoneNumber: user?.phoneNumber || ""
     }
@@ -30,13 +30,13 @@ export default function ProfileSettings() {
                     Edit your personal information and update your branch or contact details.
                 </p>
             </div>
-            <Divider orientation="horizontal" flexItem className="hidden lg:block"/>
+            <Divider orientation="horizontal" flexItem className="hidden lg:block" />
             <div className="flex flex-col gap-12 px-2 lg:px-10 flex-1">
                 <div className="flex flex-col lg:flex-row gap-6 lg:items-center">
                     <Avatar src={DummyProfile} className="rounded-[3.125rem] w-20 h-20" style={{
                         width: "5rem",
                         height: "5rem"
-                    }}/>
+                    }} />
                     <div className="flex gap-4 items-stretch">
                         <button className="rounded bg-aciu-green-normal py-2.5 px-4 text-white font-coolvetica">
                             Upload New Picture
@@ -46,9 +46,9 @@ export default function ProfileSettings() {
                         </button>
                     </div>
                 </div>
-               <Formik initialValues={initialValues} onSubmit={() => {}}>
+                <Formik initialValues={initialValues} onSubmit={() => { }}>
                     <Form className=" w-full lg:max-w-11/12 flex flex-col gap-10">
-                        <PersonalInfoForm  />
+                        <PersonalInfoForm allowEditContact={false} />
                         <button
                             type="button"
                             onClick={() => setOpenProfileInfo(true)}
@@ -59,12 +59,12 @@ export default function ProfileSettings() {
                     </Form>
                 </Formik>
 
-               
+
             </div>
             {openProfileInfo &&
-                <PersonalInfoModal 
+                <PersonalInfoModal
                     initialValues={initialValues}
-                    open={openProfileInfo} 
+                    open={openProfileInfo}
                     onClose={() => setOpenProfileInfo(false)}
                 />
             }

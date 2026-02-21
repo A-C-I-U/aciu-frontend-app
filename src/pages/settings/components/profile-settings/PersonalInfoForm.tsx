@@ -2,9 +2,9 @@ import FormikField from "@/components/FormikField";
 import { useUserSettings } from "@/services/hooks/settings";
 import { Skeleton } from "@mui/material";
 
-export default function PersonalInfoForm() {
-    const { data: userSettings, isLoading, error } = useUserSettings();
-    
+export default function PersonalInfoForm({ allowEditContact = false }: { allowEditContact?: boolean }) {
+    const { isLoading, error } = useUserSettings();
+
     if (isLoading) {
         return (
             <div className="flex flex-col gap-4">
@@ -33,27 +33,24 @@ export default function PersonalInfoForm() {
                 name="email"
                 type="email"
                 placeholder="princeugbuta@gmail.com"
-                value={userSettings?.profile.email || ''}
-                disabled 
+                disabled
                 fullWidth
             />
 
-            <FormikField 
+            <FormikField
                 label="Full Name"
                 name="name"
                 type="text"
                 placeholder="Enter your full name"
-                value={userSettings?.profile.fullName || ''}
-                disabled 
+                disabled
                 fullWidth
             />
 
-            <FormikField 
+            <FormikField
                 label="Age Grade"
                 name="ageGrade"
                 placeholder="Please input your age grade here"
-                value={userSettings?.profile.ageGrade || ''}
-                disabled 
+                disabled
                 fullWidth
             />
 
@@ -61,8 +58,7 @@ export default function PersonalInfoForm() {
                 label="Branch"
                 name="branch"
                 placeholder="Please input your current branch"
-                value={userSettings?.profile.branch || ''}
-                disabled 
+                disabled
                 fullWidth
             />
 
@@ -70,7 +66,7 @@ export default function PersonalInfoForm() {
                 label="Occupation"
                 name="occupation"
                 placeholder="Please input your occupation"
-                value={userSettings?.profile.occupation || ''}
+                disabled={!allowEditContact}
                 fullWidth
             />
 
@@ -78,7 +74,7 @@ export default function PersonalInfoForm() {
                 label="Phone Number"
                 name="phoneNumber"
                 placeholder="Please input your phone number"
-                value={userSettings?.profile.phoneNumber || ''}
+                disabled={!allowEditContact}
                 fullWidth
             />
         </>

@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query"
 import FormikField from "@/components/FormikField"
 import { donationSchema } from "@/utils/schemas"
 import { Button, CircularProgress, Dialog, FormControlLabel, Snackbar, Alert } from "@mui/material"
@@ -29,14 +30,15 @@ export default function DonateToProject({
   onClose
 }: DialogFuncProps) {
   const { id: projectId } = useParams<{ id: string }>()
+  const queryClient = useQueryClient()
   const [step, setStep] = useState(1)
   const [clientSecret, setClientSecret] = useState<string | null>(null)
   const [donationData, setDonationData] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
-  
+
   const { data: dashboardData, isLoading: isLoadingProfile } = useDashboardOverview()
   const userProfile = dashboardData?.profile
-  
+
   const initialValues = {
     email: userProfile?.email || "",
     name: userProfile?.fullName || "",
@@ -69,13 +71,13 @@ export default function DonateToProject({
         paymentIntentId: response.data.paymentIntentId,
         amount: (response.data.amount / 100).toFixed(2)
       })
-      setStep(2) 
+      setStep(2)
 
     } catch (err: any) {
       console.error("Donation error:", err)
       setError(
-        err.response?.data?.message || 
-        err.message || 
+        err.response?.data?.message ||
+        err.message ||
         "Failed to process donation. Please try again."
       )
       actions.setSubmitting(false)
@@ -83,6 +85,11 @@ export default function DonateToProject({
   }
 
   const handlePaymentSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ["projects"] })
+    queryClient.invalidateQueries({ queryKey: ["projectDetails"] })
+    queryClient.invalidateQueries({ queryKey: ["project-donations"] })
+    queryClient.invalidateQueries({ queryKey: ["transactions-overview"] })
+    queryClient.invalidateQueries({ queryKey: ["project-donations-visuals"] })
     setStep(3) // Move to thank you step
   }
 
@@ -122,10 +129,10 @@ export default function DonateToProject({
         }}
       >
         {step === 3 ? (
-          <ThankYouPrompt 
+          <ThankYouPrompt
             title="Thank you!"
             description="Your donation has been made. You'll be contacted if more details are needed."
-            onClose={handleClose} 
+            onClose={handleClose}
           />
         ) : step === 2 && clientSecret ? (
           <div className="flex flex-col gap-8 w-full mx-auto rounded-lg h-4/5 overflow-hidden">
@@ -140,8 +147,8 @@ export default function DonateToProject({
               <X width={24} height={24} />
             </button>
             <div className="flex-1 overflow-y-auto pb-4 md:pb-10 px-4 md:px-20">
-              <Elements 
-                stripe={stripePromise} 
+              <Elements
+                stripe={stripePromise}
                 options={{
                   clientSecret,
                   appearance: {
@@ -152,7 +159,7 @@ export default function DonateToProject({
                   }
                 }}
               >
-                <PaymentForm 
+                <PaymentForm
                   onSuccess={handlePaymentSuccess}
                   donationData={donationData}
                 />
@@ -218,9 +225,9 @@ export default function DonateToProject({
                           required
                           type="number"
                         />
-                        <FormControlLabel 
+                        <FormControlLabel
                           control={
-                            <CustomSwitch 
+                            <CustomSwitch
                               checked={values.anonymous}
                               onChange={(fieldName, value) => setFieldValue(fieldName, value)}
                               fieldName="anonymous"
@@ -245,7 +252,7 @@ export default function DonateToProject({
                         fullWidth
                         multiline
                         rows={3}
-                      />  
+                      />
                     </Form>
                   </div>
                   <div className="pb-4 md:pb-10 px-4 md:px-20 w-full">
