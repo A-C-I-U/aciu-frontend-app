@@ -53,9 +53,7 @@ export default function WithdrawalDetail({ open, onClose, withdrawalId }: {
                         </div>
                     )}
                     </div>
-                    <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 shrink-0">
-                        <ReceiptDownloadButton data={withdrawalRequest} type="withdrawalRequest" />
-                    </div> 
+                    <ReceiptDownloadButton data={withdrawalRequest} type="withdrawalRequest" />
                 </div>
             </div>
         </ShellModal>

@@ -44,9 +44,7 @@ export default function DuesPaymentDetail({ open, onClose, id }: {
                                 <DuesPaymentDetailContent data={data} />
                             )}
                         </div>
-                        <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                            <ReceiptDownloadButton data={duesPayment} type="dues" />
-                        </div>
+                        <ReceiptDownloadButton data={duesPayment} type="dues" />
                     </div>
                 </div>
             </ShellModal>

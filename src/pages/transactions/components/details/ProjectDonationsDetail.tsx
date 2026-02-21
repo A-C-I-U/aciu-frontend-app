@@ -76,9 +76,7 @@ export default function ProjectDonationsDetail ({
                             </>
                         )}
                         </div>
-                        <div className="px-5.5 py-4 flex items-center gap-2 border-t border-gray-200 flex-shrink-0">
-                            <ReceiptDownloadButton data={projectDonation} type="projectDonation" />
-                        </div>
+                        <ReceiptDownloadButton data={projectDonation} type="projectDonation" />
                     </div>
                 </div>
             </ShellModal>
