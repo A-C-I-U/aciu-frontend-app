@@ -5,11 +5,9 @@ import type { Project } from "@/services/types/projects";
 
 interface ProjectCardProps {
   project: Project;
-  isCompleted?: boolean;
-  userRole?: string;
 }
 
-export default function ProjectCard({ project, isCompleted = false, userRole }: ProjectCardProps) {
+export default function ProjectCard({ project }: ProjectCardProps) {
   const { id, title, images, category, briefDescription, donationStats } =
     project;
 
@@ -60,7 +58,7 @@ export default function ProjectCard({ project, isCompleted = false, userRole }: 
         className="rounded-lg border border-aciu-green-normal p-3 max-w-46 leading-none mt-auto
         font-coolvetica text-sm text-aciu-green-normal flex gap-2 items-center justify-center hover:bg-aciu-green-normal hover:text-white transition-colors"
       >
-        <span>{isCompleted || userRole === "national_admin" ? "View Project" : "Donate To Project"}</span>
+        <span>View Project</span>
         <ArrowRightIcon
           color="currentColor"
           size="1.25rem"

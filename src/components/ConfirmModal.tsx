@@ -36,6 +36,7 @@ export function ConfirmModal({
                 sx={{
                     "& .MuiDialog-paper": {
                         overflow: "hidden",
+                        overflowY: "hidden",
                         width: { xs: "92%", md: "31.25rem" },
                         margin: "0 auto",
                         borderRadius: "1.25rem",

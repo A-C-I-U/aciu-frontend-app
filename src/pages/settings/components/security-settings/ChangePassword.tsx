@@ -38,7 +38,7 @@ export default function ChangePassword({ open, onClose }: DialogFuncProps) {
 
       actions.setSubmitting(false);
       actions.resetForm();
-      onClose(); 
+      onClose();
     } catch (error: any) {
       const errorMessage =
         error?.response?.data?.message ||
@@ -105,7 +105,7 @@ export default function ChangePassword({ open, onClose }: DialogFuncProps) {
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto px-6 lg:px-20 pb-10 w-full">
+            <div className="flex-1 overflow-y-auto overflow-y-hidden px-6 lg:px-20 pb-10 w-full">
               <div className="flex flex-col gap-10">
                 <FormikField
                   label="Old password"

@@ -156,11 +156,11 @@ export const protectedRoutes = [
         element: <BlogPostForm type="create" />
       },
       {
-        path: "posts/:slug",
+        path: "posts/:id",
         element: <PostViewPage />
       },
       {
-        path: "posts/:slug/edit",
+        path: "posts/:id/edit",
         element: <BlogPostForm type="edit" />
       },
       {
