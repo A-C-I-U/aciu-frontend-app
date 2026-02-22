@@ -23,7 +23,7 @@ export const useUploadResource = () => {
     mutationFn: uploadResource,
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ['resources', variables.type],
+        queryKey: [variables.type],
       });
 
     },
@@ -39,8 +39,10 @@ export const useUpdateResource = () => {
       const response = await apiClient.patch(`/resources/${id}`, { file_name: fileName, file_description: fileDescription });
       return response.data;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['resources'] });
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['aciu-resources'] });
+      queryClient.invalidateQueries({ queryKey: ['meeting-reports'] });
+      queryClient.invalidateQueries({ queryKey: ['resource', variables.id] });
     },
   });
 };
@@ -59,10 +61,11 @@ export const useArchiveResource = () => {
 
   return useMutation({
     mutationFn: archiveResource,
+
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: ["resources", variables.id]
-      })
+      queryClient.invalidateQueries({ queryKey: ['aciu-resources'] });
+      queryClient.invalidateQueries({ queryKey: ['meeting-reports'] });
+      queryClient.invalidateQueries({ queryKey: ['resource', variables.id] });
     }
   })
 }
@@ -71,8 +74,7 @@ export const useDownloadResource = () => {
   return useMutation({
     mutationFn: async (resourceId: string) => {
       const response = await apiClient.get(
-        `/resources/${resourceId}/download`,
-        { responseType: 'blob' }
+        `/resources/${resourceId}/download`
       );
 
       return response.data;

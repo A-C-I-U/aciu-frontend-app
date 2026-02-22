@@ -34,19 +34,9 @@ export default function ResourceContent({
     const { mutateAsync: downloadResource, isPending: isDownloading } = useDownloadResource();
     const { mutateAsync: archiveResource, isPending: isArchiving } = useArchiveResource();
 
-    const handleDownload = async (id: string, fileName: string) => {
-        const blob = await downloadResource(id);
-
-        const url = window.URL.createObjectURL(blob);
-        const link = document.createElement('a');
-
-        link.href = url;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-
-        link.remove();
-        window.URL.revokeObjectURL(url);
+   const handleDownload = async (id: string) => {
+        const { downloadUrl } = await downloadResource(id);
+        window.open(downloadUrl, "_blank");
     };
 
     const handleArchive = async (id: string) => {
@@ -160,7 +150,7 @@ export default function ResourceContent({
                                     className="btn btn-primary"
                                     type="button"
                                     disabled={isDownloading}
-                                    onClick={() => handleDownload(resource.id, resource.file_name)}
+                                    onClick={() => handleDownload(resource.id)}
                                 >
                                     Download Resource
                                     {isDownloading && <CircularProgress size={16} color='inherit' />}
@@ -186,13 +176,13 @@ export default function ResourceContent({
                                             onClick={() => handleArchive(resource.id)}
                                         >  
                                             {resource.archived ? "Archived" :
-                                            (isArchiving ?
-                                            <>
-                                                Archiving..
-                                                <CircularProgress size={16} color='inherit' />
-                                            </> : 
-                                                "Archive Resource"
-                                            )}
+                                                (isArchiving ?
+                                                    <>
+                                                        Archiving..
+                                                        <CircularProgress size={16} color='inherit' />
+                                                    </> : 
+                                                        "Archive Resource"
+                                                )}
                                         </button>}
                                     </>
                                 ) : mode === "edit" && (

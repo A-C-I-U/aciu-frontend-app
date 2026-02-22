@@ -92,8 +92,8 @@ export default function MeetingReportsPage() {
                             className="btn btn-primary max-w-fit text-base!"
                             onClick={() => setOpenUpload(true)}
                         >
-                            Upload Resource
-                        </button>
+                            Upload Material
+                        </button> 
                     }   
                 </div>
 

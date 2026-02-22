@@ -71,7 +71,7 @@ export default function UploadResourceContent({
         validationSchema={uploadResourceSchema}
         validateOnMount
       >
-        {({ values, setFieldTouched, setFieldValue, isSubmitting, isValid, submitForm }) => {
+        {({ values, setFieldValue, isSubmitting, isValid, submitForm }) => {
           const isLoading = isSubmitting || uploadMutation.isPending;
 
           return (
@@ -142,8 +142,8 @@ export default function UploadResourceContent({
                       hidden
                       onChange={(e) => {
                         const file = e.target.files?.[0] || null;
-                        setFieldValue("doc", file);
-                        setFieldTouched("doc", true);
+                        setFieldValue("doc", file, true);
+                        e.target.value = "";
                       }}
                     />
                   </div>

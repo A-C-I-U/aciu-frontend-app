@@ -32,12 +32,13 @@ export default function UploadResource({
                 open={openSuccessPrompt}
                 onClose={() => setOpenSuccessPrompt(false)}
                 icon={<MarkIcon />}
+                className="text-base!"
                 title="Resource Uploaded Successfully"
                 message="Your file has been added to the community library and is now accessible to eligible members."
                 primaryAction={{
                     label: "Go back to Resources",
                     onClick: () => {
-                        navigate('/resources')
+                        navigate(`/resources?tab=${type}`)
                         setOpenSuccessPrompt(false)
                     }
                 }}

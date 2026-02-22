@@ -92,7 +92,7 @@ export default function IdentityPage() {
                   className="btn btn-primary max-w-fit text-base!"
                   onClick={() => setOpenUpload(true)}
               >
-                  Upload Resource
+                  Upload Material
               </button>
           }   
         </div>
