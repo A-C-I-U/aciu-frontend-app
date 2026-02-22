@@ -2,7 +2,6 @@ import type { Comment } from "@/services/types/blogs";
 import { Divider, Skeleton } from "@mui/material";
 import { Field, Form, Formik, type FormikHelpers } from "formik";
 import { useCreateComment } from "@/services/mutations/blogs";
-import { formatDate } from "@/utils/helpers";
 
 
 interface CommentFormValues {
@@ -60,9 +59,10 @@ export default function CommentBlock({
                     <p className="text-aciu-abriba text-center py-4">No comments yet. Be the first to share your thoughts!</p>
                 )}
                 {comments.map((comment) => {
-                    const { id, author, createdAt, content } = comment;
-                    const name = author?.fullName || "Aciu Member";
-                    const nameParts = name.split(' ');
+                    const { id, user, createdAt, content } = comment;
+                    const name = user?.fullName || "Aciu Member";
+                    const profilePhoto = user?.profilePhoto;
+                    const nameParts = name.trim().split(' ');
                     let initials = '';
 
                     for (let i = 0; i < Math.min(2, nameParts.length); i++) {
@@ -71,21 +71,36 @@ export default function CommentBlock({
                         }
                     }
 
+                    const formattedDate = new Intl.DateTimeFormat('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        hour12: true
+                    }).format(new Date(createdAt));
+
                     return (
                         <div key={id} className="flex flex-col gap-6">
                             <div className="flex flex-col gap-4">
                                 <div className="flex gap-2 items-center">
-                                    <div className="flex items-center justify-center min-w-11.5 h-11.5 bg-aciu-green-light-hover rounded-[2.125rem]">
-                                        <p className="font-semibold text-sm text-aciu-green-normal">
-                                            {initials}
-                                        </p>
-                                    </div>
+                                    {profilePhoto ? (
+                                        <div className="w-11.5 h-11.5 rounded-full overflow-hidden flex-shrink-0">
+                                            <img src={profilePhoto} alt={name} className="w-full h-full object-cover" />
+                                        </div>
+                                    ) : (
+                                        <div className="flex items-center justify-center min-w-11.5 w-11.5 h-11.5 bg-aciu-green-light-hover rounded-[2.125rem]">
+                                            <p className="font-semibold text-sm text-aciu-green-normal">
+                                                {initials}
+                                            </p>
+                                        </div>
+                                    )}
                                     <div className="flex flex-col">
                                         <p className="text-aciu-dark-grey-active leading-5 font-semibold">
                                             {name}
                                         </p>
                                         <p className="text-aciu-abriba leading-5 text-sm font-medium">
-                                            {formatDate(createdAt)}
+                                            {formattedDate}
                                         </p>
                                     </div>
                                 </div>

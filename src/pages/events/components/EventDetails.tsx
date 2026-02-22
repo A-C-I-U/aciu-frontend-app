@@ -8,6 +8,7 @@ import { format, formatDate, parse } from "date-fns";
 import { useUser } from "@/context/UserContext";
 import { useMediaQuery } from "@mui/material";
 import ShareEvent from "./ShareEvent";
+import DonateToEvent from "./DonateToEvent";
 import { useState } from "react";
 import PageDetailSkeleton from "@/components/PageDetailSkeleton";
 
@@ -17,6 +18,7 @@ export default function EventDetails() {
   const { user } = useUser();
   const isMobile = useMediaQuery("(max-width: 767px)");
   const [showShareEvent, setShowShareEvent] = useState(false);
+  const [showDonateEvent, setShowDonateEvent] = useState(false);
 
   const { data, isLoading, error } = useEventDetails(id!);
 
@@ -76,9 +78,8 @@ export default function EventDetails() {
         />
       ),
       title: "Guest Expectation",
-      content: `${event.guestExpectation} ${
-        event.guestExpectation === 1 ? "Guest" : "Guests"
-      }`,
+      content: `${event.guestExpectation} ${event.guestExpectation === 1 ? "Guest" : "Guests"
+        }`,
     },
   ];
 
@@ -156,34 +157,37 @@ export default function EventDetails() {
           </div>
 
 
-            <div className="flex flex-col gap-8 items-center mx-5">
-              {event.enableCountdown && (
-                <>
-                  <h1 className="text-center text-2xl lg:text-4xl font-coolvetica text-aciu-darker-grey leading-15">
-                    Registration Ends in:
-                  </h1>
-                  <CustomCountdown targetDate={eventDate} variant="inline" />
-                </>
-              )}
+          <div className="flex flex-col gap-8 items-center mx-5">
+            {event.enableCountdown && (
+              <>
+                <h1 className="text-center text-2xl lg:text-4xl font-coolvetica text-aciu-darker-grey leading-15">
+                  Registration Ends in:
+                </h1>
+                <CustomCountdown targetDate={eventDate} variant="inline" />
+              </>
+            )}
 
-              {user?.role !== "national_admin" && (
-                <div className="flex flex-col lg:flex-row gap-6 items-center justify-center w-full">
-                  {event.enableRSVP && (
-                    <button className="btn-event btn-event-primary">
-                      Register for Event
-                    </button>
-                  )}
-                  {event.enableDonations && (
-                    <button className="btn-event btn-event-secondary">
-                      Donate to event
-                    </button>
-                  )}
-                </div>
-              )}
-              
-            </div>
+            {user?.role !== "national_admin" && (
+              <div className="flex flex-col lg:flex-row gap-6 items-center justify-center w-full">
+                {event.enableRSVP && (
+                  <button className="btn-event btn-event-primary">
+                    Register for Event
+                  </button>
+                )}
+                {event.enableDonations && (
+                  <button
+                    className="btn-event btn-event-secondary"
+                    onClick={() => setShowDonateEvent(true)}
+                  >
+                    Donate to event
+                  </button>
+                )}
+              </div>
+            )}
 
-          
+          </div>
+
+
 
           {event.highlights && event.highlights.length > 0 && (
             <div className="py-15 px-12 lg:px-25 flex flex-col gap-6 lg:gap-12 items-center bg-aciu-bg-grey">
@@ -224,7 +228,7 @@ export default function EventDetails() {
                 Register for Event
               </button>
             ) : null}
-            
+
             <button className="btn-event btn-event-secondary" onClick={() => setShowShareEvent(true)}>
               Share event
             </button>
@@ -235,6 +239,10 @@ export default function EventDetails() {
         link={event.shareableLink}
         open={showShareEvent}
         onClose={() => setShowShareEvent(false)}
+      />
+      <DonateToEvent
+        open={showDonateEvent}
+        onClose={() => setShowDonateEvent(false)}
       />
     </>
   );

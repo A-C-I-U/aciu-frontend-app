@@ -5,11 +5,11 @@ export default function ThankYouPrompt({
     title,
     description,
     onClose,
-}: { 
+}: {
     onClose: () => void,
     description: string,
     title: string
- }) {
+}) {
 
     return (
         <div className="w-full h-full p-7.5 flex flex-col gap-5.5">
@@ -33,7 +33,7 @@ export default function ThankYouPrompt({
                     padding: '1rem',
                     boxShadow: '0px 1px 2px 0px #0D0D120A',
                     textTransform: 'none',
-                        '&.Mui-disabled': {
+                    '&.Mui-disabled': {
                         backgroundColor: '#e0e0e0',
                         color: '#9e9e9e',
                         opacity: 0.6,
@@ -43,7 +43,7 @@ export default function ThankYouPrompt({
                 onClick={onClose}
             >
                 <span className="font-coolvetica text-base">
-                    Go back to Projects
+                    Go back
                 </span>
             </Button>
 
