@@ -14,13 +14,15 @@ export interface BlogPostAuthor {
 export interface Comment {
   id: string;
   content: string;
-  authorId: string;
+  userId: string;
   postId: string;
+  parentId: string | null;
   createdAt: string;
   updatedAt: string;
-  author: {
+  user: {
     id: string;
     fullName: string;
+    profilePhoto: string | null;
   };
 }
 

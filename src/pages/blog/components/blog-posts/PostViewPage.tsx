@@ -8,7 +8,7 @@ import { Skeleton, Alert } from "@mui/material";
 import { ArrowLeft2 } from "iconsax-react";
 
 export default function PostViewPage() {
-    const { slug: postId } = useParams();
+    const { id: postId } = useParams();
     const navigate = useNavigate();
     const { data: detailData, isLoading: isPostLoading, error: postError } = useBlogPostDetails(postId || "");
     const { data: commentsData, isLoading: isCommentsLoading } = usePostComments(postId || "");

@@ -7,6 +7,7 @@ import { useGallery } from "@/services/hooks/gallery";
 import { GallerySkeleton } from "@/components/GallerySkeleton";
 import { GalleryCategory, type GalleryItem } from "@/services/types/gallery";
 import { Menu, MenuItem } from "@mui/material";
+import { Sort } from "iconsax-react";
 
 
 export default function BranchGalleryTab() {
@@ -44,9 +45,10 @@ export default function BranchGalleryTab() {
     const sectionActions = [
         <div key="filter-wrapper">
             <button
-                className="section-action-button"
+                className="section-action-button flex items-center gap-2"
                 onClick={handleFilterClick}
             >
+                <Sort variant="Outline" color="#A4ACB9" size={20} />
                 {category}
             </button>
             <Menu
