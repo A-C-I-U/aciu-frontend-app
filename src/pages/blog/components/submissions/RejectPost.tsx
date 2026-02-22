@@ -3,7 +3,7 @@ import type { DialogFuncProps } from "@/utils/types";
 import { Button, Dialog, CircularProgress } from "@mui/material";
 import { Form, Formik } from "formik";
 import { enqueueSnackbar } from "notistack";
-import { useUpdateSubmissionStatus } from "@/services/hooks/blogs";
+import { useUpdateSubmissionStatus } from "@/services/mutations/blogs";
 
 export default function RejectPost({
     id,

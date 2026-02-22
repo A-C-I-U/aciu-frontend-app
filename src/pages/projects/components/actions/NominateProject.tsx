@@ -130,7 +130,7 @@ function NominateProjectForm({
     >
       {({ values, setFieldValue, isSubmitting, errors, touched, handleSubmit }) => (
         <div className="flex flex-col h-full overflow-hidden">
-          <div className="resources-modal-body flex-1 overflow-auto">
+          <div className="resources-modal-body flex-1 overflow-y-auto overflow-y-hidden">
             <Form onSubmit={handleSubmit} className="flex flex-col gap-6 mb-6">
               <FormikField
                 label="Project Title"

@@ -7,9 +7,8 @@ import type {
   RelatedPostsResponse,
   CommentsResponse,
   SubmissionsResponse,
-  CreateBlogPostResponse
 } from "../types/blogs";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 
 export const fetchFeaturedBlogPosts = async (): Promise<BlogPostsResponse> => {
@@ -36,11 +35,6 @@ export const fetchRelatedBlogPosts = async (postId: string): Promise<RelatedPost
 
 export const fetchPostComments = async (postId: string): Promise<CommentsResponse> => {
   const response = await apiClient.get<CommentsResponse>(`/comments/${postId}`);
-  return response.data;
-};
-
-export const createComment = async ({ postId, content }: { postId: string, content: string }): Promise<any> => {
-  const response = await apiClient.post(`/comments/${postId}`, { content });
   return response.data;
 };
 
@@ -89,17 +83,6 @@ export const usePostComments = (postId: string) => {
   });
 };
 
-export const useCreateComment = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: createComment,
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ["comments", variables.postId] });
-      queryClient.invalidateQueries({ queryKey: ["blog-post", variables.postId] });
-    },
-  });
-};
-
 export const getBlogPostStats = async (): Promise<BlogPostStatsResponse> => {
   const response = await apiClient.get<BlogPostStatsResponse>(
     "/member-dashboard/posts-dashboard"
@@ -143,59 +126,5 @@ export const useSubmissions = () => {
     queryKey: ["blog-submissions"],
     queryFn: fetchSubmissions,
     staleTime: 1 * 60 * 1000,
-  });
-};
-
-export const deletePublication = async (postId: string): Promise<any> => {
-  const response = await apiClient.delete(`/blogposts/${postId}`);
-  return response.data;
-};
-
-export const useDeletePublication = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: deletePublication,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["my-publications"] });
-      queryClient.invalidateQueries({ queryKey: ["blog-submissions"] });
-      queryClient.invalidateQueries({ queryKey: ["blog-posts"] });
-    },
-  });
-};
-
-export const updateSubmissionStatus = async ({ postId, status, reason }: { postId: string, status: string, reason?: string }): Promise<any> => {
-  const response = await apiClient.patch(`/blogposts/submissions/${postId}`, { status, reason });
-  return response.data;
-};
-
-export const useUpdateSubmissionStatus = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: updateSubmissionStatus,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blog-submissions"] });
-      queryClient.invalidateQueries({ queryKey: ["blog-posts"] });
-    },
-  });
-};
-
-export const createBlogPost = async (payload: FormData): Promise<CreateBlogPostResponse> => {
-  const response = await apiClient.post<CreateBlogPostResponse>("/blogposts", payload, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return response.data;
-};
-
-export const useCreateBlogPost = () => {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: createBlogPost,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blog-submissions"] });
-      queryClient.invalidateQueries({ queryKey: ["blog-posts"] });
-      queryClient.invalidateQueries({ queryKey: ["my-publications"] });
-    },
   });
 };

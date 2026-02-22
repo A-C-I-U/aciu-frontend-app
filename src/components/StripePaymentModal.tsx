@@ -45,9 +45,9 @@ interface StripePaymentModalProps {
 
 // Your brand colors
 const BRAND_COLORS = {
-  green: "#00B686",        
-  greenDark: "#008F6B",    
-  greenLight: "#E6F7F2",   
+  green: "#00B686",
+  greenDark: "#008F6B",
+  greenLight: "#E6F7F2",
 };
 
 const modalStyle = {
@@ -62,6 +62,7 @@ const modalStyle = {
   p: 4,
   maxHeight: "90vh",
   overflowY: "auto",
+  overflow: "hidden",
 };
 
 // Payment Form Component using Stripe's PaymentElement
@@ -74,7 +75,7 @@ const StripePaymentForm: React.FC<{
   userName?: string;
   amount: number;
   currency: string;
-}> = ({  onSuccess, onError, onClose, userEmail, userName, amount, currency }) => {
+}> = ({ onSuccess, onError, onClose, userEmail, userName, amount, currency }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -151,19 +152,19 @@ const StripePaymentForm: React.FC<{
           <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: 600, color: "text.primary" }}>
             Payment Summary
           </Typography>
-          
+
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1.5 }}>
             <Typography color="text.secondary">Amount:</Typography>
             <Typography variant="h6" fontWeight={700} sx={{ color: BRAND_COLORS.green }}>
               {amount.toLocaleString()} {currency.toUpperCase()}
             </Typography>
           </Box>
-          
+
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1.5 }}>
             <Typography color="text.secondary">Description:</Typography>
             <Typography fontWeight={500}>Monthly Membership Dues</Typography>
           </Box>
-          
+
           {userName && (
             <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <Typography color="text.secondary">Name:</Typography>
@@ -191,10 +192,10 @@ const StripePaymentForm: React.FC<{
             }}
           >
             <Box sx={{ width: "100%" }}>
-              <PaymentElement 
+              <PaymentElement
                 options={{
                   layout: {
-                    type: 'tabs', 
+                    type: 'tabs',
                     defaultCollapsed: false,
                     radios: false,
                     spacedAccordionItems: true,
@@ -233,8 +234,8 @@ const StripePaymentForm: React.FC<{
         </Box>
 
         {errorMessage && (
-          <Alert 
-            severity="error" 
+          <Alert
+            severity="error"
             icon={<ErrorIcon />}
             onClose={() => setErrorMessage(null)}
             sx={{ mt: 1 }}
@@ -268,7 +269,7 @@ const StripePaymentForm: React.FC<{
             fullWidth
             sx={{
               bgcolor: BRAND_COLORS.green,
-              "&:hover": { 
+              "&:hover": {
                 bgcolor: BRAND_COLORS.greenDark,
               },
               "&.Mui-disabled": {
@@ -310,7 +311,7 @@ export const StripePaymentModal: React.FC<StripePaymentModalProps> = ({
     setTimeout(() => {
       onClose();
       // You can refresh data or navigate as needed
-    //   window.location.reload();
+      //   window.location.reload();
     }, 1500);
   };
 
@@ -347,8 +348,8 @@ export const StripePaymentModal: React.FC<StripePaymentModalProps> = ({
               Complete your payment securely
             </Typography>
           </Box>
-          <IconButton 
-            onClick={onClose} 
+          <IconButton
+            onClick={onClose}
             size="small"
             sx={{
               "&:hover": {
@@ -414,8 +415,8 @@ export const StripePaymentModal: React.FC<StripePaymentModalProps> = ({
               </Typography>
 
               <Box sx={{ display: "flex", gap: 2, width: "100%" }}>
-                <Button 
-                  variant="outlined" 
+                <Button
+                  variant="outlined"
                   onClick={onClose}
                   fullWidth
                   sx={{
@@ -434,7 +435,7 @@ export const StripePaymentModal: React.FC<StripePaymentModalProps> = ({
                     fullWidth
                     sx={{
                       bgcolor: BRAND_COLORS.green,
-                      "&:hover": { 
+                      "&:hover": {
                         bgcolor: BRAND_COLORS.greenDark,
                       },
                       fontWeight: 600,
@@ -485,7 +486,7 @@ export const StripePaymentModal: React.FC<StripePaymentModalProps> = ({
                 fullWidth
                 sx={{
                   bgcolor: BRAND_COLORS.green,
-                  "&:hover": { 
+                  "&:hover": {
                     bgcolor: BRAND_COLORS.greenDark,
                   },
                   fontWeight: 600,

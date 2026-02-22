@@ -19,7 +19,7 @@ export const EventItem = ({
     } = event;
 
     return (
-        <div className="flex flex-col gap-4 rounded-lg border border-aciu-dark-grey py-2.5 px-2 lg:px-3.5 h-full">
+        <div className="flex flex-col gap-4 rounded-lg border border-gray-200 py-2.5 px-2 lg:px-3.5 h-full">
             <span className="flex flex-col gap-3.5">
                 <img
                     src={img || "/images/event-placeholder.jpg"}
@@ -61,21 +61,21 @@ export const EventItem = ({
                         </span>
                     </span>
                     {(startTime || endTime) && (
-                    <>
-                        <span className="border-[1.69px] border-aciu-dark-grey h-4"></span>
-                        <span className="flex flex-col gap-2.5">
-                            <span className="text-xs font-montserrat text-aciu-dark-red leading-default">
-                                Event Time
+                        <>
+                            <span className="border-[1.69px] border-gray-200 h-4"></span>
+                            <span className="flex flex-col gap-2.5">
+                                <span className="text-xs font-montserrat text-aciu-dark-red leading-default">
+                                    Event Time
+                                </span>
+                                <span className="font-montserrat font-semibold text-xs text-aciu-darker-grey whitespace-nowrap leading-default">
+                                    {format(parse(startTime, "HH:mm", new Date()), "h:mm a")} -{" "}
+                                    {format(parse(endTime, "HH:mm", new Date()), "h:mm a")}
+                                </span>
                             </span>
-                            <span className="font-montserrat font-semibold text-xs text-aciu-darker-grey whitespace-nowrap leading-default">
-                                {format(parse(startTime, "HH:mm", new Date()), "h:mm a")} -{" "}
-                                {format(parse(endTime, "HH:mm", new Date()), "h:mm a")}
-                            </span>
-                        </span>
-                    </>
-                )}
-            </span>
-        </div>
+                        </>
+                    )}
+                </span>
+            </div>
             <NavLink
                 to={`/events/${id}`}
                 className="border border-aciu-red hover:bg-aciu-green-light-hover transition-colors rounded-lg max-w-fit flex items-center gap-2 px-5 py-3 mt-auto"
@@ -92,4 +92,5 @@ export const EventItem = ({
                 />
             </NavLink>
         </div>
-    )}
+    )
+}

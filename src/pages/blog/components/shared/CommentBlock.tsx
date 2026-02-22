@@ -1,7 +1,7 @@
 import type { Comment } from "@/services/types/blogs";
 import { Divider, Skeleton } from "@mui/material";
 import { Field, Form, Formik, type FormikHelpers } from "formik";
-import { useCreateComment } from "@/services/hooks/blogs";
+import { useCreateComment } from "@/services/mutations/blogs";
 import { formatDate } from "@/utils/helpers";
 
 

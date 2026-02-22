@@ -2,7 +2,7 @@ import { MarkIcon } from "@/components/Icons";
 import { SuccessDialog } from "@/components/SuccessDialog";
 import type { DialogFuncProps } from "@/utils/types";
 import { useNavigate } from "react-router-dom";
-import { useUpdateSubmissionStatus } from "@/services/hooks/blogs";
+import { useUpdateSubmissionStatus } from "@/services/mutations/blogs";
 import { Dialog, Button, CircularProgress } from "@mui/material";
 import { enqueueSnackbar } from "notistack";
 import { useState } from "react";

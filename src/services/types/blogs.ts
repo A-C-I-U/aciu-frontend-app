@@ -112,6 +112,7 @@ export interface CreateBlogPostPayload {
   tags: string[];
   displayImage?: File;
   displayImageAlt: string;
+  status?: string;
   visibility: string;
   featured?: boolean;
 }
