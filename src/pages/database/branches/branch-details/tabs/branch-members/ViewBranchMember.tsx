@@ -45,7 +45,7 @@ const branchMemberTabs = [
 
 export default function ViewBranchMember({
     open, onClose, id
-}: { 
+}: {
     open: boolean,
     onClose: () => void,
     id: string | null
@@ -62,24 +62,24 @@ export default function ViewBranchMember({
             <ScrollLock open={open} />
             <Dialog open={open} onClose={onClose} sx={defaultDialogSx}>
                 <button onClick={onClose} className="pt-4 flex justify-end px-3.75"><X size={24} /></button>
-                <div className="pt-2.5 px-3.75 md:px-7 flex flex-col gap-6 overflow-y-auto">
+                <div className="pt-2.5 px-3.75 md:px-7 flex flex-col gap-6 overflow-y-auto overflow-x-hidden">
                     <div className="flex flex-col gap-4">
-                         <div className="relative -mx-3.75 md:-mx-7">
-                                <div className="absolute top-1/2 left-0 right-0 h-px bg-aciu-dark-grey -translate-y-1/2" />
-                                
-                                <div className="relative z-10 px-3.75 md:px-7">
-                                    <Avatar 
-                                        src={DummyProfile} 
-                                        className="rounded-[4.8rem] w-21.25! h-21.25!"
-                                    />
-                                </div>
+                        <div className="relative -mx-3.75 md:-mx-7">
+                            <div className="absolute top-1/2 left-0 right-0 h-px bg-aciu-dark-grey -translate-y-1/2" />
+
+                            <div className="relative z-10 px-3.75 md:px-7">
+                                <Avatar
+                                    src={DummyProfile}
+                                    className="rounded-[4.8rem] w-21.25! h-21.25!"
+                                />
                             </div>
+                        </div>
                         <div className="flex flex-col gap-5">
                             <div className="flex flex-col gap-2">
                                 <p className="font-semibold text-aciu-border-grey">
                                     {fullName}
                                 </p>
-                                <StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} /> 
+                                <StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />
                             </div>
                             <div className="hidden md:grid grid-cols-3 gap-8 items-center max-w-fit">
                                 <div className="flex items-center gap-8">
@@ -114,7 +114,7 @@ export default function ViewBranchMember({
                                 </button>
                             </>
                         }
-                        
+
                     </div>
 
                     <div className="flex flex-col mb-7.5">
@@ -123,11 +123,10 @@ export default function ViewBranchMember({
                                 <button
                                     key={tab.key}
                                     onClick={() => setActiveTab(tab)}
-                                    className={`${
-                                        activeTab?.key === tab.key
-                                        ? "text-aciu-red font-semibold"
-                                        : "text-aciu-abriba font-medium pb-4"
-                                    } text-xs md:text-sm font-montserrat flex flex-col gap-2`}
+                                    className={`${activeTab?.key === tab.key
+                                            ? "text-aciu-red font-semibold"
+                                            : "text-aciu-abriba font-medium pb-4"
+                                        } text-xs md:text-sm font-montserrat flex flex-col gap-2`}
                                 >
                                     {tab.label}
                                     {activeTab?.key === tab.key && (
@@ -137,7 +136,7 @@ export default function ViewBranchMember({
                             ))}
                         </div>
                         <Divider orientation="horizontal" className="text-aciu-dark-grey" flexItem />
-                        <div className="mt-6 overflow-y-auto h-full">
+                        <div className="mt-6 overflow-y-auto overflow-x-hidden h-full">
                             <ActiveTabComponent branchMember={dummyBranchMember} />
                         </div>
                     </div>

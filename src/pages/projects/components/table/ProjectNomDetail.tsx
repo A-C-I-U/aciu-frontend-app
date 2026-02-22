@@ -137,7 +137,7 @@ const ProjectNomDetailContent = ({ data, projectId }: { data: ProjectNominationD
                 <div className="resources-modal-section flex flex-col h-full overflow-hidden">
                     <ShellHeader title="Image Preview" onClose={() => setShowPreview(false)} />
                     <Divider className="flex shrink-0" />
-                    <div className="flex-1 overflow-auto p-4 flex items-center justify-center bg-black/5">
+                    <div className="flex-1 overflow-y-auto overflow-y-hidden p-4 flex items-center justify-center bg-black/5">
                         <img
                             src={image}
                             alt="Project Preview"

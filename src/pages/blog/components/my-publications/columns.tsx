@@ -80,7 +80,11 @@ export const getColumns = (): ColumnDef<Publication>[] => [
       const navigate = useNavigate();
 
       const handleViewPost = () => {
-        navigate(`/blog/posts/${row.original.id}`)
+        if (row.original.status.toLowerCase() === "draft") {
+          navigate(`/blog/posts/${row.original.id}/edit`)
+        } else {
+          navigate(`/blog/posts/${row.original.id}`)
+        }
       }
 
       return (

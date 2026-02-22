@@ -104,7 +104,6 @@ export default function OngoingProjects() {
                             <ProjectCard
                                 key={project.id}
                                 project={project}
-                                userRole={user?.role}
                             />
                         ))}
 

@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@mui/material";
+import { Skeleton, useMediaQuery } from "@mui/material";
 import { useState } from "react";
 import { columns } from "./dues-breakdown/columns";
 import { donationColumns } from "./donations/columns";
@@ -45,8 +45,20 @@ export default function PaymentsTable({
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      <div className="flex flex-col gap-4">
+        {!isMedium ? (
+          <div className="flex flex-col gap-2">
+            {[1, 2, 3, 4, 5].map((item) => (
+              <Skeleton key={item} variant="rectangular" width="100%" height={50} className="rounded" />
+            ))}
+          </div>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2">
+            {[1, 2, 3, 4].map((item) => (
+              <Skeleton key={item} variant="rectangular" width="100%" height={150} className="rounded-lg" />
+            ))}
+          </div>
+        )}
       </div>
     );
   }

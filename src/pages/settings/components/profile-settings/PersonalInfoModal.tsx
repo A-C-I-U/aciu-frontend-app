@@ -70,7 +70,7 @@ export default function PersonalInfoModal({
                     <div className="flex justify-between items-center px-6 pt-5 lg:px-20 lg:pt-10.5">
                         <Skeleton variant="text" width={200} height={32} />
                     </div>
-                    <div className="flex-1 overflow-y-auto px-6 lg:px-20 pb-10">
+                    <div className="flex-1 overflow-y-auto overflow-y-hidden px-6 lg:px-20 pb-10">
                         <div className="flex flex-col gap-10">
                             {[...Array(6)].map((_, index) => (
                                 <div key={index} className="flex flex-col gap-2">
@@ -145,7 +145,7 @@ export default function PersonalInfoModal({
                         >
                             <X size={24} color="#3E3E3E" />
                         </button>
-                        <div className="flex-1 overflow-y-auto px-6 lg:px-20 pb-10">
+                        <div className="flex-1 overflow-y-auto overflow-y-hidden px-6 lg:px-20 pb-10">
                             <Form className="flex flex-col gap-10">
                                 <PersonalInfoForm allowEditContact={true} />
                             </Form>

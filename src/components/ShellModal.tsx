@@ -29,6 +29,7 @@ export default function ShellModal({
   const defaultDialogSx = {
     "& .MuiDialog-paper": {
       overflow: "hidden",
+      overflowY: "hidden",
       width: { xs: "92%", md: "38.25rem" },
       margin: "0 auto",
       borderRadius: "1.25rem",
@@ -42,6 +43,7 @@ export default function ShellModal({
 
   const defaultDrawerSx = {
     "& .MuiDrawer-paper": {
+      overflowY: "hidden",
       width: {
         md: "50%",
         lg: "40%",

@@ -23,7 +23,7 @@ export function SuccessDialog({
     icon,
     title,
     message,
-    className="",
+    className = "",
     primaryAction,
     secondaryAction
 }: SuccessDialogProps) {
@@ -34,22 +34,23 @@ export function SuccessDialog({
                 open={open}
                 onClose={onClose}
                 disableScrollLock
-                    sx={{
+                sx={{
                     "& .MuiDialog-paper": {
                         overflow: "hidden",
+                        overflowY: "hidden",
                         width: { xs: "92%", md: "31.25rem" },
                         margin: "0 auto",
                         borderRadius: "1.25rem",
                     },
                 }}
-                >
+            >
                 <div className="flex flex-col p-7.5 gap-5.5">
                     {icon}
                     <div className="flex flex-col gap-1">
                         <h1 className="success-modal-title leading-[130%] tracking-[5%]">{title}</h1>
                         <p className="text-aciu-neutral leading-[160%]">{message}</p>
                     </div>
-                    
+
                     <div className="flex items-center gap-5.5">
                         <button className={`btn btn-primary ${className}`} onClick={primaryAction.onClick}>
                             {primaryAction.label}
