@@ -7,11 +7,13 @@ import SectionHeader from "@/components/SectionHeader";
 import { useMediaQuery, Skeleton } from "@mui/material";
 import { useMeetingReports } from "@/services/hooks/resources";
 import { enqueueSnackbar } from "notistack";
+import { useUser } from "@/context/UserContext";
 
 export default function MeetingReportsPage() {
     const [query, setQuery] = useState("");
     const [openUpload, setOpenUpload] = useState(false);
     const isMedium = useMediaQuery("(max-width:1250px)");
+    const { user } = useUser();
     
     const { data: meetingReports, isLoading, error } = useMeetingReports();
             
@@ -50,12 +52,14 @@ export default function MeetingReportsPage() {
                             </button>
                         ]}
                     />
-                    <Skeleton 
-                        variant="rectangular" 
-                        width={160} 
-                        height={44}
-                        sx={{ borderRadius: '8px' }}
-                    />
+                    {!(user?.role === "member") &&
+                        <Skeleton 
+                            variant="rectangular" 
+                            width={160} 
+                            height={44}
+                            sx={{ borderRadius: '8px' }}
+                        />
+                    }
                 </div>
                 <div className="resource-grid">
                     {Array.from({ length: 6 }).map((_, index) => (
@@ -69,53 +73,60 @@ export default function MeetingReportsPage() {
     }
 
     return (
-        <div className="flex flex-col gap-4 lg:gap-8">
-            <div className="flex gap-4 items-center w-full">
-                <SectionHeader
-                    title="Union Reports & Congress Documents"
-                    onSearch={handleSearch}
-                    showSearch={isMedium ? false : true}
-                    actions={[
-                        <button className="section-action-button">
-                            Filter
-                            <Sort variant="Outline" color="#A4ACB9" size={20} />
-                        </button>
-                    ]}
-                />
-                <button
-                    className="btn btn-primary max-w-fit"
-                    onClick={() => setOpenUpload(true)}
-                >
-                    Upload Resource
-                </button>    
-            </div>
+        <>
+            <div className="flex flex-col gap-4 lg:gap-8">
+                <div className="flex gap-4 items-center w-full">
+                    <SectionHeader
+                        title="Union Reports & Congress Documents"
+                        onSearch={handleSearch}
+                        showSearch={isMedium ? false : true}
+                        actions={[
+                            <button className="section-action-button">
+                                Filter
+                                <Sort variant="Outline" color="#A4ACB9" size={20} />
+                            </button>
+                        ]}
+                    />
+                    {!(user?.role === "member") &&
+                        <button
+                            className="btn btn-primary max-w-fit text-base!"
+                            onClick={() => setOpenUpload(true)}
+                        >
+                            Upload Material
+                        </button> 
+                    }   
+                </div>
 
-            {meetingReports?.resources && meetingReports.resources.length > 0 ? (
-                filteredResources.length > 0 ? (
-                    <div className="resource-grid">
-                        {filteredResources.map((resource) => (
-                            <FileView
-                                key={resource.id}
-                                file={{
-                                    url: resource.file_url,
-                                    size: resource.file_size,
-                                    format: resource.file_format,
-                                    name: resource.file_name,
-                                }}
-                                name={resource.file_name}
-                                description={resource.file_description}
-                                resourceId={resource.id}
-                            />
-                        ))}
-                    </div>
+                {meetingReports?.resources && meetingReports.resources.length > 0 ? (
+                    filteredResources.length > 0 ? (
+                        <div className="resource-grid">
+                            {filteredResources.map((resource) => (
+                                <FileView
+                                    key={resource.id}
+                                    file={{
+                                        url: resource.file_url,
+                                        size: resource.file_size,
+                                        format: resource.file_format,
+                                        name: resource.file_name,
+                                    }}
+                                    name={resource.file_name}
+                                    description={resource.file_description}
+                                    resourceId={resource.id}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <EmptyState prompt={query} />
+                    )
                 ) : (
-                    <EmptyState prompt={query} />
-                )
-            ) : (
-                <EmptyState prompt="Union Reports and Congress Documents" />
-            )}
-            
-            <UploadResource open={openUpload} onClose={() => setOpenUpload(false)} />
-        </div>                    
+                    <EmptyState prompt="Union Reports and Congress Documents" />
+                )}
+            </div>  
+            <UploadResource 
+                open={openUpload} 
+                onClose={() => setOpenUpload(false)} 
+                type="meeting-reports"
+            />
+        </>                  
     )
 }

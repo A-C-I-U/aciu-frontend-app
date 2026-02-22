@@ -5,10 +5,11 @@ import { SuccessDialog } from "@/components/SuccessDialog";
 import { MarkIcon } from "@/components/Icons";
 import { useNavigate } from "react-router-dom";
 import ShellModal from "@/components/ShellModal";
+import type { UploadResourceType } from "@/services/types/resources";
 
 export default function UploadResource({
-    open, onClose
-}: DialogFuncProps) {
+    type, open, onClose
+}: DialogFuncProps & { type: UploadResourceType }) {
     const [openSuccessPrompt, setOpenSuccessPrompt] = useState(false)
     const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ export default function UploadResource({
                 onClose={onClose}
             >
                 <UploadResourceContent
+                    type={type}
                     onClose={onClose}
                     onSuccess={() => {
                         onClose();
@@ -30,12 +32,13 @@ export default function UploadResource({
                 open={openSuccessPrompt}
                 onClose={() => setOpenSuccessPrompt(false)}
                 icon={<MarkIcon />}
+                className="text-base!"
                 title="Resource Uploaded Successfully"
                 message="Your file has been added to the community library and is now accessible to eligible members."
                 primaryAction={{
                     label: "Go back to Resources",
                     onClick: () => {
-                        navigate('/resources')
+                        navigate(`/resources?tab=${type}`)
                         setOpenSuccessPrompt(false)
                     }
                 }}

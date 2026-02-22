@@ -4,8 +4,8 @@ import ResourceContent from "./ViewResourceContent";
 import { SuccessDialog } from "@/components/SuccessDialog";
 import { MarkIcon } from "@/components/Icons";
 import ShellModal from "@/components/ShellModal";
-import { useResourceById } from "@/services/hooks/resources"; // Import the hook
-import { CircularProgress, Box } from "@mui/material"; // Add loading component
+import { useResourceById } from "@/services/hooks/resources";
+import { CircularProgress, Box } from "@mui/material";
 
 interface ViewResourceProps extends FileViewDrawerProps {
     resourceId?: string;
@@ -18,7 +18,7 @@ export default function ViewResource({
 }: ViewResourceProps) {
     const [openEditSuccess, setOpenEditSuccess] = useState(false);
     
-    const { data: resource, isLoading, error } = useResourceById(resourceId!);
+    const { data, isLoading, error } = useResourceById(resourceId!);
 
     return (
         <>
@@ -42,7 +42,7 @@ export default function ViewResource({
                             </p>
                         </div>
                     </div>
-                ) : resource ? (
+                ) : data ? (
                     <ResourceContent
                         open={open}
                         onClose={onClose}
@@ -50,7 +50,7 @@ export default function ViewResource({
                             setOpenEditSuccess(true)
                             onClose()
                         }}
-                        resource={resource} 
+                        resource={data.resource} 
                     />
                 ) : (
                     <div className="flex items-center justify-center h-64">
