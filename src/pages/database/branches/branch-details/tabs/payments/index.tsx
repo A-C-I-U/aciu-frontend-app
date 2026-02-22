@@ -24,7 +24,7 @@ export default function BranchPaymentsTab() {
     const handleSearch = (q: string) => {
         setQuery(q)
     }
-    
+
     return (
         <div className="flex flex-col gap-6 px-4">
             <div className={`flex ${isMedium ? "items-start" : "items-center"} md:gap-4`}>
@@ -49,7 +49,7 @@ export default function BranchPaymentsTab() {
                         actionLabel="View Details"
                         onActionClick={() => handleViewClick(payment)}
                     />)}
-                />
+            />
             <ViewPayment
                 open={isViewOpen}
                 onClose={() => setViewOpen(false)}
@@ -63,7 +63,7 @@ const mockData = generateMockBranchPayments(20);
 const fields: FieldConfig<BranchPaymentsDataType>[] = [
     {
         label: "Amount Paid",
-        value: (p) => `N${(+p.amountPaid).toLocaleString()}`,
+        value: (p) => `N${(+p.amountPaidUsd).toLocaleString()}`,
     },
     {
         label: "Transaction ID",

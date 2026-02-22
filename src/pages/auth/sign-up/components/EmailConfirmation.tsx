@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function EmailConfirmation() {
     const [resendTimer, setResendTimer] = useState(0);
-    const RESEND_WAIT = 120;
+    const RESEND_WAIT = 60;
 
     useEffect(() => {
         if (resendTimer <= 0) return;
@@ -30,18 +30,17 @@ export default function EmailConfirmation() {
                 <p className="text-xs md:text-base font-medium text-aciu-dark-gray">
                     Didn't receive any OTP?
                 </p>
-                <button 
-                    className={`flex gap-2 items-center text-aciu-red font-coolvetica ${
-                        resendTimer > 0 ? '!cursor-not-allowed' : ''
-                    } text-xs md:text-base`}
+                <button
+                    className={`flex gap-2 items-center text-aciu-red font-coolvetica ${resendTimer > 0 ? '!cursor-not-allowed' : ''
+                        } text-xs md:text-base`}
                     onClick={handleResend}
                     disabled={resendTimer > 0}
                 >
-                    {resendTimer <= 0 && <RefreshCcw size={20}/>}
+                    {resendTimer <= 0 && <RefreshCcw size={20} />}
                     {resendTimer > 0 ? (
                         <span>
                             Resend in {Math.floor(resendTimer / 60)}:
-                             {String(resendTimer % 60).padStart(2, '0')}
+                            {String(resendTimer % 60).padStart(2, '0')}
                         </span>
                     ) : (
                         <span>Resend</span>

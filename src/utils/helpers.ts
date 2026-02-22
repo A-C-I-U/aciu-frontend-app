@@ -90,7 +90,7 @@ export function generateMockBranchPayments(
       type: "Dues",
       title: categories[Math.floor(Math.random() * categories.length)],
       date: date.toISOString(),
-      amountPaid: `${Math.floor(Math.random() * 100000)}`,
+      amountPaidUsd: `${Math.floor(Math.random() * 100000)}`,
       status: statuses[Math.floor(Math.random() * statuses.length)],
     };
   });

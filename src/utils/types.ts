@@ -26,7 +26,7 @@ export interface StepContentProps {
   subheader: React.ReactNode;
   initialValues: any;
   footer: () => React.ReactElement;
-  submit: () => void;
+  submit: (values: any, userId?: string) => void;
 }
 
 export interface OptionLabelProps {
@@ -514,7 +514,7 @@ export interface BranchPaymentsDataType {
   date: string,
   title: string,
   type: string,
-  amountPaid: string,
+  amountPaidUsd: string,
   status: string
 }
 
