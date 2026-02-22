@@ -164,7 +164,10 @@ export default function ResourceContent({
                                         <button
                                             className="btn btn-primary"
                                             type="button"
-                                            onClick={() => setMode("edit")}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                setMode("edit")
+                                            }}
                                         >
                                             Edit Resource
                                         </button>
