@@ -46,7 +46,7 @@ export default function ResourcesPage() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
-                    className="mx-5 mb-5 px-4 py-5 bg-white">
+                    className="mx-5 mb-5 px-4 py-5 bg-white min-h-[80dvh]">
                         {currentTab?.content}
                 </motion.div>
             </AnimatePresence>

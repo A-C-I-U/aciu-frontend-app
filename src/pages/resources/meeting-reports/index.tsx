@@ -39,21 +39,21 @@ export default function MeetingReportsPage() {
 
     if (isLoading) {
         return (
-            <div className="flex flex-col gap-4 lg:gap-8">
-                <div className="flex gap-4 items-center w-full">
+            <div className="flex flex-col gap-5 lg:gap-6">
+                <div className={`flex ${isMedium ? "flex-col items-start" : "items-center"} gap-4`}>
                     <SectionHeader
                         title="Union Reports & Congress Documents"
                         onSearch={handleSearch}
                         showSearch={isMedium ? false : true}
-                        actions={[
+                        actions={isMedium ? [
                             <button className="section-action-button">
                                 Filter
                                 <Sort variant="Outline" color="#A4ACB9" size={20} />
                             </button>
-                        ]}
+                        ]: []}
                     />
                     {!(user?.role === "member") &&
-                        <Skeleton 
+                        <Skeleton
                             variant="rectangular" 
                             width={160} 
                             height={44}
@@ -74,27 +74,35 @@ export default function MeetingReportsPage() {
 
     return (
         <>
-            <div className="flex flex-col gap-4 lg:gap-8">
-                <div className="flex gap-4 items-center w-full">
+            <div className="flex flex-col gap-5 lg:gap-6">
+                <div className={`flex ${isMedium ? "flex-col items-start" : "items-center"} gap-4`}>
                     <SectionHeader
                         title="Union Reports & Congress Documents"
                         onSearch={handleSearch}
                         showSearch={isMedium ? false : true}
-                        actions={[
+                        actions={!isMedium ? [
                             <button className="section-action-button">
                                 Filter
                                 <Sort variant="Outline" color="#A4ACB9" size={20} />
                             </button>
-                        ]}
+                        ]: []}
                     />
+
                     {!(user?.role === "member") &&
-                        <button
-                            className="btn btn-primary max-w-fit text-base!"
-                            onClick={() => setOpenUpload(true)}
-                        >
-                            Upload Material
-                        </button> 
+                        <div className="flex w-full justify-between mlg:w-fit mlg:justify-end items-center">
+                            <button
+                                className="btn btn-primary max-w-fit text-base!"
+                                onClick={() => setOpenUpload(true)}
+                            >
+                                Upload Material
+                            </button> 
+                            <button className="section-action-button mlg:hidden">
+                                Filter
+                                <Sort variant="Outline" color="#A4ACB9" size={20} />
+                            </button>
+                        </div>
                     }   
+                    
                 </div>
 
                 {meetingReports?.resources && meetingReports.resources.length > 0 ? (

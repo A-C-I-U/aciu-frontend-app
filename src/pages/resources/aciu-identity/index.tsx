@@ -40,26 +40,27 @@ export default function IdentityPage() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-4 lg:gap-8">
-        <div className="flex gap-4 justify-between items-center w-full">
+      <div className="flex flex-col gap-5 lg:gap-6">
+        <div className={`flex ${isMedium ? "flex-col items-start" : "items-center"} gap-4`}>
           <SectionHeader
             title="Our Voice. Our Symbols. Our Pride."
             onSearch={handleSearch}
             showSearch={isMedium ? false : true}
-            actions={[
+            actions={!isMedium ? [
                 <button className="section-action-button">
                     Filter
                     <Sort variant="Outline" color="#A4ACB9" size={20} />
                 </button>
-            ]}
+            ]: []}
           />
           {(user?.role === "national_admin") &&
-          <Skeleton
-            variant="rectangular" 
-            width={160} 
-            height={44}
-            sx={{ borderRadius: '8px' }}
-        />}
+              <Skeleton
+                variant="rectangular" 
+                width={160} 
+                height={44}
+                sx={{ borderRadius: '8px' }}
+              />
+            }
         </div>
         <div className="resource-grid">
           {Array.from({ length: 6 }).map((_, index) => (
@@ -74,26 +75,32 @@ export default function IdentityPage() {
 
   return (
     <>
-      <div className="flex flex-col gap-4 lg:gap-8">
-        <div className="flex gap-4 justify-between items-center w-full">
+      <div className="flex flex-col gap-5 lg:gap-6">
+        <div className={`flex ${isMedium ? "flex-col items-start" : "items-center"} gap-4`}>
           <SectionHeader
             title="Our Voice. Our Symbols. Our Pride."
             onSearch={handleSearch}
             showSearch={isMedium ? false : true}
-            actions={[
+            actions={!isMedium ? [
                 <button className="section-action-button">
                     Filter
                     <Sort variant="Outline" color="#A4ACB9" size={20} />
                 </button>
-            ]}
+            ] : []}
           />
           {(user?.role === "national_admin") &&
+            <div className="flex w-full justify-between mlg:w-fit mlg:justify-end items-center">
               <button
                   className="btn btn-primary max-w-fit text-base!"
                   onClick={() => setOpenUpload(true)}
               >
                   Upload Material
+              </button> 
+              <button className="section-action-button mlg:hidden">
+                  Filter
+                  <Sort variant="Outline" color="#A4ACB9" size={20} />
               </button>
+          </div>
           }   
         </div>
 
