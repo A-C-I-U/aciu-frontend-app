@@ -4,7 +4,10 @@ import type {
   SignUpResponse, SignUpPayload, LoginResponse, LoginPayload,
   RefreshTokenPayload, RefreshTokenResponse,
   VerifyOtpPayload, VerifyOtpResponse,
-  CompleteSignUpPayload, CompleteSignUpResponse
+  CompleteSignUpPayload, CompleteSignUpResponse,
+  ForgotPasswordPayload, ForgotPasswordResponse,
+  VerifyPasswordResetOtpPayload, VerifyPasswordResetOtpResponse,
+  ResetPasswordPayload, ResetPasswordResponse
 } from '@/services/types/auth';
 import type { User } from '@/utils/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -33,6 +36,33 @@ export const useCompleteSignUp = () => {
   return useMutation<CompleteSignUpResponse, Error, CompleteSignUpPayload>({
     mutationFn: async (payload: CompleteSignUpPayload) => {
       const response = await apiClient.post<CompleteSignUpResponse>('/auth/signupComplete', payload);
+      return response.data;
+    },
+  });
+};
+
+export const useForgotPassword = () => {
+  return useMutation<ForgotPasswordResponse, Error, ForgotPasswordPayload>({
+    mutationFn: async (payload: ForgotPasswordPayload) => {
+      const response = await apiClient.post<ForgotPasswordResponse>('/auth/forgot-password', payload);
+      return response.data;
+    },
+  });
+};
+
+export const useVerifyPasswordResetOtp = () => {
+  return useMutation<VerifyPasswordResetOtpResponse, Error, VerifyPasswordResetOtpPayload>({
+    mutationFn: async (payload: VerifyPasswordResetOtpPayload) => {
+      const response = await apiClient.post<VerifyPasswordResetOtpResponse>('/auth/verify-password-reset-otp', payload);
+      return response.data;
+    },
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation<ResetPasswordResponse, Error, ResetPasswordPayload>({
+    mutationFn: async (payload: ResetPasswordPayload) => {
+      const response = await apiClient.post<ResetPasswordResponse>('/auth/reset-password', payload);
       return response.data;
     },
   });

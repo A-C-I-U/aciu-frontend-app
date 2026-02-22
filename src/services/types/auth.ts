@@ -43,6 +43,35 @@ export interface CompleteSignUpResponse {
   message: string;
 }
 
+export interface ForgotPasswordPayload {
+  email: string;
+}
+
+export interface ForgotPasswordResponse {
+  message: string;
+}
+
+export interface VerifyPasswordResetOtpPayload {
+  email: string;
+  otp: string;
+}
+
+export interface VerifyPasswordResetOtpResponse {
+  message: string;
+}
+
+export interface ResetPasswordPayload {
+  email: string;
+  otp: string;
+  newPassword?: string;
+  confirmPassword?: string;
+  password?: string;
+}
+
+export interface ResetPasswordResponse {
+  message: string;
+}
+
 export interface TokenResponse {
   accessToken: string;
   refreshToken: string;

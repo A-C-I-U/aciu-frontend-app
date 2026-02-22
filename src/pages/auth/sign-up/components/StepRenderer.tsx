@@ -73,7 +73,7 @@ export const getSignUpContent = (
 
                     handleNext();
                 } catch (error: any) {
-                    const message = error.response?.data?.details?.[0] || error.response?.data?.message || "Sign up failed";
+                    const message = error.response?.data?.error || error.response?.data?.details?.[0] || error.response?.data?.message || "Sign up failed";
                     enqueueSnackbar(message, { variant: "error" });
                 }
             }
@@ -109,7 +109,7 @@ export const getSignUpContent = (
                     enqueueSnackbar("OTP verified successfully", { variant: "success" });
                     handleNext();
                 } catch (error: any) {
-                    const message = error.response?.data?.details?.[0] || error.response?.data?.message || "OTP verification failed";
+                    const message = error.response?.data?.error || error.response?.data?.details?.[0] || error.response?.data?.message || "OTP verification failed";
                     enqueueSnackbar(message, { variant: "error" });
                 }
             }
@@ -140,7 +140,7 @@ export const getSignUpContent = (
                 try {
                     let branchLocation = formValues.location;
                     if (branchLocation && branchLocation.toLowerCase() === 'nigeria') branchLocation = 'Nigeria';
-                    if (branchLocation && branchLocation.toLowerCase() === 'abroad') branchLocation = 'Abroad';
+                    if (branchLocation && (branchLocation.toLowerCase() === 'abroad' || branchLocation.toLowerCase() === 'diaspora')) branchLocation = 'Diaspora';
 
                     const allBranches = [...nigerianBranches, ...abroadBranches];
                     const mappedBranch = allBranches.find(b => b.value === formValues.branch)?.label || formValues.branch;
@@ -156,7 +156,7 @@ export const getSignUpContent = (
                     });
                     handleSubmit();
                 } catch (error: any) {
-                    const message = error.response?.data?.details?.[0] || error.response?.data?.message || "Sign up completion failed";
+                    const message = error.response?.data?.error || error.response?.data?.details?.[0] || error.response?.data?.message || "Sign up completion failed";
                     enqueueSnackbar(message, { variant: "error" });
                 }
             }

@@ -1,16 +1,18 @@
 import { Checkbox } from "@mui/material";
 import {
-    getCoreRowModel, 
-    getPaginationRowModel, 
-    useReactTable, 
-    type Row, 
+    getCoreRowModel,
+    getPaginationRowModel,
+    useReactTable,
+    type Row,
     type Table as TableType
- } from "@tanstack/react-table";
+} from "@tanstack/react-table";
 import { CheckIcon, MinusIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { CustomSnackbar } from "./CustomSnackbar";
 import DataTable from "@/components/DataTable";
 import DeletePost from "./DeletePost";
+import { useDeletePublication } from "@/services/mutations/blogs";
+import { enqueueSnackbar } from "notistack";
 
 export default function PostsTable(
     {
@@ -25,14 +27,16 @@ export default function PostsTable(
 ) {
     const [rowSelection, setRowSelection] = useState({});
     const [openDelete, setOpenDelete] = useState(false);
-    
+
+    const deleteMutation = useDeletePublication();
+
     const memoizedColumns = useMemo(() => {
         const base = [...columns];
 
         if (withSelection) {
             base.unshift({
                 id: "select",
-                header: ({ table }: { table: TableType<any>}) => (
+                header: ({ table }: { table: TableType<any> }) => (
                     <Checkbox
                         icon={
                             <span className="w-4 h-4 border border-aciu-gray-light rounded-[6px]" />
@@ -46,7 +50,7 @@ export default function PostsTable(
                         checkedIcon={
                             <span className="w-4 h-4 bg-aciu-green-normal 
                                 flex items-center justify-center rounded-[6px]">
-                                <CheckIcon size={10} color="white"/>
+                                <CheckIcon size={10} color="white" />
                             </span>
                         }
                         indeterminateIcon={
@@ -60,7 +64,7 @@ export default function PostsTable(
                         onChange={table.getToggleAllPageRowsSelectedHandler()}
                     />
                 ),
-                cell: ({ row }: { row: Row<any>}) => (
+                cell: ({ row }: { row: Row<any> }) => (
                     <Checkbox
                         icon={
                             <span className="w-4 h-4 border border-aciu-gray-light rounded-[6px]" />
@@ -68,7 +72,7 @@ export default function PostsTable(
                         checkedIcon={
                             <span className="w-4 h-4 bg-aciu-green-normal 
                                 flex items-center justify-center rounded-[6px]">
-                                <CheckIcon size={10} color="white"/>
+                                <CheckIcon size={10} color="white" />
                             </span>
                         }
                         checked={row.getIsSelected()}
@@ -76,7 +80,8 @@ export default function PostsTable(
                     />
                 )
             },
-        )}
+            )
+        }
 
         return base;
     }, [columns, withSelection]);
@@ -84,7 +89,6 @@ export default function PostsTable(
     const table = useReactTable({
         data,
         columns: memoizedColumns,
-        // 10 rows per page
         pageCount: Math.ceil(data.length / 10),
         getCoreRowModel: getCoreRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
@@ -94,17 +98,25 @@ export default function PostsTable(
         },
     })
 
-    // Retrieves number of selected rows
     const selectedRowCount = Object.keys(rowSelection).length;
 
     const handleSelectAll = () => {
         table.toggleAllRowsSelected();
     };
 
-    const handleDelete = () => {
-        // const idsToDelete = table.getSelectedRowModel().rows.map((r: Row<any>) => r.original.id)
-        setRowSelection({});
-        setOpenDelete(false);
+    const handleDelete = async () => {
+        const idsToDelete = table.getSelectedRowModel().rows.map((r: Row<any>) => r.original.id)
+
+        try {
+            await Promise.all(idsToDelete.map(id => deleteMutation.mutateAsync(id)));
+            enqueueSnackbar("Successfully deleted publication(s)", { variant: "success" });
+        } catch (error: any) {
+            const message = error.response?.data?.error || error.response?.data?.details?.[0] || error.response?.data?.message || "Failed to delete publication(s)";
+            enqueueSnackbar(message, { variant: "error" });
+        } finally {
+            setRowSelection({});
+            setOpenDelete(false);
+        }
     }
 
     const handleClearSelection = () => setRowSelection({});
@@ -123,7 +135,8 @@ export default function PostsTable(
             <DeletePost
                 open={openDelete}
                 onClose={() => setOpenDelete(false)}
-                handleDelete={handleDelete} 
+                handleDelete={handleDelete}
+                loading={deleteMutation.isPending}
             />
         </div>
     )
