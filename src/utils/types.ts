@@ -26,7 +26,7 @@ export interface StepContentProps {
   subheader: React.ReactNode;
   initialValues: any;
   footer: () => React.ReactElement;
-  submit: () => void;
+  submit: (values: any, userId?: string) => void;
 }
 
 export interface OptionLabelProps {

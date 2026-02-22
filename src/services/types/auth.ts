@@ -20,6 +20,29 @@ export interface ErrorResponse {
   statusCode?: number;
 }
 
+export interface VerifyOtpPayload {
+  email: string;
+  otp: string;
+}
+
+export interface VerifyOtpResponse {
+  message: string;
+}
+
+export interface CompleteSignUpPayload {
+  userId?: string;
+  gender: string;
+  branch: string;
+  branchLocation: string;
+  village: string;
+  ageGrade: string;
+  occupation: string;
+}
+
+export interface CompleteSignUpResponse {
+  message: string;
+}
+
 export interface TokenResponse {
   accessToken: string;
   refreshToken: string;
