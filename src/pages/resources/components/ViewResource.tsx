@@ -63,6 +63,7 @@ export default function ViewResource({
                 onClose={() => setOpenEditSuccess(false)}
                 title="Resource updated successfully"
                 message="Your file has been updated."
+                className="text-base!"
                 icon={<MarkIcon />}
                 primaryAction={{
                     label: "Go back to Resources",

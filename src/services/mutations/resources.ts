@@ -36,7 +36,7 @@ export const useUpdateResource = () => {
 
   return useMutation({
     mutationFn: async ({ id, fileName, fileDescription }: { id: string; fileName: string; fileDescription: string }) => {
-      const response = await apiClient.patch(`/resources/${id}`, { file_name: fileName, file_description: fileDescription });
+      const response = await apiClient.put(`/resources/${id}`, { file_name: fileName, file_description: fileDescription });
       return response.data;
     },
     onSuccess: (_, variables) => {
