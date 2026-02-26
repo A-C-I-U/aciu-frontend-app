@@ -135,7 +135,7 @@ export default function CommentBlock({
                 >
                     {({ isSubmitting, values }) => (
                         <Form>
-                            <div className="flex gap-3 items-stretch h-16.75">
+                            <div className="flex flex-col gap-4.5 md:flex-row md:gap-3 items-stretch md:h-16.75">
                                 <Field
                                     type="text"
                                     name="comment"
@@ -148,7 +148,7 @@ export default function CommentBlock({
                                 <button
                                     type="submit"
                                     disabled={isSubmitting || isPending || !values.comment.trim()}
-                                    className="rounded-2xs p-6 bg-aciu-green-light-hover w-48 leading-1
+                                    className="rounded-2xs p-6 bg-aciu-green-light-hover md:w-48 leading-1
                                     border border-aciu-green-normal text-aciu-green-normal font-coolvetica
                                     hover:bg-aciu-green-light-hover/70 transition-all disabled:opacity-50"
                                 >
