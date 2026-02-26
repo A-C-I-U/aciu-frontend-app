@@ -22,6 +22,7 @@ export default function PostViewHeader({
             <div className="flex items-center gap-2 mt-5">
                 <button
                     type="button"
+                    title="Go back to previous page"
                     onClick={onBack}
                     className="btn-back mt-0! mb-0! max-w-fit left-0"
                 >

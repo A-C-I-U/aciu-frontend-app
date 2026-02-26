@@ -47,7 +47,7 @@ if (postError || !post) {
 
 return (
   <div className="mb-8 mx-5 flex flex-col gap-8">
-    <PostViewHeader post={post} onBack={() => navigate("/blog")} />
+    <PostViewHeader post={post} onBack={() => navigate(-1)} />
     <div className="grid lg:grid-cols-[3fr_24rem] gap-4">
       <div className="grid grid-rows-1 gap-8">
         <div className="w-full bg-white rounded-2xs py-6.5 px-6.5 h-full">
