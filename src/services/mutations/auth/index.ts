@@ -1,6 +1,14 @@
 import { useUser } from '@/context/UserContext';
 import apiClient, { setAuthTokens, clearAuthTokens, setAuthToken } from '@/services';
-import type { SignUpResponse, SignUpPayload, LoginResponse, LoginPayload, RefreshTokenPayload, RefreshTokenResponse } from '@/services/types/auth';
+import type {
+  SignUpResponse, SignUpPayload, LoginResponse, LoginPayload,
+  RefreshTokenPayload, RefreshTokenResponse,
+  VerifyOtpPayload, VerifyOtpResponse,
+  CompleteSignUpPayload, CompleteSignUpResponse,
+  ForgotPasswordPayload, ForgotPasswordResponse,
+  VerifyPasswordResetOtpPayload, VerifyPasswordResetOtpResponse,
+  ResetPasswordPayload, ResetPasswordResponse
+} from '@/services/types/auth';
 import type { User } from '@/utils/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -9,7 +17,52 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 export const useSignUp = () => {
   return useMutation<SignUpResponse, Error, SignUpPayload>({
     mutationFn: async (payload: SignUpPayload) => {
-      const response = await apiClient.post<SignUpResponse>('/signup', payload);
+      const response = await apiClient.post<SignUpResponse>('/auth/signup', payload);
+      return response.data;
+    },
+  });
+};
+
+export const useVerifyOtp = () => {
+  return useMutation<VerifyOtpResponse, Error, VerifyOtpPayload>({
+    mutationFn: async (payload: VerifyOtpPayload) => {
+      const response = await apiClient.post<VerifyOtpResponse>('/auth/verify-otp', payload);
+      return response.data;
+    },
+  });
+};
+
+export const useCompleteSignUp = () => {
+  return useMutation<CompleteSignUpResponse, Error, CompleteSignUpPayload>({
+    mutationFn: async (payload: CompleteSignUpPayload) => {
+      const response = await apiClient.post<CompleteSignUpResponse>('/auth/signupComplete', payload);
+      return response.data;
+    },
+  });
+};
+
+export const useForgotPassword = () => {
+  return useMutation<ForgotPasswordResponse, Error, ForgotPasswordPayload>({
+    mutationFn: async (payload: ForgotPasswordPayload) => {
+      const response = await apiClient.post<ForgotPasswordResponse>('/auth/forgot-password', payload);
+      return response.data;
+    },
+  });
+};
+
+export const useVerifyPasswordResetOtp = () => {
+  return useMutation<VerifyPasswordResetOtpResponse, Error, VerifyPasswordResetOtpPayload>({
+    mutationFn: async (payload: VerifyPasswordResetOtpPayload) => {
+      const response = await apiClient.post<VerifyPasswordResetOtpResponse>('/auth/verify-password-reset-otp', payload);
+      return response.data;
+    },
+  });
+};
+
+export const useResetPassword = () => {
+  return useMutation<ResetPasswordResponse, Error, ResetPasswordPayload>({
+    mutationFn: async (payload: ResetPasswordPayload) => {
+      const response = await apiClient.post<ResetPasswordResponse>('/auth/reset-password', payload);
       return response.data;
     },
   });
@@ -46,7 +99,7 @@ export const useLogin = () => {
 
       setUser(mappedUser)
       localStorage.setItem("user", JSON.stringify(mappedUser));
-      
+
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },
     onError: (error) => {

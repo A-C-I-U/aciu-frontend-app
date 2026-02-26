@@ -31,7 +31,7 @@ export const columns = (setSelected: (p: BranchPaymentsDataType) => void): Colum
     {
         accessorKey: "amountPaid",
         header: "Amount Paid",
-        cell: ({ row }: { row: Row<BranchPaymentsDataType> }) => <span>{`N${(+row.original.amountPaid).toLocaleString()}`}</span>
+        cell: ({ row }: { row: Row<BranchPaymentsDataType> }) => <span>{`N${(+row.original.amountPaidUsd).toLocaleString()}`}</span>
     },
     {
         accessorKey: "status",
