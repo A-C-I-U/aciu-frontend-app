@@ -1,38 +1,28 @@
-import {
-  Buildings2,
-  Calendar2,
-  DollarSquare,
-  FolderOpen,
-  Hashtag,
-  Personalcard,
-  Setting,
-  I24Support,
-  Stickynote,
-  Activity
-} from "iconsax-react";
-import Dashboard from "../pages/dashboard";
-import MyPaymentsPage from "@/pages/my-payment";
-import EventsPage from "@/pages/events";
-import ProjectsPage from "@/pages/projects";
-import BlogPage from "@/pages/blog";
-import ResourcesPage from "@/pages/resources";
-import HelpAndSupportPage from "@/pages/help-and-support";
-import SettingsPage from "@/pages/settings";
-import EventDetails from "@/pages/events/components/EventDetails";
-import EventsList from "@/pages/events/components/EventsList";
-import BlogPostForm from "@/pages/blog/components/blog-posts/BlogPostForm";
-import ProjectDetailsPage from "@/pages/projects/components/details/ProjectDetailsPage";
-import SubmissionViewPage from "@/pages/blog/components/submissions/SubmissionViewPage";
-import PostViewPage from "@/pages/blog/components/blog-posts/PostViewPage";
-import AddEventPage from "@/pages/my-branch/components/tabs/branch-events/add-event";
-import Analytics from "@/pages/analytics";
-import Transactions from "@/pages/transactions";
-import Database from "@/pages/database";
-import BranchDetails from "@/pages/database/branches/branch-details";
+import { lazy, Suspense } from "react";
+import { Buildings2, Calendar2, DollarSquare, FolderOpen, Hashtag, Personalcard, Setting, I24Support, Stickynote, Activity } from "iconsax-react";
 import { RequireRole } from "./RequireRole";
 import { Outlet } from "react-router-dom";
-import BranchPage from "@/pages/branch";
 
+const Dashboard = lazy(() => import("../pages/dashboard"));
+const MyPaymentsPage = lazy(() => import("@/pages/my-payment"));
+const EventsPage = lazy(() => import("@/pages/events"));
+const EventsList = lazy(() => import("@/pages/events/components/EventsList"));
+const EventDetails = lazy(() => import("@/pages/events/components/EventDetails"));
+const AddEventPage = lazy(() => import("@/pages/my-branch/components/tabs/branch-events/add-event"));
+const ProjectsPage = lazy(() => import("@/pages/projects"));
+const ProjectDetailsPage = lazy(() => import("@/pages/projects/components/details/ProjectDetailsPage"));
+const BlogPage = lazy(() => import("@/pages/blog"));
+const BlogPostForm = lazy(() => import("@/pages/blog/components/blog-posts/BlogPostForm"));
+const PostViewPage = lazy(() => import("@/pages/blog/components/blog-posts/PostViewPage"));
+const SubmissionViewPage = lazy(() => import("@/pages/blog/components/submissions/SubmissionViewPage"));
+const ResourcesPage = lazy(() => import("@/pages/resources"));
+const HelpAndSupportPage = lazy(() => import("@/pages/help-and-support"));
+const SettingsPage = lazy(() => import("@/pages/settings"));
+const Analytics = lazy(() => import("@/pages/analytics"));
+const Transactions = lazy(() => import("@/pages/transactions"));
+const Database = lazy(() => import("@/pages/database"));
+const BranchDetails = lazy(() => import("@/pages/database/branches/branch-details"));
+const BranchPage = lazy(() => import("@/pages/branch"));
 
 export const protectedRoutes = [
   {
@@ -54,25 +44,18 @@ export const protectedRoutes = [
     element: <Transactions />,
     label: "Transactions",
     icon: DollarSquare,
-    roles: ["national_admin"]
+    roles: ["national_admin"],
   },
   {
     path: "/database",
     label: "ACIU Database",
     icon: Hashtag,
+    roles: ["national_admin"],
     children: [
-      {
-        index: true,
-        element: <Database />
-      },
-      {
-        path: "branch/:id",
-        element: <BranchDetails />
-      }
+      { index: true, element: <Database /> },
+      { path: "branch/:id", element: <BranchDetails /> },
     ],
-    roles: ["national_admin"]
   },
-
   {
     path: "/my-payments",
     element: <MyPaymentsPage />,
@@ -87,26 +70,23 @@ export const protectedRoutes = [
     icon: Calendar2,
     roles: ["member", "branch_admin", "national_admin"],
     children: [
-      {
-        index: true,
-        element: <EventsList />
-      },
-    ]
+      { index: true, element: <EventsList /> },
+    ],
   },
   {
     path: "/events/create",
     element: <AddEventPage returnRoute="events" />,
-    roles: ["national_admin"]
+    roles: ["national_admin"],
   },
   {
     path: "/events/:eventId/edit",
     element: <AddEventPage returnRoute="events" />,
-    roles: ["national_admin"]
+    roles: ["national_admin"],
   },
   {
     path: "/events/:id",
     element: <EventDetails />,
-    roles: ["member", "branch_admin", "national_admin"]
+    roles: ["member", "branch_admin", "national_admin"],
   },
   {
     path: "/projects",
@@ -114,15 +94,9 @@ export const protectedRoutes = [
     icon: Buildings2,
     roles: ["member", "branch_admin", "national_admin"],
     children: [
-      {
-        index: true,
-        element: <ProjectsPage />
-      },
-      {
-        path: ":id",
-        element: <ProjectDetailsPage />
-      }
-    ]
+      { index: true, element: <ProjectsPage /> },
+      { path: ":id", element: <ProjectDetailsPage /> },
+    ],
   },
   {
     path: "/my-branch",
@@ -130,16 +104,13 @@ export const protectedRoutes = [
     icon: Hashtag,
     roles: ["member", "branch_admin"],
     children: [
-      {
-        index: true,
-        element: <BranchPage />
-      }
-    ]
+      { index: true, element: <BranchPage /> },
+    ],
   },
   {
     path: "/my-branch/add-event",
     element: <AddEventPage returnRoute="my-branch" />,
-    roles: ["branch_admin"]
+    roles: ["branch_admin"],
   },
   {
     path: "/blog",
@@ -147,27 +118,12 @@ export const protectedRoutes = [
     icon: Stickynote,
     roles: ["member", "branch_admin", "national_admin"],
     children: [
-      {
-        index: true,
-        element: <BlogPage />
-      },
-      {
-        path: "create",
-        element: <BlogPostForm type="create" />
-      },
-      {
-        path: "posts/:id",
-        element: <PostViewPage />
-      },
-      {
-        path: "posts/:id/edit",
-        element: <BlogPostForm type="edit" />
-      },
-      {
-        path: "submissions/:id",
-        element: <SubmissionViewPage />
-      }
-    ]
+      { index: true, element: <BlogPage /> },
+      { path: "create", element: <BlogPostForm type="create" /> },
+      { path: "posts/:id", element: <PostViewPage /> },
+      { path: "posts/:id/edit", element: <BlogPostForm type="edit" /> },
+      { path: "submissions/:id", element: <SubmissionViewPage /> },
+    ],
   },
   {
     path: "/resources",
@@ -190,7 +146,6 @@ export const protectedRoutes = [
     icon: Setting,
     roles: ["member", "branch_admin", "national_admin"],
   },
-
 ];
 
 
@@ -200,7 +155,7 @@ const wrapWithRoleGuard = (route: any): any => {
     return {
       ...route,
       element: route.roles
-        ? <RequireRole roles={route.roles}>{route.element ?? <Outlet />}</RequireRole>
+        ? <RequireRole roles={route.roles}>{route.element ?? <Suspense fallback={null}><Outlet /></Suspense>}</RequireRole>
         : route.element,
       children: route.children.map(wrapWithRoleGuard),
     };

@@ -2,7 +2,6 @@
 import type { TabItem } from "@/utils/types"
 import BlogPosts from "./components/blog-posts"
 import { PageTitle } from "@/components/PageTitle";
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useUser } from "@/context/UserContext";
 import { StatsCard } from "../../components/StatsCard";
@@ -10,6 +9,7 @@ import MyPublications from "./components/my-publications";
 import Submissions from "./components/submissions";
 import {  Alert } from "@mui/material";
 import { useBlogPostStats } from "@/services/hooks/blogs";
+import { useSearchParams } from "react-router-dom";
 
 const blogsTabs: TabItem[] = [
     { 
@@ -59,13 +59,15 @@ const mapStatsToCards = (stats?: {
 };
 
 export default function BlogPage() {
-    const [activeTab, setActiveTab] = useState(blogsTabs[0]);
+    const [searchParams, setSearchParams] = useSearchParams();
     const { user } = useUser();
     
     const { data: statsData, isLoading, error } = useBlogPostStats();
     
+    const activeTab = searchParams.get("tab") ?? blogsTabs[0].key;
+    const currentTab: TabItem = blogsTabs.find(tab => tab.key === activeTab) ?? blogsTabs[0];
     const handleTabChange = (tab: TabItem) => {
-        setActiveTab(tab);
+        setSearchParams({ tab: tab.key });
     }
 
     const visibleTabs = user?.role === "member" ? 
@@ -80,15 +82,15 @@ export default function BlogPage() {
             <PageTitle
                 title="ACIU Blog" 
                 tabs={visibleTabs} 
-                activeTab={activeTab}
+                activeTab={currentTab}
                 onTabChange={handleTabChange} 
             />
 
             <AnimatePresence>
-                {(activeTab.key === "my-publications" || 
-                    activeTab.key === "submissions") && (
+                {(currentTab.key === "my-publications" || 
+                    currentTab.key === "submissions") && (
                     <motion.div
-                        key={activeTab.key}
+                        key={currentTab.key}
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
@@ -128,14 +130,14 @@ export default function BlogPage() {
                 )}
 
                 <motion.div
-                    key={activeTab.key + "-content"}
+                    key={currentTab.key + "-content"}
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="mx-5 px-4 py-5 bg-white"
                 >
-                    {activeTab.content}
+                    {currentTab.content}
                 </motion.div>
             </AnimatePresence>
         </div>

@@ -27,7 +27,7 @@ export default function PostViewer({ content }: { content: any }) {
   })
 
   return (
-    <div className="cursor-defaults">
+    <div className="cursor-defaults min-h-[80dvh]">
       <EditorContent editor={editor} />
     </div>
   )

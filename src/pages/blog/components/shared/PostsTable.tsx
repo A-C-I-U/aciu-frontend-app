@@ -35,7 +35,7 @@ export default function PostsTable(
                 header: ({ table }: { table: TableType<any>}) => (
                     <Checkbox
                         icon={
-                            <span className="w-4 h-4 border border-aciu-gray-light rounded-[6px]" />
+                            <span className="w-4 h-4 border border-aciu-gray-light rounded-md" />
                         }
                         sx={{
                             color: "none",
@@ -45,13 +45,13 @@ export default function PostsTable(
                         }}
                         checkedIcon={
                             <span className="w-4 h-4 bg-aciu-green-normal 
-                                flex items-center justify-center rounded-[6px]">
+                                flex items-center justify-center rounded-md">
                                 <CheckIcon size={10} color="white"/>
                             </span>
                         }
                         indeterminateIcon={
                             <span className="w-4 h-4 bg-aciu-green-normal 
-                                flex items-center justify-center rounded-[6px]">
+                                flex items-center justify-center rounded-md">
                                 <MinusIcon size={10} color="white" strokeWidth={3} />
                             </span>
                         }
@@ -63,11 +63,11 @@ export default function PostsTable(
                 cell: ({ row }: { row: Row<any>}) => (
                     <Checkbox
                         icon={
-                            <span className="w-4 h-4 border border-aciu-gray-light rounded-[6px]" />
+                            <span className="w-4 h-4 border border-aciu-gray-light rounded-md" />
                         }
                         checkedIcon={
                             <span className="w-4 h-4 bg-aciu-green-normal 
-                                flex items-center justify-center rounded-[6px]">
+                                flex items-center justify-center rounded-md">
                                 <CheckIcon size={10} color="white"/>
                             </span>
                         }
