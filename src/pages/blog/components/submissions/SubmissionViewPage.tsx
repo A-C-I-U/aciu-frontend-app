@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PostViewHeader from "../shared/PostViewHeader";
 import { useState } from "react";
 import ApprovePost from "./ApprovePost";
@@ -10,6 +10,7 @@ import { Skeleton, Alert } from "@mui/material";
 
 export default function SubmissionViewPage() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const [dialogType, setDialogType] = useState<"approve" | "reject" | null>(null);
     const { data, isLoading, error } = useBlogPostDetails(id || "");
@@ -50,7 +51,7 @@ export default function SubmissionViewPage() {
     return (
         <div className="my-8 mx-5 flex flex-col gap-8">
             <div className="flex flex-col gap-6 lg:flex-row lg:gap-0 lg:justify-between">
-                <PostViewHeader post={post} />
+                <PostViewHeader post={post} onBack={() => navigate("/blog?tab=submissions")}/>
                 <div className="flex gap-4 items-center">
                     <button
                         className="rounded-xl p-4 border border-red-50
@@ -69,7 +70,7 @@ export default function SubmissionViewPage() {
                 </div>
             </div>
             <div className="grid lg:grid-cols-[3fr_24rem] gap-4">
-                <div className="w-full bg-white rounded-[.625rem] py-6.5 px-6.5">
+                <div className="w-full bg-white rounded-2xs py-6.5 px-6.5">
                     <PostViewer content={post.contentHtml || ""} />
                 </div>
                 <PostMetadataForm post={post} />

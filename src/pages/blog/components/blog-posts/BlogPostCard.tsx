@@ -28,7 +28,7 @@ export const BlogPostCard = ({ post }: { post: BlogPost }) => {
       onClick={() => navigate(`/blog/posts/${id}`)}
       className="
         border border-aciu-light-grey 
-        rounded-[.625rem] py-2 px-2
+        rounded-2xs py-2 px-2
         flex flex-col gap-4 w-full
         hover:shadow-md transition-shadow cursor-pointer
       "
@@ -37,7 +37,7 @@ export const BlogPostCard = ({ post }: { post: BlogPost }) => {
         src={displayImage || ""}
         alt={displayImageAlt || title}
         loading="lazy"
-        className="w-full h-60 object-cover rounded-[.625rem]"
+        className="w-full h-60 object-cover rounded-2xs"
       />
 
       <div className="flex flex-col gap-4">

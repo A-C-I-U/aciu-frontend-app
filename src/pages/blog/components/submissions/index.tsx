@@ -1,31 +1,8 @@
 import { useState } from "react";
-import { ArrowDown2, Sort } from "iconsax-react";
 import SubmissionsTable from "./SubmissionsTable";
 import SectionHeader from "@/components/SectionHeader";
 import { useMediaQuery } from "@mui/material";
-
-const sectionActions = [
-    <button
-        key="filter"
-        className="flex gap-2.5 items-center p-2.5 
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
-    >
-        Filter
-        <Sort variant="Outline" color="#A4ACB9" size={20} />
-    </button>,
-    <button
-        key="year"
-        className="flex gap-2.5 items-center p-2.5
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
-    >
-        2022
-        <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
-    </button>,
-]
+import { sectionActions } from "@/components/SectionActions";
 
 
 export default function Submissions() {

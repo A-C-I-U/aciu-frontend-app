@@ -52,7 +52,7 @@ const BlogFormSkeleton = () => (
         <div className="flex items-center mb-2">
             <Skeleton variant="rectangular" width={100} height={40} className="rounded-lg" />
         </div>
-        <div className="bg-white rounded-[.75rem] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 shadow-sm">
+        <div className="bg-white rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 shadow-sm">
             <div className="flex flex-col gap-2">
                 <Skeleton variant="text" width={200} height={32} />
                 <Skeleton variant="text" width={150} height={16} />
@@ -63,12 +63,12 @@ const BlogFormSkeleton = () => (
             </div>
         </div>
         <div className="grid lg:grid-cols-[1fr_24rem] gap-10">
-            <div className="bg-white rounded-[.75rem] p-6 shadow-sm flex flex-col gap-6">
+            <div className="bg-white rounded-xl p-6 shadow-sm flex flex-col gap-6">
                 <Skeleton variant="rectangular" width="100%" height={50} className="rounded-t-lg" />
                 <Skeleton variant="rectangular" width="100%" height={400} className="rounded-b-lg" />
             </div>
             <div className="flex flex-col gap-6">
-                <div className="bg-white rounded-[.75rem] p-6 shadow-sm flex flex-col gap-6">
+                <div className="bg-white rounded-xl p-6 shadow-sm flex flex-col gap-6">
                     <Skeleton variant="rectangular" width="100%" height={56} className="rounded" />
                     <Skeleton variant="rectangular" width="100%" height={100} className="rounded" />
                     <Skeleton variant="rectangular" width="100%" height={56} className="rounded" />
@@ -235,17 +235,6 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
 
     return (
         <div className="mt-4 flex flex-col gap-6">
-            <div className="flex items-center mb-2">
-                <button
-                    type="button"
-                    onClick={() => navigate("/blog")}
-                    className="btn-back"
-                >
-                    <ArrowLeft2 size={18} color="#898483" />
-                    <span className="ml-3 hidden lg:inline-block"> Back</span>
-                </button>
-            </div>
-
             <Formik
                 initialValues={formInitialValues}
                 validationSchema={validationSchema}
@@ -282,11 +271,22 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
 
                     return (
                         <Form className="md:mx-5">
-                            <div className="bg-white rounded-[.75rem] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 shadow-sm">
+                            <div className="bg-white rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 shadow-sm">
                                 <div className="flex flex-col gap-1">
-                                    <h1 className="text-2xl font-bold text-[#3E3E3E] font-coolvetica">
-                                        {type !== "create" ? "Edit Your Post" : "Create Your Post"}
-                                    </h1>
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            type="button"
+                                            title="Go back to previous page"
+                                            onClick={() => navigate(-1)}
+                                            className="btn-back mt-0! mb-0! max-w-fit left-0"
+                                        >
+                                            <ArrowLeft2 size={18} color="#898483" />
+                                        </button>
+                                        <h1 className="text-2xl font-bold text-aciu-border-grey font-coolvetica">
+                                            {type !== "create" ? "Edit Your Post" : "Create Your Post"}
+                                        </h1>
+                                    </div>
+                                    
                                     <div className="flex items-center gap-3">
                                         <p className="text-xs text-gray-400 font-montserrat">
                                             Modified last on {lastSaved ? lastSaved.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "Today"}
@@ -334,9 +334,9 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
                             </div>
 
                             <div className="grid grid-cols-1 md:grid-cols-[1fr_400px] gap-6 items-start">
-                                <div className="rounded-[.625rem] bg-white min-h-screen self-start flex flex-col">
+                                <div className="rounded-2xs bg-white min-h-screen self-start flex flex-col">
                                     <EditorMenuBar editor={editor} />
-                                    <div className="flex-1 w-full overflow-y-auto min-h-[500px] px-8 py-6">
+                                    <div className="flex-1 w-full overflow-y-auto min-h-125 px-8 py-6">
                                         <EditorContent
                                             editor={editor}
                                             className="font-montserrat outline-none prose prose-lg max-w-none prose-headings:font-bold prose-p:text-[#3E3E3E]"
@@ -345,7 +345,7 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
                                 </div>
 
                                 <div className="flex flex-col gap-6 sticky top-4">
-                                    <div className="rounded-[.75rem] border border-gray-200 bg-white p-5 flex flex-col gap-6 shadow-sm">
+                                    <div className="rounded-xl border border-gray-200 bg-white p-5 flex flex-col gap-6 shadow-sm">
                                         <div className="flex flex-col gap-4">
                                             <div className="flex flex-col gap-2">
                                                 <div className="flex justify-between items-center">
@@ -370,7 +370,7 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
                                                     onBlur={handleBlur}
                                                     maxLength={100}
                                                     placeholder="Enter your post title"
-                                                    className="border border-gray-200 rounded-[.625rem] py-3 px-4 focus:border-aciu-green-normal focus:ring-1 focus:ring-aciu-green-normal outline-none text-sm font-montserrat placeholder:text-gray-400"
+                                                    className="border border-gray-200 rounded-2xs py-3 px-4 focus:border-aciu-green-normal focus:ring-1 focus:ring-aciu-green-normal outline-none text-sm font-montserrat placeholder:text-gray-400"
                                                 />
                                                 {touched.title && errors.title && (
                                                     <span className="text-red-500 text-[10px]">{errors.title as any}</span>
@@ -400,7 +400,7 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
                                                     onBlur={handleBlur}
                                                     maxLength={500}
                                                     placeholder="Write a short description for your post"
-                                                    className="border border-gray-200 rounded-[.625rem] py-3 px-4 focus:border-aciu-green-normal focus:ring-1 focus:ring-aciu-green-normal outline-none text-sm font-montserrat placeholder:text-gray-400 min-h-[120px] resize-none"
+                                                    className="border border-gray-200 rounded-2xs py-3 px-4 focus:border-aciu-green-normal focus:ring-1 focus:ring-aciu-green-normal outline-none text-sm font-montserrat placeholder:text-gray-400 min-h-30 resize-none"
                                                 />
                                                 {touched.description && errors.description && (
                                                     <span className="text-red-500 text-[10px]">{errors.description as any}</span>
@@ -418,7 +418,7 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
                                                 >
                                                     Post Tags <span className="text-aciu-green-normal">*</span>
                                                 </FormLabel>
-                                                <div className="flex flex-wrap gap-2 p-2 border border-gray-200 rounded-[.625rem] min-h-[44px]">
+                                                <div className="flex flex-wrap gap-2 p-2 border border-gray-200 rounded-2xs min-h-11">
                                                     {(typeof values.tags === 'string' ? values.tags.split(',').filter((t: any) => t.trim()) : values.tags).map((tag: any, index: any) => (
                                                         <span key={index} className="bg-aciu-cyan-light text-aciu-green-normal text-[10px] font-semibold px-2 py-1 rounded-md flex items-center gap-1.5">
                                                             {tag}
@@ -435,7 +435,7 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
                                                     ))}
                                                     <input
                                                         placeholder="Press 'return' to add tag"
-                                                        className="outline-none text-sm font-montserrat flex-1 min-w-[120px] placeholder:text-gray-400"
+                                                        className="outline-none text-sm font-montserrat flex-1 min-w-30 placeholder:text-gray-400"
                                                         onKeyDown={(e) => {
                                                             if (e.key === 'Enter') {
                                                                 e.preventDefault();
@@ -466,7 +466,7 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
                                                 </FormLabel>
                                                 <div className="cursor-pointer" onClick={() => inputRef.current?.click()}>
                                                     {!imagePreview ? (
-                                                        <div className="border border-dashed border-aciu-green-normal rounded-[12px] h-[160px] bg-aciu-cyan-light flex flex-col items-center justify-center gap-2">
+                                                        <div className="border border-dashed border-aciu-green-normal rounded-xl h-40 bg-aciu-cyan-light flex flex-col items-center justify-center gap-2">
                                                             <CloudIcon />
                                                             <p className="text-center text-[#3E3E3E] font-montserrat font-medium text-xs px-4">
                                                                 Drag & drop or <span className="text-aciu-green-normal">click to choose file</span>
@@ -474,7 +474,7 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
                                                         </div>
                                                     ) : (
                                                         <div className="flex flex-col gap-3">
-                                                            <img src={imagePreview} alt="Cover Preview" className="w-full h-[180px] object-cover rounded-xl" />
+                                                            <img src={imagePreview} alt="Cover Preview" className="w-full h-45 object-cover rounded-xl" />
                                                             <p className="text-aciu-green-normal font-semibold text-xs hover:underline decoration-2 underline-offset-4 cursor-pointer">
                                                                 Edit Cover Image
                                                             </p>
@@ -513,7 +513,7 @@ export default function BlogPostForm({ type = "create" }: { type: "create" | "ed
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     placeholder="Describe the image above"
-                                                    className="border border-gray-200 rounded-[.625rem] py-3 px-4 focus:border-aciu-green-normal focus:ring-1 focus:ring-aciu-green-normal outline-none text-sm font-montserrat placeholder:text-gray-400"
+                                                    className="border border-gray-200 rounded-2xs py-3 px-4 focus:border-aciu-green-normal focus:ring-1 focus:ring-aciu-green-normal outline-none text-sm font-montserrat placeholder:text-gray-400"
                                                 />
                                             </div>
 
