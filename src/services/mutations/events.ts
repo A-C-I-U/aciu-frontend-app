@@ -60,3 +60,21 @@ export const useSaveEvent = () => {
         },
     });
 };
+
+
+export const useRegisterEvent = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async ({ eventId }: { eventId: string}) => {
+            const response = await apiClient.post<{message: string}>(
+                `/events/${eventId}/register`
+            );
+            return response.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["events"] });
+            queryClient.invalidateQueries({ queryKey: ["/events/my-registrations"]})
+        }
+    })
+}
