@@ -69,15 +69,15 @@ export default function ForgotPasswordPage() {
                             validationSchema={forgotPasswordSchemas[step]}
                             onSubmit={stepContent[step].submit}
                         >
-                            {({ isSubmitting, isValid, values }) => {
+                            {({ isSubmitting, isValid, values: formikValues }) => {
                                 useEffect(() => {
-                                    setValues(values)
-                                }, [values]);
+                                    setValues(prev => ({ ...prev, ...formikValues }))
+                                }, [formikValues]);
 
                                 return (
                                     <Form>
                                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                                            <StepRenderer step={step} />
+                                            <StepRenderer step={step} email={values?.email} />
                                             <Button
                                                 sx={{
                                                     color: 'white',

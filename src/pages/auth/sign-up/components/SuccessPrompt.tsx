@@ -1,20 +1,23 @@
 import AuthCard from "@/components/AuthCard";
 import { Button, CircularProgress } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CheckIcon from '@mui/icons-material/Check';
 
 
-export default function SuccessPrompt() {
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
+interface SuccessPromptProps {
+    onContactAdmin: () => void;
+    onViewDetails: () => void;
+}
 
-    const proceedToLogin = () => {
-        setLoading(true);
+export default function SuccessPrompt({ onContactAdmin, onViewDetails }: SuccessPromptProps) {
+    const [loadingDetails, setLoadingDetails] = useState(false);
+
+    const handleViewDetails = () => {
+        setLoadingDetails(true);
         setTimeout(() => {
-            navigate('/');
-            setLoading(false);
-        }, 800);
+            onViewDetails();
+            setLoadingDetails(false);
+        }, 600);
     }
 
     return (
@@ -22,56 +25,88 @@ export default function SuccessPrompt() {
             optionalHeader={true}
             optionalCardHeader={
                 <div className="flex flex-col items-center gap-6">
-                    <CheckCircleIcon
-                        sx={{
-                            fontSize: 80,
-                            color: '#00B686'
-                        }}
-                    />
-                    <div className="flex flex-col items-center gap-1.5">
-                        <h1 className="font-coolvetica text-aciu-border-grey font-bold text-[2rem]">
-                            Registration Complete!
+                    {/* Layered Orange Icon */}
+                    <div className="relative flex items-center justify-center w-20 h-20 rounded-full bg-aciu-light-yellow">
+                        <div className="flex items-center justify-center w-12 h-12 rounded-full bg-aciu-orange-100">
+                            <CheckIcon sx={{ fontSize: 28, color: "white" }} />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col items-center gap-3 text-center">
+                        <h1 className="font-coolvetica text-aciu-border-grey font-bold text-xl md:text-[1.5rem] leading-[115%]">
+                            Your Membership is Pending Verification
                         </h1>
-                        <p className="font-montserrat text-aciu-neutral font-normal">
-                            Your account has been created. We’ll notify you once
-                            your membership is verified by your branch or admin.
+                        <p className="font-montserrat text-aciu-neutral font-normal text-[0.8rem] md:text-sm max-w-[95%] md:max-w-[90%] mx-auto">
+                            Thank you for signing up. Your account details have been submitted and are now awaiting review by your branch representatives.
                         </p>
                     </div>
                 </div>
             }
         >
-            <Button
-                sx={{
-                    color: 'white',
-                    fontSize: '.75rem',
-                    backgroundColor: '#00B686',
-                    borderRadius: '.75rem',
-                    padding: '1rem',
-                    boxShadow: '0px 1px 2px 0px #0D0D120A',
-                    textTransform: 'none',
-                    '&.Mui-disabled': {
-                        backgroundColor: '#e0e0e0',
-                        color: '#9e9e9e',
-                        opacity: 0.6,
-                    }
-                }}
-                className="flex gap-2 items-center w-full"
-                onClick={proceedToLogin}
-            >
-                <span className="font-coolvetica text-base">
-                    Go to Dashboard
-                </span>
-                {loading &&
-                    <span className="mt-1.5">
-                        <CircularProgress
-                            sx={{
-                                color: "white",
-                            }}
-                            size={12} />
-                    </span>
-                }
-            </Button>
+            <div className="flex flex-col gap-6">
+                {/* Action Buttons */}
+                <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4 w-full mt-2">
+                    <Button
+                        sx={{
+                            color: 'white',
+                            fontSize: '.875rem',
+                            backgroundColor: '#00B686',
+                            borderRadius: '.75rem',
+                            padding: '1rem',
+                            boxShadow: '0px 1px 2px 0px #0D0D120A',
+                            textTransform: 'none',
+                            width: '100%',
+                            fontWeight: 700,
+                            fontFamily: 'Coolvetica',
+                            '&:hover': {
+                                backgroundColor: '#00A479',
+                            }
+                        }}
+                        onClick={onContactAdmin}
+                    >
+                        Contact Admin
+                    </Button>
 
+                    <Button
+                        variant="outlined"
+                        sx={{
+                            color: '#00B686',
+                            fontSize: '.875rem',
+                            borderColor: '#00B686',
+                            borderRadius: '.75rem',
+                            padding: '1rem',
+                            textTransform: 'none',
+                            width: '100%',
+                            fontWeight: 700,
+                            fontFamily: 'Coolvetica',
+                            borderWidth: '1.5px',
+                            '&:hover': {
+                                borderColor: '#00A479',
+                                backgroundColor: 'rgba(0, 182, 134, 0.04)',
+                                borderWidth: '1.5px'
+                            }
+                        }}
+                        onClick={handleViewDetails}
+                        disabled={loadingDetails}
+                    >
+                        {loadingDetails ? <CircularProgress size={20} color="inherit" /> : "View my Details"}
+                    </Button>
+                </div>
+
+                {/* Divider and Alert Footer */}
+                <div className="flex flex-col gap-6 md:gap-8">
+                    <hr className="border-aciu-card-grey border-t w-full opacity-60 mt-1 md:mt-2" />
+                    
+                    <div className="flex items-center gap-2 md:gap-3 p-3 md:p-4 bg-aciu-cyan-light border border-aciu-green-light rounded-2xl">
+                        <div className="flex-shrink-0 bg-aciu-green-normal rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center">
+                            <span className="text-white font-bold text-[9px] md:text-[10px]">!</span>
+                        </div>
+                        <p className="font-montserrat text-aciu-border-grey text-[10px] md:text-sm font-medium leading-relaxed">
+                            Until your account is verified, you won't be able to access payments, events, projects, or community features.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </AuthCard>
     )
 }

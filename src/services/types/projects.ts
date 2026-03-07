@@ -136,7 +136,7 @@ export interface ProjectDonation {
 // }
 
 export interface DonationPayload {
-  amountUSD: string
+  amountNGN: string
   anonymous: boolean
   remarks: string
 }
@@ -223,3 +223,21 @@ export const createProjectSchemas = [
       .max(5, "You can upload up to 5 images")
   })
 ]
+
+export interface MonnifyPaymentData {
+  transactionReference: string
+  paymentReference: string
+  amount: number
+  customerEmail: string
+  metaData: {
+    userId: string
+    paymentFor: string
+    donationTargetType: string
+    donationTargetId: string
+    amountMajor: string
+    currency: string
+    anonymous: string
+    remarks: string
+    description: string
+  }
+}

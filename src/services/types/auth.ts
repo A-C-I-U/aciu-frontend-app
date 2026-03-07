@@ -109,7 +109,48 @@ export type User = {
   verificationNote: string | null;
   createdAt: string;
   updatedAt: string;
+  branchDetail?: {
+    id: string;
+    branchType: string;
+    branchCity: string;
+    branchCountry: string;
+    meetingLocation: string;
+    branchChairman: string;
+    chairmanEmail: string;
+    branchLogo: string | null;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+  branchExecutive?: {
+    id: string;
+    fullName: string;
+    email: string;
+    phone: string;
+    profilePhoto: string | null;
+    position: string;
+  } | null;
+  branchAdmin?: {
+    id: string;
+    fullName: string;
+    email: string;
+    phone: string;
+    profilePhoto: string | null;
+    role: string;
+  } | null;
+  president?: {
+    id: string;
+    fullName: string;
+    email: string;
+    phone: string;
+    profilePhoto: string | null;
+    position: string;
+  } | null;
 };
+
+export interface UserProfileResponse {
+  user: User;
+}
 
 export interface LoginResponse {
   token: {
@@ -123,4 +164,22 @@ export interface RefreshTokenPayload {
   refreshToken: string;
 }
 
+export interface UserProfilePayload {
+  email: string;
+}
 
+export interface ResendOtpPayload {
+  email: string;
+  purpose: "signup" | "password-reset" | string;
+}
+
+export interface ResendOtpResponse {
+  message: string;
+}
+export interface Admin {
+    id: string;
+    name: string;
+    role: string;
+    email: string;
+    phone: string;
+}

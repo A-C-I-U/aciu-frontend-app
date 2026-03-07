@@ -7,10 +7,20 @@ import type {
   CompleteSignUpPayload, CompleteSignUpResponse,
   ForgotPasswordPayload, ForgotPasswordResponse,
   VerifyPasswordResetOtpPayload, VerifyPasswordResetOtpResponse,
-  ResetPasswordPayload, ResetPasswordResponse
+  ResetPasswordPayload, ResetPasswordResponse,
+  ResendOtpPayload, ResendOtpResponse
 } from '@/services/types/auth';
 import type { User } from '@/utils/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+export const useResendOtp = () => {
+  return useMutation<ResendOtpResponse, Error, ResendOtpPayload>({
+    mutationFn: async (payload: ResendOtpPayload) => {
+      const response = await apiClient.post<ResendOtpResponse>('/auth/resend-otp', payload);
+      return response.data;
+    },
+  });
+};
 
 
 

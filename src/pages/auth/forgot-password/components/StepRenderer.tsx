@@ -13,12 +13,12 @@ import type {
 } from "@/services/types/auth";
 import type { EnqueueSnackbar } from "notistack";
 
-export default function StepRenderer({ step }: { step: number }) {
+export default function StepRenderer({ step, email }: { step: number; email?: string }) {
     switch (step) {
         case 0:
             return <ForgotPassword />;
         case 1:
-            return <EmailConfirmation />;
+            return <EmailConfirmation email={email} purpose="password-reset" />;
         case 2:
             return <CreatePassword />;
         default:
