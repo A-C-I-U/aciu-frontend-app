@@ -15,14 +15,14 @@ export default function BranchInfoCard({
     } = branchInfo || {};
 
     const branchInfoDetails = [
-        { title: "Meeting Location", content: meetingLocation || "N/A" },
-        { title: "Branch Chairman", content: branchChairman || "N/A" },
-        { title: "Branch Chairman Email", content: chairmanEmail || "N/A" },
+        { title: "Meeting Location", content: meetingLocation || "—" },
+        { title: "Branch Chairman", content: branchChairman || "—" },
+        { title: "Branch Chairman Email", content: chairmanEmail || "—" },
         { title: "Created at", content: createdOn ? new Date(createdOn).toLocaleDateString() : "N/A" }
     ]
 
     return (
-        <div className="bg-white rounded-[.625rem] py-6 px-5 flex flex-col gap-4 lg:gap-6">
+        <div className="bg-white rounded-2xs py-6 px-5 flex flex-col gap-4 lg:gap-6">
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between lg:items-center">
                 <div className="flex  items-center gap-4">
                     <BranchInitials branchName={branchName || ""} />

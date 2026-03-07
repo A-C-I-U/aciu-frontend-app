@@ -1,6 +1,6 @@
 import { ScrollLock } from "@/components/ScrollLock";
 import type { BranchMemberDataType } from "@/utils/types";
-import { Avatar, Dialog, Divider } from "@mui/material";
+import { Avatar, Dialog, Divider, Skeleton } from "@mui/material";
 import DummyProfile from "/images/avatar.png"
 import { StatusBadge } from "@/components/StatusBadge";
 import { branchMemberStatusMap } from "@/utils/helpers";
@@ -55,12 +55,12 @@ export default function ViewBranchMember({
 }) {
     if (!branchMember) return null;
 
-    const { fullName, verificationStatus, joinedOn, id } = branchMember;
+    const { fullName, verificationStatus, id } = branchMember;
     const { label, bgColor, dotColor, labelColor } = branchMemberStatusMap[verificationStatus];
     const [activeTab, setActiveTab] = useState(branchMemberTabs[0]);
     const ActiveTabComponent = activeTab.content;
 
-    const { data: overview } = useMemberOverview(id);
+    const { data: overview, isLoading: isOverviewLoading } = useMemberOverview(id);
     const { mutate: verifyMember, isPending: isVerifying } = useVerifyMember();
     const { mutate: rejectMember, isPending: isRejecting } = useRejectMember();
 
@@ -106,14 +106,14 @@ export default function ViewBranchMember({
                             </div>
                             <div className="hidden md:grid grid-cols-3 gap-8 items-center max-w-fit">
                                 <div className="flex items-center gap-8">
-                                    <MemberField title="Joined on" content={formatDate(joinedOn, "dd-MM-yyyy h:mm  aaaaa'm'")} />
+                                    <MemberField title="Joined on" content={isOverviewLoading ? <Skeleton width={92} height={21} sx={{ borderRadius: "2rem" }}/> : formatDate(overview?.joinedOn ?? "", "dd-MM-yyyy h:mm  aaaaa'm'")} />
                                     <span className="h-7 w-px bg-aciu-dark-grey" />
                                 </div>
                                 <div className="flex items-center gap-8">
-                                    <MemberField title="Verified on" content={overview?.verifiedOn} />
+                                    <MemberField title="Verified on" content={isOverviewLoading ? <Skeleton width={92} height={21} sx={{ borderRadius: "2rem" }}/> : overview?.verifiedOn} />
                                     <span className="h-7 w-px bg-aciu-dark-grey" />
                                 </div>
-                                <MemberField title="Verified by" content={overview?.verifiedBy} />
+                                <MemberField title="Verified by" content={isOverviewLoading ? <Skeleton width={92} height={21} sx={{ borderRadius: "2rem" }}/> : overview?.verifiedBy} />
                             </div>
                         </div>
                     </div>
