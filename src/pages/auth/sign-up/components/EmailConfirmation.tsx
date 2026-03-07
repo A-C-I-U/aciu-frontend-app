@@ -1,11 +1,19 @@
 import OtpInput from "@/components/OtpInput"
-import { Box } from "@mui/material"
+import { Box, CircularProgress } from "@mui/material"
 import { RefreshCcw } from "lucide-react"
 import { useEffect, useState } from "react";
+import { useResendOtp } from "@/services/mutations/auth";
+import { enqueueSnackbar } from "notistack";
 
-export default function EmailConfirmation() {
+interface EmailConfirmationProps {
+    email?: string;
+    purpose?: "signup" | "password-reset";
+}
+
+export default function EmailConfirmation({ email, purpose }: EmailConfirmationProps) {
     const [resendTimer, setResendTimer] = useState(0);
     const RESEND_WAIT = 60;
+    const { mutateAsync: resendOtp, isPending } = useResendOtp();
 
     useEffect(() => {
         if (resendTimer <= 0) return;
@@ -17,10 +25,17 @@ export default function EmailConfirmation() {
         return () => clearInterval(timer);
     }, [resendTimer]);
 
-    const handleResend = () => {
-        if (resendTimer > 0) return;
+    const handleResend = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (resendTimer > 0 || !email || !purpose) return;
 
-        setResendTimer(RESEND_WAIT);
+        try {
+            await resendOtp({ email, purpose });
+            enqueueSnackbar("OTP resent successfully", { variant: "success" });
+            setResendTimer(RESEND_WAIT);
+        } catch (error: any) {
+            enqueueSnackbar("Failed to send OTP", { variant: "error" });
+        }
     };
 
     return (
@@ -31,19 +46,24 @@ export default function EmailConfirmation() {
                     Didn't receive any OTP?
                 </p>
                 <button
-                    className={`flex gap-2 items-center text-aciu-red font-coolvetica ${resendTimer > 0 ? '!cursor-not-allowed' : ''
+                    type="button"
+                    className={`flex gap-2 items-center text-aciu-red font-coolvetica ${resendTimer > 0 || isPending ? '!cursor-not-allowed' : ''
                         } text-xs md:text-base`}
                     onClick={handleResend}
-                    disabled={resendTimer > 0}
+                    disabled={resendTimer > 0 || isPending}
                 >
-                    {resendTimer <= 0 && <RefreshCcw size={20} />}
+                    {isPending ? (
+                        <CircularProgress size={16} color="inherit" />
+                    ) : (
+                        resendTimer <= 0 && <RefreshCcw size={20} />
+                    )}
                     {resendTimer > 0 ? (
                         <span>
                             Resend in {Math.floor(resendTimer / 60)}:
                             {String(resendTimer % 60).padStart(2, '0')}
                         </span>
                     ) : (
-                        <span>Resend</span>
+                        <span>{isPending ? 'Resending...' : 'Resend'}</span>
                     )}
                 </button>
             </div>
