@@ -6,16 +6,24 @@ import { Box, Button, CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { forgotPasswordSchemas } from "@/utils/schemas";
 import SuccessPrompt from "./components/SuccessPrompt";
+import { useForgotPassword, useVerifyPasswordResetOtp, useResetPassword } from "@/services/mutations/auth";
+import { enqueueSnackbar } from "notistack";
+import type { ForgotPasswordValues } from "@/utils/types";
 
 
 const stepButtonTexts = ["Reset Password", "Verify", "Create new password"];
 
 export default function ForgotPasswordPage() {
     const [step, setStep] = useState(0);
-    const [loading, setLoading] = useState(false);
-    const [values, setValues] = useState<any>({});
+    const [values, setValues] = useState<ForgotPasswordValues | null>(null);
     const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
+
+    const forgotPasswordMutation = useForgotPassword();
+    const verifyOtpMutation = useVerifyPasswordResetOtp();
+    const resetPasswordMutation = useResetPassword();
+
+    const isLoading = forgotPasswordMutation.isPending || verifyOtpMutation.isPending || resetPasswordMutation.isPending;
 
 
     const handleGoBack = () => {
@@ -23,34 +31,30 @@ export default function ForgotPasswordPage() {
     }
 
     const handleNext = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-            setStep(step + 1);
-        }, 800)
+        setStep(step + 1);
     }
 
-    const handleSubmit = () => {
-        setLoading(true);
-        setTimeout(() => {
-            setLoading(false);
-            setSuccess(true);
-        }, 800);
+    const handleSubmitComplete = () => {
+        setSuccess(true);
     }
 
     const stepContent = getForgotPasswordContent(
-        values, 
-        navigate, 
-        handleNext, 
-        handleSubmit, 
-        handleGoBack
+        values,
+        navigate,
+        handleNext,
+        handleSubmitComplete,
+        handleGoBack,
+        forgotPasswordMutation,
+        verifyOtpMutation,
+        resetPasswordMutation,
+        enqueueSnackbar
     )
 
     return (
         <>
             {success ?
                 <SuccessPrompt />
-            :
+                :
                 <div className="flex flex-col gap-4 w-full">
                     <AuthCard
                         header={stepContent[step].header}
@@ -69,7 +73,7 @@ export default function ForgotPasswordPage() {
                                 useEffect(() => {
                                     setValues(values)
                                 }, [values]);
-                                
+
                                 return (
                                     <Form>
                                         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
@@ -96,9 +100,9 @@ export default function ForgotPasswordPage() {
                                                 <span className="font-coolvetica text-base">
                                                     {stepButtonTexts[step]}
                                                 </span>
-                                                {(isSubmitting || loading) &&
+                                                {(isSubmitting || isLoading) &&
                                                     <span className="mt-1.5">
-                                                        <CircularProgress 
+                                                        <CircularProgress
                                                             sx={{
                                                                 color: "white",
                                                             }}

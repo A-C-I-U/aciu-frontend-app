@@ -34,7 +34,6 @@ export default function BranchPaymentsTab() {
     const itemsPerPage = 4;
     const [page, setPage] = useState(1);
 
-    // Transform API data
     const tableData: BranchPaymentsDataType[] = useMemo(() =>
         payments?.map(p => ({
             id: p.id,
@@ -42,7 +41,7 @@ export default function BranchPaymentsTab() {
             date: "", // Not provided in list API
             title: p.transactionId,
             type: "Payment",
-            amountPaid: p.amountPaidNaira.toString(),
+            amountPaidUsd: p.amountPaidUsd.toString(),
             status: p.status as BranchPaymentsDataType["status"]
         })) || [],
         [payments]
@@ -174,7 +173,7 @@ export default function BranchPaymentsTab() {
 const fields: FieldConfig<BranchPaymentsDataType>[] = [
     {
         label: "Amount Paid",
-        value: (p) => `N${p.amountPaid}`
+        value: (p) => `N${p.amountPaidUsd}`
     },
     {
         label: "Transaction ID",

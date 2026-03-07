@@ -46,7 +46,8 @@ export interface BranchExecutivesResponse {
 export interface BranchPayment {
     id: string;
     transactionId: string;
-    amountPaidNaira: number;
+    amountPaidNaira?: number;
+    amountPaidUsd: number;
     status: string;
     user: {
         fullName: string;

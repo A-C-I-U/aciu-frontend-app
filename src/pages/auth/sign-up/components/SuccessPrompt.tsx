@@ -2,7 +2,8 @@ import AuthCard from "@/components/AuthCard";
 import { Button, CircularProgress } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MarkIcon from "/icons/mark-icon.svg";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 
 export default function SuccessPrompt() {
     const navigate = useNavigate();
@@ -20,17 +21,19 @@ export default function SuccessPrompt() {
         <AuthCard
             optionalHeader={true}
             optionalCardHeader={
-                 <div className="flex flex-col items-center gap-6">
-                    <img 
-                        src={MarkIcon}
-                        alt="Green colored background behind a white checkmark"
+                <div className="flex flex-col items-center gap-6">
+                    <CheckCircleIcon
+                        sx={{
+                            fontSize: 80,
+                            color: '#00B686'
+                        }}
                     />
                     <div className="flex flex-col items-center gap-1.5">
                         <h1 className="font-coolvetica text-aciu-border-grey font-bold text-[2rem]">
                             Registration Complete!
                         </h1>
                         <p className="font-montserrat text-aciu-neutral font-normal">
-                            Your account has been created. We’ll notify you once 
+                            Your account has been created. We’ll notify you once
                             your membership is verified by your branch or admin.
                         </p>
                     </div>
@@ -46,7 +49,7 @@ export default function SuccessPrompt() {
                     padding: '1rem',
                     boxShadow: '0px 1px 2px 0px #0D0D120A',
                     textTransform: 'none',
-                        '&.Mui-disabled': {
+                    '&.Mui-disabled': {
                         backgroundColor: '#e0e0e0',
                         color: '#9e9e9e',
                         opacity: 0.6,

@@ -1,37 +1,16 @@
-import { ArrowDown2, Sort } from "iconsax-react";
 import { useState } from "react";
 import FeaturedPosts from "./FeaturedPosts";
 import { BlogPostCard } from "./BlogPostCard";
 import SectionHeader from "@/components/SectionHeader";
 import { useAllBlogPosts } from "@/services/hooks/blogs";
 import { Alert, Skeleton } from "@mui/material";
+import { sectionActions } from "@/components/SectionActions";
 
-const sectionActions = [
-    <button
-        key="filter"
-        className="flex gap-2.5 items-center p-2.5 
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
-    >
-        Filter
-        <Sort variant="Outline" color="#A4ACB9" size={20} />
-    </button>,
-    <button
-        key="year"
-        className="flex gap-2.5 items-center p-2.5
-        text-sm text-grayscale-100 rounded-md 
-        font-montserrat font-medium min-h-12.5
-        border border-aciu-card-grey"
-    >
-        2022
-        <ArrowDown2 variant="Outline" color="#A4ACB9" size={14} />
-    </button>,
-]
+
 
 const BlogPostSkeleton = () => (
-    <div className="border border-aciu-light-grey rounded-[.625rem] py-2 px-2 flex flex-col gap-4 w-full">
-        <Skeleton variant="rectangular" className="w-full rounded-[.625rem]" height={240} />
+    <div className="border border-aciu-light-grey rounded-2xs py-2 px-2 flex flex-col gap-4 w-full">
+        <Skeleton variant="rectangular" className="w-full rounded-2xs" height={240} />
         <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
                 <Skeleton variant="text" width="60%" height={20} />

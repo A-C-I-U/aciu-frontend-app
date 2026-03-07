@@ -5,6 +5,7 @@ import { enqueueSnackbar } from "notistack";
 import { CheckCircleIcon } from "lucide-react";
 import { useRelatedBlogPosts } from "@/services/hooks/blogs";
 import { BlogPostCard } from "./BlogPostCard";
+import { BlogPostCardSkeleton } from "./Skeletons";
 
 export default function ShareSection({ title, url, postId }: {
     title: string,
@@ -33,7 +34,7 @@ export default function ShareSection({ title, url, postId }: {
     };
 
     return (
-        <div className="w-full h-fit bg-white rounded-[.625rem] py-5 px-4 flex flex-col gap-6">
+        <div className="w-full h-fit bg-white rounded-2xs py-5 px-4 flex flex-col gap-6">
             <div className="flex flex-col gap-4">
                 <h1 className="text-2xl">Share post</h1>
 
@@ -89,21 +90,29 @@ export default function ShareSection({ title, url, postId }: {
                 </div>
             </div>
 
-            {!isLoading && relatedPosts.length > 0 &&
+            {isLoading && (
                 <>
                     <Divider orientation="horizontal" flexItem />
-
-                    <h1 className="text-gray-900 text-2xl leading-8">
-                        Related blog posts
-                    </h1>
-
+                    <div className="h-8 w-48 rounded bg-gray-200 animate-pulse" />
                     <div className="flex flex-col gap-8">
-                        {relatedPosts?.slice(0, 3).map((post) => {
-                            return <BlogPostCard key={post.id} post={post} />;
-                        })}
+                        {Array.from({ length: 3 }).map((_, i) => (
+                            <BlogPostCardSkeleton key={i} />
+                        ))}
                     </div>
                 </>
-            }
+                )}
+
+                {!isLoading && relatedPosts.length > 0 && (
+                <>
+                    <Divider orientation="horizontal" flexItem />
+                    <h1 className="text-gray-900 text-2xl leading-8">Related blog posts</h1>
+                    <div className="flex flex-col gap-8">
+                        {relatedPosts.slice(0, 3).map((post) => (
+                            <BlogPostCard key={post.id} post={post} />
+                        ))}
+                    </div>
+                </>
+                )}
         </div>
     );
 }

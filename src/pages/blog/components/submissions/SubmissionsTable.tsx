@@ -1,4 +1,4 @@
-import { useMediaQuery, Skeleton, Alert } from "@mui/material";
+import { useMediaQuery, Alert } from "@mui/material";
 import { useMemo, useState } from "react";
 import { getColumns } from "./columns";
 import PostsTable from "../shared/PostsTable";
@@ -7,6 +7,7 @@ import { PaginationControls } from "../shared/PaginationControls";
 import ApprovePost from "./ApprovePost";
 import RejectPost from "./RejectPost";
 import { useSubmissions } from "@/services/hooks/blogs";
+import TableSkeleton from "@/components/TableSkeleton";
 
 export default function SubmissionsTable() {
     const isMedium = useMediaQuery('(max-width:1250px)')
@@ -36,11 +37,7 @@ export default function SubmissionsTable() {
 
     if (isLoading) {
         return (
-            <div className="flex flex-col gap-4">
-                {[...Array(5)].map((_, i) => (
-                    <Skeleton key={i} variant="rectangular" height={60} className="rounded-lg" />
-                ))}
-            </div>
+            <TableSkeleton />
         );
     }
 
