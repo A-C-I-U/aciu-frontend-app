@@ -102,7 +102,7 @@ apiClient.interceptors.response.use(
         // Refresh failed - clear tokens and redirect to login
         processQueue(refreshError, null);
         clearAuthTokens();
-        localStorage.removeItem("user");
+        sessionStorage.removeItem("user");
         window.location.href = '/login';
         return Promise.reject(refreshError);
       } finally {
@@ -119,7 +119,7 @@ apiClient.interceptors.response.use(
           // Unauthorized - clear tokens and redirect to login
           console.error('Unauthorized - clearing tokens');
           clearAuthTokens();
-          localStorage.removeItem("user");
+          sessionStorage.removeItem("user");
           window.location.href = '/login';
           break;    
         default:
@@ -137,29 +137,29 @@ apiClient.interceptors.response.use(
 
 // Enhanced token management functions
 export const setAuthTokens = (tokens: TokenResponse): void => {
-  localStorage.setItem(TOKEN_KEYS.ACCESS_TOKEN, tokens.accessToken);
-  localStorage.setItem(TOKEN_KEYS.REFRESH_TOKEN, tokens.refreshToken);
+  sessionStorage.setItem(TOKEN_KEYS.ACCESS_TOKEN, tokens.accessToken);
+  sessionStorage.setItem(TOKEN_KEYS.REFRESH_TOKEN, tokens.refreshToken);
 };
 
 export const setAuthToken = (token: string | null): void => {
   if (token) {
-    localStorage.setItem(TOKEN_KEYS.ACCESS_TOKEN, token);
+    sessionStorage.setItem(TOKEN_KEYS.ACCESS_TOKEN, token);
   } else {
-    localStorage.removeItem(TOKEN_KEYS.ACCESS_TOKEN);
+    sessionStorage.removeItem(TOKEN_KEYS.ACCESS_TOKEN);
   }
 };
 
 export const getAuthToken = (): string | null => {
-  return localStorage.getItem(TOKEN_KEYS.ACCESS_TOKEN);
+  return sessionStorage.getItem(TOKEN_KEYS.ACCESS_TOKEN);
 };
 
 export const getRefreshToken = (): string | null => {
-  return localStorage.getItem(TOKEN_KEYS.REFRESH_TOKEN);
+  return sessionStorage.getItem(TOKEN_KEYS.REFRESH_TOKEN);
 };
 
 export const clearAuthTokens = (): void => {
-  localStorage.removeItem(TOKEN_KEYS.ACCESS_TOKEN);
-  localStorage.removeItem(TOKEN_KEYS.REFRESH_TOKEN);
+  sessionStorage.removeItem(TOKEN_KEYS.ACCESS_TOKEN);
+  sessionStorage.removeItem(TOKEN_KEYS.REFRESH_TOKEN);
 };
 
 export default apiClient;

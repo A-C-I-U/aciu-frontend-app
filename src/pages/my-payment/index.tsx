@@ -57,13 +57,13 @@ export default function MyPaymentsPage() {
     ? [
         {
           title: "Total Contributions",
-          number: `${duesData.totalContributions.amount.toLocaleString()}`,
-          rateOfChange: duesData.totalContributions.growth || "0",
+          number: `${duesData.totalContributions.amount.toFixed(2).toLocaleString()}`,
+          rateOfChange: duesData.totalContributions.growth || "0.00",
           currency: "N",
         },
         {
           title: "Outstanding Balance",
-          number: `${duesData.outstandingBalance.amount.toLocaleString()}`,
+          number: `${duesData.outstandingBalance.amount.toFixed(2).toLocaleString()}`,
           rateOfChange: duesData.totalContributions.growth || "0",
           currency: "N",
         },
@@ -74,7 +74,7 @@ export default function MyPaymentsPage() {
     ? [
         {
           title: "My Total Donations",
-          number: `${donationsData.totalDonations.amount.toLocaleString()}`,
+          number: `${donationsData.totalDonations.amount.toFixed(2).toLocaleString()}`,
           rateOfChange: donationsData.totalDonations.growth || "0",
           currency: "N",
         },
@@ -194,7 +194,7 @@ export default function MyPaymentsPage() {
             {activeTab?.key === "dues-breakdown" && duesData && (
               <PaymentReminderCard
                 targetDate={nextMonth}
-                amount={duesData.nextMonthlyDue.amountUsd.toString()}
+                amount={duesData.nextMonthlyDue.amountNaira.toString()}
                 className="lg:h-39"
                 timeUntilDue={duesData.nextMonthlyDue.timeUntilDue}
               />
