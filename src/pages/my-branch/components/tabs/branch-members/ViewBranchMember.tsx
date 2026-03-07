@@ -106,7 +106,7 @@ export default function ViewBranchMember({
                             </div>
                             <div className="hidden md:grid grid-cols-3 gap-8 items-center max-w-fit">
                                 <div className="flex items-center gap-8">
-                                    <MemberField title="Joined on" content={isOverviewLoading ? <Skeleton width={92} height={21} sx={{ borderRadius: "2rem" }}/> : formatDate(overview?.joinedOn ?? "", "dd-MM-yyyy h:mm  aaaaa'm'")} />
+                                    <MemberField title="Joined on" content={isOverviewLoading ? <Skeleton width={92} height={21} sx={{ borderRadius: "2rem" }}/> : formatDate(overview?.joinedOn ?? "", "MMMM dd yyyy")} />
                                     <span className="h-7 w-px bg-aciu-dark-grey" />
                                 </div>
                                 <div className="flex items-center gap-8">
