@@ -11,6 +11,8 @@ import ShareEvent from "./ShareEvent";
 import DonateToEvent from "./DonateToEvent";
 import { useState } from "react";
 import PageDetailSkeleton from "@/components/PageDetailSkeleton";
+import { useRegisterEvent } from "@/services/mutations/events";
+import { Spinner } from "phosphor-react";
 
 export default function EventDetails() {
   const { id } = useParams();
@@ -21,6 +23,8 @@ export default function EventDetails() {
   const [showDonateEvent, setShowDonateEvent] = useState(false);
 
   const { data, isLoading, error } = useEventDetails(id!);
+  const { mutateAsync: registerEvent, isPending: isRegistrationPending } = useRegisterEvent();
+  
 
   if (error) {
     enqueueSnackbar(`Error loading event details: ${error.message}`, {
@@ -84,6 +88,16 @@ export default function EventDetails() {
   ];
 
   const eventDate = new Date(event.eventDate);
+
+  const handleRegisterEvent = async (id: string) => {
+    try {
+      const result = await registerEvent({ eventId: id });
+      enqueueSnackbar(result.message, { variant: "success" });
+    } catch (error: any) {
+      enqueueSnackbar(error?.response?.data?.message ?? "Failed to register for event", { variant: "error" });
+    }
+  };
+
   return (
     <>
       <div key={event.id} className="flex flex-col gap-6.25 mb-10">
@@ -102,7 +116,7 @@ export default function EventDetails() {
               src={event.coverImage || "/images/event-placeholder.jpg"}
               alt="Event Image"
               height={310}
-              className="rounded-2xs max-h-[19.375rem] min-h-[10.875rem] w-full lg:w-auto object-cover"
+              className="rounded-2xs max-h-77.5 min-h-43.5 w-full lg:w-auto object-cover"
               onError={(e) => {
                 e.currentTarget.src = "/images/event-placeholder.jpg";
               }}
@@ -170,13 +184,15 @@ export default function EventDetails() {
             {user?.role !== "national_admin" && (
               <div className="flex flex-col lg:flex-row gap-6 items-center justify-center w-full">
                 {event.enableRSVP && (
-                  <button className="btn-event btn-event-primary">
-                    Register for Event
+                  <button className="flex items-center justify-center btn-event btn-event-primary active:scale-[.95] min-w-49 duration-200" onClick={() => handleRegisterEvent(event.id)} disabled={isRegistrationPending}>
+                     {isRegistrationPending ?
+                      <Spinner size={16} className="text-white animate-spin"/> :
+                      "Register for Event" }
                   </button>
                 )}
                 {event.enableDonations && (
                   <button
-                    className="btn-event btn-event-secondary"
+                    className="btn-event btn-event-secondary min-w-49 transition-all duration-200"
                     onClick={() => setShowDonateEvent(true)}
                   >
                     Donate to event
@@ -224,12 +240,14 @@ export default function EventDetails() {
                 Edit Event
               </Link>
             ) : event.enableRSVP ? (
-              <button className="btn-event btn-event-primary">
-                Register for Event
+              <button className="btn-event btn-event-primary flex items-center justify-center active:scale-[.95] min-w-49 transition-all duration-200" onClick={() => handleRegisterEvent(event.id)} disabled={isRegistrationPending}>
+                {isRegistrationPending ?
+                <Spinner size={16} className="text-white animate-spin"/> :
+                "Register for Event" }
               </button>
             ) : null}
 
-            <button className="btn-event btn-event-secondary" onClick={() => setShowShareEvent(true)}>
+            <button className="btn-event btn-event-secondary min-w-49 transition-all duration-200" onClick={() => setShowShareEvent(true)}>
               Share event
             </button>
           </div>
