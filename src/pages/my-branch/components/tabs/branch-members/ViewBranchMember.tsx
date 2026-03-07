@@ -4,7 +4,7 @@ import { Avatar, Dialog, Divider } from "@mui/material";
 import DummyProfile from "/images/avatar.png"
 import { StatusBadge } from "@/components/StatusBadge";
 import { branchMemberStatusMap } from "@/utils/helpers";
-import { format } from "date-fns";
+import { formatDate } from "date-fns";
 import React, { useState } from "react";
 import ProfileOverviewTab from "./ProfileOverviewTab";
 import MemberPaymentTab from "./MemberPaymentTab";
@@ -88,14 +88,6 @@ export default function ViewBranchMember({
         });
     };
 
-    const getFormattedDate = (dateString?: string | null) => {
-        if (!dateString) return "N/A";
-        try {
-            return format(new Date(dateString), "dd-MM-yyyy h:mm aaaaa'm'");
-        } catch {
-            return "N/A";
-        }
-    };
 
     return (
         <>
@@ -104,7 +96,7 @@ export default function ViewBranchMember({
                 <button onClick={onClose} className="pt-4 flex justify-end px-3.75"><X size={24} /></button>
                 <div className="pt-15 px-3.75 md:px-7 flex flex-col gap-4 overflow-y-auto">
                     <div className="flex flex-col gap-4">
-                        <Avatar src={DummyProfile} className="rounded-[4.8rem] !w-21.25 !h-21.25" />
+                        <Avatar src={DummyProfile} className="rounded-[4.8rem] w-21.25! h-21.25!" />
                         <div className="flex flex-col gap-5">
                             <div className="flex flex-col gap-2">
                                 <p className="font-semibold text-aciu-border-grey">
@@ -112,12 +104,16 @@ export default function ViewBranchMember({
                                 </p>
                                 <StatusBadge label={label} labelColor={labelColor} bgColor={bgColor} dotColor={dotColor} />
                             </div>
-                            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
-                                <MemberField title="Joined on" content={getFormattedDate(joinedOn)} />
-                                <div className="hidden lg:block w-px h-7 bg-aciu-dark-grey opacity-20" />
-                                <MemberField title="Verified on" content={getFormattedDate(overview?.verifiedOn)} />
-                                <div className="hidden lg:block w-px h-7 bg-aciu-dark-grey opacity-20" />
-                                <MemberField title="Verified by" content={overview?.verifiedBy || "N/A"} />
+                            <div className="hidden md:grid grid-cols-3 gap-8 items-center max-w-fit">
+                                <div className="flex items-center gap-8">
+                                    <MemberField title="Joined on" content={formatDate(joinedOn, "dd-MM-yyyy h:mm  aaaaa'm'")} />
+                                    <span className="h-7 w-px bg-aciu-dark-grey" />
+                                </div>
+                                <div className="flex items-center gap-8">
+                                    <MemberField title="Verified on" content={overview?.verifiedOn} />
+                                    <span className="h-7 w-px bg-aciu-dark-grey" />
+                                </div>
+                                <MemberField title="Verified by" content={overview?.verifiedBy} />
                             </div>
                         </div>
                     </div>
@@ -192,7 +188,7 @@ export default function ViewBranchMember({
                         <h3 className="text-lg font-semibold text-aciu-border-grey">Reject Member</h3>
                         <p className="text-sm text-aciu-grey">Please provide a reason for rejecting this member's verification.</p>
                         <textarea
-                            className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-aciu-red min-h-[100px] text-sm"
+                            className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-aciu-red min-h-25 text-sm"
                             placeholder="Enter rejection reason..."
                             value={rejectionReason}
                             onChange={(e) => setRejectionReason(e.target.value)}

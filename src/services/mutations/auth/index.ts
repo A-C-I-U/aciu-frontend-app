@@ -45,7 +45,7 @@ export const useLogin = () => {
       };
 
       setUser(mappedUser)
-      localStorage.setItem("user", JSON.stringify(mappedUser));
+      sessionStorage.setItem("user", JSON.stringify(mappedUser));
       
       queryClient.invalidateQueries({ queryKey: ['user'] });
     },
@@ -69,7 +69,7 @@ export const useRefreshToken = () => {
     onError: (error) => {
       console.error('Token refresh failed:', error);
       clearAuthTokens();
-      localStorage.removeItem("user");
+      sessionStorage.removeItem("user");
       window.location.href = '/login';
     },
   });
@@ -77,14 +77,12 @@ export const useRefreshToken = () => {
 
 
 export const useLogout = () => {
-  const { setUser } = useUser();
   const queryClient = useQueryClient();
 
   return () => {
     clearAuthTokens();
-    setUser(null);
+    sessionStorage.removeItem("user");
     queryClient.clear();
-    localStorage.removeItem("user");
     window.location.href = '/login';
   };
 };

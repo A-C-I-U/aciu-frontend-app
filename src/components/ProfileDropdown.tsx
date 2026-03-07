@@ -7,6 +7,7 @@ import { ArrowRight2, CloseCircle, Logout } from "iconsax-react";
 import { protectedRoutes } from "@/routes/protectedRoutes";
 import { NavLink } from "react-router-dom";
 import { createElement, useEffect } from "react";
+import { useLogout } from "@/services/mutations/auth";
 
 interface ProfileDropdownProps {
     open: boolean,
@@ -17,6 +18,7 @@ interface ProfileDropdownProps {
 export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps) {
     const isMobile = useMediaQuery('(max-width:768px)');
     const { user } = useUser();
+    const logout = useLogout();
     const activeRole = user?.role || "member";
     const isAdmin = activeRole === "branch_admin" || activeRole === "national_admin";
     
@@ -25,6 +27,7 @@ export default function ProfileDropdown({ open, onClose }: ProfileDropdownProps)
     );
 
     const handleLogout = () => {
+        logout();
         onClose();
     }
 

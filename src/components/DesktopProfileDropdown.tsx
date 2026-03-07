@@ -5,6 +5,7 @@ import { ArrowDown2, Icon } from 'iconsax-react';
 import DummyProfile from "/images/avatar.png";
 import { I24Support, Setting } from "iconsax-react";
 import { LogOutIcon } from './Icons';
+import { useLogout } from '@/services/mutations/auth';
 
 const menuSx = {
     display: 'flex',
@@ -41,6 +42,7 @@ interface ProfileRoute {
 
 export default function DesktopProfileDropdown() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const logout = useLogout();
 
   const open = Boolean(anchorEl);
   const handleOpen = (event: React.MouseEvent<HTMLElement>) => setAnchorEl(event.currentTarget);
@@ -50,7 +52,11 @@ export default function DesktopProfileDropdown() {
     <>
         <button className="flex items-center gap-2.5" onClick={handleOpen}>
             <Avatar src={DummyProfile} className="rounded-[3.125rem] w-8 h-8" />
-            <ArrowDown2 size={18} color="#BFBFBF" className={open ? "rotate-180" : ""}/>
+            <ArrowDown2
+                size={18}
+                color="#BFBFBF"
+                className={`transition-transform duration-300 ease-in-out ${open ? "rotate-180" : "rotate-0"}`}
+            />
         </button>
 
       <Menu
@@ -84,7 +90,10 @@ export default function DesktopProfileDropdown() {
         ))}
         <MenuItem
             component={Button}
-            onClick={handleClose}
+            onClick={() => { 
+                logout();
+                handleClose();
+            }}
             sx={menuSx}
         >
             <LogOutIcon className="size-6" />
