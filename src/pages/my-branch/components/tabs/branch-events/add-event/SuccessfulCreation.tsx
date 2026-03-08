@@ -4,8 +4,8 @@ import type { DialogFuncProps } from "@/utils/types";
 import { useNavigate } from "react-router-dom";
 
 export default function SuccessfulEventCreation({
-    eventTitle, open, onClose
-}: DialogFuncProps & { eventTitle: string}) {
+    eventTitle, eventId, open, onClose
+}: DialogFuncProps & { eventTitle: string, eventId: string }) {
     const navigate = useNavigate();
 
     return (
@@ -13,7 +13,7 @@ export default function SuccessfulEventCreation({
             open={open}
             onClose={onClose}
             icon={<MarkIcon />}
-            title="Executive Successfully Assigned"
+            title="Event Created Successfully"
             message={(
                 <>Your event <span className="font-medium capitalize">"{eventTitle}"</span> is now live. Members can RSVP and support the event via their dashboard.</>
             )}
@@ -28,7 +28,7 @@ export default function SuccessfulEventCreation({
                 label: "View Event",
                 onClick: () => {
                     onClose();
-                    navigate(`/events/${1}`)
+                    navigate(`/events/${eventId}`)
                 }
             }}
         />

@@ -63,7 +63,7 @@ export default function BranchEventsTab() {
                     noTitle={!isMedium ? false : true}
                 />
                 <Link
-                    className="btn btn-primary max-w-fit !text-sm md:text-base!"
+                    className="btn btn-primary max-w-fit text-sm! md:text-base!"
                     to={`/my-branch/add-event`}
                 >
                     Add new Event

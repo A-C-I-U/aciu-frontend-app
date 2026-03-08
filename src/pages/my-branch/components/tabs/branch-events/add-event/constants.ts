@@ -22,7 +22,7 @@ export const initialValues = {
 export const stepSchemas = [
     object({
         eventTitle: string().required("Event title is required"),
-        eventDescription: string().required("Event description is required"),
+        eventDescription: string().min(10, "Description must be at least 10 characters").required("Event description is required"),
         eventType: string().required("Event type is required"),
         guestExpectation: number().typeError("Guest expectation must be a number").required("Guest expectation is required"),
         dressCode: string().required("Dress code is required"),

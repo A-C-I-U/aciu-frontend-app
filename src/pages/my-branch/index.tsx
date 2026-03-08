@@ -1,15 +1,22 @@
 import type { ExtendedTabItem } from "@/utils/types";
 import { useEffect, useState } from "react";
-import { myBranchTabs } from "./components/MyBranchTabs";
 import { useMediaQuery } from "@mui/material";
 import MyBranchMobileOverview from "./components/overview/Mobile";
 import MyBranchDesktopOverview from "./components/overview/Desktop";
-import { useLocation } from "react-router-dom";
-import SuccessfulEventCreation from "./components/tabs/branch-events/add-event/SuccessfulCreation";
+import { useLocation, useSearchParams } from "react-router-dom";
+import { myBranchTabs } from "./components/MyBranchTabs";
 
 export default function MyBranchPage() {
     const isMedium = useMediaQuery("(max-width: 1024px)");
-    const [activeTab, setActiveTab] = useState<ExtendedTabItem>(myBranchTabs[0])
+    const [searchParams, setSearchParams] = useSearchParams();
+    const activeTab = searchParams.get("tab") ?? myBranchTabs[0];
+    const currentTab: ExtendedTabItem =
+        myBranchTabs.find((tab) => tab.key === activeTab) ?? myBranchTabs[0];
+
+    const handleTabChange = (tab: ExtendedTabItem) => {
+    setSearchParams({ tab: tab.key });
+    };
+
     const [openEventsSuccessDialog, setEventsSuccessOpenDialog] = useState(false);
     const location = useLocation();
     const eventTitle = location.state?.eventTitle;
@@ -23,20 +30,11 @@ export default function MyBranchPage() {
     return (
         <>
             {isMedium ? (
-                <MyBranchMobileOverview activeTab={activeTab} setActiveTab={setActiveTab} />
+                <MyBranchMobileOverview activeTab={currentTab} setActiveTab={handleTabChange} />
             ) : (
-                <MyBranchDesktopOverview activeTab={activeTab} setActiveTab={setActiveTab} />
+                <MyBranchDesktopOverview activeTab={currentTab} setActiveTab={handleTabChange} />
             )}
-
-             {/* `SuccessfulEventCreation` dialog should be triggered immediately an event is created
-                * Possibly by backend query since it requires the title of the event just created and can not
-                * live within the add event page, it must be rendered here due to `useLocation`
-                */}
-            <SuccessfulEventCreation
-                eventTitle={eventTitle}
-                open={openEventsSuccessDialog}
-                onClose={() => setEventsSuccessOpenDialog(false)}
-            />
+            
         </>
     )
 }

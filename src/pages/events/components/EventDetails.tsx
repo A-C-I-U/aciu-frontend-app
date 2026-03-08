@@ -98,8 +98,8 @@ export default function EventDetails() {
     try {
       const result = await registerEvent({ eventId: id });
 
-      if (result.paymentRequired && result.paymentData?.paymentData) {
-        const { paymentReference, amount, customerEmail, transactionReference, metaData } = result.paymentData.paymentData;
+      if (result.paymentRequired && result.paymentData) {
+        const { paymentReference, amount, customerEmail, transactionReference, metaData } = result.paymentData;
         setRegistreeName(customerEmail);
         setMonnifyPaymentData({
           paymentReference: paymentReference,
@@ -116,15 +116,18 @@ export default function EventDetails() {
     }
   };
 
-  const handlePaymentSuccess = () => {
-    queryClient.invalidateQueries({ queryKey: [ "events" ]});
-    queryClient.invalidateQueries({ })
-  }
-
   const handlePaymentClose = () => {
-    setMonnifyPaymentData(null);
+    setTimeout(() => {
+      setMonnifyPaymentData(null);
+    }, 300);
   }
 
+  const handlePaymentSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: ["events"] });
+    setTimeout(() => {
+      setMonnifyPaymentData(null);
+    }, 300);
+  }
 
 
   return (

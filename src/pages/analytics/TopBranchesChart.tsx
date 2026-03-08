@@ -1,32 +1,5 @@
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Cell,
-  ResponsiveContainer,
-  LabelList,
-} from "recharts";
 import type { TopBranch } from "@/services/types/analytics";
 import { ChartEmptyState } from "@/components/ChartEmptyState";
-
-const CustomLabel = (props: any) => {
-  const { x, y, width, height, value } = props;
-  return (
-    <text
-      x={x + width + 10}
-      y={y + height / 2}
-      fill="#3E3E3E"
-      fontSize="14"
-      fontWeight="500"
-      textAnchor="start"
-      dominantBaseline="middle"
-      className="font-montserrat"
-    >
-      {value}
-    </text>
-  );
-};
 
 interface TopBranchesChartProps {
   data: TopBranch[];
@@ -37,46 +10,44 @@ export const TopBranchesChart = ({ data }: TopBranchesChartProps) => {
   const maxCount = Math.max(...(data || []).map(d => d.memberCount), 10);
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm h-full">
-      {/* Header */}
-      <div className="mb-6">
-        <h3 className="text-xl font-semibold text-gray-800 font-coolvetica mb-2">
-          Top Branches
-        </h3>
-        <p className="text-sm text-gray-500">
-          Branches with most registered members
-        </p>
+    <div className="bg-white rounded-lg shadow-sm h-full py-6">
+      <div className="px-6 pb-4">
+        <h3 className="text-xl font-semibold text-aciu-border-grey mb-2 leading-[1.2]">Top Branches</h3>
+        <p className="text-sm text-aciu-border-200 leading-6">Branches with most registered members</p>
       </div>
 
-      {/* Chart */}
-      <ResponsiveContainer width="100%" height={320}>
-        {isDataEmpty ? (
+      {isDataEmpty ? (
+        <div className="px-6 pb-6">
           <ChartEmptyState height={320} description="No branch data available to rank." />
-        ) : (
-          <BarChart
-            data={data}
-            layout="vertical"
-            margin={{ top: 10, right: 60, left: 10, bottom: 10 }}
-          >
-            <XAxis type="number" hide domain={[0, maxCount + 10]} />
-            <YAxis
-              type="category"
-              dataKey="branchName"
-              tick={{ fontSize: 14, fill: "#3E3E3E" }}
-              axisLine={false}
-              tickLine={false}
-              width={120}
-              className="font-montserrat"
-            />
-            <Bar dataKey="memberCount" radius={[0, 4, 4, 0]} barSize={14}>
-              {data.map((_entry, index) => (
-                <Cell key={`cell-${index}`} fill="#00B686" />
-              ))}
-              <LabelList dataKey="memberCount" content={CustomLabel} />
-            </Bar>
-          </BarChart>
-        )}
-      </ResponsiveContainer>
+        </div>
+      ) : (
+        <div className="flex flex-col gap-4">
+          {data.map((item, index) => {
+            const pct = (item.memberCount / maxCount) * 100;
+            return (
+              <div key={index} className="flex flex-col gap-2 px-6">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-[#141414] leading-[1.6]">
+                    {item.branchName}
+                  </span>
+                  <span className="text-sm text-[#141414] leading-[1.6]">
+                    {item.memberCount}
+                  </span>
+                </div>
+                <div className="w-full h-1.25 rounded-full bg-[#D9F4ED] overflow-hidden">
+                  <div
+                    className="h-full rounded-full transition-all duration-500"
+                    style={{
+                      width: `${pct}%`,
+                      background: '#00B686',
+                    }}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

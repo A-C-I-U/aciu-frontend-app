@@ -76,12 +76,12 @@ export const protectedRoutes = [
   },
   {
     path: "/events/create",
-    element: <AddEventPage returnRoute="events" />,
+    element: <AddEventPage />,
     roles: ["national_admin"],
   },
   {
     path: "/events/:eventId/edit",
-    element: <AddEventPage returnRoute="events" />,
+    element: <AddEventPage />,
     roles: ["national_admin"],
   },
   {
@@ -110,7 +110,7 @@ export const protectedRoutes = [
   },
   {
     path: "/my-branch/add-event",
-    element: <AddEventPage returnRoute="my-branch" />,
+    element: <AddEventPage />,
     roles: ["branch_admin"],
   },
   {

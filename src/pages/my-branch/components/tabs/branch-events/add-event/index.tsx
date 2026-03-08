@@ -15,12 +15,13 @@ import { enqueueSnackbar } from "notistack";
 import dayjs from "dayjs";
 import { CircularProgress } from "@mui/material";
 import { useQueryClient } from '@tanstack/react-query';
+import SuccessfulEventCreation from "./SuccessfulCreation";
 
-export default function AddEventPage({
-    returnRoute
-}: { returnRoute: string }) {
+export default function AddEventPage() {
     const [currentStep, setCurrentStep] = useState(1);
     const [isAdvancing, setIsAdvancing] = useState(false);
+    const [openEventsSuccessDialog, setEventsSuccessOpenDialog] = useState(false)
+    const [returnedEvent, setReturnedEvent] = useState<{ eventId: string, eventTitle: string }>()
     const { eventId } = useParams<{ eventId?: string }>();
     const { data } = useEventDetails(eventId ?? "");
     const saveEventMutation = useSaveEvent();
@@ -66,15 +67,16 @@ export default function AddEventPage({
             }
             enqueueSnackbar(result.message || (eventId ? "Event updated successfully" : "Event created successfully"),
                 { variant: "success" });
+            setEventsSuccessOpenDialog(true);
+            setReturnedEvent({
+                eventId: result.event.id,
+                eventTitle: result.event.title
+            });
             actions.setSubmitting(false);
 
-            const redirectUrl = branchId
-                ? `/database/branch/${branchId}?tab=branch-events`
-                : `/${returnRoute}`;
-
-            navigate(redirectUrl, {
-                state: { eventTitle: values.eventTitle }
-            });
+            if (branchId) {
+                navigate(`/database/branch/${branchId}?tab=branch-events`);
+            }
         } catch (error: any) {
             console.error("Event creation error:", error);
             enqueueSnackbar(error, {
@@ -104,81 +106,89 @@ export default function AddEventPage({
 
 
     return (
-        <Formik
-            initialValues={(eventId && eventValues) ? eventValues : initialValues}
-            validationSchema={stepSchemas[currentStep - 1]}
-            onSubmit={handleSubmit}
-            enableReinitialize
-        >
-            {({ isValid, isSubmitting, validateForm }) => {
-                return (
-                    <Form className="py-4 mx-5 flex flex-col gap-5.5">
-                        <div className="flex justify-between items-center">
-                            <button
-                                onClick={handleGoBack}
-                                type="button"
-                                className="btn bg-aciu-dashboard-background border border-aciu-dark-grey text-aciu-abriba max-w-fit"
-                            >
-                                <ArrowLeft size={20} color="#737373" />
-                                {currentStep === 1 ? "Back" : "Back"}
-                            </button>
-                            <div className="hidden lg:flex items-center gap-3.5">
-                                {steps.map((step, index) => (
-                                    <Step key={index} currentStep={currentStep} step={step} />
+        <>
+            <Formik
+                initialValues={(eventId && eventValues) ? eventValues : initialValues}
+                validationSchema={stepSchemas[currentStep - 1]}
+                onSubmit={handleSubmit}
+                enableReinitialize
+            >
+                {({ isValid, isSubmitting, validateForm }) => {
+                    return (
+                        <Form className="py-4 mx-5 flex flex-col gap-5.5">
+                            <div className="flex justify-between items-center">
+                                <button
+                                    onClick={handleGoBack}
+                                    type="button"
+                                    className="btn bg-aciu-dashboard-background border border-aciu-dark-grey text-aciu-abriba max-w-fit"
+                                >
+                                    <ArrowLeft size={20} color="#737373" />
+                                    {currentStep === 1 ? "Back" : "Back"}
+                                </button>
+                                <div className="hidden lg:flex items-center gap-3.5">
+                                    {steps.map((step, index) => (
+                                        <Step key={index} currentStep={currentStep} step={step} />
+                                    ))}
+                                </div>
+                                {!isAdvancing && (currentStep !== stepSchemas.length ? (
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary max-w-fit"
+                                        disabled={!isValid || isSubmitting}
+                                        onClick={async () => {
+                                            setIsAdvancing(true);
+                                            const errors = await validateForm();
+                                            if (Object.keys(errors).length === 0) {
+                                                setCurrentStep(step => step + 1);
+                                            }
+                                            setIsAdvancing(false);
+                                        }}
+                                    >
+                                        Next
+                                        <ArrowRight color="#fff" size={20} />
+                                    </button>
+                                ) : (
+                                    <button
+                                        type="submit"
+                                        className="max-w-fit btn btn-primary"
+                                        disabled={!isValid || isSubmitting}
+                                    >
+                                        {eventId ? "Update Event" : "Create Event"}
+                                        {saveEventMutation.isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
+                                        <ArrowRight color="#fff" size={20} />
+                                    </button>
                                 ))}
                             </div>
-                            {!isAdvancing && (currentStep !== stepSchemas.length ? (
-                                <button
-                                    type="button"
-                                    className="btn btn-primary max-w-fit"
-                                    disabled={!isValid || isSubmitting}
-                                    onClick={async () => {
-                                        setIsAdvancing(true);
-                                        const errors = await validateForm();
-                                        if (Object.keys(errors).length === 0) {
-                                            setCurrentStep(step => step + 1);
-                                        }
-                                        setIsAdvancing(false);
-                                    }}
-                                >
-                                    Next
-                                    <ArrowRight color="#fff" size={20} />
-                                </button>
-                            ) : (
-                                <button
-                                    type="submit"
-                                    className="max-w-fit btn btn-primary"
-                                    disabled={!isValid || isSubmitting}
-                                >
-                                    {eventId ? "Update Event" : "Create Event"}
-                                    {saveEventMutation.isPending && <CircularProgress sx={{ color: "white" }} size={12} />}
-                                    <ArrowRight color="#fff" size={20} />
-                                </button>
-                            ))}
-                        </div>
 
 
-                        <div className="bg-white rounded-2xs py-6 px-5 w-full md:w-148 mx-auto">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={currentStep}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    transition={{ duration: 0.4 }}
-                                >
-                                    {currentStep === 1 && <BasicDetailsForm />}
-                                    {currentStep === 2 && <DateTimeForm />}
-                                    {currentStep === 3 && <MediaForm />}
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
+                            <div className="bg-white rounded-2xs py-6 px-5 w-full md:w-148 mx-auto">
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={currentStep}
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        transition={{ duration: 0.4 }}
+                                    >
+                                        {currentStep === 1 && <BasicDetailsForm />}
+                                        {currentStep === 2 && <DateTimeForm />}
+                                        {currentStep === 3 && <MediaForm />}
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
 
-                    </Form>
-                )
-            }}
+                        </Form>
+                    )
+                }}
 
-        </Formik>
+            </Formik>
+            <SuccessfulEventCreation
+                eventTitle={returnedEvent?.eventTitle ?? ""}
+                eventId={returnedEvent?.eventId ?? ""}
+                open={openEventsSuccessDialog}
+                onClose={() => setEventsSuccessOpenDialog(false)}
+            />
+        </>
     )
 }
 

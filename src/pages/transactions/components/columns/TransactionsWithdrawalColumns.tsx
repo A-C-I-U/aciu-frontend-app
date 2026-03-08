@@ -66,9 +66,7 @@ export const transactionsWithdrawalColumns = (setSelected: (p: WithdrawalRespons
                 onClick={() => {
                     setSelected(row.original)
                 }}
-                className="p-2 text-sm font-coolvetica 
-                text-aciu-green-normal rounded-[5px]
-                border border-aciu-green-normal min-w-fit whitespace-nowrap"
+                className="btn-custom"
             >
                 View Details
             </button>

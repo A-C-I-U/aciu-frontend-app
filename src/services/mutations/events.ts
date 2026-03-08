@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import apiClient from "..";
-import type { CreateEventData } from "../types/events";
+import type { CreateEventData, Event } from "../types/events";
 
 const saveEvent = async (
     { eventId, payload }: { eventId?: string; payload: CreateEventData }
-): Promise<{ message: string }> => {
+): Promise<{ message: string, event: Event }> => {
     const formData = new FormData();
 
     formData.append("title", payload.title);
@@ -38,7 +38,7 @@ const saveEvent = async (
     const url = eventId ? `/events/${eventId}` : `/events`;
     const method = eventId ? "put" : "post";
 
-    const response = await apiClient[method]<{ message: string }>(
+    const response = await apiClient[method]<{ message: string, event: Event }>(
         url,
         formData, {
         headers: eventId
@@ -72,7 +72,6 @@ export const useRegisterEvent = () => {
             paymentRequired: boolean;
             amountDue: string;
             registration: { id: string; status: string; paymentStatus: boolean };
-            paymentData: {
                 paymentData: {
                     transactionReference: string;
                     paymentReference: string;
@@ -85,7 +84,6 @@ export const useRegisterEvent = () => {
                     amountMajor: string;
                     currency: string;
                     description: string;
-                    };
                 };
             };
         }>(`/events/${eventId}/register`);
