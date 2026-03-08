@@ -10,9 +10,12 @@ import { useMediaQuery } from "@mui/material";
 import ShareEvent from "./ShareEvent";
 import DonateToEvent from "./DonateToEvent";
 import { useState } from "react";
-import PageDetailSkeleton from "@/components/PageDetailSkeleton";
 import { useRegisterEvent } from "@/services/mutations/events";
 import { Spinner } from "phosphor-react";
+import { type MonnifyPaymentData } from "@/services/types/events";
+import MonnifyPaymentModal from "@/pages/projects/components/MonnifyPaymentModal";
+import { useQueryClient } from "@tanstack/react-query";
+import { EventDetailSkeleton } from "./Skeleton";
 
 export default function EventDetails() {
   const { id } = useParams();
@@ -21,6 +24,10 @@ export default function EventDetails() {
   const isMobile = useMediaQuery("(max-width: 767px)");
   const [showShareEvent, setShowShareEvent] = useState(false);
   const [showDonateEvent, setShowDonateEvent] = useState(false);
+  const [monnifyPaymentData, setMonnifyPaymentData] = useState<MonnifyPaymentData | null>(null)
+  const [registreeName, setRegistreeName] = useState("");
+
+  const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useEventDetails(id!);
   const { mutateAsync: registerEvent, isPending: isRegistrationPending } = useRegisterEvent();
@@ -34,9 +41,7 @@ export default function EventDetails() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-8 p-4">
-        <PageDetailSkeleton />
-      </div>
+      <EventDetailSkeleton />
     );
   }
 
@@ -92,11 +97,35 @@ export default function EventDetails() {
   const handleRegisterEvent = async (id: string) => {
     try {
       const result = await registerEvent({ eventId: id });
-      enqueueSnackbar(result.message, { variant: "success" });
+
+      if (result.paymentRequired && result.paymentData?.paymentData) {
+        const { paymentReference, amount, customerEmail, transactionReference, metaData } = result.paymentData.paymentData;
+        setRegistreeName(customerEmail);
+        setMonnifyPaymentData({
+          paymentReference: paymentReference,
+          amount: +(amount),
+          customerEmail: customerEmail,
+          transactionReference: transactionReference,
+          metaData: metaData
+        })
+      } else {
+        enqueueSnackbar(result.message, { variant: "success" });
+      }
     } catch (error: any) {
       enqueueSnackbar(error?.response?.data?.message ?? "Failed to register for event", { variant: "error" });
     }
   };
+
+  const handlePaymentSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: [ "events" ]});
+    queryClient.invalidateQueries({ })
+  }
+
+  const handlePaymentClose = () => {
+    setMonnifyPaymentData(null);
+  }
+
+
 
   return (
     <>
@@ -236,7 +265,7 @@ export default function EventDetails() {
 
           <div className="flex flex-col lg:flex-row gap-6 items-center justify-center w-full px-3">
             {user?.role === "national_admin" ? (
-              <Link className="btn-event btn-event-primary text-center" to={`/events/${event.id}/edit`}>
+              <Link className="btn-event btn-event-primary text-center min-w-49" to={`/events/${event.id}/edit`}>
                 Edit Event
               </Link>
             ) : event.enableRSVP ? (
@@ -262,6 +291,14 @@ export default function EventDetails() {
         open={showDonateEvent}
         onClose={() => setShowDonateEvent(false)}
       />
+      {monnifyPaymentData && (
+        <MonnifyPaymentModal
+          paymentData={monnifyPaymentData}
+          customerName={registreeName}
+          onSuccess={handlePaymentSuccess}
+          onClose={handlePaymentClose}
+        />
+      )}
     </>
   );
 }

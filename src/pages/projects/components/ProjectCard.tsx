@@ -16,7 +16,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
   const displayImage = images && images.length > 0 ? images[0] : "";
 
   return (
-    <div className="rounded-[1.25rem] py-3.5 px-2 bg-card-200 flex flex-col gap-6 h-full">
+    <div className="rounded-[1.25rem] py-3.5 px-2 bg-card-200 flex flex-col gap-6 h-full 
+      hover:shadow-[0_8px_24px_rgba(0,0,0,0.10)]
+      hover:-translate-y-1
+      transition-all duration-300 ease-in-out">
       <div className="flex flex-col gap-4 lg:gap-6">
         <div className="flex flex-col gap-3.5">
           {displayImage && (
@@ -56,13 +59,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       <Link
         to={`/projects/${id}`}
         className="rounded-lg border border-aciu-green-normal p-3 max-w-46 leading-none mt-auto
-        font-coolvetica text-sm text-aciu-green-normal flex gap-2 items-center justify-center hover:bg-aciu-green-normal hover:text-white transition-colors"
+        font-coolvetica text-sm text-aciu-green-normal flex gap-2 items-center justify-center hover:bg-aciu-green-light-hover transition-colors"
       >
         <span>View Project</span>
         <ArrowRightIcon
           color="currentColor"
           size="1.25rem"
-          className="rotate-[-45deg]"
+          className="rotate-45"
         />
       </Link>
     </div>

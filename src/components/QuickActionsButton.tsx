@@ -73,10 +73,10 @@ const QuickActionsContent = ({
                         key={index}
                         to={path}
                         className={[
-                            "flex justify-between items-center rounded-sm py-2.5 px-3.5 border transition-colors",
+                            "flex justify-between items-center rounded-sm py-2.5 px-3.5 border transition-all duration-200 active:scale-[.97]",
                             index % 2 === 0
-                                ? "bg-accent-100 border-accent-300"
-                                : "bg-primary-100 border-primary-300"
+                                ? "bg-accent-100 border-accent-300 hover:bg-accent-100/80"
+                                : "bg-primary-100 border-primary-300 hover:bg-primary-100/80"
                         ].join(" ")}>
                         <>
                             <span className="font-montserrat text-xs text-aciu-border-grey">

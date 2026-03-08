@@ -66,11 +66,30 @@ export const useRegisterEvent = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async ({ eventId }: { eventId: string}) => {
-            const response = await apiClient.post<{message: string}>(
-                `/events/${eventId}/register`
-            );
-            return response.data;
+        mutationFn: async ({ eventId }: { eventId: string }) => {
+        const response = await apiClient.post<{
+            message: string;
+            paymentRequired: boolean;
+            amountDue: string;
+            registration: { id: string; status: string; paymentStatus: boolean };
+            paymentData: {
+                paymentData: {
+                    transactionReference: string;
+                    paymentReference: string;
+                    amount: string;
+                    customerEmail: string;
+                    metaData: {
+                    userId: string;
+                    paymentFor: string;
+                    eventId: string;
+                    amountMajor: string;
+                    currency: string;
+                    description: string;
+                    };
+                };
+            };
+        }>(`/events/${eventId}/register`);
+        return response.data;
         },
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["events"] });

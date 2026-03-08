@@ -20,20 +20,20 @@ export default function PostViewPage() {
 
 
     if (isPostLoading) {
-  return (
-    <div className="mb-8 mx-5 flex flex-col gap-8">
-      <PostViewHeaderSkeleton />
-      <div className="grid lg:grid-cols-[3fr_24rem] gap-4">
-        <div className="grid grid-rows-1 gap-8">
-          <PostViewerSkeleton />
+      return (
+        <div className="mb-8 mx-5 flex flex-col gap-8">
+          <PostViewHeaderSkeleton />
+          <div className="grid lg:grid-cols-[3fr_24rem] gap-4">
+            <div className="grid grid-rows-1 gap-8">
+              <PostViewerSkeleton />
+            </div>
+            <div className="flex flex-col gap-8">
+              <ShareSectionSkeleton />
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-8">
-          <ShareSectionSkeleton />
-        </div>
-      </div>
-    </div>
-  );
-}
+      );
+    }
 
 if (postError || !post) {
   return (

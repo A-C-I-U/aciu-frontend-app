@@ -229,15 +229,5 @@ export interface MonnifyPaymentData {
   paymentReference: string
   amount: number
   customerEmail: string
-  metaData: {
-    userId: string
-    paymentFor: string
-    donationTargetType: string
-    donationTargetId: string
-    amountMajor: string
-    currency: string
-    anonymous: string
-    remarks: string
-    description: string
-  }
+  metaData: Record<string, string>
 }
