@@ -10,7 +10,7 @@ export const TopBranchesChart = ({ data }: TopBranchesChartProps) => {
   const maxCount = Math.max(...(data || []).map(d => d.memberCount), 10);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm h-full py-6">
+    <div className="bg-white rounded-lg shadow-sm h-full pt-6">
       <div className="px-6 pb-4">
         <h3 className="text-xl font-semibold text-aciu-border-grey mb-2 leading-[1.2]">Top Branches</h3>
         <p className="text-sm text-aciu-border-200 leading-6">Branches with most registered members</p>

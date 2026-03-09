@@ -1,6 +1,7 @@
-import { ArrowDown2, Check } from "iconsax-react";
+import { ArrowDown2 } from "iconsax-react";
 import Menu from "./Menu";
 import { cx } from "class-variance-authority";
+import { CheckIcon } from "lucide-react";
 
 export const years = [2022, 2023, 2024, 2025, 2026];
 export const periods = ["Daily", "Weekly", "Monthly", "Yearly"];
@@ -18,7 +19,7 @@ export default function FilterMenu<T extends string | number>({
     <Menu
       anchor="bottom-left"
       paperClassName="!rounded-[.875rem] border border-stroke-01/70 !shadow-outer-modal"
-      className="flex w-40 flex-col gap-4 bg-white p-4"
+      className="flex w-40 flex-col bg-white divide-y! divide-[#E2E2E2]!"
       renderTrigger={({ onClick, open }) => (
         <button
           onClick={onClick}
@@ -41,17 +42,11 @@ export default function FilterMenu<T extends string | number>({
               role="radio"
               aria-checked={opt === value}
               onClick={() => onChange(opt)}
-              className="flex cursor-pointer items-center gap-15 rounded-md bg-surface-primary p-8 font-copy font-medium text-body hover:bg-foreground-02"
+              className="rounded-md w-full flex cursor-pointer items-center justify-between text-aciu-border-grey hover:bg-aciu-neutral/10 px-4 py-2 border-0"
             >
-              {opt}
-              <span className="relative ml-auto size-16">
-                <span
-                  className={cx(
-                    "absolute inset-px rounded-full border-2 border-icon-default transition-all duration-200",
-                    opt === value ? "opacity-0" : "opacity-100"
-                  )}
-                />
-                <Check
+              <span className="text-aciu-border-grey">{opt}</span>
+              <span className="relative ml-auto size-4">
+                <CheckIcon
                   width={16}
                   height={16}
                   className={cx(

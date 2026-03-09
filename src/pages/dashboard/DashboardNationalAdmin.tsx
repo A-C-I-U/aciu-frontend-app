@@ -6,7 +6,6 @@ import {
 } from "@/services/hooks/dashboard"
 import TransactionsChart from "./components/TransactionsChart";
 import { Divider } from "@mui/material";
-import { ArrowDown2 } from "iconsax-react";
 import WithdrawalRequestsTable from "./components/WithdrawalRequestTable";
 import NationalAdminSkeleton from "./components/NationalAdminSkeleton";
 import { columns } from "./components/columns";
@@ -26,12 +25,12 @@ const quickActions = [
 
 
 export default function DashboardNationalAdmin() {
-    const [selectedYear, setSelectedYear] = useState(2025);
-    const [selectedPeriod, setSelectedPeriod] = useState("Monthly");
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    // const [selectedPeriod, setSelectedPeriod] = useState("Monthly");
     
     const { data: stats, isLoading: isStatsLoading } = useNationalDashboardStats();
     const { data: withdrawalsData, isLoading: isWithdrawalRequestsLoading } = useNationalDashboardWithdrawals();
-    const { data: monthlyTransactions, isLoading: isMonthlyTransactionsLoading } = useNationalDashboardTransactions(2025);
+    const { data: monthlyTransactions, isLoading: isMonthlyTransactionsLoading } = useNationalDashboardTransactions(selectedYear);
 
 
     const withdrawalRequests = withdrawalsData
@@ -90,23 +89,25 @@ export default function DashboardNationalAdmin() {
                                 options={[2022, 2023, 2024, 2025, 2026]}
                                 onChange={setSelectedYear}
                             />
-                            <FilterMenu
+                            {/* <FilterMenu
                                 value={selectedPeriod}
                                 options={['DAILY', 'MONTHLY', 'QUARTERLY', 'YEARLY']}
                                 onChange={setSelectedPeriod}
-                            />
+                            /> */}
                         </div>
                     </div>
                     <Divider sx={{ borderColor: "#EEECF6" }}/>
                     <div className="flex lg:hidden gap-2 items-center px-4 lg:px-8">
-                        <button className="section-action-button admin">
-                            2022
-                            <ArrowDown2 color="#3E3E3E" size={14} />
-                        </button>
-                        <button className="section-action-button admin">
-                            Monthly
-                            <ArrowDown2 color="#3E3E3E" size={14} />
-                        </button>
+                        <FilterMenu
+                                value={selectedYear}
+                                options={[2022, 2023, 2024, 2025, 2026]}
+                                onChange={setSelectedYear}
+                            />
+                        {/* <FilterMenu
+                            value={selectedPeriod}
+                            options={['DAILY', 'MONTHLY', 'QUARTERLY', 'YEARLY']}
+                            onChange={setSelectedPeriod}
+                        /> */}
                     </div>
 
                     <div className="px-4 lg:px-8 max-w-full"> 
