@@ -6,6 +6,7 @@ import { myBranchTabs } from "../MyBranchTabs";
 import { Divider, Skeleton } from "@mui/material";
 import { AnimatePresence } from "motion/react";
 import { useBranchDashboard, useBranchOverview } from "@/services/hooks/branch";
+import TabButton from "@/components/TabButton";
 
 export default function MyBranchDesktopOverview({
     activeTab, setActiveTab
@@ -13,6 +14,7 @@ export default function MyBranchDesktopOverview({
 
     const { data: dashboardData, isLoading: isDashboardLoading } = useBranchDashboard();
     const { data: overviewData, isLoading: isOverviewLoading } = useBranchOverview();
+    
 
     const stats = [
         {
@@ -59,7 +61,7 @@ export default function MyBranchDesktopOverview({
         >
             <div className="relative flex flex-col gap-6">
                 {isOverviewLoading ? (
-                    <Skeleton variant="rectangular" height={200} className="w-full rounded-[.625rem]" />
+                    <Skeleton variant="rectangular" height={200} className="w-full rounded-2xs" />
                 ) : (
                     <BranchInfoCard branchInfo={overviewData} />
                 )}
@@ -87,19 +89,12 @@ export default function MyBranchDesktopOverview({
                 <div className="overflow-x-auto">
                     <div className="flex flex-nowrap gap-4 md:gap-8 px-4 pt-5">
                         {myBranchTabs.map((tab) => (
-                            <button
+                            <TabButton
                                 key={tab.key}
+                                tab={tab}
+                                active={tab === activeTab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`${activeTab?.key === tab.key
-                                        ? "text-aciu-red font-semibold"
-                                        : "text-aciu-abriba font-medium pb-4"
-                                    } text-xs md:text-sm font-montserrat flex flex-col gap-2 whitespace-nowrap`}
-                            >
-                                {tab.label}
-                                {activeTab?.key === tab.key && (
-                                    <span className="block w-full h-0.5 bg-aciu-red mt-2 rounded-full"></span>
-                                )}
-                            </button>
+                            />
                         ))}
                     </div>
                 </div>

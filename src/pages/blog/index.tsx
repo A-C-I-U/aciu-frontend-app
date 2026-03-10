@@ -40,19 +40,16 @@ const mapStatsToCards = (stats?: {
     {
       title: "Total Submissions",
       number: String(stats.totalSubmissions),
-      rateOfChange: "0", 
       itemLabel: "Submissions"
     },
     {
       title: "Published Posts",
-      number: String(stats.publishedPosts),
-      rateOfChange: "0", 
+      number: String(stats.publishedPosts), 
       itemLabel: "Posts"
     },
     {
       title: "Pending Approvals",
       number: String(stats.pendingApprovals),
-      rateOfChange: "0", 
       itemLabel: "Posts"
     }
   ];
@@ -121,7 +118,6 @@ export default function BlogPage() {
                                     key={index}
                                     title={stat.title} 
                                     number={stat.number} 
-                                    rateOfChange={stat.rateOfChange} 
                                     itemLabel={stat.itemLabel}
                                 />
                             ))

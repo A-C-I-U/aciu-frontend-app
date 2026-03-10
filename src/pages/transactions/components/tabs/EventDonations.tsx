@@ -1,12 +1,15 @@
 import { TransactionsAreaChart } from "@/components/TransactionsAreaChart";
 import { useEventDonations, useEventDonationsVisuals } from "@/services/hooks/transactions";
 import { Divider } from "@mui/material";
-import { ArrowDown2 } from "iconsax-react";
 import DonationsTable from "../tables/DonationsTable";
 import TableChartSkeleton from "../skeletons/TableChartSkeleton";
+import { useState } from "react";
+import { CURRENT_YEAR, YEARS } from "@/utils/helpers";
+import FilterMenu from "@/components/FilterMenu";
 
 export default function EventDonations() {
-    const { data: eventDonationsVisuals, isLoading: isVisualLoading } = useEventDonationsVisuals(2026)
+    const [selectedYear, setSelectedYear] = useState(CURRENT_YEAR);
+    const { data: eventDonationsVisuals, isLoading: isVisualLoading } = useEventDonationsVisuals(selectedYear)
     const { data: eventDonations, isLoading: isRequestsLoading} = useEventDonations();
 
     if (isVisualLoading || isRequestsLoading) return <TableChartSkeleton />;
@@ -19,26 +22,30 @@ export default function EventDonations() {
                         Event Donations
                     </h3>
                     <div className="hidden lg:flex gap-2 items-center">
-                        <button className="section-action-button admin">
-                            2022
-                            <ArrowDown2 color="#3E3E3E" size={14} />
-                        </button>
-                        <button className="section-action-button admin">
-                            Monthly
-                            <ArrowDown2 color="#3E3E3E" size={14} />
-                        </button>
+                        <FilterMenu
+                            value={selectedYear}
+                            options={YEARS}
+                            onChange={setSelectedYear}
+                        />
+                        {/* <FilterMenu
+                            value={selectedPeriod}
+                            options={['DAILY', 'MONTHLY', 'QUARTERLY', 'YEARLY']}
+                            onChange={setSelectedPeriod}
+                        /> */}
                     </div>
                 </div>
                 <Divider sx={{ borderColor: "#EEECF6" }}/>
                 <div className="flex lg:hidden gap-2 items-center px-4 lg:px-8">
-                    <button className="section-action-button admin">
-                        2022
-                        <ArrowDown2 color="#3E3E3E" size={14} />
-                    </button>
-                    <button className="section-action-button admin">
-                        Monthly
-                        <ArrowDown2 color="#3E3E3E" size={14} />
-                    </button>
+                    <FilterMenu
+                        value={selectedYear}
+                        options={YEARS}
+                        onChange={setSelectedYear}
+                    />
+                    {/* <FilterMenu
+                        value={selectedPeriod}
+                        options={['DAILY', 'MONTHLY', 'QUARTERLY', 'YEARLY']}
+                        onChange={setSelectedPeriod}
+                    /> */}
                 </div>
                 
                 <div className="px-4 lg:px-8 max-w-full"> 

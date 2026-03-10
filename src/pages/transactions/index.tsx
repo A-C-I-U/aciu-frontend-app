@@ -53,25 +53,25 @@ export default function Transactions() {
                     <>
                         <StatsCard
                             title="Total Inflows"
-                            number={`N${transactionsOverview?.totalCashInflow ? Math.round(transactionsOverview?.totalCashInflow.amount).toLocaleString() : "0"}`}
+                            number={`N${transactionsOverview?.totalCashInflow ? transactionsOverview?.totalCashInflow.amount.toLocaleString() : "0"}`}
                             description="All Time"
                             rateOfChange={`${transactionsOverview?.totalCashInflow.growth}`}
                         />
                         <StatsCard
                             title="Total Approved Withdrawals"
-                            number={`N${transactionsOverview?.totalApprovedWithdrawals ? Math.round(transactionsOverview?.totalApprovedWithdrawals.amount).toLocaleString() : "0"}`}
+                            number={`N${transactionsOverview?.totalApprovedWithdrawals ? transactionsOverview?.totalApprovedWithdrawals.amount.toLocaleString() : "0"}`}
                             description="All Time"
                             rateOfChange={`${transactionsOverview?.totalApprovedWithdrawals.growth}`}
                         />
                         <StatsCard
                             title="Net Balance (in system)"
-                            number={`N${transactionsOverview?.netBalance ? Math.round(transactionsOverview.netBalance.amount).toLocaleString() : "0"}`}
+                            number={`N${transactionsOverview?.netBalance ? transactionsOverview.netBalance.amount.toLocaleString() : "0"}`}
                             description="All Time"
                             rateOfChange={`${transactionsOverview?.netBalance.growth}`}
                         />
                         <StatsCard
                             title="Transactions this month"
-                            number={`${transactionsOverview?.transactionsThisMonth ? Math.round(transactionsOverview.transactionsThisMonth).toLocaleString() : "0"}`}
+                            number={`${transactionsOverview?.transactionsThisMonth ? transactionsOverview.transactionsThisMonth.toLocaleString() : "0"}`}
                             description="All Time"
                         />
                     </>

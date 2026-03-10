@@ -4,9 +4,13 @@ import { Divider } from "@mui/material";
 import { ArrowDown2 } from "iconsax-react";
 import TransactionsWithdrawalTable from "../tables/TransactionsWithdrawalTable";
 import TableChartSkeleton from "../skeletons/TableChartSkeleton";
+import { CURRENT_YEAR, YEARS } from "@/utils/helpers";
+import { useState } from "react";
+import FilterMenu from "@/components/FilterMenu";
 
 export default function WithdrawalRequests() {
-    const { data: transactionsWithdrawalsVisual, isLoading: isVisualLoading } = useWithdrawalVisuals(2026);
+    const [selectedYear, setSelectedYear] = useState(CURRENT_YEAR);
+    const { data: transactionsWithdrawalsVisual, isLoading: isVisualLoading } = useWithdrawalVisuals(selectedYear);
     const { data: transactionsWithdrawalRequests, isLoading: isRequestsLoading  } = useWithdrawals();
 
     if (isVisualLoading || isRequestsLoading) return <TableChartSkeleton />;
@@ -19,14 +23,16 @@ export default function WithdrawalRequests() {
                         Withdrawal Requests
                     </h3>
                     <div className="hidden lg:flex gap-2 items-center">
-                        <button className="section-action-button admin">
-                            2022
-                            <ArrowDown2 color="#3E3E3E" size={14} />
-                        </button>
-                        <button className="section-action-button admin">
-                            Monthly
-                            <ArrowDown2 color="#3E3E3E" size={14} />
-                        </button>
+                         <FilterMenu
+                            value={selectedYear}
+                            options={YEARS}
+                            onChange={setSelectedYear}
+                        />
+                        {/* <FilterMenu
+                            value={selectedPeriod}
+                            options={['DAILY', 'MONTHLY', 'QUARTERLY', 'YEARLY']}
+                            onChange={setSelectedPeriod}
+                        /> */}
                     </div>
                 </div>
                 <Divider sx={{ borderColor: "#EEECF6" }}/>

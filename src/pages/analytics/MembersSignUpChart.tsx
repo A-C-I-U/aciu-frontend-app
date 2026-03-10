@@ -10,6 +10,8 @@ import {
 } from "recharts";
 import type { MemberSignupTrend } from "@/services/types/analytics";
 import { ChartEmptyState } from "@/components/ChartEmptyState";
+import { format, parseISO } from "date-fns";
+import { ArrowTopRightIcon } from "@/components/Icons";
 
 interface CustomTooltipProps {
   active?: boolean;
@@ -27,7 +29,7 @@ interface CustomTooltipProps {
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white shadow-md rounded-md p-3 font-montserrat min-w-[150px] flex flex-col gap-2 border border-gray-200">
+      <div className="bg-white shadow-md rounded-md p-3 font-montserrat min-w-37.5 flex flex-col gap-2 border border-gray-200">
         <p className="font-semibold text-gray-700 text-sm">{label}</p>
         <ul className="flex flex-col gap-1">
           {payload.map((entry, index) => (
@@ -57,9 +59,9 @@ export const MemberSignUpsChart = ({ data, percentageChange }: MemberSignUpsChar
   const isDataEmpty = !data || data.length === 0 || data.every(item => item.totalSignUps === 0 && item.pendingVerification === 0);
 
   return (
-    <div className="bg-white rounded-lg p-6 shadow-sm h-full flex flex-col min-h-[300px]">
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-800 font-coolvetica">
+    <div className="bg-white rounded-lg p-6 shadow-sm h-full flex flex-col min-h-75">
+      <div className="mb-6">
+        <h3 className="text-xl leading-[1.2] font-semibold text-gray-800 font-coolvetica">
           Member Sign Ups
         </h3>
       </div>
@@ -70,82 +72,90 @@ export const MemberSignUpsChart = ({ data, percentageChange }: MemberSignUpsChar
           <span className="text-sm text-gray-600">Total Sign Ups</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 rounded bg-[#EBC563]"></div>
+          <div className="w-4 h-4 rounded bg-aciu-yellow"></div>
           <span className="text-sm text-gray-600">Pending Verification</span>
         </div>
       </div>
 
-      <div className="flex-1 min-h-[250px]">
-        {isDataEmpty ? (
-          <ChartEmptyState height={300} description="We couldn't find any member signup history for this period." />
-        ) : (
-          <ResponsiveContainer width="100%" height={300}>
-            <ComposedChart
-              data={data}
-              margin={{ top: 5, right: 30, left: 0, bottom: 5 }}
-            >
-              <defs>
-                <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#00B686" stopOpacity={0.15} />
-                  <stop offset="100%" stopColor="#00B686" stopOpacity={0.02} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="#f0f0f0"
-                vertical={false}
-              />
-              <XAxis
-                dataKey="date"
-                tick={{ fontSize: 12, fill: "#9ca3af" }}
-                stroke="#e5e7eb"
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(value) => new Date(value).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-              />
-              <YAxis
-                tick={{ fontSize: 12, fill: "#9ca3af" }}
-                stroke="#e5e7eb"
-                axisLine={false}
-                tickLine={false}
-              />
-              <Tooltip content={<CustomTooltip />} />
-              <Area
-                type="monotone"
-                dataKey="totalSignUps"
-                fill="url(#greenGradient)"
-                stroke="none"
-                name="Total Sign Ups"
-              />
-              <Line
-                type="monotone"
-                dataKey="totalSignUps"
-                stroke="#00B686"
-                strokeWidth={3}
-                dot={false}
-                activeDot={{ r: 6, fill: "#00B686" }}
-                name="Total Sign Ups"
-              />
-              <Line
-                type="monotone"
-                dataKey="pendingVerification"
-                stroke="#EBC563"
-                strokeWidth={3}
-                dot={false}
-                activeDot={{ r: 6, fill: "#EBC563" }}
-                name="Pending Verification"
-              />
-            </ComposedChart>
-          </ResponsiveContainer>
-        )}
+      <div className="flex-1 max-w-full">
+        <div className="overflow-x-auto h-full">
+          <div className="min-w-125 h-full overflow-y-hidden">
+            {isDataEmpty ? (
+              <ChartEmptyState height={300} description="We couldn't find any member signup history for this period." />
+            ) : (
+              <ResponsiveContainer width="100%" height="100%" minHeight={350}>
+                <ComposedChart
+                  data={data}
+                  margin={{ top: 5, right: 30, left: -10, bottom: 5 }}
+                >
+                  <defs>
+                    <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#00B686" stopOpacity={0.15} />
+                      <stop offset="100%" stopColor="#00B686" stopOpacity={0.02} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="#f0f0f0"
+                    vertical={false}
+                  />
+                  <XAxis
+                    dataKey="date"
+                    tick={{ fontSize: 12, fill: "#9ca3af", dy: 10 }}
+                    stroke="#e5e7eb"
+                    axisLine={false}
+                    tickLine={false}
+                    interval={1}
+                    padding={{ left: 0, right: 0 }}
+                    tickFormatter={(value) => format(parseISO(value), "MMM d")}
+                  />
+                  <YAxis
+                    width={35}
+                    tick={{ fontSize: 12, fill: "#9ca3af" }}
+                    stroke="#e5e7eb"
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Area
+                    type="monotone"
+                    dataKey="totalSignUps"
+                    fill="url(#greenGradient)"
+                    stroke="none"
+                    name="Total Sign Ups"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="totalSignUps"
+                    stroke="#00B686"
+                    strokeWidth={3}
+                    dot={false}
+                    activeDot={{ r: 6, fill: "#00B686" }}
+                    name="Total Sign Ups"
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="pendingVerification"
+                    stroke="#EBC563"
+                    strokeWidth={3}
+                    dot={false}
+                    activeDot={{ r: 6, fill: "#EBC563" }}
+                    name="Pending Verification"
+                  />
+                </ComposedChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="flex items-center justify-between mt-2">
-        <span className="text-xs text-gray-500">Last 14 days</span>
-        <div className={`flex items-center gap-1 ${percentageChange && percentageChange >= 0 ? 'text-[#00B686]' : 'text-red-500'}`}>
-          <span className="text-xs">{percentageChange && percentageChange >= 0 ? '▲' : '▼'}</span>
-          <span className="text-sm font-semibold">{percentageChange ? `${percentageChange >= 0 ? '+' : ''}${percentageChange}%` : '0%'}</span>
-        </div>
+        <span className="text-xs text-copy-300">Last 14 days</span>
+        {percentageChange && 
+        <div className={`flex items-center gap-1 ${percentageChange >= 0 ? 'text-[#00B686]' : 'text-red-500'}`}>
+          <span className="text-xs">{percentageChange >= 0 ? <ArrowTopRightIcon color="#03D858" /> : <ArrowTopRightIcon color="#e7000b" className="rotate-90"/>}</span>
+          <span className={`text-[.625rem] leading-[120%] ${percentageChange >= 0 ? "text-success-600" : "text-red-600"}`}>{percentageChange ? `${percentageChange >= 0 ? '+' : ''}${percentageChange}%` : '0%'}</span>
+        </div>}
       </div>
     </div>
   );

@@ -56,9 +56,7 @@ export const columns: ColumnDef<Event>[] = [
         cell: ({ row }: { row: Row<Event> }) => (
             <Link
                 to={`/events/${row.original.id}`}
-                className="p-2 text-sm font-coolvetica 
-                    text-aciu-green-normal rounded-[5px]
-                    border border-aciu-green-normal min-w-fit whitespace-nowrap"
+                className="btn-custom"
             >
                 View Details
             </Link>

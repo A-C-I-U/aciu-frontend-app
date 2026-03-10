@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Buildings2, Calendar2, DollarSquare, FolderOpen, Hashtag, Personalcard, Setting, I24Support, Stickynote, Activity } from "iconsax-react";
 import { RequireRole } from "./RequireRole";
 import { Outlet } from "react-router-dom";
+import { DelayedLoader } from "@/components/PageLoader";
 
 const Dashboard = lazy(() => import("../pages/dashboard"));
 const MyPaymentsPage = lazy(() => import("@/pages/my-payment"));
@@ -75,12 +76,12 @@ export const protectedRoutes = [
   },
   {
     path: "/events/create",
-    element: <AddEventPage returnRoute="events" />,
+    element: <AddEventPage />,
     roles: ["national_admin"],
   },
   {
     path: "/events/:eventId/edit",
-    element: <AddEventPage returnRoute="events" />,
+    element: <AddEventPage />,
     roles: ["national_admin"],
   },
   {
@@ -109,7 +110,7 @@ export const protectedRoutes = [
   },
   {
     path: "/my-branch/add-event",
-    element: <AddEventPage returnRoute="my-branch" />,
+    element: <AddEventPage />,
     roles: ["branch_admin"],
   },
   {
@@ -155,7 +156,7 @@ const wrapWithRoleGuard = (route: any): any => {
     return {
       ...route,
       element: route.roles
-        ? <RequireRole roles={route.roles}>{route.element ?? <Suspense fallback={null}><Outlet /></Suspense>}</RequireRole>
+        ? <RequireRole roles={route.roles}>{route.element ?? <Suspense fallback={<DelayedLoader />}><Outlet /></Suspense>}</RequireRole>
         : route.element,
       children: route.children.map(wrapWithRoleGuard),
     };

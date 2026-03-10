@@ -92,7 +92,7 @@ export const getColumns = (): ColumnDef<Publication>[] => [
           onClick={handleViewPost}
           className="flex items-center gap-2 px-3 py-2 border border-aciu-green-normal 
             rounded-[5px] text-aciu-green-normal font-montserrat font-semibold text-sm
-            hover:bg-aciu-green-normal hover:text-white transition-colors duration-200"
+            hover:bg-aciu-green-light-hover transition-colors duration-200"
         >
           <Eye size={16} />
           View Post

@@ -1,15 +1,19 @@
 import { useDuesStatusVisuals } from "@/services/hooks/transactions"
 import { Divider } from "@mui/material";
-import { ArrowDown2 } from "iconsax-react";
 import NationalDuesTable from "../tables/NationalDuesTable";
 import { BaseBarChart } from "@/components/BaseBarChart";
 import { Bar } from "recharts";
 import { LegendItem } from "@/components/ChartLegendItem";
 import TableChartSkeleton from "../skeletons/TableChartSkeleton";
 import { useNationalDues } from "@/services/hooks/dues";
+import FilterMenu from "@/components/FilterMenu";
+import { useState } from "react";
+import { CURRENT_YEAR, YEARS } from "@/utils/helpers";
+
 
 export default function DuesManagement() {
-    const { data: nationalDuesVisual, isLoading: isVisualLoading } = useDuesStatusVisuals(2026);
+    const [selectedYear, setSelectedYear] = useState(CURRENT_YEAR);
+    const { data: nationalDuesVisual, isLoading: isVisualLoading } = useDuesStatusVisuals(selectedYear);
     const { data: nationalDues, isLoading: isRequestsLoading } = useNationalDues();
 
     if (isVisualLoading || isRequestsLoading) return <TableChartSkeleton />;
@@ -23,26 +27,30 @@ export default function DuesManagement() {
                         <LegendItem color="#B0E8D9" label="Overdue" weight={600} />
                     </div>
                     <div className="hidden lg:flex gap-2 items-center">
-                        <button className="section-action-button admin !rounded-sm">
-                            2022
-                            <ArrowDown2 color="#3E3E3E" size={14} />
-                        </button>
-                        <button className="section-action-button admin !rounded-sm">
-                            Monthly
-                            <ArrowDown2 color="#3E3E3E" size={14} />
-                        </button>
+                       <FilterMenu
+                            value={selectedYear}
+                            options={YEARS}
+                            onChange={setSelectedYear}
+                        />
+                        {/* <FilterMenu
+                            value={selectedPeriod}
+                            options={['DAILY', 'MONTHLY', 'QUARTERLY', 'YEARLY']}
+                            onChange={setSelectedPeriod}
+                        /> */}
                     </div>
                 </div>
                 <Divider sx={{ borderColor: "#EEECF6" }}/>
                 <div className="flex lg:hidden gap-2 items-center px-4 lg:px-8">
-                    <button className="section-action-button admin !rounded-sm">
-                        2022
-                        <ArrowDown2 color="#3E3E3E" size={14} />
-                    </button>
-                    <button className="section-action-button admin !rounded-sm">
-                        Monthly
-                        <ArrowDown2 color="#3E3E3E" size={14} />
-                    </button>
+                    <FilterMenu
+                        value={selectedYear}
+                        options={YEARS}
+                        onChange={setSelectedYear}
+                    />
+                    {/* <FilterMenu
+                        value={selectedPeriod}
+                        options={['DAILY', 'MONTHLY', 'QUARTERLY', 'YEARLY']}
+                        onChange={setSelectedPeriod}
+                    /> */}
                 </div>
                 
                 <div className="px-4 lg:px-8 max-w-full"> 

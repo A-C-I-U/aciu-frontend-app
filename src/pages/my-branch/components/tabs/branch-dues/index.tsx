@@ -88,7 +88,7 @@ export default function BranchDuesTab() {
                         </button>
                         <button
                             onClick={() => { setShowAddDues(true) }}
-                            className="btn btn-primary max-w-fit !text-sm md:text-base!">
+                            className="btn btn-primary max-w-fit text-sm! md:text-base!">
                             Add new dues
                         </button>
                     </div>
@@ -137,10 +137,6 @@ export default function BranchDuesTab() {
                 </>
             </div>
 
-            {/* `SuccessfulEventCreation` dialog should be triggered immediately an event is created
-                * Possibly by backend query since it requires the title of the event just created and can not
-                * live within the add event page, it must be rendered here due to `useLocation`
-                */}
             <AddBranchDues
                 open={showAddDues}
                 onClose={() => setShowAddDues(false)}

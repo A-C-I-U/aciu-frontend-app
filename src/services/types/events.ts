@@ -125,3 +125,18 @@ export interface EventFormValues {
   enableCountdown: boolean;
   branchId?: string;
 }
+
+export interface MonnifyPaymentData {
+  transactionReference: string
+  paymentReference: string
+  amount: number
+  customerEmail: string
+  metaData: {
+    userId: string;
+    paymentFor: string;
+    eventId: string;
+    amountMajor: string;
+    currency: string;
+    description: string;
+  }
+}

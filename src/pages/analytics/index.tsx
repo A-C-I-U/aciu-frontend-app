@@ -38,26 +38,26 @@ export default function Analytics() {
             <StatsCard
               title="Total MEMBERS"
               number={data?.overview?.totalMembers.toString() || "0"}
-              rateOfChange={`${data?.memberSignups?.percentageChange || 0}%`}
               description="All Time"
+              rateOfChange={data?.overview.totalMembersIncrease.toString()}
             />
             <StatsCard
               title="Total INFLOWS"
               number={`₦${data?.overview?.totalInflows.toLocaleString() || "0"}`}
-              rateOfChange="+0%"
               description="All Time"
+              rateOfChange={data?.overview.totalInflowsIncrease.toString()}
             />
             <StatsCard
               title="TOTAL EVENTS HOSTED"
               number={data?.overview?.totalEvents.toString() || "0"}
-              rateOfChange="+0%"
               description="All Time"
+              rateOfChange={data?.overview.totalEventsIncrease.toString()}
             />
             <StatsCard
               title="APPROVED PROJECTS"
               number={data?.overview?.totalApprovedProjects.toString() || "0"}
-              rateOfChange="+0%"
               description="All Time"
+              rateOfChange={data?.overview.totalApprovedProjectsIncrease.toString()}
             />
           </div>
         </div>
@@ -77,6 +77,7 @@ export default function Analytics() {
             md: "0",
           }}
           py="0"
+          mb="1.25rem"
         >
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div className="lg:col-span-2">

@@ -4,6 +4,12 @@ import { ChartEmptyState } from "@/components/ChartEmptyState";
 
 const COLORS = ["#00B686", "#EBC563", "#60C5F1"];
 
+const GRADIENTS = [
+  { id: 'grad-0', start: '#00B686', end: '#007D4D' },
+  { id: 'grad-1', start: '#EBC563', end: '#B8923A' },
+  { id: 'grad-2', start: '#7AD3FF', end: '#4FBAF0' },
+];
+
 interface CustomLabelProps {
   cx: number;
   cy: number;
@@ -20,10 +26,10 @@ const renderCustomLabel = ({ cx, cy, total = 0 }: CustomLabelProps) => {
       dominantBaseline="central"
       className="font-montserrat"
     >
-      <tspan x={cx} dy="-0.5em" fontSize="12" fill="#9ca3af">
+      <tspan x={cx} dy="-0.5rem" fontSize="12" fill="#737373" fontFamily="Montserrat, sans-serif">
         Total
       </tspan>
-      <tspan x={cx} dy="1.5em" fontSize="24" fontWeight="600" fill="#374151">
+      <tspan x={cx} dy="1.5rem" fontSize="24" fontWeight="500" fill="#434D64" fontFamily="Montserrat, sans-serif">
         {total}
       </tspan>
     </text>
@@ -46,7 +52,7 @@ export const DevicesChart = ({ data }: DeviceChartProps) => {
   return (
     <div className="bg-white rounded-lg p-6 shadow-sm h-full flex flex-col">
       <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-800 font-coolvetica">
+        <h3 className="text-xl font-semibold text-aciu-border-grey">
           Devices
         </h3>
       </div>
@@ -57,11 +63,19 @@ export const DevicesChart = ({ data }: DeviceChartProps) => {
         ) : (
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
+              <defs>
+                <filter id="cellShadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="-5.06" stdDeviation="10" floodColor="#000000" floodOpacity="0.12" />
+                </filter>
+                <filter id="labelShadow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feDropShadow dx="0" dy="2" stdDeviation="4" floodColor="#000000" floodOpacity="0.08" />
+                </filter>
+              </defs>
               <Pie
                 data={chartData}
                 cx="50%"
                 cy="50%"
-                innerRadius={80}
+                innerRadius={60}
                 outerRadius={120}
                 paddingAngle={0}
                 dataKey="value"
@@ -72,6 +86,7 @@ export const DevicesChart = ({ data }: DeviceChartProps) => {
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
+                    filter="url(#cellShadow)"
                   />
                 ))}
               </Pie>
@@ -88,12 +103,14 @@ export const DevicesChart = ({ data }: DeviceChartProps) => {
           >
             <div className="flex items-center gap-2">
               <div
-                className="w-4 h-4 rounded"
-                style={{ backgroundColor: COLORS[index % COLORS.length] }}
-              ></div>
-              <span className="text-sm text-gray-600">{entry.name}</span>
+                className="size-4 rounded-xs"
+                style={{
+                  background: `linear-gradient(180deg, ${GRADIENTS[index].start} 0%, ${GRADIENTS[index].end} 100%)`
+                }}
+              />
+              <span className="text-sm text-aciu-abriba leading-[1.4]">{entry.name}</span>
             </div>
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm text-aciu-abriba leading-[1.4]">
               {entry.value}
             </span>
           </div>

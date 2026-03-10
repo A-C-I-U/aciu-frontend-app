@@ -19,7 +19,11 @@ export const EventItem = ({
     } = event;
 
     return (
-        <div className="flex flex-col gap-4 rounded-lg border border-gray-200 py-2.5 px-2 lg:px-3.5 h-full">
+        <div 
+            className="flex flex-col gap-4 rounded-lg border border-gray-200 py-2.5 px-2 lg:px-3.5 h-full 
+            hover:shadow-[0_8px_24px_rgba(0,0,0,0.10)]
+            hover:-translate-y-1
+            transition-all duration-300 ease-in-out">
             <span className="flex flex-col gap-3.5">
                 <img
                     src={img || "/images/event-placeholder.jpg"}

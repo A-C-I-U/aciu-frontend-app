@@ -35,7 +35,7 @@ export function PostViewHeaderSkeleton() {
     <div className="animate-pulse flex flex-col gap-5.5 lg:gap-6">
       <div className="flex items-center gap-2 mt-5">
         <div className="h-8 w-16 rounded bg-gray-200" />
-        <div className="h-8 w-2/3 rounded bg-gray-200" />
+        <div className="h-8 w-2/5 rounded bg-gray-200" />
       </div>
 
       <div className="flex gap-12 items-center">

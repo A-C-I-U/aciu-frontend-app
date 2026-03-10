@@ -1,8 +1,12 @@
 export interface AnalyticsOverview {
     totalMembers: number;
+    totalMembersIncrease: number;
     totalInflows: number;
+    totalInflowsIncrease: number;
     totalEvents: number;
+    totalEventsIncrease: number;
     totalApprovedProjects: number;
+    totalApprovedProjectsIncrease: number;
     pendingVerifications: number;
 }
 

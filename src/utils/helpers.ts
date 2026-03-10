@@ -7,6 +7,9 @@ import type { ActivityLog, FormattedActivityLog } from "@/services/types/nationa
 import type { ReceiptConfig } from "@/services/types/receipt";
 import { City, State } from "country-state-city";
 
+export const CURRENT_YEAR = new Date().getFullYear();
+export const YEARS = Array.from({ length: 6 }, (_, i) => CURRENT_YEAR - 5 + i);
+
 export const capitalizeFirstLetters = (str: string) => {
   return str
     .split("-")

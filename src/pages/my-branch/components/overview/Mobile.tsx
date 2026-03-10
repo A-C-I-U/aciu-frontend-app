@@ -76,7 +76,7 @@ export default function MyBranchMobileOverview({
             {screen === "overview" && (
                 <div className="relative flex flex-col gap-5.5">
                     {isOverviewLoading ? (
-                        <Skeleton variant="rectangular" height={200} className="w-full rounded-[.625rem]" />
+                        <Skeleton variant="rectangular" height={200} className="w-full rounded-2xs" />
                     ) : (
                         <BranchInfoCard branchInfo={overviewData} />
                     )}
@@ -103,9 +103,7 @@ export default function MyBranchMobileOverview({
                                 onClick={() => handleOpenContent(tab)}
                                 className="w-full flex justify-between items-center p-4.5 bg-white h-19 rounded-2xs"
                             >
-                                <span className="font-medium font-montserrat text-aciu-abriba leading-[140%]">
-                                    {tab.label}
-                                </span>
+                                <span className="font-medium text-aciu-abriba leading-[1.4]">{tab.label}</span>
                                 <ArrowRight2 size={20} variant="Linear" color="#151515" />
                             </button>
                         ))}
