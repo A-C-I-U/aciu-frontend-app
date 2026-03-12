@@ -31,6 +31,11 @@ export const theme = createTheme({
         }
       }
     },
+    MuiSkeleton: {
+      defaultProps: {
+        animation: "pulse",
+      },
+    },
     MuiButton: {
       variants: [
         {

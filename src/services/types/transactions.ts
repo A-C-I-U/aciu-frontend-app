@@ -121,7 +121,7 @@ export interface DuesPaymentResponse {
     paidBy: string,
     date: string,
     amountPaid: number,
-    status: "completed" | "failed" | "unpaid" | "cancelled" | "overdue"
+    status: "completed" | "failed" | "unpaid" | "cancelled" | "overdue" | "pending"
 }
 
 
