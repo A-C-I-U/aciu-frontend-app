@@ -10,14 +10,14 @@ import { TopBranchesChart } from "./TopBranchesChart";
 import { MemberSignUpsChart } from "./MembersSignUpChart";
 import { GenderChart } from "./GenderChart"
 import { useNationalAnalytics } from "@/services/hooks/analytics";
-import { AnalyticsSkeleton } from "./AnalyticsSkeleton";
+import { AnalyticsLoadingSkeleton } from "./AnalyticsSkeleton";
 
 export default function Analytics() {
   const { user } = useUser();
   const { data: analyticsData, isLoading, error } = useNationalAnalytics();
 
   if (isLoading) {
-    return <AnalyticsSkeleton />;
+    return <AnalyticsLoadingSkeleton />;
   }
 
   if (error) {

@@ -73,10 +73,10 @@ export const BlogTrafficChart = ({ data }: BlogTrafficChartProps) => {
         </div>
       </div>
 
+      {isDataEmpty ? (
+        <ChartEmptyState height={280} description="No blog traffic recorded for this period." />
+      ) : (
       <ResponsiveContainer width="100%" height={280}>
-        {isDataEmpty ? (
-          <ChartEmptyState height={280} description="No blog traffic recorded for this period." />
-        ) : (
           <BarChart
             data={chartData}
             margin={{ top: 20, right: 10, left: 0, bottom: 20 }}
@@ -112,8 +112,8 @@ export const BlogTrafficChart = ({ data }: BlogTrafficChartProps) => {
               maxBarSize={20}
             />
           </BarChart>
-        )}
       </ResponsiveContainer>
+      )}
     </div>
   );
 };

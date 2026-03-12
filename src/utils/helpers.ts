@@ -376,6 +376,12 @@ export const branchEventStatusMap: Record<BranchEventDataType["verificationStatu
 }
 
 export const duePaymentStatusMap: Record<DuesPaymentResponse["status"], StatusMap> = {
+  pending: {
+    label: "Pending",
+    labelColor: "#FE961F",
+    dotColor: "#FE961F",
+    bgColor: "#FAF5EF"
+  },
   completed: {
     label: "Completed",
     labelColor: "#027A48",

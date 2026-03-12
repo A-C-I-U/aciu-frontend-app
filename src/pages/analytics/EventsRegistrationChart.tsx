@@ -28,7 +28,7 @@ interface CustomTooltipProps {
 const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-[#3E3E3E] shadow-lg rounded-md p-4 font-montserrat min-w-[120px] flex flex-col gap-2">
+      <div className="bg-[#3E3E3E] shadow-lg rounded-md p-4 font-montserrat min-w-30 flex flex-col gap-2">
         <p className="font-semibold text-white text-sm">{label}</p>
         <div className="flex justify-between gap-4 text-sm">
           <span className="text-gray-300">RSVPs</span>
@@ -89,11 +89,10 @@ export const EventsRegistrationsChart = ({ data, availableYears }: EventsRegistr
         </div>
       </div>
 
-      {/* Chart */}
-      <ResponsiveContainer width="100%" height={350}>
-        {isDataEmpty ? (
+    {isDataEmpty ? (
           <ChartEmptyState height={350} description={`No event registrations found for ${selectedYear}.`} />
         ) : (
+      <ResponsiveContainer width="100%" height={350}>
           <ComposedChart
             data={filteredData}
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
@@ -144,8 +143,8 @@ export const EventsRegistrationsChart = ({ data, availableYears }: EventsRegistr
               name="RSVPs"
             />
           </ComposedChart>
-        )}
       </ResponsiveContainer>
+      )}
     </div>
   );
 };
